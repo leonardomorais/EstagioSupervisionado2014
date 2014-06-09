@@ -9,7 +9,6 @@ package Relatorios;
 import ConexaoBanco.ConexaoPostgreSQL;
 import java.sql.ResultSet;
 import java.util.HashMap;
-import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -26,16 +25,12 @@ public class Relatorios {
     
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
     
-    //private Map<String, Object> parametros = new HashMap<String, Object>();
-    
     public void gerarRelatorio(String tabela) throws JRException{               
         try{
         conexao.conecta();
         
         String sql = "SELECT * FROM "+tabela+" ORDER BY CD_"+tabela;
-        
-        //String sql = "SELECT * FROM UF WHERE NOME_UF LIKE '%A%'";
-//         
+               
         conexao.executeSQL(sql);
         
         JRResultSetDataSource jrRs = new JRResultSetDataSource(conexao.resultset);
@@ -47,9 +42,9 @@ public class Relatorios {
         JasperViewer.viewReport(print);
    
         // exportando para PDF (iText.jar)
-        JasperExportManager.exportReportToPdfFile(print,
-				"relatorios\\Relatorio"+tabela+".pdf");
-            
+//        JasperExportManager.exportReportToPdfFile(print,
+//				"relatorios\\Relatorio"+tabela+".pdf");
+            JasperExportManager.exportReportToPdf(print);
         }
         catch(Exception ex){
             System.err.println("Erro ao gerar Relatório!");
@@ -76,25 +71,6 @@ public class Relatorios {
             System.err.println("Erro ao gerar Relatório!");
         }
     }
-    
-    
-//
-//    public Map<String, Object> getParametros() {
-//        return parametros;
-//    }
-//
-//    public void setParametros(Map<String, Object> parametros) {
-//        this.parametros = parametros;
-//    }
-//    
-//    public void setParametros(String campo, Object valor){
-//        this.parametros.put(campo, valor);
-//    }
-//    
-//    public void noParam(){
-//        this.parametros = new HashMap<>();
-//    }
-//    
     }
  
      
