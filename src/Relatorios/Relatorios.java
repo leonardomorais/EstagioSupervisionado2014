@@ -7,9 +7,7 @@
 package Relatorios;
 
 import ConexaoBanco.ConexaoPostgreSQL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -29,30 +27,26 @@ public class Relatorios {
     
     
     
-    public void gerarRelatorio(String tabela) throws JRException{
-//        String sql = "SELECT * FROM "+tabela+" ORDER BY CD_"+tabela;
+    public void gerarRelatorio(String tabela) throws JRException{       
+        
+        try{
+        conexao.conecta();
+        
+        String sql = "SELECT * FROM "+tabela+" ORDER BY CD_"+tabela;
 //         
-//        System.out.println("SQL: "+sql);
-//        conexao.executeSQL(sql);
-//        
-//        ResultSet rs = conexao.resultset;
+        conexao.executeSQL(sql);
         
-        JasperReport report = JasperCompileManager.
-                compileReport("C:\\Users\\Leonardo\\Documents\\NetBeansProjects\\"
-                        + "EstágioSupervisionado\\src\\Relatorios\\Relatorios\\relatorio01.jrxml");
+        JRResultSetDataSource jrRs = new JRResultSetDataSource(conexao.resultset);
         
-        JasperPrint print = JasperFillManager.fillReport(report, null, conexao.conecta());  
-JasperViewer view = new JasperViewer(print, false); 
+        String report = "relatorios\\relatorio01.jasper";
         
-        view.setVisible(true);
-        
-      //  JRResultSetDataSource jrRs = new JRResultSetDataSource(rs);
-        
-//        JasperPrint print = JasperFillManager.fillReport("Relatorios\\Relatorios\\relatorio01.jasper", null, jrRs);
-//        JasperViewer.viewReport(print);
-//        JasperViewer view = new JasperViewer(print);
-//        
-//        view.show();
+        JasperPrint print = JasperFillManager.fillReport(report, new HashMap(),jrRs);
+        JasperViewer.viewReport(print);
+   
+        }
+        catch(Exception ex){
+            System.err.println("Erro ao gerar Relatório!");
+        }
         }
     }
  
