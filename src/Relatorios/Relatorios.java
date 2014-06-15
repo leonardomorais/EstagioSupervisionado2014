@@ -32,10 +32,12 @@ public class Relatorios {
                 
         JasperPrint print = JasperFillManager.fillReport(report, new HashMap(),jrRs);
         
-        JasperViewer jpView = new JasperViewer(print);
-        jpView.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
-        jpView.setTitle(r.getTabela());
-        jpView.setVisible(true);
+        JasperViewer.viewReport(print);
+        
+//        JasperViewer jpView = new JasperViewer(print);
+//        jpView.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
+//        jpView.setTitle(r.getTabela());
+//        jpView.setVisible(true);
         
         // exportando para PDF (iText.jar)
 //        JasperExportManager.exportReportToPdfFile(print,

@@ -42,21 +42,18 @@ public class FormaPagamento {
     }
 
     public ResultSet consultarGeral() {
-        ResultSet retorno = null;
         String sql = "SELECT CD_FORMA, DS_FORMA, CASE WHEN ENTRADA = 'S' THEN 'SIM' ELSE 'NÃO' END AS ENTRADA,"
                 + " INTERVALO, QT_PARCELAS FROM FORMA_PGTO ORDER BY CD_FORMA";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
-
+    
     public ResultSet consultarCodigo(FormaPagamento forma) {
         ResultSet retorno = null;
         String sql = "SELECT CD_FORMA, DS_FORMA, CASE WHEN ENTRADA = 'S' THEN 'SIM' ELSE 'NÃO' END AS ENTRADA,"
                 + " INTERVALO, QT_PARCELAS FROM FORMA_PGTO WHERE CD_FORMA = " + forma.getCdForma();
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarDsForma(FormaPagamento forma) {
@@ -65,8 +62,7 @@ public class FormaPagamento {
                 + " INTERVALO, QT_PARCELAS FROM FORMA_PGTO WHERE DS_FORMA LIKE '%" + forma.getDsForma() + "%' "
                 + "ORDER BY CD_FORMA";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public void retornaForma(FormaPagamento forma) {

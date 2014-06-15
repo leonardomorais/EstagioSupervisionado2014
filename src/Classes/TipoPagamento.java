@@ -53,7 +53,7 @@ public class TipoPagamento {
     public ResultSet consultarCdTipo(TipoPagamento tp) {
         ResultSet retorno = null;
         String sql = "SELECT CD_TIPO, DS_TIPO, "
-                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS IN_ATIVO "
+                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO "
                 + "FROM TIPO_PGTO WHERE CD_TIPO = " + tp.getCdTipo();
         conexao.executeSQL(sql);
         retorno = conexao.resultset;
