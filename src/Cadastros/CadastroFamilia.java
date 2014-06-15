@@ -6,12 +6,16 @@
 package Cadastros;
 
 import Classes.Familia;
+import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -20,6 +24,7 @@ import javax.swing.JOptionPane;
 public class CadastroFamilia extends javax.swing.JFrame {
 
     Familia familia = new Familia();
+    Relatorios report = new Relatorios();
 
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
@@ -34,7 +39,6 @@ public class CadastroFamilia extends javax.swing.JFrame {
         botoes.validaBotoes(jPanelBotoes, rotina);
 
         familia.retoraComboOrigem(jComboBoxOrigem);
-
     }
 
     /**
@@ -69,6 +73,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
         jTextFieldConsulta = new javax.swing.JTextField();
+        jBtRelatorio = new javax.swing.JButton();
 
         jMenuItemFamilia.setText("Carregar Dados");
         jMenuItemFamilia.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +237,13 @@ public class CadastroFamilia extends javax.swing.JFrame {
             }
         });
 
+        jBtRelatorio.setText("Relatório");
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -239,15 +251,17 @@ public class CadastroFamilia extends javax.swing.JFrame {
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBoxConsulta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldConsulta)
+                        .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtPesquisar)))
+                        .addComponent(jBtPesquisar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtRelatorio)))
                 .addContainerGap())
         );
         jPanelConsultaLayout.setVerticalGroup(
@@ -259,7 +273,8 @@ public class CadastroFamilia extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisar)
-                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtRelatorio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addContainerGap())
@@ -365,10 +380,12 @@ public class CadastroFamilia extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarGeral());
+            report.setConsulta(familia.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 familia.setCdFamilia(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarCdFamilia(familia));
+                report.setConsulta(familia.consultarCdFamilia(familia));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
@@ -377,6 +394,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
         } else {
             familia.setDsFamilia(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarDsFamilia(familia));
+            report.setConsulta(familia.consultarDsFamilia(familia));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -420,6 +438,15 @@ public class CadastroFamilia extends javax.swing.JFrame {
         campos.validaCamposLimite(evt, jTextFieldDescricao, 45);
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        try {
+            report.setTabela("FAMILIA");
+            report.gerarRelatorio(report);
+        } catch (JRException ex) {
+            Logger.getLogger(CadastroFamilia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -462,6 +489,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisar;
+    private javax.swing.JButton jBtRelatorio;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxOrigem;
     private javax.swing.JLabel jLabel1;

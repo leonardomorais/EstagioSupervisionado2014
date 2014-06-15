@@ -55,7 +55,6 @@ public class Cidade {
         String sql = "SELECT C.CD_CIDADE, C.DS_CIDADE, C.CD_UF, U.NOME_UF FROM CIDADE C"
                 + " INNER JOIN UF U ON C.CD_UF = U.CD_UF WHERE CD_CIDADE = " + cidade.getCdCidade();
         conexao.executeSQL(sql);
-
         retorno = conexao.resultset;
         return retorno;
     }

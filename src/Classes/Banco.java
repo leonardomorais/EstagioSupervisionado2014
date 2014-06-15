@@ -44,7 +44,7 @@ public class Banco {
     public ResultSet consultarGeral() {
         ResultSet retorno = null;
         String sql = "SELECT CD_BANCO, NM_BANCO, "
-                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS IN_ATIVO "
+                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO "
                 + "FROM BANCO ORDER BY CD_BANCO";
         conexao.executeSQL(sql);
         retorno = conexao.resultset;
@@ -54,7 +54,7 @@ public class Banco {
     public ResultSet consultarCdBanco(Banco banco) {
         ResultSet retorno = null;
         String sql = "SELECT CD_BANCO, NM_BANCO, "
-                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS IN_ATIVO "
+                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO "
                 + "FROM BANCO WHERE CD_BANCO = " + banco.getCdBanco();
         conexao.executeSQL(sql);
         retorno = conexao.resultset;
@@ -64,7 +64,7 @@ public class Banco {
     public ResultSet consultarDsBanco(Banco banco) {
         ResultSet retorno = null;
         String sql = "SELECT CD_BANCO, NM_BANCO, "
-                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS IN_ATIVO "
+                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO "
                 + "FROM BANCO WHERE NM_BANCO LIKE '%" + banco.getNmBanco() + "%' ORDER BY CD_BANCO";
         conexao.executeSQL(sql);
         retorno = conexao.resultset;

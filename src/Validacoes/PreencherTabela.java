@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Leonardo
  */
 public class PreencherTabela {
-
+    
     public void PreencherJtableGenerico(JTable tabela, ResultSet resultado) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
@@ -35,7 +35,6 @@ public class PreencherTabela {
     }
 
     public void FormatarJtable(JTable tabela, int valores[]) {
-
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
 
@@ -74,6 +73,5 @@ public class PreencherTabela {
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar no JTable" + erro);
         }
-    }
-
+    }    
 }

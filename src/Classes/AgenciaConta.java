@@ -53,7 +53,7 @@ public class AgenciaConta {
     public ResultSet consultarGeral() {
         ResultSet retorno = null;
         String sql = "SELECT A.CD_AGENCIA_CONTA, B.NM_BANCO, A.NR_AGENCIA, A.NR_CONTA, A.DS_CONTA, A.VALOR_CONTA, "
-                + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS IN_ATIVO "
+                + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS SITUACAO "
                 + "FROM AGENCIA_CONTA A INNER JOIN BANCO B ON A.CD_BANCO = B.CD_BANCO ORDER BY A.CD_AGENCIA_CONTA";
         conexao.executeSQL(sql);
         retorno = conexao.resultset;
@@ -63,7 +63,7 @@ public class AgenciaConta {
     public ResultSet consultarCdAgc(AgenciaConta agc) {
         ResultSet retorno = null;
         String sql = "SELECT A.CD_AGENCIA_CONTA, B.NM_BANCO, A.NR_AGENCIA, A.NR_CONTA, A.DS_CONTA, A.VALOR_CONTA, "
-                + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS IN_ATIVO "
+                + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS SITUACAO "
                 + "FROM AGENCIA_CONTA A INNER JOIN BANCO B ON A.CD_BANCO = B.CD_BANCO "
                 + "WHERE A.CD_AGENCIA_CONTA = " + agc.getCdAgcConta();
         conexao.executeSQL(sql);
@@ -74,7 +74,7 @@ public class AgenciaConta {
     public ResultSet consultarDsConta(AgenciaConta agc) {
         ResultSet retorno = null;
         String sql = "SELECT A.CD_AGENCIA_CONTA, B.NM_BANCO, A.NR_AGENCIA, A.NR_CONTA, A.DS_CONTA, A.VALOR_CONTA, "
-                + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS IN_ATIVO "
+                + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS SITUACAO "
                 + "FROM AGENCIA_CONTA A INNER JOIN BANCO B ON A.CD_BANCO = B.CD_BANCO "
                 + "WHERE A.DS_CONTA LIKE '%" + agc.getDsConta() + "%' ORDER BY A.CD_AGENCIA_CONTA";
         conexao.executeSQL(sql);

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Relatorios;
 
 import ConexaoBanco.ConexaoPostgreSQL;
@@ -23,28 +17,29 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class Relatorios {
     
+    private String tabela;
+    private ResultSet consulta;
+    
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
     
-    public void gerarRelatorio(String tabela) throws JRException{               
+    public void gerarRelatorio(Relatorios r) throws JRException{               
         try{
         conexao.conecta();
+     
+        JRResultSetDataSource jrRs = new JRResultSetDataSource(r.getConsulta());
         
-        String sql = "SELECT * FROM "+tabela+" ORDER BY CD_"+tabela;
-               
-        conexao.executeSQL(sql);
-        
-        JRResultSetDataSource jrRs = new JRResultSetDataSource(conexao.resultset);
-        
-        String report = "relatorios\\"+tabela+".jasper";
-        
+        String report = "relatorios\\"+r.getTabela()+".jasper";
+                
         JasperPrint print = JasperFillManager.fillReport(report, new HashMap(),jrRs);
         
-        JasperViewer.viewReport(print);
-   
+        JasperViewer jpView = new JasperViewer(print);
+        jpView.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
+        jpView.setTitle(r.getTabela());
+        jpView.setVisible(true);
+        
         // exportando para PDF (iText.jar)
 //        JasperExportManager.exportReportToPdfFile(print,
 //				"relatorios\\Relatorio"+tabela+".pdf");
-            JasperExportManager.exportReportToPdf(print);
         }
         catch(Exception ex){
             System.err.println("Erro ao gerar Relatório!");
@@ -65,13 +60,28 @@ public class Relatorios {
             
             JasperExportManager.exportReportToPdfFile(print,
 				"relatorios\\Relatorio"+tabela+".pdf");
-            
         }
         catch(Exception ex){
             System.err.println("Erro ao gerar Relatório!");
         }
     }
+    
+    public String getTabela() {
+        return tabela;
     }
+
+    public void setTabela(String tabela) {
+        this.tabela = tabela;
+    }
+
+    public ResultSet getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(ResultSet consulta) {
+        this.consulta = consulta;
+    }
+}
  
      
 
