@@ -22,6 +22,27 @@ public class Relatorios {
     
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
     
+    public void gerarRelatorio(Relatorios r, String subReport) throws JRException{
+        try{
+            conexao.conecta();
+            
+            JRResultSetDataSource jrRs = new JRResultSetDataSource(r.getConsulta());
+            
+            HashMap parametro = new HashMap();
+            
+            parametro.put("CLIENTE_SUB_REPORT.jasper", "relatorios\\");
+            
+            String report = "relatorios\\"+r.getTabela()+".jasper";
+            
+            JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
+            
+            JasperViewer.viewReport(print);
+        }
+        catch(Exception ex){
+            System.err.println("Erro ao gerar Relatório!");
+        }
+    }
+    
     public void gerarRelatorio(Relatorios r) throws JRException{               
         try{
         conexao.conecta();
