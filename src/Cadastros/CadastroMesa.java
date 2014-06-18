@@ -439,6 +439,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         try {
+            report.setSubreport(false);
             report.setTabela("MESA");
             report.gerarRelatorio(report);
         } catch (JRException ex) {

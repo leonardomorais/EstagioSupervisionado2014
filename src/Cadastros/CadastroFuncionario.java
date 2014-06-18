@@ -6,6 +6,7 @@
 package Cadastros;
 
 import Classes.Funcionario;
+import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
@@ -14,9 +15,12 @@ import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -25,6 +29,7 @@ import javax.swing.text.MaskFormatter;
 public class CadastroFuncionario extends javax.swing.JFrame {
 
     Funcionario funcionario = new Funcionario();
+    Relatorios report = new Relatorios();
 
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
@@ -120,6 +125,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
         jTextFieldConsulta = new javax.swing.JTextField();
+        jBtRelatorio = new javax.swing.JButton();
 
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
@@ -463,7 +469,6 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -524,6 +529,13 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             }
         });
 
+        jBtRelatorio.setText("Relatório");
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -531,16 +543,18 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                        .addComponent(jTextFieldConsulta)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtPesquisar)))
+                        .addComponent(jBtPesquisar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtRelatorio)))
                 .addContainerGap())
         );
         jPanelConsultaLayout.setVerticalGroup(
@@ -552,7 +566,8 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisar)
-                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtRelatorio))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                 .addContainerGap())
@@ -674,10 +689,12 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarGeral(true));
+            report.setConsulta(funcionario.consultarGeral(true));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 funcionario.setCd_funcionario(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarCdFuncionario(funcionario, true));
+                report.setConsulta(funcionario.consultarCdFuncionario(funcionario, true));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
                 jBtCancelarActionPerformed(null);
@@ -685,6 +702,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         } else {
             funcionario.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarNomeFuncionario(funcionario, true));
+            report.setConsulta(funcionario.consultarNomeFuncionario(funcionario, true));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -800,6 +818,16 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemEnderecoActionPerformed
 
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        try {
+            report.setSubreport(true);
+            report.setTabela("FUNCIONARIO");
+            report.gerarRelatorio(report);
+        } catch (JRException ex) {
+            Logger.getLogger(CadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -844,6 +872,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisar;
+    private javax.swing.JButton jBtRelatorio;
     private javax.swing.JButton jButtonCidades;
     private javax.swing.JComboBox jComboBoxCidade;
     private javax.swing.JComboBox jComboBoxConsulta;

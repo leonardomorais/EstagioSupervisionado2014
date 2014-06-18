@@ -3,6 +3,7 @@ package Relatorios;
 import ConexaoBanco.ConexaoPostgreSQL;
 import java.sql.ResultSet;
 import java.util.HashMap;
+import javax.swing.JFrame;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -19,75 +20,46 @@ public class Relatorios {
     
     private String tabela;
     private ResultSet consulta;
+    private boolean subreport;
     
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
     
-    public void gerarRelatorio(Relatorios r, String subReport) throws JRException{
+    public void gerarRelatorio(Relatorios r) throws JRException{
+        
+        HashMap parametro = new HashMap();
+        
         try{
             conexao.conecta();
             
+            if (r.isSubreport()){
+            parametro.put("SUBREPORT_DIR", "relatorios\\");
+            parametro.put("REPORT_CONNECTION", conexao.conecta());
+        }
             JRResultSetDataSource jrRs = new JRResultSetDataSource(r.getConsulta());
-            
-            HashMap parametro = new HashMap();
-            
-            parametro.put("CLIENTE_SUB_REPORT.jasper", "relatorios\\");
-            
+   
             String report = "relatorios\\"+r.getTabela()+".jasper";
             
             JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
             
             JasperViewer.viewReport(print);
-        }
-        catch(Exception ex){
-            System.err.println("Erro ao gerar Relatório!");
-        }
-    }
-    
-    public void gerarRelatorio(Relatorios r) throws JRException{               
-        try{
-        conexao.conecta();
-     
-        JRResultSetDataSource jrRs = new JRResultSetDataSource(r.getConsulta());
-        
-        String report = "relatorios\\"+r.getTabela()+".jasper";
-                
-        JasperPrint print = JasperFillManager.fillReport(report, new HashMap(),jrRs);
-        
-        JasperViewer.viewReport(print);
-        
+                        
+        // exportando para PDF (iText.jar)
+//        JasperExportManager.exportReportToPdfFile(print,
+//				"relatorios\\Relatorio"+tabela+".pdf");
+            
+            
 //        JasperViewer jpView = new JasperViewer(print);
 //        jpView.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
 //        jpView.setTitle(r.getTabela());
 //        jpView.setVisible(true);
-        
-        // exportando para PDF (iText.jar)
-//        JasperExportManager.exportReportToPdfFile(print,
-//				"relatorios\\Relatorio"+tabela+".pdf");
-        }
-        catch(Exception ex){
-            System.err.println("Erro ao gerar Relatório!");
-        }
- }
-    
-    public void gerarRelatorio(ResultSet consulta,String tabela) throws JRException{
-        try{
-            conexao.conecta();
-            
-            JRResultSetDataSource jrRs = new JRResultSetDataSource(consulta);
-            
-            String report = "relatorios\\"+tabela+".jasper";
-            
-            JasperPrint print = JasperFillManager.fillReport(report, new HashMap(), jrRs);
-            
-            JasperViewer.viewReport(print);
-            
-            JasperExportManager.exportReportToPdfFile(print,
-				"relatorios\\Relatorio"+tabela+".pdf");
+     
         }
         catch(Exception ex){
             System.err.println("Erro ao gerar Relatório!");
         }
     }
+
+    // getter e setter
     
     public String getTabela() {
         return tabela;
@@ -104,6 +76,16 @@ public class Relatorios {
     public void setConsulta(ResultSet consulta) {
         this.consulta = consulta;
     }
+
+    public boolean isSubreport() {
+        return subreport;
+    }
+
+    public void setSubreport(boolean subreport) {
+        this.subreport = subreport;
+    }
+    
+    
 }
  
      

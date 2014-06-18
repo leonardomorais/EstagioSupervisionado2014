@@ -6,6 +6,7 @@
 package Cadastros;
 
 import Classes.Fornecedor;
+import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
@@ -21,6 +22,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -29,6 +31,7 @@ import javax.swing.text.MaskFormatter;
 public class CadastroFornecedor extends javax.swing.JFrame {
 
     Fornecedor fornecedor = new Fornecedor();
+    Relatorios report = new Relatorios();
 
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
@@ -131,6 +134,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
         jTextFieldConsulta = new javax.swing.JTextField();
+        jBtRelatorio = new javax.swing.JButton();
 
         jMenuItemCarregaDados.setText("CarregarDados");
         jMenuItemCarregaDados.addActionListener(new java.awt.event.ActionListener() {
@@ -565,6 +569,13 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jBtRelatorio.setText("Relatório");
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -572,16 +583,18 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldConsulta)
+                        .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(jBtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtRelatorio)))
                 .addContainerGap())
         );
         jPanelConsultaLayout.setVerticalGroup(
@@ -593,7 +606,8 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisar)
-                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtRelatorio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addContainerGap())
@@ -741,10 +755,12 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarGeral());
+            report.setConsulta(fornecedor.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 fornecedor.setCdFornecedor(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarCdFornecedor(fornecedor));
+                report.setConsulta(fornecedor.consultarCdFornecedor(fornecedor));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
@@ -753,6 +769,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         } else {
             fornecedor.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarNomeFornecedor(fornecedor));
+            report.setConsulta(fornecedor.consultarNomeFornecedor(fornecedor));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -882,6 +899,16 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemContatosActionPerformed
 
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        try {
+            report.setSubreport(true);
+            report.setTabela("FORNECEDOR");
+            report.gerarRelatorio(report);
+        } catch (JRException ex) {
+            Logger.getLogger(CadastroFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -928,6 +955,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisar;
+    private javax.swing.JButton jBtRelatorio;
     private javax.swing.JComboBox jComboBoxCidade;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxSexo;
@@ -1033,9 +1061,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         fornecedor.getPessoa().getContato().setEmail(jTextFieldEmail.getText().toUpperCase());
         fornecedor.getPessoa().getContato().setNrSeq(1);
         fornecedor.getPessoa().getContato().setNomeContato(jTextFieldNome.getText().toUpperCase());
-        fornecedor.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
-        fornecedor.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
-        fornecedor.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
+        preencheFones();
     }
 
     public void preencherCampos() {
@@ -1068,6 +1094,29 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             jRadioButtonPJuridicaActionPerformed(null);
             jFormattedTextFieldCpfCnpj.setText(fornecedor.getPessoa().getPjuridica().getCNPJ());
             jTextFieldRazao.setText(fornecedor.getPessoa().getPjuridica().getRazao());
+        }
+    }
+    
+    public void preencheFones(){
+        if (jTextFieldFoneRes.getText().equals("(  )-    -    ")){
+            fornecedor.getPessoa().getContato().setFoneRes("");
+        }
+        else{
+            fornecedor.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
+        }
+        
+        if (jTextFieldFoneCom.getText().equals("(  )-    -    ")){
+            fornecedor.getPessoa().getContato().setFoneCom("");
+        }
+        else{
+            fornecedor.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
+        }
+        
+        if (jTextFieldFoneCel.getText().equals("(  )-    -    ")){
+            fornecedor.getPessoa().getContato().setFoneCel("");
+        }
+        else{
+            fornecedor.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
         }
     }
 }

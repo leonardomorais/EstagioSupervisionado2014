@@ -22,7 +22,7 @@ public class Contato {
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
     public void incluir(Contato contato) {
-        RetornaSequencia seq = new RetornaSequencia();
+        RetornaSequencia seq = new RetornaSequencia();    
         contato.setNrSeq(seq.retornaSequencia("NR_SEQ", "CONTATO", "CD_PESSOA", contato.getCdPessoa()));
         String sql = "INSERT INTO CONTATO(CD_PESSOA, NR_SEQ, NOME_CONTATO, EMAIL_CONTATO, "
                 + "FONE_RES, FONE_COM, FONE_CEL) VALUES ('" + contato.getCdPessoa() + "','"

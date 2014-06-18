@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import net.sf.jasperreports.engine.JRException;
@@ -948,6 +949,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         try {
+            report.setSubreport(true);
             report.setTabela("CLIENTE");
             report.gerarRelatorio(report);
         } catch (JRException ex) {
@@ -1107,9 +1109,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.getPessoa().getContato().setEmail(jTextFieldEmail.getText().toUpperCase());
         cliente.getPessoa().getContato().setNrSeq(1);
         cliente.getPessoa().getContato().setNomeContato(jTextFieldNome.getText().toUpperCase());
-        cliente.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
-        cliente.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
-        cliente.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
+        preencheFones();
     }
 
     public void preencherCampos() {
@@ -1142,6 +1142,29 @@ public class CadastroCliente extends javax.swing.JFrame {
             jRadioButtonJuridicaActionPerformed(null);
             jFormattedTextFieldCpfCNPJ.setText(cliente.getPessoa().getPjuridica().getCNPJ());
             jTextFieldRazao.setText(cliente.getPessoa().getPjuridica().getRazao());
+        }
+    }
+    
+    public void preencheFones(){
+        if (jTextFieldFoneRes.getText().equals("(  )-    -    ")){
+            cliente.getPessoa().getContato().setFoneRes("");
+        }
+        else{
+            cliente.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
+        }
+        
+        if (jTextFieldFoneCom.getText().equals("(  )-    -    ")){
+            cliente.getPessoa().getContato().setFoneCom("");
+        }
+        else{
+            cliente.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
+        }
+        
+        if (jTextFieldFoneCel.getText().equals("(  )-    -    ")){
+            cliente.getPessoa().getContato().setFoneCel("");
+        }
+        else{
+            cliente.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
         }
     }
 }
