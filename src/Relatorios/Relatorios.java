@@ -41,18 +41,12 @@ public class Relatorios {
             
             JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
             
-            JasperViewer.viewReport(print);
+            // viewReport(JasperPrint jasperPrint, boolean isExitOnClose) 
+            JasperViewer.viewReport(print, false);
                         
         // exportando para PDF (iText.jar)
 //        JasperExportManager.exportReportToPdfFile(print,
 //				"relatorios\\Relatorio"+tabela+".pdf");
-            
-            
-//        JasperViewer jpView = new JasperViewer(print);
-//        jpView.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE);
-//        jpView.setTitle(r.getTabela());
-//        jpView.setVisible(true);
-     
         }
         catch(Exception ex){
             System.err.println("Erro ao gerar Relatório!");
