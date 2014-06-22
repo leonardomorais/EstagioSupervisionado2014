@@ -76,7 +76,7 @@ public class Banco {
         try {
             retorno.first();
             banco.setNmBanco(retorno.getString("NM_BANCO"));
-            banco.setInAtivo(retorno.getString("IN_ATIVO"));
+            banco.setInAtivo(retorno.getString("SITUACAO"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Banco não encontrado");
             banco.setNmBanco("");

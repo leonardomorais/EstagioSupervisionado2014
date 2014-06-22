@@ -319,6 +319,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -465,20 +466,24 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarGeral());
+            editaBotao(preencher.isVazia());
             report.setConsulta(agc.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 agc.setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarCdAgc(agc));
+                editaBotao(preencher.isVazia());
                 report.setConsulta(agc.consultarCdAgc(agc));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
+                jBtRelatorio.setEnabled(false);
             }
         } else {
             agc.setDsConta(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarDsConta(agc));
+            editaBotao(preencher.isVazia());
             report.setConsulta(agc.consultarDsConta(agc));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -528,12 +533,18 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldConsultaActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        try {
+        if(report.login()){
+            try {
             report.setTabela("AGENCIA_CONTA");
             report.gerarRelatorio(report);
         } catch (JRException ex) {
             Logger.getLogger(CadastroAgenciaConta.class.getName()).log(Level.SEVERE, null, ex);
+        }   
         }
+        else{
+            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
+        }
+        
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**
@@ -629,5 +640,14 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jTextFieldVlConta.setText(decimal.retornaDecimal(valor,6));
         jComboBoxBanco.setSelectedItem(agc.getBanco().getNmBanco());
         jComboBoxSituacao.setSelectedItem(agc.getInAtivo());
+    }
+    
+    public void editaBotao(boolean vazia){
+        if (vazia){
+            jBtRelatorio.setEnabled(false);
+        }
+        else{
+            jBtRelatorio.setEnabled(true);
+        }
     }
 }

@@ -24,7 +24,7 @@ public class CadastroEstado extends javax.swing.JFrame {
 
     UF estado = new UF();
     Relatorios report = new Relatorios();
-    
+
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
     int rotina;
@@ -255,6 +255,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableConsulta);
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -424,20 +425,24 @@ public class CadastroEstado extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, estado.consultarGeral());
+            editaBotao(preencher.isVazia());
             report.setConsulta(estado.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 estado.setCdUf(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, estado.consultarCodigo(estado));
+                editaBotao(preencher.isVazia());
                 report.setConsulta(estado.consultarCodigo(estado));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
+                jBtRelatorio.setEnabled(false);
             }
         } else {
             estado.setDsUf(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, estado.consultarNome(estado));
+            editaBotao(preencher.isVazia());
             report.setConsulta(estado.consultarNome(estado));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -459,9 +464,7 @@ public class CadastroEstado extends javax.swing.JFrame {
 
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
-
         }
-
     }//GEN-LAST:event_jMenuItemCarregarActionPerformed
 
     private void jTextFieldNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeKeyTyped
@@ -470,12 +473,16 @@ public class CadastroEstado extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        try {
-            report.setSubreport(false);
-            report.setTabela("UF");
-            report.gerarRelatorio(report);
-        } catch (JRException ex) {
-            Logger.getLogger(CadastroEstado.class.getName()).log(Level.SEVERE, null, ex);
+        if (report.login()) {
+            try {
+                report.setSubreport(false);
+                report.setTabela("UF");
+                report.gerarRelatorio(report);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroEstado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -551,6 +558,14 @@ public class CadastroEstado extends javax.swing.JFrame {
         jTextFieldCdEstado.setText(estado.getCdUf().toString());
         jTextFieldNome.setText(estado.getDsUf());
         jTextFieldSigla.setText(estado.getSigla());
+    }
+
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
+        }
     }
 
 }

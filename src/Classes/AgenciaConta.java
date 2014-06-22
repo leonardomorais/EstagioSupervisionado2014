@@ -91,7 +91,7 @@ public class AgenciaConta {
             agc.setNrAgencia(retorno.getString("NR_AGENCIA"));
             agc.setNrConta(retorno.getString("NR_CONTA"));
             agc.setVlConta(retorno.getDouble("VALOR_CONTA"));
-            agc.setInAtivo(retorno.getString("IN_ATIVO"));
+            agc.setInAtivo(retorno.getString("SITUACAO"));
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Agência Conta não encontrada !");
             agc.setDsConta("");

@@ -243,6 +243,7 @@ public class CadastroBanco extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -381,23 +382,26 @@ public class CadastroBanco extends javax.swing.JFrame {
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{75, 300, 100});
-
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarGeral());
+            editaBotao(preencher.isVazia());
             report.setConsulta(banco.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 banco.setCdBanco(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarCdBanco(banco));
+                editaBotao(preencher.isVazia());
                 report.setConsulta(banco.consultarCdBanco(banco));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
+                jBtRelatorio.setEnabled(false);
             }
         } else {
             banco.setNmBanco(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarDsBanco(banco));
+            editaBotao(preencher.isVazia());
             report.setConsulta(banco.consultarDsBanco(banco));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -442,17 +446,22 @@ public class CadastroBanco extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeKeyTyped
 
     private void jTextFieldConsultaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldConsultaKeyTyped
-        
+
     }//GEN-LAST:event_jTextFieldConsultaKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        try {
-            report.setSubreport(false);
-            report.setTabela("BANCO");
-            report.gerarRelatorio(report);
-            
-        } catch (JRException ex) {
-            Logger.getLogger(CadastroBanco.class.getName()).log(Level.SEVERE, null, ex);
+        if (report.login()) {
+            try {
+                report.setSubreport(false);
+                report.setTabela("BANCO");
+                report.gerarRelatorio(report);
+
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroBanco.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -533,4 +542,12 @@ public class CadastroBanco extends javax.swing.JFrame {
         jComboBoxSituacao.setSelectedItem(banco.getInAtivo());
     }
 
+    public void editaBotao(boolean vazia){
+        if (vazia){
+            jBtRelatorio.setEnabled(false);
+        }
+        else{
+            jBtRelatorio.setEnabled(true);
+        }
+    }
 }

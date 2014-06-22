@@ -20,7 +20,7 @@ public class CadastroCidade extends javax.swing.JFrame {
 
     Cidade cidade = new Cidade();
     Relatorios report = new Relatorios();
-    
+
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
     int rotina;
@@ -235,6 +235,7 @@ public class CadastroCidade extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -385,20 +386,24 @@ public class CadastroCidade extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, cidade.consultarGeral());
+            editaBotao(preencher.isVazia());
             report.setConsulta(cidade.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 cidade.setCdCidade(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, cidade.consultarCodigo(cidade));
+                editaBotao(preencher.isVazia());
                 report.setConsulta(cidade.consultarCodigo(cidade));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
+                jBtRelatorio.setEnabled(false);
             }
         } else {
             cidade.setDsCidade(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, cidade.consultarNome(cidade));
+            editaBotao(preencher.isVazia());
             report.setConsulta(cidade.consultarNome(cidade));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -425,12 +430,16 @@ public class CadastroCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        try {
-            report.setSubreport(false);
-            report.setTabela("CIDADE");
-            report.gerarRelatorio(report);
-        } catch (JRException ex) {
-            Logger.getLogger(CadastroCidade.class.getName()).log(Level.SEVERE, null, ex);
+        if (report.login()) {
+            try {
+                report.setSubreport(false);
+                report.setTabela("CIDADE");
+                report.gerarRelatorio(report);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroCidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -506,6 +515,14 @@ public class CadastroCidade extends javax.swing.JFrame {
         jTextFieldNome.setText(cidade.getDsCidade());
         jComboBoxEstado.setSelectedItem(cidade.getEstado().getDsUf());
 
+    }
+
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
+        }
     }
 
 }

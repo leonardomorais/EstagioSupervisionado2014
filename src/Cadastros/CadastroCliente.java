@@ -43,7 +43,6 @@ public class CadastroCliente extends javax.swing.JFrame {
     MaskFormatter data;
     MaskFormatter cep;
     MaskFormatter fone;
-    
 
     /**
      * Creates new form CadastroCliente
@@ -616,6 +615,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -755,20 +755,24 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarGeral());
+            editaBotao(preencher.isVazia());
             report.setConsulta(cliente.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 cliente.setCdCliente(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarCdCliente(cliente));
+                editaBotao(preencher.isVazia());
                 report.setConsulta(cliente.consultarCdCliente(cliente));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
+                jBtRelatorio.setEnabled(false);
             }
         } else {
             cliente.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarNomeCliente(cliente));
+            editaBotao(preencher.isVazia());
             report.setConsulta(cliente.consultarNomeCliente(cliente));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -777,7 +781,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         jComboBoxSexo.setEnabled(true);
         jTextFieldRG.setEnabled(true);
         jTextFieldRazao.setEnabled(false);
-        
+
         jFormattedTextFieldCpfCNPJ.setFormatterFactory(null);
         MaskFormatter formato = null;
         try {
@@ -948,12 +952,16 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemParcelasActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        try {
-            report.setSubreport(true);
-            report.setTabela("CLIENTE");
-            report.gerarRelatorio(report);
-        } catch (JRException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        if (report.login()) {
+            try {
+                report.setSubreport(true);
+                report.setTabela("CLIENTE");
+                report.gerarRelatorio(report);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -1144,27 +1152,32 @@ public class CadastroCliente extends javax.swing.JFrame {
             jTextFieldRazao.setText(cliente.getPessoa().getPjuridica().getRazao());
         }
     }
-    
-    public void preencheFones(){
-        if (jTextFieldFoneRes.getText().equals("(  )-    -    ")){
+
+    public void preencheFones() {
+        if (jTextFieldFoneRes.getText().equals("(  )-    -    ")) {
             cliente.getPessoa().getContato().setFoneRes("");
-        }
-        else{
+        } else {
             cliente.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
         }
-        
-        if (jTextFieldFoneCom.getText().equals("(  )-    -    ")){
+
+        if (jTextFieldFoneCom.getText().equals("(  )-    -    ")) {
             cliente.getPessoa().getContato().setFoneCom("");
-        }
-        else{
+        } else {
             cliente.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
         }
-        
-        if (jTextFieldFoneCel.getText().equals("(  )-    -    ")){
+
+        if (jTextFieldFoneCel.getText().equals("(  )-    -    ")) {
             cliente.getPessoa().getContato().setFoneCel("");
-        }
-        else{
+        } else {
             cliente.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
+        }
+    }
+    
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
         }
     }
 }
