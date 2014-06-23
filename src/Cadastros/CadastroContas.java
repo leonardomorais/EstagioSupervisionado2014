@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Cadastros;
 
 import Classes.Contas;
@@ -19,9 +18,10 @@ import Validacoes.ValidaBotoes;
 public class CadastroContas extends javax.swing.JFrame {
 
     Contas contas = new Contas();
-    
+
     ValidaBotoes botoes = new ValidaBotoes();
     int rotina;
+
     /**
      * Creates new form CadastroContas
      */
@@ -386,19 +386,17 @@ public class CadastroContas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
-        if (jComboBoxConsulta.getSelectedIndex()==3){
+        if (jComboBoxConsulta.getSelectedIndex() == 3) {
             jComboBoxTpConta.setEnabled(true);
             jComboBoxTpConta.removeAllItems();
             jComboBoxTpConta.addItem("Crédito");
             jComboBoxTpConta.addItem("Débito");
-        }
-        else if (jComboBoxConsulta.getSelectedIndex()==4){
+        } else if (jComboBoxConsulta.getSelectedIndex() == 4) {
             jComboBoxTpConta.setEnabled(true);
             jComboBoxTpConta.removeAllItems();
             jComboBoxTpConta.addItem("Paga");
             jComboBoxTpConta.addItem("A Pagar");
-        }
-        else{
+        } else {
             jComboBoxTpConta.removeAllItems();
             jComboBoxTpConta.setEnabled(false);
         }
@@ -427,9 +425,9 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableContas, new int[] {80, 80, 80, 80, 80, 80, 80, 80, 80});
-        
-        if(jComboBoxConsulta.getSelectedIndex()==0){
+        preencher.FormatarJtable(jTableContas, new int[]{80, 80, 80, 80, 80, 80, 80, 80, 80});
+
+        if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableContas, contas.consultarGeral());
         }
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
@@ -437,12 +435,12 @@ public class CadastroContas extends javax.swing.JFrame {
     private void jTableContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContasMouseClicked
         Parcelas parcelas = new Parcelas();
         int linha = jTableContas.getSelectedRow();
-        if (linha >=0){
+        if (linha >= 0) {
             contas.setCdConta(Integer.parseInt(jTableContas.getValueAt(linha, 0).toString()));
-            
+
             PreencherTabela preencher = new PreencherTabela();
-            preencher.FormatarJtable(jTableParcelas, new int [] {100,100,100,100,100,100});
-            
+            preencher.FormatarJtable(jTableParcelas, new int[]{100, 100, 100, 100, 100, 100});
+
             preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(contas));
         }
     }//GEN-LAST:event_jTableContasMouseClicked

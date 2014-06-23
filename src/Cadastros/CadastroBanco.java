@@ -459,8 +459,7 @@ public class CadastroBanco extends javax.swing.JFrame {
             } catch (JRException ex) {
                 Logger.getLogger(CadastroBanco.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
@@ -542,11 +541,10 @@ public class CadastroBanco extends javax.swing.JFrame {
         jComboBoxSituacao.setSelectedItem(banco.getInAtivo());
     }
 
-    public void editaBotao(boolean vazia){
-        if (vazia){
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
             jBtRelatorio.setEnabled(false);
-        }
-        else{
+        } else {
             jBtRelatorio.setEnabled(true);
         }
     }

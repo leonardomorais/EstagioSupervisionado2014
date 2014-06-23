@@ -530,6 +530,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -689,19 +690,23 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarGeral(true));
+            editaBotao(preencher.isVazia());
             report.setConsulta(funcionario.consultarGeral(true));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 funcionario.setCd_funcionario(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarCdFuncionario(funcionario, true));
+                editaBotao(preencher.isVazia());
                 report.setConsulta(funcionario.consultarCdFuncionario(funcionario, true));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
                 jBtCancelarActionPerformed(null);
+                jBtRelatorio.setEnabled(false);
             }
         } else {
             funcionario.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarNomeFuncionario(funcionario, true));
+            editaBotao(preencher.isVazia());
             report.setConsulta(funcionario.consultarNomeFuncionario(funcionario, true));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -710,7 +715,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         if (!jTextFieldCdFuncionario.getText().equals("")) {
             try {
                 funcionario.setCd_funcionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
-                funcionario.retornaFuncionario(funcionario,true);
+                funcionario.retornaFuncionario(funcionario, true);
 
                 if (funcionario.getPessoa().getNome().equals("")) {
                     jBtCancelarActionPerformed(null);
@@ -740,7 +745,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         if (linha >= 0) {
             int cd = Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString());
             funcionario.setCd_funcionario(cd);
-            funcionario.retornaFuncionario(funcionario,true);
+            funcionario.retornaFuncionario(funcionario, true);
 
             preencherCampos();
             jTabbedPaneFuncionario.setSelectedIndex(0);
@@ -819,12 +824,16 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemEnderecoActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        try {
-            report.setSubreport(true);
-            report.setTabela("FUNCIONARIO");
-            report.gerarRelatorio(report);
-        } catch (JRException ex) {
-            Logger.getLogger(CadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        if (report.login()) {
+            try {
+                report.setSubreport(true);
+                report.setTabela("FUNCIONARIO");
+                report.gerarRelatorio(report);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -982,5 +991,13 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jComboBoxSexo.setSelectedItem(funcionario.getPessoa().getPfisica().getSexo());
         jTextFieldCPF.setText(funcionario.getPessoa().getPfisica().getCPF());
         jTextFieldRG.setText(funcionario.getPessoa().getPfisica().getRG());
+    }
+
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
+        }
     }
 }

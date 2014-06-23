@@ -1172,7 +1172,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             cliente.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
         }
     }
-    
+
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);

@@ -237,6 +237,7 @@ public class CadastroMesa extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -378,22 +379,25 @@ public class CadastroMesa extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, mesa.consultarGeral());
+            editaBotao(preencher.isVazia());
             report.setConsulta(mesa.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
 
             try {
                 mesa.setNrMesa(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, mesa.consultarNrMesa(mesa));
+                editaBotao(preencher.isVazia());
                 report.setConsulta(mesa.consultarNrMesa(mesa));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um número para pesquisar!");
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
-
+                jBtRelatorio.setEnabled(false);
             }
         } else {
             mesa.setDsMesa(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, mesa.consultarDescricao(mesa));
+            editaBotao(preencher.isVazia());
             report.setConsulta(mesa.consultarDescricao(mesa));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -402,7 +406,7 @@ public class CadastroMesa extends javax.swing.JFrame {
         if (!jTextFieldNRMesa.getText().equals("")) {
             try {
                 mesa.setNrMesa(Integer.parseInt(jTextFieldNRMesa.getText()));
-                mesa.retornaMesa(mesa,true);
+                mesa.retornaMesa(mesa, true);
 
                 if (mesa.getDsMesa().equals("")) {
                     jBtCancelarActionPerformed(null);
@@ -422,7 +426,7 @@ public class CadastroMesa extends javax.swing.JFrame {
         if (linha >= 0) {
             int nr = Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString());
             mesa.setNrMesa(nr);
-            mesa.retornaMesa(mesa,true);
+            mesa.retornaMesa(mesa, true);
 
             preencherCampos();
             jTabbedPaneMesa.setSelectedIndex(0);
@@ -438,12 +442,16 @@ public class CadastroMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        try {
-            report.setSubreport(false);
-            report.setTabela("MESA");
-            report.gerarRelatorio(report);
-        } catch (JRException ex) {
-            Logger.getLogger(CadastroMesa.class.getName()).log(Level.SEVERE, null, ex);
+        if (report.login()) {
+            try {
+                report.setSubreport(false);
+                report.setTabela("MESA");
+                report.gerarRelatorio(report);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroMesa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -525,6 +533,14 @@ public class CadastroMesa extends javax.swing.JFrame {
             jComboBoxSituacao.setSelectedIndex(0);
         } else {
             jComboBoxSituacao.setSelectedIndex(1);
+        }
+    }
+
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
         }
     }
 

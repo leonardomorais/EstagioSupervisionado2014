@@ -40,7 +40,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     public CadastroAgenciaConta() {
         initComponents();
 
-        agc.retornaComboBanco(jComboBoxBanco,true);
+        agc.retornaComboBanco(jComboBoxBanco, true);
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
     }
@@ -533,18 +533,17 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldConsultaActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if(report.login()){
+        if (report.login()) {
             try {
-            report.setTabela("AGENCIA_CONTA");
-            report.gerarRelatorio(report);
-        } catch (JRException ex) {
-            Logger.getLogger(CadastroAgenciaConta.class.getName()).log(Level.SEVERE, null, ex);
-        }   
-        }
-        else{
+                report.setTabela("AGENCIA_CONTA");
+                report.gerarRelatorio(report);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroAgenciaConta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
-        
+
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**
@@ -637,16 +636,15 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jTextFieldNrConta.setText(agc.getNrConta());
         Double valor = agc.getVlConta();
 
-        jTextFieldVlConta.setText(decimal.retornaDecimal(valor,6));
+        jTextFieldVlConta.setText(decimal.retornaDecimal(valor, 6));
         jComboBoxBanco.setSelectedItem(agc.getBanco().getNmBanco());
         jComboBoxSituacao.setSelectedItem(agc.getInAtivo());
     }
-    
-    public void editaBotao(boolean vazia){
-        if (vazia){
+
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
             jBtRelatorio.setEnabled(false);
-        }
-        else{
+        } else {
             jBtRelatorio.setEnabled(true);
         }
     }

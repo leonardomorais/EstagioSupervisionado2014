@@ -279,6 +279,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -436,20 +437,24 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarGeral());
+            editaBotao(preencher.isVazia());
             report.setConsulta(forma.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 forma.setCdForma(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarCodigo(forma));
+                editaBotao(preencher.isVazia());
                 report.setConsulta(forma.consultarCodigo(forma));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
+                jBtRelatorio.setEnabled(false);
             }
         } else {
             forma.setDsForma(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarDsForma(forma));
+            editaBotao(preencher.isVazia());
             report.setConsulta(forma.consultarDsForma(forma));
         }
 
@@ -477,12 +482,17 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        if(report.login()){
         try {
             report.setSubreport(false);
             report.setTabela("FORMA_PGTO");
             report.gerarRelatorio(report);
         } catch (JRException ex) {
             Logger.getLogger(CadastroFormadePagamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -583,5 +593,12 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         jSpinnerIntervalo.setValue(0);
         jSpinnerQtParcelas.setValue(1);
     }
-
+    
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
+        }
+    }
 }
