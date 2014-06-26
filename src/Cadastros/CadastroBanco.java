@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cadastros;
 
 import Classes.Banco;
@@ -12,6 +7,8 @@ import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,9 +22,11 @@ public class CadastroBanco extends javax.swing.JFrame {
 
     Banco banco = new Banco();
     Relatorios report = new Relatorios();
-
+    
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
+    
+    ResultSet valores = null;
     int rotina;
 
     /**
@@ -35,6 +34,7 @@ public class CadastroBanco extends javax.swing.JFrame {
      */
     public CadastroBanco() {
         initComponents();
+        
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
     }
@@ -83,6 +83,7 @@ public class CadastroBanco extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Bancos");
+        setResizable(false);
 
         jLabel2.setText("Código do Banco");
 
@@ -385,13 +386,15 @@ public class CadastroBanco extends javax.swing.JFrame {
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarGeral());
             editaBotao(preencher.isVazia());
+            valores = banco.consultarGeral();
             report.setConsulta(banco.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 banco.setCdBanco(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarCdBanco(banco));
                 editaBotao(preencher.isVazia());
-                report.setConsulta(banco.consultarCdBanco(banco));
+                valores = banco.consultarCdBanco(banco);
+              report.setConsulta(banco.consultarCdBanco(banco));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
@@ -401,8 +404,9 @@ public class CadastroBanco extends javax.swing.JFrame {
         } else {
             banco.setNmBanco(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarDsBanco(banco));
-            editaBotao(preencher.isVazia());
             report.setConsulta(banco.consultarDsBanco(banco));
+            editaBotao(preencher.isVazia());
+           
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -455,12 +459,9 @@ public class CadastroBanco extends javax.swing.JFrame {
                 report.setSubreport(false);
                 report.setTabela("BANCO");
                 report.gerarRelatorio(report);
-
             } catch (JRException ex) {
                 Logger.getLogger(CadastroBanco.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 

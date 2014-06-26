@@ -86,7 +86,5 @@ public class PreencherTabela {
 
     public void setVazia(boolean vazia) {
         this.vazia = vazia;
-    }
-    
-    
+    }    
 }

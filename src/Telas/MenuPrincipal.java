@@ -17,7 +17,6 @@ import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
 import Consultas.ConsultaParcelas;
-import Relatorios.Relatorios;
 import Servicos.TelaAtendimentoMesa;
 import java.util.Random;
 import java.util.logging.Level;
