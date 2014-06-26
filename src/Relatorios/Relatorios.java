@@ -23,27 +23,27 @@ public class Relatorios {
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
-    public void gerarRelatorio(String tabela, ResultSet consulta, boolean subreport) throws JRException {
-        HashMap parametro = new HashMap();
-
-        try {
-            conexao.conecta();
-
-            if (subreport) {
-                parametro.put("SUBREPORT_DIR", "relatorios\\");
-                parametro.put("REPORT_CONNECTION", conexao.conecta());
-            }
-            JRResultSetDataSource jrRs = new JRResultSetDataSource(consulta);
-
-            String report = "relatorios\\" + tabela + ".jasper";
-
-            JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
-
-            JasperViewer.viewReport(print, false);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao gerar Relatório!");
-        }
-    }
+//    public void gerarRelatorio(String tabela, ResultSet consulta, boolean subreport) throws JRException {
+//        HashMap parametro = new HashMap();
+//
+//        try {
+//            conexao.conecta();
+//
+//            if (subreport) {
+//                parametro.put("SUBREPORT_DIR", "relatorios\\");
+//                parametro.put("REPORT_CONNECTION", conexao.conecta());
+//            }
+//            JRResultSetDataSource jrRs = new JRResultSetDataSource(consulta);
+//
+//            String report = "relatorios\\" + tabela + ".jasper";
+//
+//            JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
+//
+//            JasperViewer.viewReport(print, false);
+//        } catch (Exception ex) {
+//            JOptionPane.showMessageDialog(null, "Erro ao gerar Relatório!");
+//        }
+//    }
 
     public void gerarRelatorio(Relatorios r) throws JRException {
 

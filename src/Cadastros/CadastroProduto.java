@@ -502,11 +502,10 @@ public class CadastroProduto extends javax.swing.JFrame {
                 report.setSubreport(false);
                 report.setTabela("PRODUTOS");
                 report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
             } catch (JRException ex) {
                 Logger.getLogger(CadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 

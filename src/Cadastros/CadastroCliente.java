@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cadastros;
 
 import Classes.Cliente;
@@ -957,11 +952,10 @@ public class CadastroCliente extends javax.swing.JFrame {
                 report.setSubreport(true);
                 report.setTabela("CLIENTE");
                 report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
             } catch (JRException ex) {
                 Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 

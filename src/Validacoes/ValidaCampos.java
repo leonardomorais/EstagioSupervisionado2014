@@ -22,5 +22,4 @@ public class ValidaCampos {
             evt.consume();
         }
     }
-
 }

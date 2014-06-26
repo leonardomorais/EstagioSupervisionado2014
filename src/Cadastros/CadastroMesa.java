@@ -83,6 +83,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Mesas");
+        setResizable(false);
 
         jLabel2.setText("Número da Mesa");
 
@@ -447,11 +448,10 @@ public class CadastroMesa extends javax.swing.JFrame {
                 report.setSubreport(false);
                 report.setTabela("MESA");
                 report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
             } catch (JRException ex) {
                 Logger.getLogger(CadastroMesa.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 

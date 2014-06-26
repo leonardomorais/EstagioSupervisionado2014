@@ -536,14 +536,13 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         if (report.login()) {
             try {
                 report.setTabela("AGENCIA_CONTA");
+                report.setSubreport(false);
                 report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
             } catch (JRException ex) {
                 Logger.getLogger(CadastroAgenciaConta.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
-
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

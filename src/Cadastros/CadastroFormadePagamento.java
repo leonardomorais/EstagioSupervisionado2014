@@ -85,6 +85,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Formas de pagamento");
+        setResizable(false);
 
         jLabel2.setText("Código da Forma");
 
@@ -482,17 +483,15 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if(report.login()){
-        try {
-            report.setSubreport(false);
-            report.setTabela("FORMA_PGTO");
-            report.gerarRelatorio(report);
-        } catch (JRException ex) {
-            Logger.getLogger(CadastroFormadePagamento.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
+        if (report.login()) {
+            try {
+                report.setSubreport(false);
+                report.setTabela("FORMA_PGTO");
+                report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroFormadePagamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -593,7 +592,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         jSpinnerIntervalo.setValue(0);
         jSpinnerQtParcelas.setValue(1);
     }
-    
+
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);

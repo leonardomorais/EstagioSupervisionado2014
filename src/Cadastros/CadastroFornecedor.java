@@ -910,11 +910,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                 report.setSubreport(true);
                 report.setTabela("FORNECEDOR");
                 report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
             } catch (JRException ex) {
                 Logger.getLogger(CadastroFornecedor.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuário não permitido a emitir relatórios!");
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
