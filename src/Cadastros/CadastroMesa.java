@@ -332,6 +332,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 mesa.incluir(mesa);
+                JOptionPane.showMessageDialog(null, "Mesa gravada com sucesso!");
                 jTextFieldNRMesa.setText(mesa.getNrMesa().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldNRMesa.getText().equals("")) {
@@ -341,6 +342,7 @@ public class CadastroMesa extends javax.swing.JFrame {
                     try {
                         mesa.setNrMesa(Integer.parseInt(jTextFieldNRMesa.getText()));
                         mesa.alterar(mesa);
+                        JOptionPane.showMessageDialog(null, "Mesa alterada com sucesso!");
                     } catch (NumberFormatException ex) {
 
                     }
@@ -364,6 +366,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     mesa.excluir(mesa);
+                    JOptionPane.showMessageDialog(null, "Mesa inativada com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

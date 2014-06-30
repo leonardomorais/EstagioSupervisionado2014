@@ -630,6 +630,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 funcionario.incluir(funcionario);
+                JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!");
                 jTextFieldCdFuncionario.setText(funcionario.getCd_funcionario().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdFuncionario.getText().equals("")) {
@@ -639,6 +640,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                     try {
                         funcionario.setCd_funcionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
                         funcionario.alterar(funcionario);
+                        JOptionPane.showMessageDialog(null, "Funcionário alterado com sucesso!");
                     } catch (NumberFormatException ex) {
                     }
                 }
@@ -661,6 +663,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     funcionario.excluir(funcionario);
+                    JOptionPane.showMessageDialog(null, "Funcionário inativado com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

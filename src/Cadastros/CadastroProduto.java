@@ -406,9 +406,19 @@ public class CadastroProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "É preciso informar o código do produto que deseja excluir!");
             jTextFieldCdProduto.grabFocus();
         } else {
-            produto.setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
-            produto.excluir(produto);
-            limparCampos();
+            try {
+                produto.setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
+
+                int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente inativar este produto ?",
+                        "Inativar Produto", JOptionPane.YES_OPTION);
+                if (delete == JOptionPane.YES_OPTION) {
+                    produto.excluir(produto);
+                    JOptionPane.showMessageDialog(null, "Produto inativado com sucesso!");
+                    limparCampos();
+                }
+            } catch (NumberFormatException ex) {
+
+            }
         }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);

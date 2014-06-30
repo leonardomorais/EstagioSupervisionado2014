@@ -362,6 +362,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 forma.incluir(forma);
+                JOptionPane.showMessageDialog(null, "Forma gravada com sucesso!");
                 jTextFieldCdForma.setText(forma.getCdForma().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdForma.getText().equals("")) {
@@ -371,10 +372,9 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
                     try {
                         forma.setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
                         forma.alterar(forma);
+                        JOptionPane.showMessageDialog(null, "Forma alterada com sucesso!");
                     } catch (NumberFormatException ex) {
-
                     }
-
                 }
             }
             rotina = Rotinas.padrao;
@@ -395,6 +395,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     forma.excluir(forma);
+                    JOptionPane.showMessageDialog(null, "Forma de pagamento excluída com sucesso!");
                     limparCampos();
                 }
             } catch (NumberFormatException ex) {

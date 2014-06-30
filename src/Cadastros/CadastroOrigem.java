@@ -307,12 +307,13 @@ public class CadastroOrigem extends javax.swing.JFrame {
 
     private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
         if (jTextFieldDescricao.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "A descrição da mesa é obrigatória !");
+            JOptionPane.showMessageDialog(null, "A descrição da origem é obrigatória !");
             jTextFieldDescricao.grabFocus();
         } else {
             carregarOrigem();
             if (rotina == Rotinas.incluir) {
                 origem.incluir(origem);
+                JOptionPane.showMessageDialog(null, "Origem gravada com sucesso!");
                 preencherCampos();
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdOrigem.getText().equals("")) {
@@ -322,6 +323,7 @@ public class CadastroOrigem extends javax.swing.JFrame {
                     try {
                         origem.setCdOrigem(Integer.parseInt(jTextFieldCdOrigem.getText()));
                         origem.alterar(origem);
+                        JOptionPane.showMessageDialog(null, "Origem alterada com sucesso!");
                     } catch (NumberFormatException ex) {
 
                     }
@@ -340,11 +342,12 @@ public class CadastroOrigem extends javax.swing.JFrame {
             try {
                 origem.setCdOrigem(Integer.parseInt(jTextFieldCdOrigem.getText()));
 
-                int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente escluir esta origem ?",
+                int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta origem ?",
                         "Excluir Origem", JOptionPane.YES_NO_OPTION);
 
                 if (delete == JOptionPane.YES_OPTION) {
                     origem.excluir(origem);
+                    JOptionPane.showMessageDialog(null, "Origem excluída com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
 
                 }

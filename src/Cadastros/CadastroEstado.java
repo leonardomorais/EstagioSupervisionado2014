@@ -332,6 +332,7 @@ public class CadastroEstado extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 estado.incluir(estado);
+                JOptionPane.showMessageDialog(null, "Estado gravado com sucesso!");
                 jTextFieldCdEstado.setText(estado.getCdUf().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdEstado.getText().equals("")) {
@@ -341,8 +342,8 @@ public class CadastroEstado extends javax.swing.JFrame {
                     try {
                         estado.setCdUf(Integer.parseInt(jTextFieldCdEstado.getText()));
                         estado.alterar(estado);
+                        JOptionPane.showMessageDialog(null, "Estado alterado com sucesso!");
                     } catch (NumberFormatException ex) {
-
                     }
                 }
             }
@@ -369,7 +370,6 @@ public class CadastroEstado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "É preciso informar o código do estado que deseja excluir!");
             jTextFieldCdEstado.grabFocus();
         } else {
-
             try {
                 estado.setCdUf(Integer.parseInt(jTextFieldCdEstado.getText()));
 
@@ -377,6 +377,7 @@ public class CadastroEstado extends javax.swing.JFrame {
                         "Excluir Estado", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     estado.excluir(estado);
+                    JOptionPane.showMessageDialog(null, "Estado excluído com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

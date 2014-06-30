@@ -67,7 +67,7 @@ public class ConexaoPostgreSQL {
 //                statement.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MM-YYYY'");
 //                resultset = statement.executeQuery(sql);
             retorno = 1;
-            JOptionPane.showMessageDialog(null, "O registro foi gravado com sucesso!");
+            //JOptionPane.showMessageDialog(null, "O registro foi gravado com sucesso!");
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 00001) {
                 JOptionPane.showMessageDialog(null, "O registro não pôde ser incluído pois já está cadastrado");
@@ -88,7 +88,7 @@ public class ConexaoPostgreSQL {
             resultset = statement.executeQuery(sql);
             retorno = 1;
         } catch (SQLException sqlex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível localizar o registro \n" + sqlex);
+            //JOptionPane.showMessageDialog(null, "Não foi possível localizar o registro \n" + sqlex);
         }
         try {
             metaData = resultset.getMetaData();
@@ -105,7 +105,7 @@ public class ConexaoPostgreSQL {
             retorno = 0;
             retorno = statement.executeUpdate(sql);
             if (retorno == 1) {
-                JOptionPane.showMessageDialog(null, "Exclusao realizada com sucesso");
+              //  JOptionPane.showMessageDialog(null, "Exclusao realizada com sucesso");
             }
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 2292) {
@@ -127,7 +127,7 @@ public class ConexaoPostgreSQL {
             retorno = 0;
             retorno = statement.executeUpdate(sql);
             if (retorno == 1) {
-                JOptionPane.showMessageDialog(null, "Atualização realizada com sucesso");
+                //JOptionPane.showMessageDialog(null, "Atualização realizada com sucesso");
             }
         } catch (SQLException sqlex) {
             if (sqlex.getErrorCode() == 2292) {

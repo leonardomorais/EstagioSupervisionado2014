@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cadastros;
 
 import Classes.Fornecedor;
@@ -216,6 +211,12 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         });
 
         jLabel9.setText("RG");
+
+        jTextFieldRG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldRGKeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("Cidade");
 
@@ -702,7 +703,8 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         if (jTextFieldNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O nome do fornecedor é obrigatório!");
             jTextFieldNome.grabFocus();
-        } else if (jFormattedTextFieldCpfCnpj.getValue() == null) {
+        } else if (jFormattedTextFieldCpfCnpj.getText().equals("   .   .   -  ")||
+                jFormattedTextFieldCpfCnpj.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do fornecedor é obrigatório!");
             jFormattedTextFieldCpfCnpj.grabFocus();
         } else {
@@ -712,6 +714,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 fornecedor.incluir(fornecedor);
+                JOptionPane.showMessageDialog(null, "Fornecedor gravado com sucesso!");
                 jTextFieldCdFornecedor.setText(fornecedor.getCdFornecedor().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdFornecedor.getText().equals("")) {
@@ -721,6 +724,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                     try {
                         fornecedor.setCdFornecedor(Integer.parseInt(jTextFieldCdFornecedor.getText()));
                         fornecedor.alterar(fornecedor);
+                        JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
                     } catch (NumberFormatException ex) {
 
                     }
@@ -791,6 +795,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     fornecedor.excluir(fornecedor);
+                    JOptionPane.showMessageDialog(null, "Fornecedor inativado com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {
@@ -916,6 +921,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jTextFieldRGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRGKeyTyped
+        campos.validaCamposLimite(evt, jTextFieldRG, 12);
+    }//GEN-LAST:event_jTextFieldRGKeyTyped
 
     /**
      * @param args the command line arguments

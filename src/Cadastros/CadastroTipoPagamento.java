@@ -314,12 +314,20 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         if (jTextFieldCdTipo.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "É preciso informar o código do tipo de pagamento que deseja excluir!");
+            JOptionPane.showMessageDialog(null, "É preciso informar o código do tipo de pagamento que deseja inativar!");
             jTextFieldCdTipo.grabFocus();
         } else {
-            tipo.setCdTipo(Integer.parseInt(jTextFieldCdTipo.getText()));
-            tipo.exclur(tipo);
-            limpar.limparCampos(jPanelCadastro);
+            try {
+                tipo.setCdTipo(Integer.parseInt(jTextFieldCdTipo.getText()));
+                int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente inativar este tipo de pagamento ?",
+                        "Inativar Tipo de pagamento", JOptionPane.YES_OPTION);
+                if (delete == JOptionPane.YES_OPTION) {
+                    tipo.exclur(tipo);
+                    JOptionPane.showMessageDialog(null, "Tipo de pagamento excluído com sucesso!");
+                    limpar.limparCampos(jPanelCadastro);
+                }
+            } catch (NumberFormatException ex) {
+            }
         }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);

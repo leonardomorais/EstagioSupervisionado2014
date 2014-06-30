@@ -206,6 +206,12 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jLabel6.setText("RG");
 
+        jTextFieldRG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldRGKeyTyped(evt);
+            }
+        });
+
         jLabel7.setText("Razão Social");
 
         jTextFieldRazao.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -703,6 +709,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                         "Inativar Cliente", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     cliente.excluir(cliente);
+                    JOptionPane.showMessageDialog(null, "Cliente inativado com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {
@@ -716,7 +723,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (jTextFieldNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O nome do cliente é obrigatório!");
             jTextFieldNome.grabFocus();
-        } else if (jFormattedTextFieldCpfCNPJ.getValue() == null) {
+        } else if (jFormattedTextFieldCpfCNPJ.getText().equals("   .   .   -  ")||
+                jFormattedTextFieldCpfCNPJ.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do cliente é obrigatório!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
         } else {
@@ -726,6 +734,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 cliente.incluir(cliente);
+                JOptionPane.showMessageDialog(null, "Cliente gravado com sucesso!");
                 jTextFieldCdCliente.setText(cliente.getPessoa().getCdPessoa().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdCliente.getText().equals("")) {
@@ -735,6 +744,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     try {
                         cliente.setCdCliente(Integer.parseInt(jTextFieldCdCliente.getText()));
                         cliente.alterar(cliente);
+                        JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
                     } catch (NumberFormatException ex) {
                     }
                 }
@@ -958,6 +968,10 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jTextFieldRGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRGKeyTyped
+        campos.validaCamposLimite(evt, jTextFieldRG, 12);
+    }//GEN-LAST:event_jTextFieldRGKeyTyped
 
     /**
      * @param args the command line arguments

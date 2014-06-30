@@ -124,6 +124,11 @@ public class CadastroContas extends javax.swing.JFrame {
         jBtIncluir.setText("Incluir");
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
 
         jBtGravar.setText("Gravar");
 
@@ -443,6 +448,10 @@ public class CadastroContas extends javax.swing.JFrame {
     private void jMenuItemPagarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagarParcelaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
+
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtExcluirActionPerformed
 
     /**
      * @param args the command line arguments

@@ -455,6 +455,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 endereco.incluir(endereco);
+                JOptionPane.showMessageDialog(null, "Endereço gravado com sucesso!");
                 jTextFieldNrSeq.setText(endereco.getNrSequencia().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldNrSeq.getText().equals("")) {
@@ -464,6 +465,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
                     try {
                         endereco.setNrSequencia(Integer.parseInt(jTextFieldNrSeq.getText()));
                         endereco.alterar(endereco);
+                        JOptionPane.showMessageDialog(null, "Endereço alterado com sucesso!");
                     } catch (NumberFormatException ex) {
                     }
                 }
@@ -612,6 +614,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
                             "Excluir Todos os Endereços", JOptionPane.YES_NO_OPTION);
                     if (delete == JOptionPane.YES_OPTION) {
                         endereco.excluirTodos(endereco);
+                        JOptionPane.showMessageDialog(null, "Endereços excluídos com sucesso!");
                         limpar.limparCampos(jPanelCadastro);
                     }
                 } else {
@@ -631,9 +634,9 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
                 if (excluir == JOptionPane.YES_OPTION) {
                     endereco.excluir(endereco);
+                    JOptionPane.showMessageDialog(null, "Endereço excluído com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
-
             } catch (NumberFormatException ex) {
             }
         }

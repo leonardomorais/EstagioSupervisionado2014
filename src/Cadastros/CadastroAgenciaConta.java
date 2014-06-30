@@ -407,6 +407,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                         "Inativar Conta", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     agc.excluir(agc);
+                    JOptionPane.showMessageDialog(null, "Conta inativada com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {
@@ -434,6 +435,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 agc.incluir(agc);
+                JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
                 jTextFieldCdAgcConta.setText(agc.getCdAgcConta().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdAgcConta.getText().equals("")) {
@@ -443,9 +445,9 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                     try {
                         agc.setCdAgcConta(Integer.parseInt(jTextFieldCdAgcConta.getText()));
                         agc.alterar(agc);
+                        JOptionPane.showMessageDialog(null, "Conta alterada com sucesso!");
                     } catch (NumberFormatException ex) {
                     }
-
                 }
             }
             rotina = Rotinas.padrao;
