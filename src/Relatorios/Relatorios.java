@@ -58,7 +58,7 @@ public class Relatorios {
             JRResultSetDataSource jrRs = new JRResultSetDataSource(r.getConsulta());
 
             String report = "relatorios\\" + r.getTabela() + ".jasper";
-
+           
             JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
 
             //viewReport(JasperPrint jasperPrint, boolean isExitOnClose) 

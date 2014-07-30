@@ -8,6 +8,7 @@ import Validacoes.RetornaData;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaDocumentos;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
@@ -35,6 +36,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     RetornaData dataAtual = new RetornaData();
     int rotina;
 
+    ValidaDocumentos doc = new ValidaDocumentos();
     MaskFormatter data;
     MaskFormatter cep;
     MaskFormatter fone;
@@ -49,6 +51,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jRadioButtonFisicaActionPerformed(null);
 
+        System.err.println(doc.validaCPFCNPJ("111.444.777-35"));
         cliente.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
     }
 
@@ -727,7 +730,11 @@ public class CadastroCliente extends javax.swing.JFrame {
                 jFormattedTextFieldCpfCNPJ.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do cliente é obrigatório!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        } else {
+        } else if (!doc.validaCPFCNPJ(jFormattedTextFieldCpfCNPJ.getText())){
+            JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
+        }
+        
+        else {
             carregarCliente();
             carregarEndereco();
             carregarContato();
