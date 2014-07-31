@@ -50,8 +50,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         botoes.validaBotoes(jPanelBotoes, rotina);
 
         jRadioButtonFisicaActionPerformed(null);
-
-        System.err.println(doc.validaCPFCNPJ("111.444.777-35"));
+        
         cliente.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
     }
 
@@ -732,6 +731,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             jFormattedTextFieldCpfCNPJ.grabFocus();
         } else if (!doc.validaCPFCNPJ(jFormattedTextFieldCpfCNPJ.getText())){
             JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
+            jFormattedTextFieldCpfCNPJ.grabFocus();
         }
         
         else {
