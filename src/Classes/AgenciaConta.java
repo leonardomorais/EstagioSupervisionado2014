@@ -4,6 +4,8 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -20,7 +22,8 @@ public class AgenciaConta {
     private Double vlConta;
     private String inAtivo;
 
-    private int[] vetAgcConta = new int[100];
+    private Map <Integer, Integer> contas = new HashMap<Integer, Integer>();
+   // private int[] vetAgcConta = new int[100];
     private Banco banco = new Banco();
     
 
@@ -31,13 +34,13 @@ public class AgenciaConta {
         agc.setCdAgcConta(seq.retornaSequencia("CD_AGENCIA_CONTA", "AGENCIA_CONTA"));
         String sql = "INSERT INTO AGENCIA_CONTA (CD_AGENCIA_CONTA, CD_BANCO, NR_AGENCIA, NR_CONTA, "
                 + "DS_CONTA, VALOR_CONTA, IN_ATIVO) VALUES ('" + agc.getCdAgcConta() + "','"
-                + banco.getVetBanco(banco.getCdBanco()) + "','" + agc.getNrAgencia() + "','" + agc.getNrConta() + "','"
+                + banco.getBanco(banco.getCdBanco()) + "','" + agc.getNrAgencia() + "','" + agc.getNrConta() + "','"
                 + agc.getDsConta() + "','" + agc.getVlConta() + "','" + agc.getInAtivo() + "')";
         conexao.incluirSQL(sql);
     }
 
     public void alterar(AgenciaConta agc) {
-        String sql = "UPDATE AGENCIA_CONTA SET CD_BANCO = '" + banco.getVetBanco(banco.getCdBanco()) + "', "
+        String sql = "UPDATE AGENCIA_CONTA SET CD_BANCO = '" + banco.getBanco(banco.getCdBanco()) + "', "
                 + "NR_AGENCIA = '" + agc.getNrAgencia() + "', NR_CONTA = '" + agc.getNrConta() + "', "
                 + "DS_CONTA = '" + agc.getDsConta() + "', "
                 + "VALOR_CONTA = '" + agc.getVlConta() + "', IN_ATIVO = '" + agc.getInAtivo() + "' "
@@ -104,15 +107,16 @@ public class AgenciaConta {
 
         combo.removeAllItems();
         int conta = 0;
-        int[] vet = new int[100];
+//      int[] vet = new int[100];
 
         try {
             while (conexao.resultset.next()) {
                 combo.addItem(conexao.resultset.getString("DS_CONTA"));
-                vet[conta] = conexao.resultset.getInt("CD_AGENCIA_CONTA");
+                contas.put(conta, conexao.resultset.getInt("CD_AGENCIA_CONTA"));
+//              vet[conta] = conexao.resultset.getInt("CD_AGENCIA_CONTA");
                 conta++;
             }
-            setVetAgcConta(vet);
+//            setVetAgcConta(vet);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Agência Conta não encontrada !");
         }
@@ -179,13 +183,16 @@ public class AgenciaConta {
         this.nrConta = nrConta;
     }
 
-    public int getVetAgcConta(int pos) {
-        return vetAgcConta[pos];
-    }
+//    public int getVetAgcConta(int pos) {
+//        return vetAgcConta[pos];
+//    }
+//
+//    public void setVetAgcConta(int[] vetAgcConta) {
+//        this.vetAgcConta = vetAgcConta;
+//    }
 
-    public void setVetAgcConta(int[] vetAgcConta) {
-        this.vetAgcConta = vetAgcConta;
+    public int getConta(int pos){
+        return contas.get(pos);
     }
-
     
 }

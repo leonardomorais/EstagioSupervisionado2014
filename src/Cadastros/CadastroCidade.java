@@ -58,7 +58,6 @@ public class CadastroCidade extends javax.swing.JFrame {
         jBtExcluir = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
         jBtGravar = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -85,7 +84,7 @@ public class CadastroCidade extends javax.swing.JFrame {
 
         jPanelCadastro.setPreferredSize(new java.awt.Dimension(500, 280));
 
-        jLabel1.setText("* Código da Cidade");
+        jLabel1.setText("Código da Cidade");
 
         jTextFieldCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -93,7 +92,7 @@ public class CadastroCidade extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("* Nome da Cidade");
+        jLabel2.setText("Nome da Cidade");
 
         jTextFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -167,8 +166,6 @@ public class CadastroCidade extends javax.swing.JFrame {
                     .addComponent(jBtGravar)))
         );
 
-        jLabel10.setText("* (Campos Obrigatórios)");
-
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -186,18 +183,14 @@ public class CadastroCidade extends javax.swing.JFrame {
                         .addContainerGap(105, Short.MAX_VALUE))
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
-                        .addGap(45, 45, 45))))
+                        .addGap(45, 401, Short.MAX_VALUE))))
             .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelCadastroLayout.setVerticalGroup(
             jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel10))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -505,7 +498,6 @@ public class CadastroCidade extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxEstado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

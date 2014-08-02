@@ -70,7 +70,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jTextFieldNrConta = new JFormattedTextField(nrConta);
         jLabel6 = new javax.swing.JLabel();
         try{
-            real = new MaskFormatter("######.##");
+            real = new MaskFormatter("######,##");
         }
         catch(Exception erro)
         {
@@ -123,6 +123,12 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jLabel5.setText("Conta");
 
         jLabel6.setText("Valor da Conta (R$)");
+
+        jTextFieldVlConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldVlContaActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Situação");
 
@@ -235,7 +241,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jComboBoxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(150, 150, 150))
+                .addGap(141, 141, 141))
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -546,6 +552,10 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jTextFieldVlContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldVlContaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldVlContaActionPerformed
 
     /**
      * @param args the command line arguments

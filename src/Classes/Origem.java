@@ -4,6 +4,8 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -11,7 +13,9 @@ public class Origem {
 
     private Integer cdOrigem;
     private String dsOrigem;
-    private int vetOrigem[] = new int[100];
+//  private int vetOrigem[] = new int[100];
+    
+    private Map <Integer, Integer> origens = new HashMap<Integer, Integer>();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -76,15 +80,16 @@ public class Origem {
 
         combo.removeAllItems();
         int conta = 0;
-        int[] vet = new int[100];
+//        int[] vet = new int[100];
 
         try {
             while (conexao.resultset.next()) {
                 combo.addItem(conexao.resultset.getString("DS_ORIGEM"));
-                vet[conta] = conexao.resultset.getInt("CD_ORIGEM");
+                origens.put(conta, conexao.resultset.getInt("CD_ORIGEM"));
+//                vet[conta] = conexao.resultset.getInt("CD_ORIGEM");
                 conta++;
             }
-            setVetOrigem(vet);
+//            setVetOrigem(vet);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Origem não encontrada !");
         }
@@ -107,12 +112,15 @@ public class Origem {
         this.dsOrigem = dsOrigem;
     }
 
-    public int getVetOrigem(int posicao) {
-        return vetOrigem[posicao];
-    }
-
-    public void setVetOrigem(int[] vetOrigem) {
-        this.vetOrigem = vetOrigem;
+//    public int getVetOrigem(int posicao) {
+//        return vetOrigem[posicao];
+//    }
+//
+//    public void setVetOrigem(int[] vetOrigem) {
+//        this.vetOrigem = vetOrigem;
+//    }
+    public int getOrigem(int pos){
+        return origens.get(pos);
     }
 
 }

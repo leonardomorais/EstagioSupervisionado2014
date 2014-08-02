@@ -30,7 +30,7 @@ public class Endereco {
         endereco.setNrSequencia(seq.retornaSequencia("NR_SEQ", "ENDERECO", "CD_PESSOA", endereco.getCdPessoa()));
         String sql = "INSERT INTO ENDERECO(CD_PESSOA, NR_SEQ, CD_CIDADE, RUA_AV, NR_ENDERECO, BAIRRO, "
                 + "CEP, COMPLEMENTO) VALUES ('" + endereco.getCdPessoa() + "','" + endereco.getNrSequencia() + "','"
-                + endereco.getCidade().getVetCidades(endereco.getCidade().getCdCidade()) + "','"
+                + endereco.getCidade().getCidade(endereco.getCidade().getCdCidade()) + "','"
                 + endereco.getRuaAv() + "','" + endereco.getNrEndereco() + "','" + endereco.getBairro() + "','"
                 + endereco.getCEP() + "','" + endereco.getComplemento() + "')";
         conexao.incluirSQL(sql);
@@ -38,7 +38,7 @@ public class Endereco {
 
     public void alterar(Endereco endereco) {
         String sql = "UPDATE ENDERECO SET CD_CIDADE = '"
-                + endereco.getCidade().getVetCidades(endereco.getCidade().getCdCidade()) + "', "
+                + endereco.getCidade().getCidade(endereco.getCidade().getCdCidade()) + "', "
                 + "RUA_AV = '" + endereco.getRuaAv() + "', NR_ENDERECO = '" + endereco.getNrEndereco() + "', "
                 + "BAIRRO = '" + endereco.getBairro() + "', CEP = '" + endereco.getCEP() + "', COMPLEMENTO = '"
                 + endereco.getComplemento() + "' "

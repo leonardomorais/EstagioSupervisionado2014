@@ -4,6 +4,8 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -14,8 +16,10 @@ import javax.swing.JOptionPane;
 public class Cidade {
 
     private Integer cdCidade;
-    private int[] vetCidades = new int[100];
+   // private int[] vetCidades = new int[100];
     private String dsCidade;
+    
+    private Map <Integer, Integer> cidades = new HashMap<Integer, Integer>();
 
     private UF estado = new UF();
 
@@ -25,13 +29,13 @@ public class Cidade {
         RetornaSequencia seq = new RetornaSequencia();
         setCdCidade(seq.retornaSequencia("CD_CIDADE", "CIDADE"));
         String sql = "INSERT INTO CIDADE (CD_CIDADE, CD_UF, DS_CIDADE) VALUES"
-                + "('" + cidade.getCdCidade() + "','" + estado.getVetEstados(estado.getCdUf()) + "','"
+                + "('" + cidade.getCdCidade() + "','" + estado.getEstado(estado.getCdUf()) + "','"
                 + cidade.getDsCidade() + "')";
         conexao.incluirSQL(sql);
     }
 
     public void alterar(Cidade cidade) {
-        String sql = "UPDATE CIDADE SET CD_UF = '" + estado.getVetEstados(estado.getCdUf()) + "', "
+        String sql = "UPDATE CIDADE SET CD_UF = '" + estado.getEstado(estado.getCdUf()) + "', "
                 + " DS_CIDADE = '" + cidade.getDsCidade() + "' WHERE CD_CIDADE = " + cidade.getCdCidade();
         conexao.atualizarSQL(sql);
     }
@@ -93,15 +97,16 @@ public class Cidade {
 
         combo.removeAllItems();
         int conta = 0;
-        int[] vet = new int[100];
+//      int[] vet = new int[100];
 
         try {
             while (conexao.resultset.next()) {
                 combo.addItem(conexao.resultset.getString("DS_CIDADE"));
-                vet[conta] = conexao.resultset.getInt("CD_CIDADE");
+                cidades.put(conta, conexao.resultset.getInt("CD_CIDADE"));
+ //               vet[conta] = conexao.resultset.getInt("CD_CIDADE");
                 conta++;
             }
-            setVetCidades(vet);
+//            setVetCidades(vet);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Cidade não encontrada !");
         }
@@ -124,13 +129,13 @@ public class Cidade {
         this.estado = estado;
     }
 
-    public int getVetCidades(int pos) {
-        return vetCidades[pos];
-    }
-
-    public void setVetCidades(int[] vetEstados) {
-        this.vetCidades = vetEstados;
-    }
+//    public int getVetCidades(int pos) {
+//        return vetCidades[pos];
+//    }
+//
+//    public void setVetCidades(int[] vetEstados) {
+//        this.vetCidades = vetEstados;
+//    }
 
     public String getDsCidade() {
         return dsCidade;
@@ -138,6 +143,10 @@ public class Cidade {
 
     public void setDsCidade(String dsCidade) {
         this.dsCidade = dsCidade;
+    }
+    
+    public int getCidade(int pos){
+        return cidades.get(pos);
     }
 
 }

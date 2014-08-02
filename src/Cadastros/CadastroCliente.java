@@ -49,6 +49,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
 
+        //System.err.println("Válido ?"+doc.validaCPFCNPJ("097.089.169-51"));
         jRadioButtonFisicaActionPerformed(null);
         
         cliente.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);

@@ -4,6 +4,8 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -16,8 +18,10 @@ public class Banco {
     private Integer cdBanco;
     private String nmBanco;
     private String inAtivo;
+    
+    private Map <Integer, Integer> bancos = new HashMap<Integer, Integer>();
 
-    private int[] vetBanco = new int[100];
+//   private int vetBanco [] = new int[100];
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -96,15 +100,16 @@ public class Banco {
 
         combo.removeAllItems();
         int conta = 0;
-        int[] vet = new int[100];
+//        int[] vet = new int[100];
 
         try {
             while (conexao.resultset.next()) {
                 combo.addItem(conexao.resultset.getString("NM_BANCO"));
-                vet[conta] = conexao.resultset.getInt("CD_BANCO");
+                bancos.put(conta, conexao.resultset.getInt("CD_BANCO"));
+//                vet[conta] = conexao.resultset.getInt("CD_BANCO");
                 conta++;
             }
-            setVetBanco(vet);
+//            setVetBanco(vet);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Banco não encontrado !");
         }
@@ -135,11 +140,15 @@ public class Banco {
         this.inAtivo = inAtivo;
     }
 
-    public int getVetBanco(int pos) {
-        return vetBanco[pos];
-    }
-
-    public void setVetBanco(int[] vetBanco) {
-        this.vetBanco = vetBanco;
+//    public int getVetBanco(int pos) {
+//        return vetBanco[pos];
+//    }
+//
+//    public void setVetBanco(int[] vetBanco) {
+//        this.vetBanco = vetBanco;
+//    }
+    
+    public int getBanco(int pos){
+        return bancos.get(pos);
     }
 }

@@ -33,7 +33,7 @@ public class Produto {
         String sql = "INSERT INTO PRODUTOS (CD_PRODUTO, CD_FAMILIA, DS_PRODUTO, "
                 + "VL_PRODUTO, QT_ATUAL, QT_MIN, VL_CUSTO, ATIVO, SIT_ESTOQUE) "
                 + "VALUES ('" + produto.getCdProduto() + "',"
-                + "'" + familia.getVetFamilia(familia.getCdFamilia()) + "',"
+                + "'" + familia.getFamilia(familia.getCdFamilia()) + "',"
                 + "'" + produto.getDsProduto() + "','" + produto.getVlProduto() + "',"
                 + "'" + produto.getQtAtual() + "','" + produto.getQtMin() + "',"
                 + "'" + produto.getVlCusto() + "','" + produto.getAtivo() + "','" + produto.getSitEstoque() + "')";
@@ -41,7 +41,7 @@ public class Produto {
     }
 
     public void alterar(Produto produto) {
-        String sql = "UPDATE PRODUTOS SET CD_FAMILIA = '" + familia.getVetFamilia(familia.getCdFamilia()) + "', "
+        String sql = "UPDATE PRODUTOS SET CD_FAMILIA = '" + familia.getFamilia(familia.getCdFamilia()) + "', "
                 + "DS_PRODUTO = '" + produto.getDsProduto() + "', VL_PRODUTO = '" + produto.getVlProduto() + "', "
                 + "QT_ATUAL = '" + produto.getQtAtual() + "', QT_MIN = '" + produto.getQtMin() + "', "
                 + "VL_CUSTO = '" + produto.getVlCusto() + "', ATIVO = '" + produto.getAtivo() + "', "

@@ -4,6 +4,8 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -15,8 +17,10 @@ public class Familia {
 
     private Integer cdFamilia;
     private String dsFamilia;
-    private int[] vetFamilia = new int[100];
+//    private int[] vetFamilia = new int[100];
 
+    private Map <Integer, Integer> familias = new HashMap<Integer, Integer>();
+    
     private Origem origem = new Origem();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
@@ -25,13 +29,13 @@ public class Familia {
         RetornaSequencia seq = new RetornaSequencia();
         familia.setCdFamilia(seq.retornaSequencia("CD_FAMILIA", "FAMILIA"));
         String sql = "INSERT INTO FAMILIA (CD_FAMILIA, CD_ORIGEM, DS_FAMILIA) "
-                + "VALUES ('" + familia.getCdFamilia() + "','" + origem.getVetOrigem(origem.getCdOrigem()) + "','"
+                + "VALUES ('" + familia.getCdFamilia() + "','" + origem.getOrigem(origem.getCdOrigem()) + "','"
                 + familia.getDsFamilia() + "')";
         conexao.incluirSQL(sql);
     }
 
     public void alterar(Familia familia) {
-        String sql = "UPDATE FAMILIA SET CD_ORIGEM = '" + origem.getVetOrigem(origem.getCdOrigem()) + "', "
+        String sql = "UPDATE FAMILIA SET CD_ORIGEM = '" + origem.getOrigem(origem.getCdOrigem()) + "', "
                 + "DS_FAMILIA = '" + familia.getDsFamilia() + "' WHERE CD_FAMILIA = " + familia.getCdFamilia();
         conexao.atualizarSQL(sql);
     }
@@ -94,15 +98,16 @@ public class Familia {
 
         combo.removeAllItems();
         int conta = 0;
-        int[] vet = new int[100];
+//        int[] vet = new int[100];
 
         try {
             while (conexao.resultset.next()) {
                 combo.addItem(conexao.resultset.getString("DS_FAMILIA"));
-                vet[conta] = conexao.resultset.getInt("CD_FAMILIA");
+                familias.put(conta, conexao.resultset.getInt("CD_FAMILIA"));
+//                vet[conta] = conexao.resultset.getInt("CD_FAMILIA");
                 conta++;
             }
-            setVetFamilia(vet);
+//            setVetFamilia(vet);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Família não encontrada !");
         }
@@ -125,13 +130,13 @@ public class Familia {
         this.dsFamilia = dsFamilia;
     }
 
-    public int getVetFamilia(int pos) {
-        return vetFamilia[pos];
-    }
-
-    public void setVetFamilia(int[] vetFamilia) {
-        this.vetFamilia = vetFamilia;
-    }
+//    public int getVetFamilia(int pos) {
+//        return vetFamilia[pos];
+//    }
+//
+//    public void setVetFamilia(int[] vetFamilia) {
+//        this.vetFamilia = vetFamilia;
+//    }
 
     public Origem getOrigem() {
         return origem;
@@ -141,4 +146,7 @@ public class Familia {
         this.origem = origem;
     }
 
+    public int getFamilia(int pos){
+        return familias.get(pos);
+    }
 }
