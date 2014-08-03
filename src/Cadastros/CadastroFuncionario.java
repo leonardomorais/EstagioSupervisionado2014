@@ -966,9 +966,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         funcionario.getPessoa().getContato().setEmail(jTextFieldEmail.getText().toUpperCase());
         funcionario.getPessoa().getContato().setNrSeq(1);
         funcionario.getPessoa().getContato().setNomeContato(jTextFieldNome.getText().toUpperCase());
-        funcionario.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
-        funcionario.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
-        funcionario.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
+        preencheFones();
     }
 
     public void preencherCampos() {
@@ -993,6 +991,26 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jComboBoxSexo.setSelectedItem(funcionario.getPessoa().getPfisica().getSexo());
         jTextFieldCPF.setText(funcionario.getPessoa().getPfisica().getCPF());
         jTextFieldRG.setText(funcionario.getPessoa().getPfisica().getRG());
+    }
+    
+    public void preencheFones() {
+        if (jTextFieldFoneRes.getText().equals("(  )-    -    ")) {
+            funcionario.getPessoa().getContato().setFoneRes("");
+        } else {
+            funcionario.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
+        }
+
+        if (jTextFieldFoneCom.getText().equals("(  )-    -    ")) {
+            funcionario.getPessoa().getContato().setFoneCom("");
+        } else {
+            funcionario.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
+        }
+
+        if (jTextFieldFoneCel.getText().equals("(  )-    -    ")) {
+            funcionario.getPessoa().getContato().setFoneCel("");
+        } else {
+            funcionario.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
+        }
     }
 
     public void editaBotao(boolean vazia) {
