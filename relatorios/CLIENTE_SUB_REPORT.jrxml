@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CLIENTE_SUB_REPORT" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="20821f57-d2fb-4a3c-893f-6c5119e42a3a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cdPessoa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     contato."cd_pessoa" AS contato_cd_pessoa,
+     contato."nr_seq" AS contato_nr_seq,
+     contato."nome_contato" AS contato_nome_contato,
+     contato."email_contato" AS contato_email_contato,
+     contato."fone_res" AS contato_fone_res,
+     contato."fone_com" AS contato_fone_com,
+     contato."fone_cel" AS contato_fone_cel
+FROM
+     "public"."contato" contato WHERE cd_pessoa = $P{cdPessoa}
+ORDER BY nr_seq]]>
+	</queryString>
+	<field name="contato_cd_pessoa" class="java.lang.Integer"/>
+	<field name="contato_nr_seq" class="java.lang.Integer"/>
+	<field name="contato_nome_contato" class="java.lang.String"/>
+	<field name="contato_email_contato" class="java.lang.String"/>
+	<field name="contato_fone_res" class="java.lang.String"/>
+	<field name="contato_fone_com" class="java.lang.String"/>
+	<field name="contato_fone_cel" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="27" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="517ff5e7-105b-4cb5-b345-1ebb660d4106" x="0" y="13" width="555" height="14" backcolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="df875a06-1ad0-41e9-9b35-d99a029102a6" x="0" y="13" width="555" height="14" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Contatos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="eba1a4a3-b043-4316-ac14-43f62625389e" x="0" y="0" width="555" height="16" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="02f990b2-8b77-4aa6-b338-4ba88bbb788d" mode="Transparent" x="347" y="0" width="66" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fone Res]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c41454d-8a61-4a9c-8fd5-177e3df5fe5e" mode="Transparent" x="24" y="0" width="176" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Nome Contato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="42b7916f-1e2e-488c-8e36-97d0ab933125" mode="Transparent" x="200" y="0" width="147" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e6c01674-0bac-4000-862b-df3cbe8ae692" mode="Transparent" x="413" y="1" width="69" height="15" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fone Com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3bde0f03-84f5-4d47-8b69-db561d67d934" mode="Transparent" x="482" y="1" width="73" height="15" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fone Cel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e0d9b7c-4442-41a5-b41a-6c7ba210e777" mode="Transparent" x="0" y="1" width="24" height="15" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Nr]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement uuid="33349445-71f3-4c76-ac65-3d21333b0905" x="0" y="0" width="24" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contato_nr_seq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0eeb2dde-3cb0-49b6-bbd1-97fd888d4240" x="24" y="0" width="176" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contato_nome_contato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="429859d3-3aaf-4798-abd6-cc796619e52c" x="482" y="0" width="73" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contato_fone_cel}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="1a28b28a-d6dc-40d7-b136-be8f1d70d80d" x="0" y="17" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="4179af8b-085b-4915-a36f-1828027ab0cd" x="413" y="0" width="69" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contato_fone_com}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="02b5c524-6cc1-42d1-b080-a3288f1328b3" x="347" y="0" width="66" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contato_fone_res}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a4cd34f0-5722-4b89-88f1-3c3fa14fc607" x="200" y="0" width="147" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contato_email_contato}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="1" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="1" splitType="Stretch"/>
+	</summary>
+</jasperReport>

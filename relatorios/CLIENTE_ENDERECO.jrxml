@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CLIENTE_ENDERECO" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="20821f57-d2fb-4a3c-893f-6c5119e42a3a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cdPessoa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     endereco."cd_pessoa" AS endereco_cd_pessoa,
+     endereco."nr_seq" AS endereco_nr_seq,
+     endereco."cd_cidade" AS endereco_cd_cidade,
+     endereco."rua_av" AS endereco_rua_av,
+     endereco."nr_endereco" AS endereco_nr_endereco,
+     endereco."bairro" AS endereco_bairro,
+     endereco."cep" AS endereco_cep,
+     endereco."complemento" AS endereco_complemento,
+     cidade."cd_cidade" AS cidade_cd_cidade,
+     cidade."cd_uf" AS cidade_cd_uf,
+     cidade."ds_cidade" AS cidade_ds_cidade
+FROM
+     "public"."cidade" cidade INNER JOIN "public"."endereco" endereco ON cidade."cd_cidade" = endereco."cd_cidade"
+WHERE cd_pessoa = $P{cdPessoa} ORDER BY nr_seq]]>
+	</queryString>
+	<field name="endereco_cd_pessoa" class="java.lang.Integer"/>
+	<field name="endereco_nr_seq" class="java.lang.Integer"/>
+	<field name="endereco_cd_cidade" class="java.lang.Integer"/>
+	<field name="endereco_rua_av" class="java.lang.String"/>
+	<field name="endereco_nr_endereco" class="java.lang.String"/>
+	<field name="endereco_bairro" class="java.lang.String"/>
+	<field name="endereco_cep" class="java.lang.String"/>
+	<field name="endereco_complemento" class="java.lang.String"/>
+	<field name="cidade_cd_cidade" class="java.lang.Integer"/>
+	<field name="cidade_cd_uf" class="java.lang.Integer"/>
+	<field name="cidade_ds_cidade" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="27" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="517ff5e7-105b-4cb5-b345-1ebb660d4106" x="0" y="13" width="555" height="14" backcolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="df875a06-1ad0-41e9-9b35-d99a029102a6" x="0" y="13" width="555" height="14" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Endereços]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="eba1a4a3-b043-4316-ac14-43f62625389e" x="0" y="0" width="555" height="16" backcolor="#CCCCCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="02f990b2-8b77-4aa6-b338-4ba88bbb788d" mode="Transparent" x="383" y="0" width="108" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Bairro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1c41454d-8a61-4a9c-8fd5-177e3df5fe5e" mode="Transparent" x="24" y="0" width="159" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="42b7916f-1e2e-488c-8e36-97d0ab933125" mode="Transparent" x="183" y="0" width="144" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Rua Avenida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e6c01674-0bac-4000-862b-df3cbe8ae692" mode="Transparent" x="491" y="1" width="64" height="15" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CEP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e0d9b7c-4442-41a5-b41a-6c7ba210e777" mode="Transparent" x="0" y="1" width="24" height="15" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Nr]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eedab59b-6718-44eb-ae57-0038a45c63fe" x="327" y="1" width="56" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Nr endereço]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement uuid="1a28b28a-d6dc-40d7-b136-be8f1d70d80d" x="0" y="17" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="f12d7918-a0cf-44eb-8ea3-a8ff6c140e3b" x="0" y="0" width="24" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco_nr_seq}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="80e4e33b-4e4f-473e-a03c-c4ceceb19463" x="183" y="0" width="144" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco_rua_av}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f269f6bc-97f3-459e-8a43-74c172053083" x="24" y="0" width="159" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cidade_ds_cidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="510d8d04-3c57-4d6c-b2fe-469c6cacc326" x="383" y="0" width="108" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco_bairro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4ba241b5-a817-4254-841d-b6f430eb5622" x="327" y="0" width="56" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco_nr_endereco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e89f7fde-1ac2-4f55-870b-c8053ec4b100" x="491" y="0" width="64" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco_cep}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="8" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>
