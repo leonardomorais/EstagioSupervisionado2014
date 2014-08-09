@@ -114,7 +114,6 @@
                               </Group>
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxFamilia" min="-2" pref="120" max="-2" attributes="0"/>
                               </Group>
@@ -128,10 +127,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldCdProduto" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -175,7 +171,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="* C&#xf3;digo do Produto"/>
+                <Property name="text" type="java.lang.String" value="C&#xf3;digo do Produto"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldCdProduto">
@@ -185,7 +181,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="* Descri&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldDescricao">
@@ -210,17 +206,23 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="* Valor do Produto"/>
+                <Property name="text" type="java.lang.String" value="Valor do Produto"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldVlProduto">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="* Valor de Custo"/>
+                <Property name="text" type="java.lang.String" value="Valor de Custo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldVlCusto">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -339,11 +341,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel10">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="* (Campos Obrigat&#xf3;rios)"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanelConsulta">

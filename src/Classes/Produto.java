@@ -1,4 +1,3 @@
-
 package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
@@ -21,7 +20,6 @@ public class Produto {
     private Integer qtMin;
     private Double vlCusto;
     private String ativo;
-    private String sitEstoque;
 
     private Familia familia = new Familia();
 
@@ -31,12 +29,12 @@ public class Produto {
         RetornaSequencia seq = new RetornaSequencia();
         produto.setCdProduto(seq.retornaSequencia("CD_PRODUTO", "PRODUTOS"));
         String sql = "INSERT INTO PRODUTOS (CD_PRODUTO, CD_FAMILIA, DS_PRODUTO, "
-                + "VL_PRODUTO, QT_ATUAL, QT_MIN, VL_CUSTO, ATIVO, SIT_ESTOQUE) "
+                + "VL_PRODUTO, QT_ATUAL, QT_MIN, VL_CUSTO, ATIVO) "
                 + "VALUES ('" + produto.getCdProduto() + "',"
                 + "'" + familia.getFamilia(familia.getCdFamilia()) + "',"
                 + "'" + produto.getDsProduto() + "','" + produto.getVlProduto() + "',"
                 + "'" + produto.getQtAtual() + "','" + produto.getQtMin() + "',"
-                + "'" + produto.getVlCusto() + "','" + produto.getAtivo() + "','" + produto.getSitEstoque() + "')";
+                + "'" + produto.getVlCusto() + "','" + produto.getAtivo() + "')";
         conexao.incluirSQL(sql);
     }
 
@@ -44,13 +42,13 @@ public class Produto {
         String sql = "UPDATE PRODUTOS SET CD_FAMILIA = '" + familia.getFamilia(familia.getCdFamilia()) + "', "
                 + "DS_PRODUTO = '" + produto.getDsProduto() + "', VL_PRODUTO = '" + produto.getVlProduto() + "', "
                 + "QT_ATUAL = '" + produto.getQtAtual() + "', QT_MIN = '" + produto.getQtMin() + "', "
-                + "VL_CUSTO = '" + produto.getVlCusto() + "', ATIVO = '" + produto.getAtivo() + "', "
-                + "SIT_ESTOQUE = '" + produto.getSitEstoque() + "' WHERE CD_PRODUTO = " + produto.getCdProduto();
+                + "VL_CUSTO = '" + produto.getVlCusto() + "', ATIVO = '" + produto.getAtivo() + "'"
+                + " WHERE CD_PRODUTO = " + produto.getCdProduto();
         conexao.atualizarSQL(sql);
     }
 
     public void excluir(Produto produto) {
-        String sql = "DELETE FROM PRODUTOS WHERE CD_PRODUTO = " + produto.getCdProduto();
+        String sql = "UPDATE PRODUTOS SET ATIVO = 'I' WHERE CD_PRODUTO = " + produto.getCdProduto();
         conexao.deleteSQL(sql);
     }
 
@@ -59,14 +57,15 @@ public class Produto {
         if (todos) {
             sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, "
                     + "P.QT_ATUAL, P.QT_MIN, CASE WHEN ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS ATIVO, "
-                    + "CASE WHEN SIT_ESTOQUE = 'V' THEN 'VÁLIDO' ELSE 'INVÁLIDO' END AS SIT_ESTOQUE "
-                    + " FROM PRODUTOS P INNER JOIN FAMILIA F "
+                    + "CASE WHEN P.QT_ATUAL > P.QT_MIN THEN 'VÁLIDO' ELSE 'INVÁLIDO' END AS SIT_ESTOQUE "
+                    + "FROM PRODUTOS P INNER JOIN FAMILIA F "
                     + "ON P.CD_FAMILIA = F.CD_FAMILIA ORDER BY P.CD_PRODUTO";
         } else {
-            sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, "
-                    + "P.QT_ATUAL, P.QT_MIN FROM PRODUTOS P INNER JOIN FAMILIA F "
-                    + "ON P.CD_FAMILIA = F.CD_FAMILIA WHERE SIT_ESTOQUE = 'V' AND P.ATIVO = 'A' "
-                    + "ORDER BY P.CD_PRODUTO";
+            sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, " 
+                    + "P.QT_ATUAL, P.QT_MIN " 
+                    + "FROM PRODUTOS P INNER JOIN FAMILIA F " 
+                    + "ON P.CD_FAMILIA = F.CD_FAMILIA WHERE P.QT_ATUAL > P.QT_MIN AND P.ATIVO = 'A' " 
+                    + "ORDER BY P.CD_PRODUTO";                    
         }
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -76,15 +75,17 @@ public class Produto {
         String sql = "";
         if (todos) {
             sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, "
-                    + "P.QT_ATUAL, P.QT_MIN, CASE WHEN ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS ATIVO, "
-                    + "CASE WHEN SIT_ESTOQUE = 'V' THEN 'VÁLIDO' ELSE 'INVÁLIDO' END AS SIT_ESTOQUE "
-                    + "FROM PRODUTOS P INNER JOIN FAMILIA F ON P.CD_FAMILIA = F.CD_FAMILIA "
-                    + "WHERE P.CD_PRODUTO = " + produto.getCdProduto();
+                    + "P.QT_ATUAL, P.QT_MIN, CASE WHEN ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS ATIVO, " 
+                    + "CASE WHEN P.QT_ATUAL > P.QT_MIN THEN 'VÁLIDO' ELSE 'INVÁLIDO' END AS SIT_ESTOQUE " 
+                    + "FROM PRODUTOS P INNER JOIN FAMILIA F "
+                    + "ON P.CD_FAMILIA = F.CD_FAMILIA WHERE P.CD_PRODUTO = "+ produto.getCdProduto();
         } else {
-            sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, "
-                    + "P.QT_ATUAL, P.QT_MIN FROM PRODUTOS P INNER JOIN FAMILIA F "
-                    + "ON P.CD_FAMILIA = F.CD_FAMILIA WHERE P.CD_PRODUTO = " + produto.getCdProduto() + " "
-                    + "AND SIT_ESTOQUE = 'V' AND P.ATIVO = 'A' ORDER BY P.CD_PRODUTO";
+            sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, "  
+                    + "P.QT_ATUAL, P.QT_MIN " 
+                    + "FROM PRODUTOS P INNER JOIN FAMILIA F "
+                    + "ON P.CD_FAMILIA = F.CD_FAMILIA WHERE P.CD_PRODUTO = "+produto.getCdProduto()
+                    + " AND P.QT_ATUAL > P.QT_MIN AND P.ATIVO = 'A' "; 
+                     
         }
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -95,7 +96,7 @@ public class Produto {
         if (todos) {
             sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, "
                     + "P.QT_ATUAL, P.QT_MIN, CASE WHEN ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS ATIVO, "
-                    + "CASE WHEN SIT_ESTOQUE = 'V' THEN 'VÁLIDO' ELSE 'INVÁLIDO' END AS SIT_ESTOQUE "
+                    + "CASE WHEN P.QT_ATUAL > P.QT_MIN THEN 'VÁLIDO' ELSE 'INVÁLIDO' END AS SIT_ESTOQUE "
                     + "FROM PRODUTOS P INNER JOIN FAMILIA F ON P.CD_FAMILIA = F.CD_FAMILIA "
                     + "WHERE P.DS_PRODUTO LIKE  '%" + produto.getDsProduto() + "%' ORDER BY P.CD_PRODUTO";
         } else {
@@ -103,7 +104,7 @@ public class Produto {
                     + "P.QT_ATUAL, P.QT_MIN "
                     + "FROM PRODUTOS P INNER JOIN FAMILIA F ON P.CD_FAMILIA = F.CD_FAMILIA "
                     + "WHERE P.DS_PRODUTO LIKE '%" + produto.getDsProduto() + "%' "
-                    + "AND P.SIT_ESTOQUE = 'V' AND P.ATIVO = 'A' ORDER BY P.CD_PRODUTO";
+                    + "AND P.QT_ATUAL > P.QT_MIN AND P.ATIVO = 'A' ORDER BY P.CD_PRODUTO";
         }
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -120,11 +121,11 @@ public class Produto {
             produto.setQtMin(retorno.getInt("QT_MIN"));
             produto.setVlCusto(retorno.getDouble("VL_CUSTO"));
             produto.setVlProduto(retorno.getDouble("VL_PRODUTO"));
-            
-            if (todos){
+
+            if (todos) {
                 produto.setAtivo(retorno.getString("ATIVO"));
             }
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Produto não encontrado !");
             produto.setDsProduto("");
@@ -191,14 +192,6 @@ public class Produto {
 
     public void setAtivo(String ativo) {
         this.ativo = ativo;
-    }
-
-    public String getSitEstoque() {
-        return sitEstoque;
-    }
-
-    public void setSitEstoque(String sitEstoque) {
-        this.sitEstoque = sitEstoque;
     }
 
     public Familia getFamilia() {

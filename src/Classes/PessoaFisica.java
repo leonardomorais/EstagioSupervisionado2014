@@ -15,27 +15,27 @@ public class PessoaFisica {
     private String RG;
     private String sexo;
     private String dtCadastro;
-    private String inAtivo;
+   
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
     public void incluir(PessoaFisica pfisica) {
-        String sql = "INSERT INTO PESSOA_FISICA (CD_PESSOA, CPF, RG, SEXO, DT_CADASTRO, SITUACAO) "
+        String sql = "INSERT INTO PESSOA_FISICA (CD_PESSOA, CPF, RG, SEXO, DT_CADASTRO) "
                 + "VALUES ('" + pfisica.getCdPessoa() + "','" + pfisica.getCPF() + "','" + pfisica.getRG() + "','"
-                + pfisica.getSexo() + "','" + pfisica.getDtCadastro() + "','" + pfisica.getInAtivo() + "')";
+                + pfisica.getSexo() + "','" + pfisica.getDtCadastro() + "')";
         conexao.incluirSQL(sql);
     }
 
     public void alterar(PessoaFisica pfisica) {
         String sql = "UPDATE PESSOA_FISICA SET CPF = '" + pfisica.getCPF() + "', RG = '"
                 + pfisica.getRG() + "', SEXO = '" + pfisica.getSexo() + "', DT_CADASTRO = '"
-                + pfisica.getDtCadastro() + "', SITUACAO = '" + pfisica.getInAtivo() + "' "
+                + pfisica.getDtCadastro() +"' "
                 + "WHERE CD_PESSOA = " + pfisica.getCdPessoa();
         conexao.atualizarSQL(sql);
     }
 
     public void excluir(PessoaFisica pfisica) {
-        String sql = "UPDATE PESSOA_FISICA SET SITUACAO = 'I' WHERE CD_PESSOA = " + pfisica.getCdPessoa();
+        String sql = "UPDATE PESSOA SET SITUACAO = 'I' WHERE CD_PESSOA = " + pfisica.getCdPessoa();
         conexao.deleteSQL(sql);
     }
 
@@ -96,13 +96,4 @@ public class PessoaFisica {
     public void setDtCadastro(String dtCadastro) {
         this.dtCadastro = dtCadastro;
     }
-
-    public String getInAtivo() {
-        return inAtivo;
-    }
-
-    public void setInAtivo(String inAtivo) {
-        this.inAtivo = inAtivo;
-    }
-
 }

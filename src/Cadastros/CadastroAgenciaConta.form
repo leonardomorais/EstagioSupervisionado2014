@@ -226,13 +226,12 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldVlConta">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldVlContaActionPerformed"/>
               </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(real);"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{&#xd;&#xa;     real = new MaskFormatter(&quot;######,##&quot;);&#xd;&#xa; }&#xd;&#xa; catch(Exception erro)&#xd;&#xa; {&#xd;&#xa; JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);&#xd;&#xa; }"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>

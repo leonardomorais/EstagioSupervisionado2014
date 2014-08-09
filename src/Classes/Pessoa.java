@@ -71,14 +71,11 @@ public class Pessoa {
     public void alterarPessoaFisica(Pessoa pessoa) {
         getPfisica().setCdPessoa(pessoa.getCdPessoa());
         getPfisica().setDtCadastro(pessoa.getDtCadastro());
-        getPfisica().setInAtivo(pessoa.getInAtivo());
         getPfisica().alterar(getPfisica());
     }
 
     public void alterarPessoaJuridica(Pessoa pessoa) {
         getPjuridica().setCdPessoa(pessoa.getCdPessoa());
-        getPjuridica().setDtCadastro(pessoa.getDtCadastro());
-        getPjuridica().setInAtivo(pessoa.getInAtivo());
         getPjuridica().alterar(getPjuridica());
     }
 
@@ -105,14 +102,11 @@ public class Pessoa {
     public void incluirPessoaFisica(Pessoa pessoa) {
         getPfisica().setCdPessoa(pessoa.getCdPessoa());
         getPfisica().setDtCadastro(pessoa.getDtCadastro());
-        getPfisica().setInAtivo(pessoa.getInAtivo());
         getPfisica().incluir(getPfisica());
     }
 
     public void incluirPessoaJuridica(Pessoa pessoa) {
         getPjuridica().setCdPessoa(pessoa.getCdPessoa());
-        getPjuridica().setDtCadastro(pessoa.getDtCadastro());
-        getPjuridica().setInAtivo(pessoa.getInAtivo());
         getPjuridica().incluir(getPjuridica());
     }
 

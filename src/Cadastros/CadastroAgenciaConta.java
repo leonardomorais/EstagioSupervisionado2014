@@ -2,6 +2,7 @@ package Cadastros;
 
 import Classes.AgenciaConta;
 import Relatorios.Relatorios;
+import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaDecimal;
@@ -30,7 +31,6 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     int rotina;
     RetornaDecimal decimal = new RetornaDecimal();
 
-    MaskFormatter real;
     MaskFormatter nrConta;
     MaskFormatter nrAgc;
 
@@ -40,6 +40,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     public CadastroAgenciaConta() {
         initComponents();
 
+        jTextFieldVlConta.setDocument(new FormataMoeda());
         agc.retornaComboBanco(jComboBoxBanco, true);
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
@@ -69,14 +70,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         try{       nrConta = new MaskFormatter("##.###-#");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jTextFieldNrConta = new JFormattedTextField(nrConta);
         jLabel6 = new javax.swing.JLabel();
-        try{
-            real = new MaskFormatter("######,##");
-        }
-        catch(Exception erro)
-        {
-            JOptionPane.showMessageDialog(null, "Não foi possivel localizar");
-        }
-        jTextFieldVlConta = new JFormattedTextField(real);
+        jTextFieldVlConta = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox();
         jPanelBotoes = new javax.swing.JPanel();
@@ -124,6 +118,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
 
         jLabel6.setText("Valor da Conta (R$)");
 
+        jTextFieldVlConta.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldVlConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldVlContaActionPerformed(evt);
@@ -434,8 +429,9 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         } else if (jTextFieldNrConta.getText().equals(nrConta.getMask().replace("#", " "))) {
             JOptionPane.showMessageDialog(null, "O número da conta é obrigatório!");
             jTextFieldNrConta.grabFocus();
-        } else if (jTextFieldVlConta.getText().equals(real.getMask().replace("#", " "))) {
-            jTextFieldVlConta.setText("0000000");
+        } else if (jTextFieldVlConta.getText().length()<3) {
+            JOptionPane.showMessageDialog(null, "Informe um valor válido na conta");
+            jTextFieldVlConta.grabFocus();
         } else {
             carregarAgc();
 
@@ -631,7 +627,8 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         agc.setDsConta(jTextFieldDsConta.getText().toUpperCase());
         agc.setNrAgencia(jTextFieldNrAgencia.getText());
         agc.setNrConta(jTextFieldNrConta.getText());
-        agc.setVlConta(Double.parseDouble(jTextFieldVlConta.getText()));
+        agc.setVlConta(Double.parseDouble(jTextFieldVlConta.getText()
+                .replace(".", "").replace(",", ".")));
         agc.getBanco().setCdBanco(jComboBoxBanco.getSelectedIndex());
         if (jComboBoxSituacao.getSelectedIndex() == 0) {
             agc.setInAtivo("A");
@@ -645,9 +642,14 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jTextFieldDsConta.setText(agc.getDsConta());
         jTextFieldNrAgencia.setText(agc.getNrAgencia());
         jTextFieldNrConta.setText(agc.getNrConta());
-        Double valor = agc.getVlConta();
-
-        jTextFieldVlConta.setText(decimal.retornaDecimal(valor, 6));
+        
+        if(agc.getVlConta()>0){
+            jTextFieldVlConta.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
+        }
+        else{
+            jTextFieldVlConta.setText("000");
+        }
+        
         jComboBoxBanco.setSelectedItem(agc.getBanco().getNmBanco());
         jComboBoxSituacao.setSelectedItem(agc.getInAtivo());
     }

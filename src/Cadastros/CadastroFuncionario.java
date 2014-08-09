@@ -13,6 +13,7 @@ import Validacoes.RetornaData;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaDocumentos;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
@@ -37,6 +38,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     RetornaData dataAtual = new RetornaData();
     int rotina;
 
+    ValidaDocumentos doc = new ValidaDocumentos();
     MaskFormatter data;
     MaskFormatter cep;
     MaskFormatter fone;
@@ -623,7 +625,11 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         } else if (jFormattedTextFieldData.getText().equals(campoData)) {
             JOptionPane.showMessageDialog(null, "Por favor informe a data de cadastro!");
             jFormattedTextFieldData.grabFocus();
-        } else {
+        } else if (!doc.validaCPFCNPJ(jTextFieldCPF.getText())){
+            JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
+            jTextFieldCPF.grabFocus(); 
+        }
+        else {
             carregarFuncionario();
             carregarContato();
             carregarEndereco();

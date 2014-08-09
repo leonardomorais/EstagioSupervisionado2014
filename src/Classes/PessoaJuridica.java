@@ -13,22 +13,19 @@ public class PessoaJuridica {
     private Integer cdPessoa;
     private String CNPJ;
     private String razao;
-    private String dtCadastro;
-    private String inAtivo;
-
+    
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
     public void incluir(PessoaJuridica pjuridica) {
-        String sql = "INSERT INTO PESSOA_JURIDICA (CD_PESSOA, CNPJ, RAZAO_SOCIAL, DT_CADASTRO, SITUACAO) "
-                + "VALUES ('" + pjuridica.getCdPessoa() + "','" + pjuridica.getCNPJ() + "','" + pjuridica.getRazao() + "',' "
-                + pjuridica.getDtCadastro() + "','" + pjuridica.getInAtivo() + "')";
+        String sql = "INSERT INTO PESSOA_JURIDICA (CD_PESSOA, CNPJ, RAZAO_SOCIAL) "
+                + "VALUES ('" + pjuridica.getCdPessoa() + "','" + pjuridica.getCNPJ() + "','" + pjuridica.getRazao() + "')";
         conexao.incluirSQL(sql);
     }
 
     public void alterar(PessoaJuridica pjuridica) {
         String sql = "UPDATE PESSOA_JURIDICA SET CNPJ = '" + pjuridica.getCNPJ() + "', RAZAO_SOCIAL = '"
-                + pjuridica.getRazao() + "', DT_CADASTRO = '" + pjuridica.getDtCadastro() + "', SITUACAO = '"
-                + pjuridica.getInAtivo() + "' WHERE CD_PESSOA = " + pjuridica.getCdPessoa();
+                + pjuridica.getRazao() 
+                + "' WHERE CD_PESSOA = " + pjuridica.getCdPessoa();
         conexao.atualizarSQL(sql);
     }
 
@@ -77,21 +74,4 @@ public class PessoaJuridica {
     public void setRazao(String razao) {
         this.razao = razao;
     }
-
-    public String getDtCadastro() {
-        return dtCadastro;
-    }
-
-    public void setDtCadastro(String dtCadastro) {
-        this.dtCadastro = dtCadastro;
-    }
-
-    public String getInAtivo() {
-        return inAtivo;
-    }
-
-    public void setInAtivo(String inAtivo) {
-        this.inAtivo = inAtivo;
-    }
-
 }

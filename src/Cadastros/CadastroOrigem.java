@@ -328,9 +328,9 @@ public class CadastroOrigem extends javax.swing.JFrame {
 
                     }
                 }
-                rotina = Rotinas.padrao;
-                botoes.validaBotoes(jPanelBotoes, rotina);
             }
+            rotina = Rotinas.padrao;
+            botoes.validaBotoes(jPanelBotoes, rotina);
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 

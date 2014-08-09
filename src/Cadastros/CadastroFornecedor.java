@@ -8,6 +8,7 @@ import Validacoes.RetornaData;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaDocumentos;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
@@ -34,6 +35,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     RetornaData dataAtual = new RetornaData();
     int rotina;
 
+    ValidaDocumentos doc = new ValidaDocumentos();
     MaskFormatter data;
     MaskFormatter cep;
     MaskFormatter fone;
@@ -703,11 +705,17 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         if (jTextFieldNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O nome do fornecedor é obrigatório!");
             jTextFieldNome.grabFocus();
-        } else if (jFormattedTextFieldCpfCnpj.getText().equals("   .   .   -  ")||
+        } 
+        else if (jFormattedTextFieldCpfCnpj.getText().equals("   .   .   -  ")||
                 jFormattedTextFieldCpfCnpj.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do fornecedor é obrigatório!");
             jFormattedTextFieldCpfCnpj.grabFocus();
-        } else {
+        } 
+        else if (!doc.validaCPFCNPJ(jFormattedTextFieldCpfCnpj.getText())){
+            JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
+            jFormattedTextFieldCpfCnpj.grabFocus();
+        }
+        else {
             carregarFornecedor();
             carregarEndereco();
             carregarContato();
