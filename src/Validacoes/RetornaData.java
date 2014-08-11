@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class RetornaData {
 
-    public String retornaDataAtual() {
+    public String retornaDataAtual(Boolean comMascara) {
         String dataAtual = "";
         Date data = new Date();
         String dia = "" + data.getDate();
@@ -21,7 +21,12 @@ public class RetornaData {
         if (Integer.parseInt(dia) <= 9) {
             dia = "0" + dia;
         }
+
         dataAtual = dia + mes + ano;
+
+        if (comMascara) {
+            dataAtual = dia + "/" + mes + "/" + ano;
+        }
 
         return dataAtual;
     }
@@ -32,7 +37,7 @@ public class RetornaData {
         String hora = "" + data.getHours();
         String min = "" + data.getMinutes();
         String seg = "" + data.getSeconds();
-        
+
         if (Integer.parseInt(hora) < 10) {
             hora = "0" + hora;
         }

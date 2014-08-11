@@ -7,6 +7,7 @@ import Classes.Produto;
 import Consultas.ConsultaFuncionario;
 import Consultas.ConsultaMesa;
 import Consultas.ConsultaProduto;
+import Validacoes.FormataMoeda;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
@@ -31,18 +32,20 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
     MaskFormatter data;
     MaskFormatter hora;
-    MaskFormatter real;
 
     /**
      * Creates new form AtendimentoMesa
      */
     public TelaAtendimentoMesa() {
         initComponents();
+        jTextFieldVlUnitario.setDocument(new FormataMoeda());
+        jTextFieldTotalProduto.setDocument(new FormataMoeda());
+        jTextFieldTotal.setDocument(new FormataMoeda());
         formatarTabela();
         jTextFieldHoraAbre.setText(dataHora.retornaHoraAtual());
-        jFormattedTextFieldData.setText(dataHora.retornaDataAtual());
-        iniciarAtendimento();
-        this.setTitle("Atendimento Nr."+atd.getNrAtendimento());
+        jFormattedTextFieldData.setText(dataHora.retornaDataAtual(false));
+//        iniciarAtendimento();
+//        this.setTitle("Atendimento Nr."+atd.getNrAtendimento());
     }
 
     /**
@@ -82,18 +85,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldCdFunc = new javax.swing.JTextField();
         jSpnQuantidade = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
-        try{       real = new MaskFormatter("####.##");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jFormattedTextFieldVlUnitario = new JFormattedTextField(real);
         jBtCancelar = new javax.swing.JButton();
         try{       hora = new MaskFormatter("##:##:##");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jTextFieldHoraAbre = new JFormattedTextField(hora);
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        try{       real = new MaskFormatter("#####.##");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldTotalProduto = new JFormattedTextField(real);
+        jTextFieldTotalProduto = new javax.swing.JTextField();
         try{       hora = new MaskFormatter("##:##:##");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jTextFieldHoraFecha = new JFormattedTextField(hora);
         jBtRemover = new javax.swing.JButton();
+        jTextFieldVlUnitario = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -155,6 +156,11 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProdutosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableProdutos);
 
         jLabel3.setText("Data Atendimento");
@@ -193,6 +199,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         jLabel6.setText("Valor Unitário (R$)");
 
+        jTextFieldTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldTotal.setEnabled(false);
 
         jLabel1.setText("Nr Atendimento");
@@ -227,6 +234,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         jLabel10.setText("Valor Total");
 
+        jTextFieldTotalProduto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldTotalProduto.setEnabled(false);
 
         jTextFieldHoraFecha.setEnabled(false);
@@ -237,6 +245,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 jBtRemoverActionPerformed(evt);
             }
         });
+
+        jTextFieldVlUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanelAtendimentoLayout = new javax.swing.GroupLayout(jPanelAtendimento);
         jPanelAtendimento.setLayout(jPanelAtendimentoLayout);
@@ -290,14 +300,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelAtendimentoLayout.createSequentialGroup()
-                        .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanelAtendimentoLayout.createSequentialGroup()
                                 .addGap(88, 88, 88)
                                 .addComponent(jLabel6))
                             .addGroup(jPanelAtendimentoLayout.createSequentialGroup()
                                 .addComponent(jSpnQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jFormattedTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextFieldVlUnitario)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelAtendimentoLayout.createSequentialGroup()
@@ -373,10 +383,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     .addComponent(jTextFieldTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jSpnQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jFormattedTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextFieldTotalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBtRemover)
-                        .addComponent(jBtAdicionar)))
+                        .addComponent(jBtAdicionar)
+                        .addComponent(jTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -571,9 +581,15 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este produto do atendimento ?",
                     "Remover Produto", JOptionPane.YES_NO_OPTION);
             if(opcao == JOptionPane.YES_OPTION){
+                
                 DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
+                // devolve os produtos ao estoque
+                
+                produto.alteraQtAtual(produto);
+                // 
                 tabela.removeRow(linha);
-                jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos)));
+                jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos),6));
+                
             }
         }
     }//GEN-LAST:event_jBtRemoverActionPerformed
@@ -584,7 +600,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             jTextFieldCdProduto.grabFocus();
         } else {
             adicionarProdutos();
-            jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos)));
+            jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos),6));
+            produto.setQtAtual(produto.getQtAtual() - Integer.parseInt(jSpnQuantidade.getValue().toString()));
+            produto.alteraQtAtual(produto);
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
@@ -609,9 +627,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
     private void jSpnQuantidadeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpnQuantidadeStateChanged
         try {
-            double preco = Double.parseDouble(jFormattedTextFieldVlUnitario.getText());
-            if (!jFormattedTextFieldVlUnitario.getText().equals(" . ")
-                    && preco > 0) {
+            double preco = Double.parseDouble(jTextFieldVlUnitario.getText()
+            .replace(".", "").replace(",", "."));
+            if (preco > 0) {
                 preencherTotalProduto();
             }
         } catch (NumberFormatException ex) {
@@ -624,8 +642,21 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 + "Deseja cancelar este atendimento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
 
         if (opcao == JOptionPane.YES_OPTION) {
-            atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-            atd.excluir(atd);
+//            atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+//            atd.excluir(atd);
+            // devolve os produtos da jtable para o estoque
+            int linhas = jTableProdutos.getRowCount();
+            
+            for (int i = 0; i< linhas; i++){
+            
+            int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
+            int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
+            
+            produto.setCdProduto(cd);
+            produto.retornaProduto(produto, false);
+            produto.setQtAtual(produto.getQtAtual() + qt);
+            produto.alteraQtAtual(produto);
+        }
             dispose();
         }
     }//GEN-LAST:event_jBtCancelarActionPerformed
@@ -656,6 +687,15 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldHoraFecha.setText(dataHora.retornaHoraAtual());
         fecharAtendimento();
     }//GEN-LAST:event_jBtFechaAtendimentoActionPerformed
+
+    private void jTableProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosMouseClicked
+        int linha = jTableProdutos.getSelectedRow();
+        if (linha >=0){
+            produto.setCdProduto(Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
+            produto.retornaProduto(produto, false);
+            produto.setQtAtual(produto.getQtAtual() + Integer.parseInt(jTableProdutos.getValueAt(linha, 3).toString()));
+        }
+    }//GEN-LAST:event_jTableProdutosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -703,7 +743,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JFormattedTextField jFormattedTextFieldData;
-    private javax.swing.JFormattedTextField jFormattedTextFieldVlUnitario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -737,6 +776,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNrMesa;
     private javax.swing.JTextField jTextFieldTotal;
     private javax.swing.JTextField jTextFieldTotalProduto;
+    private javax.swing.JTextField jTextFieldVlUnitario;
     // End of variables declaration//GEN-END:variables
 
     public void preencherProduto() {
@@ -744,16 +784,18 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         int max = produto.getQtAtual();
         SpinnerNumberModel model = new SpinnerNumberModel(1, 1, max, 1);
         jSpnQuantidade.setModel(model);
-        jFormattedTextFieldVlUnitario.setText(decimal.retornaDecimal(produto.getVlProduto(), 4));
+        jTextFieldVlUnitario.setText(decimal.retornaDecimal(produto.getVlProduto(), 6));
         preencherTotalProduto();
 
     }
 
     public void preencherTotalProduto() {
-        double preco = Double.parseDouble(jFormattedTextFieldVlUnitario.getText());
-
+        double preco = Double.parseDouble(jTextFieldVlUnitario.getText()
+        .replace(".", "").replace(",", "."));
+                  
         int qt = Integer.parseInt(jSpnQuantidade.getValue().toString());
-        jTextFieldTotalProduto.setText(decimal.retornaDecimal(qt * preco, 5));
+        jTextFieldTotalProduto.setText(decimal.retornaDecimal(qt * preco, 6));
+        
     }
 
     public void adicionarProdutos() {
@@ -761,7 +803,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         SpinnerNumberModel spn =  (SpinnerNumberModel) jSpnQuantidade.getModel();
         
         String cd = jTextFieldCdProduto.getText();
-        double valor = Double.parseDouble(jFormattedTextFieldVlUnitario.getText());
+        double valor = Double.parseDouble(jTextFieldVlUnitario.getText()
+        .replace(".", "").replace(",", "."));
         int quantidade = Integer.parseInt(jSpnQuantidade.getValue().toString());
         int max = (int) spn.getMaximum(); 
         int linhas = jTableProdutos.getRowCount();

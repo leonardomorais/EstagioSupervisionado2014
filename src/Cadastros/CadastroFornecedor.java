@@ -643,7 +643,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jTextFieldNome.grabFocus();
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        jFormattedTextFieldDataCadastro.setText(dataAtual.retornaDataAtual());
+        jFormattedTextFieldDataCadastro.setText(dataAtual.retornaDataAtual(false));
         jComboBoxCidade.setSelectedIndex(0);
         jRadioButtonPfisica.setSelected(true);
         jRadioButtonPfisicaActionPerformed(null);

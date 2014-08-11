@@ -1,6 +1,7 @@
 package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
+import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,17 +37,38 @@ public class Produto {
                 + "'" + produto.getQtAtual() + "','" + produto.getQtMin() + "',"
                 + "'" + produto.getVlCusto() + "','" + produto.getAtivo() + "')";
         conexao.incluirSQL(sql);
+        
+        atualizarEstoque(produto, 0, true);
     }
 
     public void alterar(Produto produto) {
+        int qtAntes;
+        conexao.executeSQL("SELECT QT_ATUAL FROM PRODUTOS WHERE CD_PRODUTO = "+produto.getCdProduto());
+        try{
+            conexao.resultset.first();
+            qtAntes = conexao.resultset.getInt("QT_ATUAL");
+            
+        }catch(SQLException ex){
+            qtAntes = 0;
+        }
+        
         String sql = "UPDATE PRODUTOS SET CD_FAMILIA = '" + familia.getFamilia(familia.getCdFamilia()) + "', "
                 + "DS_PRODUTO = '" + produto.getDsProduto() + "', VL_PRODUTO = '" + produto.getVlProduto() + "', "
                 + "QT_ATUAL = '" + produto.getQtAtual() + "', QT_MIN = '" + produto.getQtMin() + "', "
                 + "VL_CUSTO = '" + produto.getVlCusto() + "', ATIVO = '" + produto.getAtivo() + "'"
                 + " WHERE CD_PRODUTO = " + produto.getCdProduto();
         conexao.atualizarSQL(sql);
+        
+        if(qtAntes != produto.qtAtual){
+                if(qtAntes < produto.qtAtual){
+                    atualizarEstoque(produto, qtAntes, true);
+                }
+                else{
+                    atualizarEstoque(produto, qtAntes, false);
+                }
     }
-
+        
+    }
     public void excluir(Produto produto) {
         String sql = "UPDATE PRODUTOS SET ATIVO = 'I' WHERE CD_PRODUTO = " + produto.getCdProduto();
         conexao.deleteSQL(sql);
@@ -132,9 +154,33 @@ public class Produto {
         }
 
     }
-
+    
     public void retornaComboFamilia(JComboBox combo) {
         familia.retornaComboFamilia(combo);
+    }
+    
+    public void atualizarEstoque(Produto produto, int qtAnterior, boolean entrada){
+        MovEstoque estoque = new MovEstoque();
+        RetornaData data = new RetornaData();
+        estoque.setCdProduto(produto.getCdProduto());
+        estoque.setDtMov(data.retornaDataAtual(true));
+        estoque.setQtAnterior(qtAnterior);
+        estoque.setQtAtual(produto.getQtAtual());
+        estoque.setVlCusto(produto.getVlCusto());
+        estoque.setVlProduto(produto.getVlProduto());
+        
+        if (entrada){
+            estoque.setEntrada("E");
+        }
+        else{
+            estoque.setEntrada("S");
+        }
+        estoque.incluir(estoque,false);
+    }
+    
+    public void alteraQtAtual(Produto produto){
+        conexao.executeSQL("UPDATE PRODUTOS SET QT_ATUAL = '"+produto.getQtAtual()+"' "
+                + "WHERE CD_PRODUTO = "+produto.getCdProduto());
     }
 
 // getter e setter

@@ -25,6 +25,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
+    ValidaCampos campos = new ValidaCampos();
     int rotina;
     
     RetornaDecimal decimal = new RetornaDecimal();
@@ -120,10 +121,20 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel5.setText("Valor do Produto");
 
         jTextFieldVlProduto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldVlProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldVlProdutoKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Valor de Custo");
 
         jTextFieldVlCusto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldVlCusto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldVlCustoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Quantidade Atual");
 
@@ -534,6 +545,14 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jTextFieldVlProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlProdutoKeyTyped
+        campos.validaCamposApenasNumeros(evt);
+    }//GEN-LAST:event_jTextFieldVlProdutoKeyTyped
+
+    private void jTextFieldVlCustoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlCustoKeyTyped
+        campos.validaCamposApenasNumeros(evt);
+    }//GEN-LAST:event_jTextFieldVlCustoKeyTyped
 
     /**
      * @param args the command line arguments

@@ -119,15 +119,15 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="jSpnQuantidade" min="-2" pref="70" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jFormattedTextFieldVlUnitario" min="-2" pref="80" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldVlUnitario" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -223,10 +223,10 @@
                           <Component id="jTextFieldTotal" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jSpnQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jFormattedTextFieldVlUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldTotalProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtRemover" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtAdicionar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldVlUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -300,6 +300,9 @@
                       </Table>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableProdutosMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -370,6 +373,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldTotal">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
@@ -403,12 +407,6 @@
                 <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldVlUnitario">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(real);"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       real = new MaskFormatter(&quot;####.##&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JButton" name="jBtCancelar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar Atendimento"/>
@@ -438,12 +436,9 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldTotalProduto">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(real);"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       real = new MaskFormatter(&quot;#####.##&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldHoraFecha">
               <Properties>
@@ -461,6 +456,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtRemoverActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="jTextFieldVlUnitario">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="4"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

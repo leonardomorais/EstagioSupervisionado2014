@@ -23,7 +23,7 @@ public class TelaVenda extends javax.swing.JFrame {
      */
     public TelaVenda() {
         initComponents();
-        jTextFieldData.setText(rdata.retornaDataAtual());
+        jTextFieldData.setText(rdata.retornaDataAtual(false));
     }
 
     /**

@@ -602,7 +602,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jTextFieldNome.grabFocus();
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        jFormattedTextFieldData.setText(dataAtual.retornaDataAtual());
+        jFormattedTextFieldData.setText(dataAtual.retornaDataAtual(false));
         jComboBoxCidade.setSelectedIndex(0);
         jComboBoxSexo.setSelectedIndex(0);
         jComboBoxSituacao.setSelectedIndex(0);
