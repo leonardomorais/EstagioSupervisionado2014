@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Servicos;
 
 
-import Relatorios.Relatorios;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JPanel;
-import net.sf.jasperreports.engine.JRException;
+import Classes.AtendimentoMesa;
+import Validacoes.PreencherTabela;
 
 
 
@@ -20,13 +11,14 @@ import net.sf.jasperreports.engine.JRException;
  * @author Leonardo
  */
 public class TelaAtendimentos extends javax.swing.JFrame {
+    AtendimentoMesa atendimento = new AtendimentoMesa();
 
     /**
      * Creates new form Atendimento
      */
     public TelaAtendimentos() {
         initComponents();
-        CarregarMesas();
+        consultarAtendimentos();
     }
 
     /**
@@ -38,16 +30,31 @@ public class TelaAtendimentos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jPopupMenuAtendimentos = new javax.swing.JPopupMenu();
+        jMenuItemExibirDetalhes = new javax.swing.JMenuItem();
+        jMenuItemEncerrar = new javax.swing.JMenuItem();
+        jMenuItemCancelar = new javax.swing.JMenuItem();
+        jBtNovo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMesas = new javax.swing.JTable();
+        jBtAtualizar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jMenuItemExibirDetalhes.setText("Exibir Detalhes");
+        jPopupMenuAtendimentos.add(jMenuItemExibirDetalhes);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemEncerrar.setText("Encerrar Atendimento");
+        jPopupMenuAtendimentos.add(jMenuItemEncerrar);
+
+        jMenuItemCancelar.setText("Cancelar Atendimento");
+        jPopupMenuAtendimentos.add(jMenuItemCancelar);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Exibir Atendimentos");
+
+        jBtNovo.setText("Novo Atendimento");
+        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtNovoActionPerformed(evt);
             }
         });
 
@@ -67,7 +74,16 @@ public class TelaAtendimentos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableMesas.setComponentPopupMenu(jPopupMenuAtendimentos);
         jScrollPane1.setViewportView(jTableMesas);
+
+        jBtAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Icons/refresh.png"))); // NOI18N
+        jBtAtualizar.setText("Atualizar");
+        jBtAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,31 +92,38 @@ public class TelaAtendimentos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtNovo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 361, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(102, Short.MAX_VALUE)
+                .addContainerGap(97, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBtAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        Relatorios relatorios = new Relatorios();
-//        try {
-//            relatorios.gerarRelatorio("UF");
-//        } catch (JRException ex) {
-//            Logger.getLogger(TelaAtendimentos.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
+        TelaAtendimentoMesa tela = new TelaAtendimentoMesa();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jBtNovoActionPerformed
+
+    private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
+        consultarAtendimentos();
+    }//GEN-LAST:event_jBtAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,20 +161,21 @@ public class TelaAtendimentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtAtualizar;
+    private javax.swing.JButton jBtNovo;
+    private javax.swing.JMenuItem jMenuItemCancelar;
+    private javax.swing.JMenuItem jMenuItemEncerrar;
+    private javax.swing.JMenuItem jMenuItemExibirDetalhes;
+    private javax.swing.JPopupMenu jPopupMenuAtendimentos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableMesas;
     // End of variables declaration//GEN-END:variables
 
+    private void consultarAtendimentos(){
+        PreencherTabela preencher = new PreencherTabela();
+        preencher.FormatarJtable(jTableMesas, new int[]{80, 80, 280, 80, 80});
+        
+        preencher.PreencherJtableGenerico(jTableMesas, atendimento.consultarGeral(false));
 
-    private void CarregarMesas(){
-//        for (int i = 1; i <=5; i++){
-            Atendimento panel = new Atendimento();
-            panel.setVisible(true);
-            //getContentPane().add(panel);
-            
-            
-            
-//        }
     }
 }

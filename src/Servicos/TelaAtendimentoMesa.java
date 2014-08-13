@@ -2,6 +2,7 @@
 package Servicos;
 
 import Classes.AtendimentoMesa;
+import Classes.AtendimentoMesaProdutos;
 import Classes.Mesa;
 import Classes.Produto;
 import Consultas.ConsultaFuncionario;
@@ -44,8 +45,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         formatarTabela();
         jTextFieldHoraAbre.setText(dataHora.retornaHoraAtual());
         jFormattedTextFieldData.setText(dataHora.retornaDataAtual(false));
-//        iniciarAtendimento();
-//        this.setTitle("Atendimento Nr."+atd.getNrAtendimento());
+        iniciarAtendimento();
+        this.setTitle("Atendimento Nr."+atd.getNrAtendimento());
     }
 
     /**
@@ -588,8 +589,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 produto.alteraQtAtual(produto);
                 // 
                 tabela.removeRow(linha);
-                jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos),6));
-                
+                jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos),6));  
             }
         }
     }//GEN-LAST:event_jBtRemoverActionPerformed
@@ -642,8 +642,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 + "Deseja cancelar este atendimento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
 
         if (opcao == JOptionPane.YES_OPTION) {
-//            atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-//            atd.excluir(atd);
+            atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+            atd.excluir(atd);
             // devolve os produtos da jtable para o estoque
             int linhas = jTableProdutos.getRowCount();
             
@@ -684,8 +684,13 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCdProdutoFocusLost
 
     private void jBtFechaAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFechaAtendimentoActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(null, "Deseja encerrar este atendimento ?"
+                , "Encerrar Atendimento", JOptionPane.YES_NO_OPTION);
+
+        if (opcao == JOptionPane.YES_OPTION) {
         jTextFieldHoraFecha.setText(dataHora.retornaHoraAtual());
         fecharAtendimento();
+        }
     }//GEN-LAST:event_jBtFechaAtendimentoActionPerformed
 
     private void jTableProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosMouseClicked
@@ -815,10 +820,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         if(linhas<0){
             tabela.setNumRows(linhas+1);
-        }
-        
+        }        
         else {
-
             for (int i = 0; i < linhas; i++) {
                 if (jTableProdutos.getValueAt(i, 0).toString().equals(cd)) {
                     repetido = true;
@@ -836,19 +839,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 else{
                     quantidade = quantidade + qtTabela;
                 }
-            } else {
-                
+            } else {      
                 tabela.setNumRows(linhas + 1);
             }
         } 
-        
         tabela.setValueAt(cd, posicao, 0);
         tabela.setValueAt(jTextFieldNomeProduto.getText(), posicao, 1);
         tabela.setValueAt(decimal.retornaDecimal(valor), posicao, 2);
         tabela.setValueAt(quantidade, posicao, 3);
         double total = quantidade * valor;
         tabela.setValueAt(decimal.retornaDecimal(total), posicao, 4);
-
     }
     
     public void formatarTabela(){
@@ -889,6 +889,20 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText()));
             
             atd.alterar(atd);
+            
+            AtendimentoMesaProdutos atdProdutos = new AtendimentoMesaProdutos();
+            atdProdutos.setAtendimento(atd);
+            
+            for (int i = 0; i < linhas; i++){
+                int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
+                double vl = Double.parseDouble(jTableProdutos.getValueAt(i, 2).toString());
+                int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
+                
+                atdProdutos.getProduto().setCdProduto(cd);
+                atdProdutos.setQuantidade(qt);
+                atdProdutos.setValor(vl);
+                atdProdutos.incluir(atdProdutos);
+            }
         }
     }
 }

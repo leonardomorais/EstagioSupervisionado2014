@@ -18,6 +18,7 @@ import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
 import Consultas.ConsultaParcelas;
 import Servicos.TelaAtendimentoMesa;
+import Servicos.TelaAtendimentos;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +72,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos = new javax.swing.JMenu();
         jMenuItemAtendimento = new javax.swing.JMenuItem();
         jMenuItemVenda = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemExibirAtendimentos = new javax.swing.JMenuItem();
         jMenuFinanceiro = new javax.swing.JMenu();
         jMenuItemBancos = new javax.swing.JMenuItem();
         jMenuItemAgencia = new javax.swing.JMenuItem();
@@ -215,8 +218,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuServicos.add(jMenuItemAtendimento);
 
-        jMenuItemVenda.setText("Realizar Venda");
+        jMenuItemVenda.setText("Realizar Venda/Compra");
         jMenuServicos.add(jMenuItemVenda);
+        jMenuServicos.add(jSeparator5);
+
+        jMenuItemExibirAtendimentos.setText("Exibir Atendimentos");
+        jMenuItemExibirAtendimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExibirAtendimentosActionPerformed(evt);
+            }
+        });
+        jMenuServicos.add(jMenuItemExibirAtendimentos);
 
         jMenuBarPrincipal.add(jMenuServicos);
 
@@ -366,6 +378,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         csParcelas.setVisible(true);
     }//GEN-LAST:event_jMenuItemParcelasActionPerformed
 
+    private void jMenuItemExibirAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirAtendimentosActionPerformed
+        TelaAtendimentos tela = new TelaAtendimentos();
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItemExibirAtendimentosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -422,6 +439,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadProduto;
     private javax.swing.JMenuItem jMenuItemCadTipo;
     private javax.swing.JMenuItem jMenuItemContas;
+    private javax.swing.JMenuItem jMenuItemExibirAtendimentos;
     private javax.swing.JMenuItem jMenuItemParcelas;
     private javax.swing.JMenuItem jMenuItemVenda;
     private javax.swing.JMenu jMenuServicos;
@@ -430,6 +448,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     // End of variables declaration//GEN-END:variables
 
     public void carregaImagem() {

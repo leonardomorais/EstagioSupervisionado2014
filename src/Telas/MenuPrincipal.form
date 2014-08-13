@@ -138,8 +138,18 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemVenda">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Realizar Venda"/>
+                <Property name="text" type="java.lang.String" value="Realizar Venda/Compra"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator5">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExibirAtendimentos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exibir Atendimentos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExibirAtendimentosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
