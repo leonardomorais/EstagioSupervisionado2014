@@ -730,8 +730,18 @@ public class CadastroCliente extends javax.swing.JFrame {
                 jFormattedTextFieldCpfCNPJ.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do cliente é obrigatório!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        } else if (!doc.validaCPFCNPJ(jFormattedTextFieldCpfCNPJ.getText())){
+        } else if (rotina == Rotinas.incluir && !doc.validaCPFCNPJ(jFormattedTextFieldCpfCNPJ.getText())){
             JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
+            jFormattedTextFieldCpfCNPJ.grabFocus();
+        }
+        else if (rotina == Rotinas.alterar && jRadioButtonFisica.isSelected() 
+                && !doc.validaCPF(doc.removeMascara(jFormattedTextFieldCpfCNPJ.getText()))){
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            jFormattedTextFieldCpfCNPJ.grabFocus();
+        }
+        else if (rotina == Rotinas.alterar && jRadioButtonJuridica.isSelected()
+                && !doc.validaCNPJ(doc.removeMascara(jFormattedTextFieldCpfCNPJ.getText()))){
+            JOptionPane.showMessageDialog(null, "CNPJ inválido!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
         }
         

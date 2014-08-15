@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cadastros;
 
 import Classes.Funcionario;
@@ -625,9 +620,12 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         } else if (jFormattedTextFieldData.getText().equals(campoData)) {
             JOptionPane.showMessageDialog(null, "Por favor informe a data de cadastro!");
             jFormattedTextFieldData.grabFocus();
-        } else if (!doc.validaCPFCNPJ(jTextFieldCPF.getText())){
-            JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
-            jTextFieldCPF.grabFocus(); 
+        } else if (rotina == Rotinas.incluir && !doc.validaCPFCNPJ(jTextFieldCPF.getText())){
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            jTextFieldCPF.grabFocus();
+        } else if (rotina == Rotinas.alterar && !doc.validaCPF(doc.removeMascara(jTextFieldCPF.getText()))){
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            jTextFieldCPF.grabFocus();
         }
         else {
             carregarFuncionario();

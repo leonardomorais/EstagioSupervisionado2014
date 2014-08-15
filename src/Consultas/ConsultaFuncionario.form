@@ -40,7 +40,8 @@
                       <Component id="jBtPesquisar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jBtCadastrarNovo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jBtSelecionar" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jBtCancelar" min="-2" pref="81" max="-2" attributes="0"/>
@@ -67,6 +68,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jBtCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBtSelecionar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtCadastrarNovo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -138,6 +140,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtCadastrarNovo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cadastrar Novo"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCadastrarNovoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -22,4 +22,13 @@ public class ValidaCampos {
             evt.consume();
         }
     }
+    
+    public boolean StringVazia(String campo){
+        String valores = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0987654321";
+        
+        boolean achou = false;
+        
+        
+        return true;
+    }
 }

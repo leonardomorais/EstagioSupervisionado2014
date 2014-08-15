@@ -711,8 +711,18 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do fornecedor é obrigatório!");
             jFormattedTextFieldCpfCnpj.grabFocus();
         } 
-        else if (!doc.validaCPFCNPJ(jFormattedTextFieldCpfCnpj.getText())){
+        else if (rotina == Rotinas.incluir && !doc.validaCPFCNPJ(jFormattedTextFieldCpfCnpj.getText())){
             JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
+            jFormattedTextFieldCpfCnpj.grabFocus();
+        }
+        else if (rotina == Rotinas.alterar && jRadioButtonPfisica.isSelected() 
+                && !doc.validaCPF(doc.removeMascara(jFormattedTextFieldCpfCnpj.getText()))){
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            jFormattedTextFieldCpfCnpj.grabFocus();
+        }
+        else if (rotina == Rotinas.alterar && jRadioButtonPJuridica.isSelected()
+                && !doc.validaCNPJ(doc.removeMascara(jFormattedTextFieldCpfCnpj.getText()))){
+            JOptionPane.showMessageDialog(null, "CNPJ inválido!");
             jFormattedTextFieldCpfCnpj.grabFocus();
         }
         else {

@@ -76,6 +76,10 @@ public class TelaVenda extends javax.swing.JFrame {
         jTableProdutos = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldCdOperacao = new javax.swing.JTextField();
+        jBtPesquisaOperacao = new javax.swing.JButton();
+        jTextFieldDsOperacao = new javax.swing.JTextField();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableVendaCompra = new javax.swing.JTable();
@@ -107,19 +111,27 @@ public class TelaVenda extends javax.swing.JFrame {
         buttonGroupTipo.add(jRadioButtonCompra);
         jRadioButtonCompra.setText("Compra");
 
-        jTextFieldData.setEnabled(false);
-
         jLabel4.setText("Data");
 
         jLabel5.setText("Cliente/Fornecedor");
 
         jButtonPesquisarCliente.setText("Pesquisar");
+        jButtonPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarClienteActionPerformed(evt);
+            }
+        });
 
         jTextFieldNomeCliente.setEnabled(false);
 
         jLabel7.setText("Forma de Pagamento");
 
         jButtonPesquisarForma.setText("Pesquisar");
+        jButtonPesquisarForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarFormaActionPerformed(evt);
+            }
+        });
 
         jTextFieldForma.setEnabled(false);
 
@@ -179,6 +191,12 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jButton1.setText("Cancelar");
 
+        jLabel6.setText("Operação");
+
+        jBtPesquisaOperacao.setText("Pesquisar");
+
+        jTextFieldDsOperacao.setEnabled(false);
+
         javax.swing.GroupLayout jPanelGravarLayout = new javax.swing.GroupLayout(jPanelGravar);
         jPanelGravar.setLayout(jPanelGravarLayout);
         jPanelGravarLayout.setHorizontalGroup(
@@ -190,39 +208,10 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanelGravarLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelGravarLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGravarLayout.createSequentialGroup()
                         .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelGravarLayout.createSequentialGroup()
-                                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jSpnQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jFormattedTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jTextFieldTotalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(186, 186, 186)
-                                .addComponent(jBtAdicionar)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBtRemover)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelGravarLayout.createSequentialGroup()
                                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -250,12 +239,6 @@ public class TelaVenda extends javax.swing.JFrame {
                                         .addComponent(jButtonPesquisarForma)
                                         .addGap(18, 18, 18)
                                         .addComponent(jTextFieldForma, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelGravarLayout.createSequentialGroup()
-                                        .addComponent(jTextFieldCdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonPesquisarProduto)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextFieldProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelGravarLayout.createSequentialGroup()
                                         .addComponent(jTextFieldCdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,7 +247,56 @@ public class TelaVenda extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jTextFieldNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(87, 87, 87))))
+                        .addGap(87, 87, 87))
+                    .addGroup(jPanelGravarLayout.createSequentialGroup()
+                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGravarLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelGravarLayout.createSequentialGroup()
+                                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanelGravarLayout.createSequentialGroup()
+                                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jSpnQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jFormattedTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jTextFieldTotalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(186, 186, 186)
+                                        .addComponent(jBtAdicionar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jBtRemover)
+                                        .addGap(82, 82, 82)
+                                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel12)))
+                                    .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addGroup(jPanelGravarLayout.createSequentialGroup()
+                                            .addComponent(jTextFieldCdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jButtonPesquisarProduto)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jTextFieldProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jPanelGravarLayout.createSequentialGroup()
+                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanelGravarLayout.createSequentialGroup()
+                                .addComponent(jTextFieldCdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtPesquisaOperacao)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldDsOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanelGravarLayout.setVerticalGroup(
             jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,6 +338,13 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addComponent(jTextFieldCdForma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonPesquisarForma)))
                 .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisaOperacao)
+                    .addComponent(jTextFieldDsOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -337,9 +376,9 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
 
         jTabbedPaneVendaCompra.addTab("Gravar Venda/Compra", jPanelGravar);
@@ -461,7 +500,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -473,15 +512,11 @@ public class TelaVenda extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 820, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPaneVendaCompra))
+            .addComponent(jTabbedPaneVendaCompra, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 601, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPaneVendaCompra))
+            .addComponent(jTabbedPaneVendaCompra)
         );
 
         pack();
@@ -519,6 +554,14 @@ public class TelaVenda extends javax.swing.JFrame {
             jComboBoxTipo.setEnabled(false);
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+
+    private void jButtonPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonPesquisarClienteActionPerformed
+
+    private void jButtonPesquisarFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarFormaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonPesquisarFormaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -558,6 +601,7 @@ public class TelaVenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupTipo;
     private javax.swing.JButton jBtAdicionar;
+    private javax.swing.JButton jBtPesquisaOperacao;
     private javax.swing.JButton jBtRemover;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -578,6 +622,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -597,10 +642,12 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JTable jTableVendaCompra;
     private javax.swing.JTextField jTextFieldCdCliente;
     private javax.swing.JTextField jTextFieldCdForma;
+    private javax.swing.JTextField jTextFieldCdOperacao;
     private javax.swing.JTextField jTextFieldCdProduto;
     private javax.swing.JTextField jTextFieldCdVendaCompra;
     private javax.swing.JTextField jTextFieldConsulta;
     private javax.swing.JTextField jTextFieldData;
+    private javax.swing.JTextField jTextFieldDsOperacao;
     private javax.swing.JTextField jTextFieldForma;
     private javax.swing.JTextField jTextFieldNomeCliente;
     private javax.swing.JTextField jTextFieldNrAtendimento;

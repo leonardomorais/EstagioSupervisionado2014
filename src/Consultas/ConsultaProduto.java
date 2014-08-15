@@ -6,8 +6,12 @@
 
 package Consultas;
 
+import Cadastros.CadastroMesa;
+import Cadastros.CadastroProduto;
 import Classes.Produto;
 import Validacoes.PreencherTabela;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,6 +47,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
         jTableProdutos = new javax.swing.JTable();
         jBtSelecionar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
+        jBtNovo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Consultar Produtos");
@@ -96,6 +101,13 @@ public class ConsultaProduto extends javax.swing.JDialog {
             }
         });
 
+        jBtNovo.setText("Cadastrar Novo");
+        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,7 +125,8 @@ public class ConsultaProduto extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jBtPesquisar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBtNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -134,7 +147,8 @@ public class ConsultaProduto extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtCancelar)
-                    .addComponent(jBtSelecionar))
+                    .addComponent(jBtSelecionar)
+                    .addComponent(jBtNovo))
                 .addContainerGap())
         );
 
@@ -182,6 +196,18 @@ public class ConsultaProduto extends javax.swing.JDialog {
         produto.setCdProduto(Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
     }//GEN-LAST:event_jTableProdutosMouseClicked
 
+    private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
+        CadastroProduto cad = new CadastroProduto();
+          cad.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+          cad.setVisible(true);
+           cad.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evento) {
+                jComboBoxConsulta.setSelectedIndex(0);
+                jBtPesquisarActionPerformed(null);
+            }
+        });
+    }//GEN-LAST:event_jBtNovoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -219,6 +245,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtNovo;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtSelecionar;
     private javax.swing.JComboBox jComboBoxConsulta;

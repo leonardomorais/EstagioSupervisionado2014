@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JPopupMenu" name="jPopupMenuCsMesa">
       <Events>
@@ -60,7 +60,8 @@
                       <Component id="jBtPesquisar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jBtCadastrarNova" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jBtSelecionar" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jBtCancelar" min="-2" pref="81" max="-2" attributes="0"/>
@@ -87,6 +88,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jBtCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBtSelecionar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtCadastrarNova" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -160,6 +162,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtCadastrarNova">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cadastrar Nova"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCadastrarNovaActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

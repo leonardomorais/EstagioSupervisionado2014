@@ -88,9 +88,9 @@
                           <Component id="jTextFieldCodigo" min="-2" pref="70" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxEstado" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                           <Component id="jTextFieldNome" alignment="0" min="-2" pref="380" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxEstado" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>

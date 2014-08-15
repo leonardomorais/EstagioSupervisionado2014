@@ -5,9 +5,11 @@
  */
 package Consultas;
 
+import Cadastros.CadastroMesa;
 import Classes.AtendimentoMesa;
-import Classes.Mesa;
 import Validacoes.PreencherTabela;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -45,6 +47,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtSelecionar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
+        jBtCadastrarNova = new javax.swing.JButton();
 
         jPopupMenuCsMesa.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -116,6 +119,13 @@ public class ConsultaMesa extends javax.swing.JDialog {
             }
         });
 
+        jBtCadastrarNova.setText("Cadastrar Nova");
+        jBtCadastrarNova.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCadastrarNovaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,7 +143,8 @@ public class ConsultaMesa extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jBtPesquisar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBtCadastrarNova)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -154,7 +165,8 @@ public class ConsultaMesa extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtCancelar)
-                    .addComponent(jBtSelecionar))
+                    .addComponent(jBtSelecionar)
+                    .addComponent(jBtCadastrarNova))
                 .addContainerGap())
         );
 
@@ -240,6 +252,18 @@ public class ConsultaMesa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jPopupMenuCsMesaPopupMenuWillBecomeVisible
 
+    private void jBtCadastrarNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovaActionPerformed
+        CadastroMesa cadMesa = new CadastroMesa();
+          cadMesa.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+          cadMesa.setVisible(true);
+           cadMesa.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent evento) {
+                jComboBoxConsulta.setSelectedIndex(0);
+                jBtPesquisarActionPerformed(null);
+            }
+        });
+    }//GEN-LAST:event_jBtCadastrarNovaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -276,6 +300,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtCadastrarNova;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtSelecionar;

@@ -175,7 +175,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableMesas, new int[]{80, 80, 280, 80, 80});
         
-        preencher.PreencherJtableGenerico(jTableMesas, atendimento.consultarGeral(false));
+        preencher.PreencherJtableGenerico(jTableMesas, atendimento.exibirAtendimentosAtuais());
 
     }
 }

@@ -21,14 +21,16 @@ public class ValidaBotoes {
 
                 if (rotina == Rotinas.incluir | rotina == Rotinas.alterar) {
 
-                    if (nome.equals("Incluir") | nome.equals("Excluir") | nome.equals("Alterar")) {
+                    if (nome.equals("Incluir") | nome.equals("Excluir") | nome.equals("Alterar")
+                            | nome.equals("Iniciar Atendimento")) {
                         field.setEnabled(false);
                     } else {
                         field.setEnabled(true);
                     }
 
                 } else {
-                    if (nome.equals("Incluir") | nome.equals("Excluir") | nome.equals("Alterar")) {
+                    if (nome.equals("Incluir") | nome.equals("Excluir") | nome.equals("Alterar")
+                            | nome.equals("Iniciar Atendimento")) {
                         field.setEnabled(true);
                     } else {
                         field.setEnabled(false);
