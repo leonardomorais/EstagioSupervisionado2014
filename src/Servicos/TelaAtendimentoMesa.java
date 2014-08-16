@@ -13,6 +13,8 @@ import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -655,9 +657,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
                 produto.alteraQtAtual(produto);
                 // 
-                atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(tabela.getValueAt(linha, 0).toString()));
+                atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
                 atd.getAtdProdutos().getProduto().setCdProduto
-                (Integer.parseInt(tabela.getValueAt(linha, 1).toString()));
+                (Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
                 atd.getAtdProdutos().excluir(atd.getAtdProdutos());
      
                 tabela.removeRow(linha);
@@ -719,6 +721,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         if (opcao == JOptionPane.YES_OPTION) {
             if (!jTextFieldNrAtendimento.getText().isEmpty()) {
                 atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+                atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+                atd.getAtdProdutos().excluir(atd.getAtdProdutos());
                 atd.excluir(atd);
 
                 // devolve os produtos da jtable para o estoque
@@ -990,6 +994,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     quantidade = qtTabela;
                 } else {
                     quantidade = quantidade + qtTabela;
+                    atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+                    atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(cd));
+                    atd.getAtdProdutos().excluir(atd.getAtdProdutos());
                 }
             } else {
                 tabela.setNumRows(linhas + 1);
@@ -1053,33 +1060,44 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             atd.alterar(atd);
 
             //AtendimentoMesaProdutos atdProdutos = new AtendimentoMesaProdutos();
-            atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
-            
-            for (int i = 0; i < linhas; i++) {
-                int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
-                double vl = Double.parseDouble(jTableProdutos.getValueAt(i, 2).toString());
-                int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
-                
-                atd.getAtdProdutos().getProduto().setCdProduto(cd);
-                atd.getAtdProdutos().setQuantidade(qt);
-                atd.getAtdProdutos().setValor(vl);
-                atd.getAtdProdutos().incluir(atd.getAtdProdutos());
-            }
+//            atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+//            
+//            for (int i = 0; i < linhas; i++) {
+//                int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
+//                double vl = Double.parseDouble(jTableProdutos.getValueAt(i, 2).toString());
+//                int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
+//                
+//                atd.getAtdProdutos().getProduto().setCdProduto(cd);
+//                atd.getAtdProdutos().setQuantidade(qt);
+//                atd.getAtdProdutos().setValor(vl);
+//                atd.getAtdProdutos().incluir(atd.getAtdProdutos());
+//            }
         }
     }
     
     public void atualizarAtendimento(){
         atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
         
-            atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
+        Map <String, Object> campos = new HashMap<String, Object>();
         
+        if(!jTextFieldNrMesa.getText().equals("")){
+            atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));    
+            campos.put("NR_MESA", atd.getMesa().getNrMesa());
+        }
+        if(!jTextFieldCdFunc.getText().equals("")){
             atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTextFieldCdFunc.getText()));
+            campos.put("CD_FUNCIONARIO", atd.getFuncionario().getCd_funcionario());
+        }
+        if(!jTextFieldTotal.getText().equals("")){
             atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".","").replace(",", ".")));
-        
-        atd.setAbertoFechado("A");
-        atd.setDtAtendimento(jFormattedTextFieldData.getText());
-        atd.setHoraAbertura(jTextFieldHoraAbre.getText());
-        atd.setHoraFechamento("");
-        atd.alterar(atd);
+            campos.put("VL_TOTAL", atd.getVlTotal());
+        }
+        atd.alterar(atd, (HashMap<String, Object>) campos);
+         
+//        atd.setAbertoFechado("A");
+//        atd.setDtAtendimento(jFormattedTextFieldData.getText());
+//        atd.setHoraAbertura(jTextFieldHoraAbre.getText());
+//        atd.setHoraFechamento("");
+//        atd.alterar(atd);
     }
 }

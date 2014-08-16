@@ -3,6 +3,7 @@ package Classes;
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -43,6 +44,20 @@ public class AtendimentoMesa {
                 + "DT_ATENDIMENTO = '" + atd.getDtAtendimento() + "', "
                 + "CD_FUNCIONARIO = '" + atd.getFuncionario().getCd_funcionario() + "' "
                 + "WHERE NR_ATENDIMENTO = " + atd.getNrAtendimento();
+        conexao.atualizarSQL(sql);
+    }
+    public void alterar (AtendimentoMesa atd, HashMap<String, Object> campos){
+        String sql = "UPDATE ATENDIMENTO_MESA SET ";
+        
+         for (String key : campos.keySet()) {
+                      
+                      Object valor = campos.get(key);
+                      
+                      sql = sql + key+" = '"+valor+"', ";
+         }
+         
+         sql = sql.subSequence(0, sql.length()-2).toString();
+         sql = sql + " WHERE NR_ATENDIMENTO = "+atd.getNrAtendimento();
         conexao.atualizarSQL(sql);
     }
 

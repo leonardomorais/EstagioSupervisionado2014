@@ -1,5 +1,6 @@
 package Servicos;
 
+import Validacoes.FormataMoeda;
 import Validacoes.RetornaData;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -23,7 +24,8 @@ public class TelaVenda extends javax.swing.JFrame {
      */
     public TelaVenda() {
         initComponents();
-        jTextFieldData.setText(rdata.retornaDataAtual(false));
+        jTextFieldTotal.setDocument(new FormataMoeda());
+        jTextFieldTotalProduto.setDocument(new FormataMoeda());
     }
 
     /**
@@ -80,6 +82,8 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldCdOperacao = new javax.swing.JTextField();
         jBtPesquisaOperacao = new javax.swing.JButton();
         jTextFieldDsOperacao = new javax.swing.JTextField();
+        jBtPesquisarAtendimento = new javax.swing.JButton();
+        jBtIncluir = new javax.swing.JButton();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableVendaCompra = new javax.swing.JTable();
@@ -197,6 +201,15 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jTextFieldDsOperacao.setEnabled(false);
 
+        jBtPesquisarAtendimento.setText("Pesquisar");
+
+        jBtIncluir.setText("Incluir Venda/Compra");
+        jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtIncluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelGravarLayout = new javax.swing.GroupLayout(jPanelGravar);
         jPanelGravar.setLayout(jPanelGravarLayout);
         jPanelGravarLayout.setHorizontalGroup(
@@ -218,16 +231,19 @@ public class TelaVenda extends javax.swing.JFrame {
                                     .addComponent(jTextFieldCdVendaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(78, 78, 78)
                                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldNrAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanelGravarLayout.createSequentialGroup()
+                                        .addComponent(jTextFieldNrAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jBtPesquisarAtendimento))
                                     .addComponent(jLabel2))
-                                .addGap(138, 138, 138)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addGroup(jPanelGravarLayout.createSequentialGroup()
                                         .addComponent(jRadioButtonVenda)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jRadioButtonCompra)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(156, 156, 156)
                                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -251,7 +267,8 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
                         .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGravarLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jBtIncluir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -310,8 +327,10 @@ public class TelaVenda extends javax.swing.JFrame {
                             .addComponent(jRadioButtonVenda)
                             .addComponent(jRadioButtonCompra)))
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jTextFieldNrAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldNrAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesquisarAtendimento)))
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
                         .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -344,7 +363,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(jTextFieldCdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisaOperacao)
                     .addComponent(jTextFieldDsOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -377,7 +396,8 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jBtIncluir))
                 .addContainerGap())
         );
 
@@ -405,12 +425,12 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Cliente", "Fornecedor", "Tipo" }));
         jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
                 jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
@@ -563,6 +583,10 @@ public class TelaVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonPesquisarFormaActionPerformed
 
+    private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
+        jTextFieldData.setText(rdata.retornaDataAtual(false));
+    }//GEN-LAST:event_jBtIncluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -601,7 +625,9 @@ public class TelaVenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupTipo;
     private javax.swing.JButton jBtAdicionar;
+    private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisaOperacao;
+    private javax.swing.JButton jBtPesquisarAtendimento;
     private javax.swing.JButton jBtRemover;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
