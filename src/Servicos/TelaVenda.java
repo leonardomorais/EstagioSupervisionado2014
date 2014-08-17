@@ -1,9 +1,19 @@
 package Servicos;
 
+import Classes.AtendimentoMesa;
+import Classes.VendaCompra;
+import Consultas.ConsultaAtendimento;
+import Consultas.ConsultaForma;
+import Consultas.ConsultaOperacao;
+import Consultas.ConsultaProduto;
 import Validacoes.FormataMoeda;
 import Validacoes.RetornaData;
+import Validacoes.RetornaDecimal;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -12,11 +22,11 @@ import javax.swing.text.MaskFormatter;
  */
 public class TelaVenda extends javax.swing.JFrame {
     
+    VendaCompra venda = new VendaCompra();
     
     RetornaData rdata = new RetornaData();
+    RetornaDecimal decimal = new RetornaDecimal();
     
-    
-    MaskFormatter real;
     MaskFormatter data;
 
     /**
@@ -24,8 +34,6 @@ public class TelaVenda extends javax.swing.JFrame {
      */
     public TelaVenda() {
         initComponents();
-        jTextFieldTotal.setDocument(new FormataMoeda());
-        jTextFieldTotalProduto.setDocument(new FormataMoeda());
     }
 
     /**
@@ -65,11 +73,8 @@ public class TelaVenda extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jSpnQuantidade = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
-        try{       real = new MaskFormatter("####.##");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jFormattedTextFieldVlUnitario = new JFormattedTextField(real);
         jLabel11 = new javax.swing.JLabel();
-        try{       real = new MaskFormatter("#####.##");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldTotalProduto = new JFormattedTextField(real);
+        jTextFieldTotalProduto = new javax.swing.JTextField();
         jBtAdicionar = new javax.swing.JButton();
         jBtRemover = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -84,15 +89,18 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldDsOperacao = new javax.swing.JTextField();
         jBtPesquisarAtendimento = new javax.swing.JButton();
         jBtIncluir = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        jTextFieldVlAtendimento = new javax.swing.JTextField();
+        jTextFieldVlUnitario = new javax.swing.JTextField();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableVendaCompra = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTableProdutosVenda = new javax.swing.JTable();
+        jTableConta = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTableProdutosVenda1 = new javax.swing.JTable();
+        jTableProdutosVenda = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox();
@@ -106,6 +114,12 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jLabel2.setText("Nr Atendimento");
 
+        jTextFieldNrAtendimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldNrAtendimentoFocusLost(evt);
+            }
+        });
+
         jLabel3.setText("Tipo");
 
         buttonGroupTipo.add(jRadioButtonVenda);
@@ -116,6 +130,12 @@ public class TelaVenda extends javax.swing.JFrame {
         jRadioButtonCompra.setText("Compra");
 
         jLabel4.setText("Data");
+
+        jTextFieldCdCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdClienteFocusLost(evt);
+            }
+        });
 
         jLabel5.setText("Cliente/Fornecedor");
 
@@ -130,6 +150,12 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jLabel7.setText("Forma de Pagamento");
 
+        jTextFieldCdForma.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdFormaFocusLost(evt);
+            }
+        });
+
         jButtonPesquisarForma.setText("Pesquisar");
         jButtonPesquisarForma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,18 +167,41 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jLabel8.setText("Produto");
 
+        jTextFieldCdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdProdutoFocusLost(evt);
+            }
+        });
+
         jButtonPesquisarProduto.setText("Pesquisar");
+        jButtonPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarProdutoActionPerformed(evt);
+            }
+        });
 
         jTextFieldProduto.setEnabled(false);
 
         jLabel9.setText("Quantidade");
 
         jSpnQuantidade.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        jSpnQuantidade.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpnQuantidadeStateChanged(evt);
+            }
+        });
+        jSpnQuantidade.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jSpnQuantidadePropertyChange(evt);
+            }
+        });
 
         jLabel10.setText("Valor Unitário (R$)");
 
         jLabel11.setText("Total (R$)");
 
+        jTextFieldTotalProduto.setDocument(new FormataMoeda());
+        jTextFieldTotalProduto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldTotalProduto.setEnabled(false);
 
         jBtAdicionar.setText("Adicionar");
@@ -171,7 +220,8 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jLabel12.setText("Valor Total");
 
-        jTextFieldTotal.setEnabled(false);
+        jTextFieldTotal.setDocument(new FormataMoeda());
+        jTextFieldTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,10 +248,20 @@ public class TelaVenda extends javax.swing.JFrame {
         jLabel6.setText("Operação");
 
         jBtPesquisaOperacao.setText("Pesquisar");
+        jBtPesquisaOperacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaOperacaoActionPerformed(evt);
+            }
+        });
 
         jTextFieldDsOperacao.setEnabled(false);
 
         jBtPesquisarAtendimento.setText("Pesquisar");
+        jBtPesquisarAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarAtendimentoActionPerformed(evt);
+            }
+        });
 
         jBtIncluir.setText("Incluir Venda/Compra");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +269,15 @@ public class TelaVenda extends javax.swing.JFrame {
                 jBtIncluirActionPerformed(evt);
             }
         });
+
+        jLabel15.setText("Valor Atendimento");
+
+        jTextFieldVlAtendimento.setDocument(new FormataMoeda());
+        jTextFieldVlAtendimento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldVlAtendimento.setEnabled(false);
+
+        jTextFieldVlUnitario.setDocument(new FormataMoeda());
+        jTextFieldVlUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout jPanelGravarLayout = new javax.swing.GroupLayout(jPanelGravar);
         jPanelGravar.setLayout(jPanelGravarLayout);
@@ -236,6 +305,10 @@ public class TelaVenda extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jBtPesquisarAtendimento))
                                     .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jTextFieldVlAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -243,7 +316,7 @@ public class TelaVenda extends javax.swing.JFrame {
                                         .addComponent(jRadioButtonVenda)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jRadioButtonCompra)))
-                                .addGap(156, 156, 156)
+                                .addGap(88, 88, 88)
                                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -255,13 +328,13 @@ public class TelaVenda extends javax.swing.JFrame {
                                         .addComponent(jButtonPesquisarForma)
                                         .addGap(18, 18, 18)
                                         .addComponent(jTextFieldForma, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelGravarLayout.createSequentialGroup()
                                         .addComponent(jTextFieldCdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButtonPesquisarCliente)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextFieldNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jTextFieldNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(87, 87, 87))
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
@@ -281,7 +354,7 @@ public class TelaVenda extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel10)
-                                            .addComponent(jFormattedTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel11)
@@ -321,7 +394,9 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButtonVenda)
@@ -330,7 +405,8 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldNrAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesquisarAtendimento)))
+                            .addComponent(jBtPesquisarAtendimento)
+                            .addComponent(jTextFieldVlAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
                         .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -375,11 +451,12 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpnQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSpnQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -425,16 +502,16 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Cliente", "Fornecedor", "Tipo" }));
         jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
                 jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
         });
 
-        jTableProdutosVenda.setModel(new javax.swing.table.DefaultTableModel(
+        jTableConta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -450,9 +527,9 @@ public class TelaVenda extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTableProdutosVenda);
+        jScrollPane3.setViewportView(jTableConta);
 
-        jTableProdutosVenda1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableProdutosVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -468,7 +545,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(jTableProdutosVenda1);
+        jScrollPane4.setViewportView(jTableProdutosVenda);
 
         jButton3.setText("Pesquisar");
 
@@ -548,22 +625,22 @@ public class TelaVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor informe o produto que deseja adicionar!");
             jTextFieldCdProduto.grabFocus();
         } else {
-            //adicionarProdutos();
-            //jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos)));
+              adicionarProdutos();
+              jTextFieldTotal.setText(decimal.retornaDecimal(venda.retornaTotalVendaCompra(jTableProdutos), 6));
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
     private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRemoverActionPerformed
-        //        int linha = jTableProdutos.getSelectedRow();
-        //        if (linha>=0){
-            //            int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este produto do atendimento ?",
-                //                "Remover Produto", JOptionPane.YES_NO_OPTION);
-            //            if(opcao == JOptionPane.YES_OPTION){
-                //            //    DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
-                //                tabela.removeRow(linha);
-                //                jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos)));
-                //            }
-            //        }
+                int linha = jTableProdutos.getSelectedRow();
+                if (linha>=0){
+                        int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este produto do atendimento ?",
+                                "Remover Produto", JOptionPane.YES_NO_OPTION);
+                        if(opcao == JOptionPane.YES_OPTION){
+                                DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
+                                tabela.removeRow(linha);
+                                jTextFieldTotal.setText(decimal.retornaDecimal(venda.retornaTotalVendaCompra(jTableProdutos),6));
+                            }
+                    }
     }//GEN-LAST:event_jBtRemoverActionPerformed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
@@ -580,12 +657,188 @@ public class TelaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarClienteActionPerformed
 
     private void jButtonPesquisarFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarFormaActionPerformed
-        // TODO add your handling code here:
+        ConsultaForma csForma = new ConsultaForma(this, true);
+        csForma.setVisible(true);
+        
+        csForma.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                
+                if (venda.getForma().getCdForma() == 0) {
+                    jTextFieldCdForma.setText("");
+                    jTextFieldForma.setText("");
+                } else {
+                    jTextFieldCdForma.setText(venda.getForma().getCdForma().toString());
+                    jTextFieldForma.setText(venda.getForma().getDsForma().toString());
+                }
+            }
+        });
     }//GEN-LAST:event_jButtonPesquisarFormaActionPerformed
 
     private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
         jTextFieldData.setText(rdata.retornaDataAtual(false));
     }//GEN-LAST:event_jBtIncluirActionPerformed
+
+    private void jBtPesquisarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarAtendimentoActionPerformed
+        ConsultaAtendimento csAtendimento = new ConsultaAtendimento(this, true);
+        csAtendimento.setVisible(true);
+        
+        csAtendimento.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                
+                if (venda.getVendaAtendimento().getAtendimento().getNrAtendimento() == 0) {
+                    jTextFieldNrAtendimento.setText("");
+                    jTextFieldVlAtendimento.setText("");
+                } else {
+                    jTextFieldNrAtendimento.setText(
+                            venda.getVendaAtendimento().getAtendimento().getNrAtendimento().toString());
+                    jTextFieldVlAtendimento.setText(decimal.retornaDecimal(
+                            venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                }
+            }
+        });
+    }//GEN-LAST:event_jBtPesquisarAtendimentoActionPerformed
+
+    private void jTextFieldCdClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdClienteFocusLost
+       
+    }//GEN-LAST:event_jTextFieldCdClienteFocusLost
+
+    private void jTextFieldNrAtendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNrAtendimentoFocusLost
+        if(!jTextFieldNrAtendimento.getText().equals("")){
+            try{
+                venda.getVendaAtendimento().getAtendimento().setNrAtendimento
+                (Integer.parseInt(jTextFieldNrAtendimento.getText()));
+                venda.getVendaAtendimento().getAtendimento().retornaAtendimento
+               (venda.getVendaAtendimento().getAtendimento());
+                
+                if(venda.getVendaAtendimento().getAtendimento().getNrAtendimento() == 0){
+                    JOptionPane.showMessageDialog(null, "Atendimento não encontrado!");
+                    jTextFieldNrAtendimento.setText("");
+                    jTextFieldVlAtendimento.setText("");
+                    jTextFieldNrAtendimento.grabFocus();
+                }
+                else{
+                    jTextFieldVlAtendimento.setText(decimal.
+                            retornaDecimal(venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                    jTextFieldTotal.setText(decimal.
+                            retornaDecimal(venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                }
+            }
+            catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Informe um número de atendimento para pesquisar!");
+                jTextFieldNrAtendimento.setText("");
+                jTextFieldVlAtendimento.setText("");
+                jTextFieldNrAtendimento.grabFocus();
+            }
+        }
+    }//GEN-LAST:event_jTextFieldNrAtendimentoFocusLost
+
+    private void jTextFieldCdFormaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdFormaFocusLost
+        if(!jTextFieldCdForma.getText().equals("")){
+            try{
+                venda.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
+                venda.getForma().retornaForma(venda.getForma());
+                
+                if(venda.getForma().getDsForma().equals("")){
+                    jTextFieldCdForma.setText("");
+                    jTextFieldForma.setText("");
+                    jTextFieldCdForma.grabFocus();
+                }
+                else{
+                    jTextFieldForma.setText(venda.getForma().getDsForma());
+                }
+            }
+            catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
+                jTextFieldCdForma.setText("");
+                jTextFieldForma.setText("");
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdFormaFocusLost
+
+    private void jBtPesquisaOperacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaOperacaoActionPerformed
+       ConsultaOperacao csOperacao = new ConsultaOperacao(this, true);
+       csOperacao.setVisible(true);
+       
+       csOperacao.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                if(venda.getOperacao().getCdOperacao()==0){
+                   jTextFieldCdOperacao.setText("");
+                   jTextFieldDsOperacao.setText("");
+                }
+                else{
+                    jTextFieldCdOperacao.setText(venda.getOperacao().getCdOperacao().toString());
+                    jTextFieldDsOperacao.setText(venda.getOperacao().getDsOperacao());
+                }
+            }
+        });
+       
+       
+    }//GEN-LAST:event_jBtPesquisaOperacaoActionPerformed
+
+    private void jTextFieldCdProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdProdutoFocusLost
+        if (!jTextFieldCdProduto.getText().equals("")) {
+            try {
+                venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
+                        .setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
+                venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().retornaProduto(
+                        venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
+                
+                if (venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
+                        .getDsProduto().equals("")) {
+                    jTextFieldCdProduto.setText("");
+                    jTextFieldProduto.setText("");
+                    jTextFieldCdProduto.grabFocus();
+                } else {
+                    preencherProduto();
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                jTextFieldCdProduto.setText("");
+                jTextFieldProduto.setText("");
+                jTextFieldCdProduto.grabFocus();
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdProdutoFocusLost
+
+    private void jSpnQuantidadePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSpnQuantidadePropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSpnQuantidadePropertyChange
+
+    private void jSpnQuantidadeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpnQuantidadeStateChanged
+        try {
+            double preco = Double.parseDouble(jTextFieldVlUnitario.getText()
+                    .replace(".", "").replace(",", "."));
+            if (preco > 0) {
+                preencherTotalProduto();
+            }
+        } catch (NumberFormatException ex) {
+            jTextFieldTotalProduto.setText("");
+        }
+    }//GEN-LAST:event_jSpnQuantidadeStateChanged
+
+    private void jButtonPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarProdutoActionPerformed
+        ConsultaProduto csProd = new ConsultaProduto(this, true);
+        csProd.setVisible(true);
+        
+        csProd.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                
+                if (venda.getVendaAtendimento().getAtendimento()
+                        .getAtdProdutos().getProduto().getCdProduto() == 0) {
+                    jTextFieldProduto.setText("");
+                    jTextFieldCdProduto.setText("");
+                } else {
+                    jTextFieldCdProduto.setText(venda.getVendaAtendimento().getAtendimento()
+                        .getAtdProdutos().getProduto().getCdProduto().toString());
+                    venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
+                        .retornaProduto(venda.getVendaAtendimento().getAtendimento()
+                        .getAtdProdutos().getProduto(), false);
+                    
+                    preencherProduto();
+                }
+            }
+        });
+    }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -637,13 +890,13 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JButton jButtonPesquisarProduto;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxTipo;
-    private javax.swing.JFormattedTextField jFormattedTextFieldVlUnitario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -662,9 +915,9 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSpinner jSpnQuantidade;
     private javax.swing.JTabbedPane jTabbedPaneVendaCompra;
+    private javax.swing.JTable jTableConta;
     private javax.swing.JTable jTableProdutos;
     private javax.swing.JTable jTableProdutosVenda;
-    private javax.swing.JTable jTableProdutosVenda1;
     private javax.swing.JTable jTableVendaCompra;
     private javax.swing.JTextField jTextFieldCdCliente;
     private javax.swing.JTextField jTextFieldCdForma;
@@ -680,5 +933,84 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldProduto;
     private javax.swing.JTextField jTextFieldTotal;
     private javax.swing.JTextField jTextFieldTotalProduto;
+    private javax.swing.JTextField jTextFieldVlAtendimento;
+    private javax.swing.JTextField jTextFieldVlUnitario;
     // End of variables declaration//GEN-END:variables
+
+    public void preencherProduto(){
+        jTextFieldProduto.setText(venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
+                .getProduto().getDsProduto());
+        int max = venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
+                .getProduto().getQtAtual();
+        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, max, 1);
+        jSpnQuantidade.setModel(model);
+        jTextFieldVlUnitario.setText(decimal.retornaDecimal(venda.getVendaAtendimento().getAtendimento()
+                .getAtdProdutos().getProduto().getVlProduto(), 6));
+        preencherTotalProduto();
+    }
+    
+    public void preencherTotalProduto() {
+        double preco = Double.parseDouble(jTextFieldVlUnitario.getText()
+                .replace(".", "").replace(",", "."));
+        
+        int qt = Integer.parseInt(jSpnQuantidade.getValue().toString());
+        jTextFieldTotalProduto.setText(decimal.retornaDecimal(qt * preco, 6));
+        
+    }
+
+    public void adicionarProdutos(){
+        DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
+        SpinnerNumberModel spn = (SpinnerNumberModel) jSpnQuantidade.getModel();
+        
+        String cd = jTextFieldCdProduto.getText();
+        double valor = Double.parseDouble(jTextFieldVlUnitario.getText()
+                .replace(".", "").replace(",", "."));
+        int quantidade = Integer.parseInt(jSpnQuantidade.getValue().toString());
+        int max = (int) spn.getMaximum();
+        int linhas = jTableProdutos.getRowCount();
+        
+        boolean repetido = false;
+        
+        int posicao = linhas;
+        
+        if (linhas < 0) {
+            tabela.setNumRows(linhas + 1);
+        } else {
+            for (int i = 0; i < linhas; i++) {
+                if (jTableProdutos.getValueAt(i, 0).toString().equals(cd)) {
+                    repetido = true;
+                    posicao = i;
+                }
+            }
+            
+            if (repetido) {
+                int qtTabela = Integer.parseInt(jTableProdutos.getValueAt(posicao, 3).toString());
+                
+                if (quantidade + qtTabela > max) {
+                    JOptionPane.showMessageDialog(null, "Quantidade indisponível para este produto!");
+                    quantidade = qtTabela;
+                } else {
+                    quantidade = quantidade + qtTabela;
+                }
+            } else {
+                tabela.setNumRows(linhas + 1);
+            }
+        }
+        tabela.setValueAt(cd, posicao, 0);
+        tabela.setValueAt(jTextFieldProduto.getText(), posicao, 1);
+        tabela.setValueAt(decimal.retornaDecimal(valor), posicao, 2);
+        tabela.setValueAt(quantidade, posicao, 3);
+        double total = quantidade * valor;
+        tabela.setValueAt(decimal.retornaDecimal(total), posicao, 4);
+        
+    }
+    
+    public void CarregarAtendimento(JTable tabela, AtendimentoMesa atd){
+        jBtIncluirActionPerformed(null);
+        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+        jTableProdutos.setModel(model);
+        jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
+        jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(),6));
+        jTextFieldVlAtendimento.setText(decimal.retornaDecimal(atd.getVlTotal(),6));
+    }
 }

@@ -258,7 +258,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Descrição", "Entrada(Sim/Não)", "Intervalo", "Parcelas"
+                "Código", "Descrição", "Entrada", "Intervalo", "Parcelas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -294,7 +294,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

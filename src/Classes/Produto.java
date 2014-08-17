@@ -144,10 +144,6 @@ public class Produto {
             produto.setVlCusto(retorno.getDouble("VL_CUSTO"));
             produto.setVlProduto(retorno.getDouble("VL_PRODUTO"));
 
-            if (todos) {
-                produto.setAtivo(retorno.getString("ATIVO"));
-            }
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Produto não encontrado !");
             produto.setDsProduto("");

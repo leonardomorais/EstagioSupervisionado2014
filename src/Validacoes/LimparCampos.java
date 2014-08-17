@@ -3,8 +3,10 @@ package Validacoes;
 import java.awt.Component;
 import java.awt.Container;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,4 +30,9 @@ public class LimparCampos {
 
         }
     }
+    
+     public void limparJtable(JTable tabela){
+                DefaultTableModel Tabela = (DefaultTableModel) tabela.getModel();
+                Tabela.setNumRows(0);
+            }
 }

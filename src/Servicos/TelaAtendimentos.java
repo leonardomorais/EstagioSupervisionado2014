@@ -38,6 +38,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMesas = new javax.swing.JTable();
         jBtAtualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jMenuItemExibirDetalhes.setText("Exibir Detalhes");
         jPopupMenuAtendimentos.add(jMenuItemExibirDetalhes);
@@ -77,13 +78,14 @@ public class TelaAtendimentos extends javax.swing.JFrame {
         jTableMesas.setComponentPopupMenu(jPopupMenuAtendimentos);
         jScrollPane1.setViewportView(jTableMesas);
 
-        jBtAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Icons/refresh.png"))); // NOI18N
         jBtAtualizar.setText("Atualizar");
         jBtAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAtualizarActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Atendimentos atuais:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,24 +94,29 @@ public class TelaAtendimentos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtNovo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 361, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBtNovo)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBtAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jBtNovo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,6 +170,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAtualizar;
     private javax.swing.JButton jBtNovo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItemCancelar;
     private javax.swing.JMenuItem jMenuItemEncerrar;
     private javax.swing.JMenuItem jMenuItemExibirDetalhes;

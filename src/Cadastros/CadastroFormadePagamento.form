@@ -308,7 +308,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" pref="472" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="475" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel1" max="32767" attributes="0"/>
@@ -375,7 +375,7 @@
                       <Table columnCount="5" rowCount="0">
                         <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
-                        <Column editable="false" title="Entrada(Sim/N&#xe3;o)" type="java.lang.Object"/>
+                        <Column editable="false" title="Entrada" type="java.lang.Object"/>
                         <Column editable="false" title="Intervalo" type="java.lang.Object"/>
                         <Column editable="false" title="Parcelas" type="java.lang.Object"/>
                       </Table>

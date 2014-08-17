@@ -219,6 +219,11 @@ public class CadastroFamilia extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setComponentPopupMenu(jPopupMenuFamilia);
+        jTableConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConsultaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel1.setText("Filtro da Consulta");
@@ -453,6 +458,10 @@ public class CadastroFamilia extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jTableConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaMouseClicked
+  
+    }//GEN-LAST:event_jTableConsultaMouseClicked
 
     /**
      * @param args the command line arguments

@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class FormaPagamento {
 
-    private Integer cdForma;
-    private String dsForma;
+    private static Integer cdForma;
+    private static String dsForma;
     private String entrada;
     private Integer intervalo;
     private Integer qtParcelas;

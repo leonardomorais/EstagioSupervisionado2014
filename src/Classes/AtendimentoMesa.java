@@ -3,6 +3,7 @@ package Classes;
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,11 +14,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AtendimentoMesa {
 
-    private Integer nrAtendimento;
+    private static Integer nrAtendimento;
     private String horaAbertura;
     private String horaFechamento;
     private String abertoFechado;
-    private Double vlTotal;
+    private static Double vlTotal;
     private String dtAtendimento;
 
     private Mesa mesa = new Mesa();
@@ -203,8 +204,27 @@ public class AtendimentoMesa {
         return conexao.resultset;
     }
     
+    public void retornaAtendimento(AtendimentoMesa atd){
+        String sql = "SELECT NR_MESA, HORA_ABERTURA, HORA_FECHAMENTO, "
+                + "ABERTO_FECHADO, VL_TOTAL, TO_CHAR(DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
+                + "CD_FUNCIONARIO FROM ATENDIMENTO_MESA WHERE NR_ATENDIMENTO = "+atd.getNrAtendimento()
+                +" AND ABERTO_FECHADO = 'F'";
+        conexao.executeSQL(sql);
+        try{
+            conexao.resultset.first();
+            atd.getFuncionario().setCd_funcionario(conexao.resultset.getInt("CD_FUNCIONARIO"));
+            atd.getMesa().setNrMesa(conexao.resultset.getInt("NR_MESA"));
+            atd.setHoraAbertura(conexao.resultset.getString("HORA_ABERTURA"));
+            atd.setHoraFechamento(conexao.resultset.getString("HORA_FECHAMENTO"));
+            atd.setAbertoFechado(conexao.resultset.getString("ABERTO_FECHADO"));
+            atd.setVlTotal(conexao.resultset.getDouble("VL_TOTAL"));
+            atd.setDtAtendimento(conexao.resultset.getString("DATA"));   
+        }
+        catch(SQLException ex){
+            atd.setNrAtendimento(0);
+        }
+    }
     
-
     public ResultSet exibirAtendimentosAtuais() {
         String sql = "SELECT A.NR_MESA, A.NR_ATENDIMENTO, P.NOME, A.HORA_ABERTURA, COALESCE(A.VL_TOTAL,0.00) "
                 + "FROM ATENDIMENTO_MESA A "

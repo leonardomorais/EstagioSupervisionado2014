@@ -299,6 +299,9 @@
                       <ComponentRef name="jPopupMenuFamilia"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableConsultaMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

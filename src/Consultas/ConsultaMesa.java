@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Consultas;
 
 import Cadastros.CadastroMesa;
@@ -256,6 +252,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         CadastroMesa cadMesa = new CadastroMesa();
           cadMesa.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
           cadMesa.setVisible(true);
+          
            cadMesa.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);

@@ -743,6 +743,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 rotina = Rotinas.padrao;
                 botoes.validaBotoes(jPanelBotoes, rotina);
                 limpar.limparCampos(jPanelAtendimento);
+                limpar.limparJtable(jTableProdutos);
+                jSpnQuantidade.setValue(1);
             }
         }
     }//GEN-LAST:event_jBtCancelarActionPerformed
@@ -782,7 +784,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         int linha = jTableProdutos.getSelectedRow();
         if (linha >= 0) {
             produto.setCdProduto(Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
-            produto.retornaProduto(produto, false);
+            produto.retornaProduto(produto, true);
             produto.setQtAtual(produto.getQtAtual() + Integer.parseInt(jTableProdutos.getValueAt(linha, 3).toString()));
         }
     }//GEN-LAST:event_jTableProdutosMouseClicked
@@ -804,6 +806,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     preencher.PreencherJtableGenerico(jTableAtendimento,
                             atd.consultarNrAtendimento(atd, jRadioButtonSim.isSelected()));
                 } catch (NumberFormatException ex) {
+                    limpar.limparJtable(jTableAtendimentoProdutos);
                     JOptionPane.showMessageDialog(null, "Informe um número de atendimento para pesquisar");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
@@ -816,6 +819,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     preencher.PreencherJtableGenerico(jTableAtendimento,
                             atd.consultarNrMesa(atd, jRadioButtonSim.isSelected()));
                 } catch (NumberFormatException ex) {
+                    limpar.limparJtable(jTableAtendimentoProdutos);
                     JOptionPane.showMessageDialog(null, "Informe um número de mesa para pesquisar");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
@@ -852,6 +856,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
                         atd.getAtdProdutos().retornaProdutos(atd.getAtdProdutos()));
             }
+        else{
+             limpar.limparJtable(jTableAtendimentoProdutos);
+        }
     }//GEN-LAST:event_jTableAtendimentoMouseClicked
 
     /**
@@ -949,7 +956,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jSpnQuantidade.setModel(model);
         jTextFieldVlUnitario.setText(decimal.retornaDecimal(produto.getVlProduto(), 6));
         preencherTotalProduto();
-        
     }
     
     public void preencherTotalProduto() {
@@ -1072,6 +1078,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 //                atd.getAtdProdutos().setValor(vl);
 //                atd.getAtdProdutos().incluir(atd.getAtdProdutos());
 //            }
+        TelaVenda tela = new TelaVenda();
+        tela.setVisible(true);
+        tela.CarregarAtendimento(jTableProdutos, atd);
+        this.dispose();
         }
     }
     
