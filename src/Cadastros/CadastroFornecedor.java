@@ -777,15 +777,15 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 180, 45, 100, 120, 180, 60, 40});
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarGeral());
+            preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarGeral(true));
             editaBotao(preencher.isVazia());
-            report.setConsulta(fornecedor.consultarGeral());
+            report.setConsulta(fornecedor.consultarGeral(true));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 fornecedor.setCdFornecedor(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarCdFornecedor(fornecedor));
+                preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarCdFornecedor(fornecedor, true));
                 editaBotao(preencher.isVazia());
-                report.setConsulta(fornecedor.consultarCdFornecedor(fornecedor));
+                report.setConsulta(fornecedor.consultarCdFornecedor(fornecedor, true));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
@@ -794,9 +794,9 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         } else {
             fornecedor.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarNomeFornecedor(fornecedor));
+            preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarNomeFornecedor(fornecedor, true));
             editaBotao(preencher.isVazia());
-            report.setConsulta(fornecedor.consultarNomeFornecedor(fornecedor));
+            report.setConsulta(fornecedor.consultarNomeFornecedor(fornecedor, true));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 

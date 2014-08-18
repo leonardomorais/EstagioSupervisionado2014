@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class Cliente {
 
-    private Integer cdCliente;
+    private static Integer cdCliente;
     private String dtCadastro;
     private String inAtivo;
 
@@ -74,35 +74,56 @@ public class Cliente {
         }
     }
 
-    public ResultSet consultarGeral() {
-
-        String sql = "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
-                + "THEN 'FÍSICA' ELSE 'JURÍDICA' END AS TIPO, "
-                + "CASE WHEN P.TP_PESSOA = 'J' "
-                + "THEN "
-                + "(SELECT PJ.CNPJ FROM PESSOA_JURIDICA PJ "
-                + "INNER JOIN PESSOA P ON P.CD_PESSOA = PJ.CD_PESSOA "
-                + "WHERE P.CD_PESSOA = C.CD_PESSOA) "
-                + "ELSE "
-                + "(SELECT PF.CPF FROM PESSOA_FISICA PF "
-                + "INNER JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                + "WHERE P.CD_PESSOA = C.CD_PESSOA) END AS CPF_CNPJ, "
-                + "CD.DS_CIDADE, CT.EMAIL_CONTATO, "
-                + "TO_CHAR(C.DT_CADASTRO,'DD/MM/YYYY') AS DATA, "
-                + "CASE WHEN C.SITUACAO = 'A' THEN 'ATIVO' ELSE 'INATIVO' "
-                + "END AS SITUACAO FROM CLIENTE C "
-                + "INNER JOIN PESSOA P ON C.CD_PESSOA = P.CD_PESSOA "
-                + "INNER JOIN ENDERECO E ON P.CD_PESSOA = E.CD_PESSOA "
-                + "INNER JOIN CIDADE CD ON E.CD_CIDADE = CD.CD_CIDADE "
-                + "AND E.NR_SEQ = 1 "
-                + "INNER JOIN CONTATO CT ON P.CD_PESSOA = CT.CD_PESSOA "
-                + "AND CT.NR_SEQ = 1 ORDER BY C.CD_PESSOA";
+    public ResultSet consultarGeral(boolean todos) {
+        String sql;
+        if (todos) {
+            sql = "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
+                    + "THEN 'FÍSICA' ELSE 'JURÍDICA' END AS TIPO, "
+                    + "CASE WHEN P.TP_PESSOA = 'J' "
+                    + "THEN "
+                    + "(SELECT PJ.CNPJ FROM PESSOA_JURIDICA PJ "
+                    + "INNER JOIN PESSOA P ON P.CD_PESSOA = PJ.CD_PESSOA "
+                    + "WHERE P.CD_PESSOA = C.CD_PESSOA) "
+                    + "ELSE "
+                    + "(SELECT PF.CPF FROM PESSOA_FISICA PF "
+                    + "INNER JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
+                    + "WHERE P.CD_PESSOA = C.CD_PESSOA) END AS CPF_CNPJ, "
+                    + "CD.DS_CIDADE, CT.EMAIL_CONTATO, "
+                    + "TO_CHAR(C.DT_CADASTRO,'DD/MM/YYYY') AS DATA, "
+                    + "CASE WHEN C.SITUACAO = 'A' THEN 'ATIVO' ELSE 'INATIVO' "
+                    + "END AS SITUACAO FROM CLIENTE C "
+                    + "INNER JOIN PESSOA P ON C.CD_PESSOA = P.CD_PESSOA "
+                    + "INNER JOIN ENDERECO E ON P.CD_PESSOA = E.CD_PESSOA "
+                    + "INNER JOIN CIDADE CD ON E.CD_CIDADE = CD.CD_CIDADE "
+                    + "AND E.NR_SEQ = 1 "
+                    + "INNER JOIN CONTATO CT ON P.CD_PESSOA = CT.CD_PESSOA "
+                    + "AND CT.NR_SEQ = 1 ORDER BY C.CD_PESSOA";
+        } else {
+            // esta consulta retorna os apenas os clientes ativos para a venda
+            sql = "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
+                    + "THEN 'FÍSICA' ELSE 'JURÍDICA' END AS TIPO, "
+                    + "CASE WHEN P.TP_PESSOA = 'J' "
+                    + "THEN "
+                    + "(SELECT PJ.CNPJ FROM PESSOA_JURIDICA PJ "
+                    + "INNER JOIN PESSOA P ON P.CD_PESSOA = PJ.CD_PESSOA "
+                    + "WHERE P.CD_PESSOA = C.CD_PESSOA) "
+                    + "ELSE "
+                    + "(SELECT PF.CPF FROM PESSOA_FISICA PF "
+                    + "INNER JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
+                    + "WHERE P.CD_PESSOA = C.CD_PESSOA) END AS CPF_CNPJ, "
+                    + "TO_CHAR(C.DT_CADASTRO,'DD/MM/YYYY') AS DATA "
+                    + "FROM CLIENTE C INNER JOIN PESSOA P ON C.CD_PESSOA = "
+                    + "P.CD_PESSOA WHERE C.SITUACAO = 'A' ORDER BY C.CD_PESSOA";
+        }
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarCdCliente(Cliente cliente) {
-        String sql = "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
+    public ResultSet consultarCdCliente(Cliente cliente, boolean todos) {
+        String sql;
+        
+        if (todos){
+           sql =  "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
                 + "THEN 'FÍSICA' ELSE 'JURÍDICA' END AS TIPO, "
                 + "CASE WHEN P.TP_PESSOA = 'J' "
                 + "THEN "
@@ -124,12 +145,32 @@ public class Cliente {
                 + "INNER JOIN CONTATO CT ON P.CD_PESSOA = CT.CD_PESSOA "
                 + "AND CT.NR_SEQ = 1 WHERE C.CD_PESSOA = " + cliente.getCdCliente() + " "
                 + "ORDER BY C.CD_PESSOA";
+        }
+        else{
+            sql = "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
+                    + "THEN 'FÍSICA' ELSE 'JURÍDICA' END AS TIPO, "
+                    + "CASE WHEN P.TP_PESSOA = 'J' "
+                    + "THEN "
+                    + "(SELECT PJ.CNPJ FROM PESSOA_JURIDICA PJ "
+                    + "INNER JOIN PESSOA P ON P.CD_PESSOA = PJ.CD_PESSOA "
+                    + "WHERE P.CD_PESSOA = C.CD_PESSOA) "
+                    + "ELSE "
+                    + "(SELECT PF.CPF FROM PESSOA_FISICA PF "
+                    + "INNER JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
+                    + "WHERE P.CD_PESSOA = C.CD_PESSOA) END AS CPF_CNPJ, "
+                    + "TO_CHAR(C.DT_CADASTRO,'DD/MM/YYYY') AS DATA "
+                    + "FROM CLIENTE C INNER JOIN PESSOA P ON C.CD_PESSOA = "
+                    + "P.CD_PESSOA WHERE C.SITUACAO = 'A' AND C.CD_PESSOA = "
+                    + cliente.getCdCliente();
+        }
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarNomeCliente(Cliente cliente) {
-        String sql = "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
+    public ResultSet consultarNomeCliente(Cliente cliente, boolean todos) {
+        String sql;
+        if (todos){
+           sql = "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
                 + "THEN 'FÍSICA' ELSE 'JURÍDICA' END AS TIPO, "
                 + "CASE WHEN P.TP_PESSOA = 'J' "
                 + "THEN "
@@ -151,6 +192,23 @@ public class Cliente {
                 + "INNER JOIN CONTATO CT ON P.CD_PESSOA = CT.CD_PESSOA "
                 + "AND CT.NR_SEQ = 1 WHERE P.NOME LIKE '%" + cliente.getPessoa().getNome() + "%' "
                 + "ORDER BY C.CD_PESSOA";
+        }
+        else{
+            sql = "SELECT C.CD_PESSOA, P.NOME, CASE WHEN P.TP_PESSOA = 'F' "
+                    + "THEN 'FÍSICA' ELSE 'JURÍDICA' END AS TIPO, "
+                    + "CASE WHEN P.TP_PESSOA = 'J' "
+                    + "THEN "
+                    + "(SELECT PJ.CNPJ FROM PESSOA_JURIDICA PJ "
+                    + "INNER JOIN PESSOA P ON P.CD_PESSOA = PJ.CD_PESSOA "
+                    + "WHERE P.CD_PESSOA = C.CD_PESSOA) "
+                    + "ELSE "
+                    + "(SELECT PF.CPF FROM PESSOA_FISICA PF "
+                    + "INNER JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
+                    + "WHERE P.CD_PESSOA = C.CD_PESSOA) END AS CPF_CNPJ, "
+                    + "TO_CHAR(C.DT_CADASTRO,'DD/MM/YYYY') AS DATA "
+                    + "FROM CLIENTE C INNER JOIN PESSOA P ON C.CD_PESSOA = "
+                    + "P.CD_PESSOA WHERE C.SITUACAO = 'A' ORDER BY C.CD_PESSOA";
+        }
         conexao.executeSQL(sql);
         return conexao.resultset;
     }

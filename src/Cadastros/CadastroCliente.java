@@ -777,15 +777,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 180, 45, 100, 120, 180, 60, 40});
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarGeral());
+            preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarGeral(true));
             editaBotao(preencher.isVazia());
-            report.setConsulta(cliente.consultarGeral());
+            report.setConsulta(cliente.consultarGeral(true));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 cliente.setCdCliente(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarCdCliente(cliente));
+                preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarCdCliente(cliente, true));
                 editaBotao(preencher.isVazia());
-                report.setConsulta(cliente.consultarCdCliente(cliente));
+                report.setConsulta(cliente.consultarCdCliente(cliente, true));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
@@ -794,9 +794,9 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         } else {
             cliente.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarNomeCliente(cliente));
+            preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarNomeCliente(cliente, true));
             editaBotao(preencher.isVazia());
-            report.setConsulta(cliente.consultarNomeCliente(cliente));
+            report.setConsulta(cliente.consultarNomeCliente(cliente, true));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
