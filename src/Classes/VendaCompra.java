@@ -29,10 +29,11 @@ public class VendaCompra {
         RetornaSequencia seq = new RetornaSequencia();
         vendaC.setCdVendaCompra(seq.retornaSequencia("CD_VENDA_COMPRA", "VENDA_COMPRA"));
         String sql;
-        if (vendaC.getOperacao().getTipo().equals("S")){
+        vendaC.getOperacao().retornaOperacao(vendaC.getOperacao());
+        if (vendaC.getOperacao().getTipo().equals("SIM")){
             // se a operação for saída é uma venda
             sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_CLIENTE, "
-                    + "CD_FORMA, DT_VENDA, VL_TOTAL, PAGO) VALUES ('"+vendaC.getCdVendaCompra()+"','"
+                    + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, PAGO) VALUES ('"+vendaC.getCdVendaCompra()+"','"
             +vendaC.getOperacao().getCdOperacao()+"','"+vendaC.getCliente().getCdCliente()+"','"
             +vendaC.getForma().getCdForma()+"','"+vendaC.getDtVenda()+"','"+vendaC.getVlTotal()+"','"
             +vendaC.getPago()+"')";
@@ -40,7 +41,7 @@ public class VendaCompra {
         else{
             // se a operação for entrada é uma compra
             sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_FORNECEDOR, "
-                    + "CD_FORMA, DT_VENDA, VL_TOTAL, PAGO) VALUES ('"+vendaC.getCdVendaCompra()+"','"
+                    + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, PAGO) VALUES ('"+vendaC.getCdVendaCompra()+"','"
             +vendaC.getOperacao().getCdOperacao()+"','"+vendaC.getFornecedor().getCdFornecedor()+"','"
             +vendaC.getForma().getCdForma()+"','"+vendaC.getDtVenda()+"','"+vendaC.getVlTotal()+"','"
             +vendaC.getPago()+"')";

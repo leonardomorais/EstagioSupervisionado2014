@@ -138,7 +138,5 @@ public class ConexaoPostgreSQL {
             }
             retorno = 0;
         }
-
     }
-
 }

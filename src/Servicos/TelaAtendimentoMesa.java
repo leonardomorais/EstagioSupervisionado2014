@@ -27,20 +27,20 @@ import javax.swing.text.MaskFormatter;
  * @author Leonardo
  */
 public class TelaAtendimentoMesa extends javax.swing.JFrame {
-    
+
     AtendimentoMesa atd = new AtendimentoMesa();
     Produto produto = new Produto();
-    
+
     RetornaData dataHora = new RetornaData();
     RetornaDecimal decimal = new RetornaDecimal();
-    
+
     ValidaBotoes botoes = new ValidaBotoes();
     ValidaCampos campos = new ValidaCampos();
     LimparCampos limpar = new LimparCampos();
-    
+
     MaskFormatter data;
     MaskFormatter hora;
-    
+
     int rotina;
 
     /**
@@ -572,10 +572,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
         ConsultaFuncionario csFunc = new ConsultaFuncionario(this, true);
         csFunc.setVisible(true);
-        
+
         csFunc.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                
+
                 if (atd.getFuncionario().getCd_funcionario() == 0) {
                     jTextFieldCdFunc.setText("");
                     jTextFieldNomeFunc.setText("");
@@ -591,17 +591,17 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void jButtonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisaActionPerformed
         ConsultaProduto csProd = new ConsultaProduto(this, true);
         csProd.setVisible(true);
-        
+
         csProd.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                
+
                 if (produto.getCdProduto() == 0) {
                     jTextFieldNomeProduto.setText("");
                     jTextFieldCdProduto.setText("");
                 } else {
                     jTextFieldCdProduto.setText(produto.getCdProduto().toString());
                     produto.retornaProduto(produto, false);
-                    
+
                     preencherProduto();
                 }
             }
@@ -611,10 +611,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void jBtMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMesaActionPerformed
         ConsultaMesa csMesa = new ConsultaMesa(this, true);
         csMesa.setVisible(true);
-        
+
         csMesa.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                
+
                 if (atd.getMesa().getNrMesa() == 0) {
                     jTextFieldNrMesa.setText("");
                 } else {
@@ -651,20 +651,19 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este produto do atendimento ?",
                     "Remover Produto", JOptionPane.YES_NO_OPTION);
             if (opcao == JOptionPane.YES_OPTION) {
-                
+
                 DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
                 // devolve os produtos ao estoque
 
                 produto.alteraQtAtual(produto);
                 // 
                 atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-                atd.getAtdProdutos().getProduto().setCdProduto
-                (Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
+                atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
                 atd.getAtdProdutos().excluir(atd.getAtdProdutos());
-     
+
                 tabela.removeRow(linha);
                 jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos), 6));
-                
+
                 atualizarAtendimento();
             }
         }
@@ -688,12 +687,12 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             try {
                 atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
                 atd.getMesa().retornaMesa(atd.getMesa(), false);
-                
+
                 if (atd.getMesa().getDsMesa().equals("")) {
                     jTextFieldNrMesa.setText("");
                     jTextFieldNrMesa.grabFocus();
                 }
-                
+
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
                 jTextFieldNrMesa.setText("");
@@ -717,7 +716,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Os atendimentos cancelados não serão salvos no sistema.\n"
                 + "Deseja cancelar este atendimento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
-        
+
         if (opcao == JOptionPane.YES_OPTION) {
             if (!jTextFieldNrAtendimento.getText().isEmpty()) {
                 atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
@@ -727,13 +726,13 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
                 // devolve os produtos da jtable para o estoque
                 int linhas = jTableProdutos.getRowCount();
-                
+
                 if (linhas > 0) {
                     for (int i = 0; i < linhas; i++) {
-                        
+
                         int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
                         int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
-                        
+
                         produto.setCdProduto(cd);
                         produto.retornaProduto(produto, false);
                         produto.setQtAtual(produto.getQtAtual() + qt);
@@ -754,7 +753,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             try {
                 produto.setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
                 produto.retornaProduto(produto, false);
-                
+
                 if (produto.getDsProduto().equals("")) {
                     jTextFieldCdProduto.setText("");
                     jTextFieldNomeProduto.setText("");
@@ -772,11 +771,24 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCdProdutoFocusLost
 
     private void jBtFechaAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFechaAtendimentoActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null, "Deseja encerrar este atendimento ?", "Encerrar Atendimento", JOptionPane.YES_NO_OPTION);
-        
-        if (opcao == JOptionPane.YES_OPTION) {
-            jTextFieldHoraFecha.setText(dataHora.retornaHoraAtual());
-            fecharAtendimento();
+        int linhas = jTableProdutos.getRowCount();
+        if (jTextFieldNrMesa.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor informe a mesa do atendimento!");
+            jTextFieldNrMesa.grabFocus();
+        } else if (jTextFieldCdFunc.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor informe o funcionário do atendimento!");
+            jTextFieldCdFunc.grabFocus();
+        } else if (linhas < 1) {
+            JOptionPane.showMessageDialog(null, "Por favor adicione produtos no atendimento!");
+            jTextFieldCdProduto.grabFocus();
+        } else {
+
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja encerrar este atendimento ?", "Encerrar Atendimento", JOptionPane.YES_NO_OPTION);
+
+            if (opcao == JOptionPane.YES_OPTION) {
+                jTextFieldHoraFecha.setText(dataHora.retornaHoraAtual());
+                fecharAtendimento();
+            }
         }
     }//GEN-LAST:event_jBtFechaAtendimentoActionPerformed
 
@@ -792,7 +804,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableAtendimento, new int[]{70, 50, 70, 195, 70, 70, 70, 60, 70});
-        
+
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
                 // Consultar Geral
@@ -824,19 +836,19 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
                 }
-                
+
                 break;
-            
+
             case 3:
                 // Consultar por nome do funcionário
                 atd.getFuncionario().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableAtendimento,
                         atd.consultarNomeFuncionario(atd, jRadioButtonSim.isSelected()));
                 break;
-            
+
             default:
                 // Consultar por data
-                break;            
+                break;
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -850,14 +862,13 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         PreencherTabela tabela = new PreencherTabela();
         int linha = jTableAtendimento.getSelectedRow();
         if (linha >= 0) {
-                atd.setNrAtendimento(Integer.parseInt(jTableAtendimento.getValueAt(linha, 0).toString()));
-                atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
-                tabela.FormatarJtable(jTableAtendimentoProdutos, new int[]{100, 100, 175, 100, 100, 100});
-                tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
-                        atd.getAtdProdutos().retornaProdutos(atd.getAtdProdutos()));
-            }
-        else{
-             limpar.limparJtable(jTableAtendimentoProdutos);
+            atd.setNrAtendimento(Integer.parseInt(jTableAtendimento.getValueAt(linha, 0).toString()));
+            atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+            tabela.FormatarJtable(jTableAtendimentoProdutos, new int[]{100, 100, 175, 100, 100, 100});
+            tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
+                    atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
+        } else {
+            limpar.limparJtable(jTableAtendimentoProdutos);
         }
     }//GEN-LAST:event_jTableAtendimentoMouseClicked
 
@@ -957,31 +968,31 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldVlUnitario.setText(decimal.retornaDecimal(produto.getVlProduto(), 6));
         preencherTotalProduto();
     }
-    
+
     public void preencherTotalProduto() {
         double preco = Double.parseDouble(jTextFieldVlUnitario.getText()
                 .replace(".", "").replace(",", "."));
-        
+
         int qt = Integer.parseInt(jSpnQuantidade.getValue().toString());
         jTextFieldTotalProduto.setText(decimal.retornaDecimal(qt * preco, 6));
-        
+
     }
-    
+
     public void adicionarProdutos() {
         DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
         SpinnerNumberModel spn = (SpinnerNumberModel) jSpnQuantidade.getModel();
-        
+
         String cd = jTextFieldCdProduto.getText();
         double valor = Double.parseDouble(jTextFieldVlUnitario.getText()
                 .replace(".", "").replace(",", "."));
         int quantidade = Integer.parseInt(jSpnQuantidade.getValue().toString());
         int max = (int) spn.getMaximum();
         int linhas = jTableProdutos.getRowCount();
-        
+
         boolean repetido = false;
-        
+
         int posicao = linhas;
-        
+
         if (linhas < 0) {
             tabela.setNumRows(linhas + 1);
         } else {
@@ -991,10 +1002,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     posicao = i;
                 }
             }
-            
+
             if (repetido) {
                 int qtTabela = Integer.parseInt(jTableProdutos.getValueAt(posicao, 3).toString());
-                
+
                 if (quantidade + qtTabela > max) {
                     JOptionPane.showMessageDialog(null, "Quantidade indisponível para este produto!");
                     quantidade = qtTabela;
@@ -1014,7 +1025,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         tabela.setValueAt(quantidade, posicao, 3);
         double total = quantidade * valor;
         tabela.setValueAt(decimal.retornaDecimal(total), posicao, 4);
-        
+
         // grava os produtos do atendimento
         atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
         atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(cd));
@@ -1022,16 +1033,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         atd.getAtdProdutos().setValor(valor);
         atd.getAtdProdutos().incluir(atd.getAtdProdutos());
     }
-    
+
     public void formatarTabela() {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableProdutos, new int[]{100, 280, 100, 100, 100});
     }
-    
+
     public void iniciarAtendimento() {
         jTextFieldHoraAbre.setText(dataHora.retornaHoraAtual());
         jFormattedTextFieldData.setText(dataHora.retornaDataAtual(false));
-        
+
         atd.setDtAtendimento(jFormattedTextFieldData.getText());
         atd.setHoraAbertura(jTextFieldHoraAbre.getText());
         atd.setAbertoFechado("A");
@@ -1039,33 +1050,22 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
         this.setTitle("Atendimento Nr." + atd.getNrAtendimento());
     }
-    
-    public void fecharAtendimento() {
-        int linhas = jTableProdutos.getRowCount();
-        if (jTextFieldNrMesa.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Por favor informe a mesa do atendimento!");
-            jTextFieldNrMesa.grabFocus();
-        } else if (jTextFieldCdFunc.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Por favor informe o funcionário do atendimento!");
-            jTextFieldCdFunc.grabFocus();
-        } else if (linhas < 1) {
-            JOptionPane.showMessageDialog(null, "Por favor adicione produtos no atendimento!");
-            jTextFieldCdProduto.grabFocus();
-        } else {
-            rotina = Rotinas.padrao;
-            
-            atd.setAbertoFechado("F");
-            atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-            atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
-            atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTextFieldCdFunc.getText()));
-            atd.setHoraAbertura(jTextFieldHoraAbre.getText());
-            atd.setHoraFechamento(jTextFieldHoraFecha.getText());
-            atd.setDtAtendimento(jFormattedTextFieldData.getText());
-            atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".","").replace(",", ".")));
-            
-            atd.alterar(atd);
 
-            //AtendimentoMesaProdutos atdProdutos = new AtendimentoMesaProdutos();
+    public void fecharAtendimento() {
+        rotina = Rotinas.padrao;
+
+        atd.setAbertoFechado("F");
+        atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+        atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
+        atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTextFieldCdFunc.getText()));
+        atd.setHoraAbertura(jTextFieldHoraAbre.getText());
+        atd.setHoraFechamento(jTextFieldHoraFecha.getText());
+        atd.setDtAtendimento(jFormattedTextFieldData.getText());
+        atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
+
+        atd.alterar(atd);
+
+        //AtendimentoMesaProdutos atdProdutos = new AtendimentoMesaProdutos();
 //            atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
 //            
 //            for (int i = 0; i < linhas; i++) {
@@ -1082,28 +1082,27 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         tela.setVisible(true);
         tela.CarregarAtendimento(jTableProdutos, atd);
         this.dispose();
-        }
     }
-    
-    public void atualizarAtendimento(){
+
+    public void atualizarAtendimento() {
         atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-        
-        Map <String, Object> campos = new HashMap<String, Object>();
-        
-        if(!jTextFieldNrMesa.getText().equals("")){
-            atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));    
+
+        Map<String, Object> campos = new HashMap<String, Object>();
+
+        if (!jTextFieldNrMesa.getText().equals("")) {
+            atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
             campos.put("NR_MESA", atd.getMesa().getNrMesa());
         }
-        if(!jTextFieldCdFunc.getText().equals("")){
+        if (!jTextFieldCdFunc.getText().equals("")) {
             atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTextFieldCdFunc.getText()));
             campos.put("CD_FUNCIONARIO", atd.getFuncionario().getCd_funcionario());
         }
-        if(!jTextFieldTotal.getText().equals("")){
-            atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".","").replace(",", ".")));
+        if (!jTextFieldTotal.getText().equals("")) {
+            atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
             campos.put("VL_TOTAL", atd.getVlTotal());
         }
         atd.alterar(atd, (HashMap<String, Object>) campos);
-         
+
 //        atd.setAbertoFechado("A");
 //        atd.setDtAtendimento(jFormattedTextFieldData.getText());
 //        atd.setHoraAbertura(jTextFieldHoraAbre.getText());

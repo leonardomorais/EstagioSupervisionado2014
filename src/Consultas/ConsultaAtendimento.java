@@ -242,7 +242,7 @@ public class ConsultaAtendimento extends javax.swing.JDialog {
             tabela.FormatarJtable(jTableAtendimentoProdutos, new int[]{100, 100, 175, 100, 100, 100});
             tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
                     venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
-                    .retornaProdutos(venda.getVendaAtendimento().getAtendimento().getAtdProdutos()));
+                    .consultarProdutos(venda.getVendaAtendimento().getAtendimento().getAtdProdutos()));
         }
 
     }//GEN-LAST:event_jTableAtendimentosMouseClicked

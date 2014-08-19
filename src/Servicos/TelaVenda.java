@@ -8,6 +8,8 @@ import Consultas.ConsultaForma;
 import Consultas.ConsultaOperacao;
 import Consultas.ConsultaProduto;
 import Validacoes.FormataMoeda;
+import Validacoes.LimparCampos;
+import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
 import javax.swing.JFormattedTextField;
@@ -27,6 +29,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     RetornaData rdata = new RetornaData();
     RetornaDecimal decimal = new RetornaDecimal();
+    LimparCampos limpar = new LimparCampos();
 
     MaskFormatter data;
 
@@ -82,8 +85,8 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldTotal = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jBtGravar = new javax.swing.JButton();
+        jBtCancelar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldCdOperacao = new javax.swing.JTextField();
         jBtPesquisaOperacao = new javax.swing.JButton();
@@ -242,11 +245,27 @@ public class TelaVenda extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableProdutos);
 
-        jButton2.setText("Gravar");
+        jBtGravar.setText("Gravar");
+        jBtGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGravarActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Cancelar");
+        jBtCancelar.setText("Cancelar");
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Operação");
+
+        jTextFieldCdOperacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdOperacaoFocusLost(evt);
+            }
+        });
 
         jBtPesquisaOperacao.setText("Pesquisar");
         jBtPesquisaOperacao.addActionListener(new java.awt.event.ActionListener() {
@@ -276,6 +295,11 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldVlAtendimento.setDocument(new FormataMoeda());
         jTextFieldVlAtendimento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldVlAtendimento.setEnabled(false);
+        jTextFieldVlAtendimento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTextFieldVlAtendimentoPropertyChange(evt);
+            }
+        });
 
         jTextFieldVlUnitario.setDocument(new FormataMoeda());
         jTextFieldVlUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -343,9 +367,9 @@ public class TelaVenda extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGravarLayout.createSequentialGroup()
                                 .addComponent(jBtIncluir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelGravarLayout.createSequentialGroup()
                                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanelGravarLayout.createSequentialGroup()
@@ -473,8 +497,8 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(jBtCancelar)
+                    .addComponent(jBtGravar)
                     .addComponent(jBtIncluir))
                 .addContainerGap())
         );
@@ -627,7 +651,8 @@ public class TelaVenda extends javax.swing.JFrame {
             jTextFieldCdProduto.grabFocus();
         } else {
             adicionarProdutos();
-            jTextFieldTotal.setText(decimal.retornaDecimal(venda.retornaTotalVendaCompra(jTableProdutos), 6));
+            preencherTotal();
+            //jTextFieldTotal.setText(decimal.retornaDecimal(venda.retornaTotalVendaCompra(jTableProdutos), 6));
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
@@ -639,7 +664,8 @@ public class TelaVenda extends javax.swing.JFrame {
             if (opcao == JOptionPane.YES_OPTION) {
                 DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
                 tabela.removeRow(linha);
-                jTextFieldTotal.setText(decimal.retornaDecimal(venda.retornaTotalVendaCompra(jTableProdutos), 6));
+                preencherTotal();
+                //jTextFieldTotal.setText(decimal.retornaDecimal(venda.retornaTotalVendaCompra(jTableProdutos), 6));
             }
         }
     }//GEN-LAST:event_jBtRemoverActionPerformed
@@ -657,24 +683,21 @@ public class TelaVenda extends javax.swing.JFrame {
         consulta.setVisible(true);
 
         consulta.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt){
-                
-                if(jRadioButtonVenda.isSelected()){
-                    try{
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+
+                if (jRadioButtonVenda.isSelected()) {
+                    try {
                         jTextFieldCdCliente.setText(venda.getCliente().getCdCliente().toString());
                         jTextFieldNomeCliente.setText(venda.getCliente().getPessoa().getNome());
-                    }
-                    catch(NullPointerException ex){
+                    } catch (NullPointerException ex) {
                         jTextFieldCdCliente.setText("");
                         jTextFieldNomeCliente.setText("");
                     }
-                }
-                else{
-                    try{
+                } else {
+                    try {
                         jTextFieldCdCliente.setText(venda.getFornecedor().getCdFornecedor().toString());
                         jTextFieldNomeCliente.setText(venda.getFornecedor().getPessoa().getNome());
-                    }
-                    catch(NullPointerException ex){
+                    } catch (NullPointerException ex) {
                         jTextFieldCdCliente.setText("");
                         jTextFieldNomeCliente.setText("");
                     }
@@ -706,67 +729,79 @@ public class TelaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
     private void jBtPesquisarAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarAtendimentoActionPerformed
-        ConsultaAtendimento csAtendimento = new ConsultaAtendimento(this, true);
-        csAtendimento.setVisible(true);
+        if (jRadioButtonCompra.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Não é possível adicionar um atendimento em uma compra de produtos!");
+                jTextFieldNrAtendimento.setText("");
+                jTextFieldVlAtendimento.setText("");
+        } else {
+            ConsultaAtendimento csAtendimento = new ConsultaAtendimento(this, true);
+            csAtendimento.setVisible(true);
 
-        csAtendimento.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
+            csAtendimento.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowClosed(java.awt.event.WindowEvent evt) {
 
-                if (venda.getVendaAtendimento().getAtendimento().getNrAtendimento() == 0) {
-                    jTextFieldNrAtendimento.setText("");
-                    jTextFieldVlAtendimento.setText("");
-                } else {
-                    jTextFieldNrAtendimento.setText(
-                            venda.getVendaAtendimento().getAtendimento().getNrAtendimento().toString());
-                    jTextFieldVlAtendimento.setText(decimal.retornaDecimal(
-                            venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                    if (venda.getVendaAtendimento().getAtendimento().getNrAtendimento() == 0) {
+                        jTextFieldNrAtendimento.setText("");
+                        jTextFieldVlAtendimento.setText("");
+                    } else {
+                        jTextFieldNrAtendimento.setText(
+                                venda.getVendaAtendimento().getAtendimento().getNrAtendimento().toString());
+                        jTextFieldVlAtendimento.setText(decimal.retornaDecimal(
+                                venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                    }
                 }
-            }
-        });
+            });
+        }
     }//GEN-LAST:event_jBtPesquisarAtendimentoActionPerformed
 
     private void jTextFieldCdClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdClienteFocusLost
-        if(!jTextFieldCdCliente.getText().equals("")){
-            try{
+        if (!jTextFieldCdCliente.getText().equals("")) {
+            try {
                 int cd = Integer.parseInt(jTextFieldCdCliente.getText());
-                if(jRadioButtonVenda.isSelected()){
+                if (jRadioButtonVenda.isSelected()) {
                     retornaCliente(cd);
-                }
-                else{
+                } else {
                     retornaFornecedor(cd);
                 }
-            }
-            catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código válido para consultar!");
                 limparCamposClienteFornecedor();
             }
-            
+
         }
-        
+
     }//GEN-LAST:event_jTextFieldCdClienteFocusLost
 
     private void jTextFieldNrAtendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNrAtendimentoFocusLost
         if (!jTextFieldNrAtendimento.getText().equals("")) {
-            try {
-                venda.getVendaAtendimento().getAtendimento().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-                venda.getVendaAtendimento().getAtendimento().retornaAtendimento(venda.getVendaAtendimento().getAtendimento());
+            if (jRadioButtonCompra.isSelected()) {
+                JOptionPane.showMessageDialog(null, "Não é possível adicionar um atendimento em uma compra de produtos!");
+                jTextFieldNrAtendimento.setText("");
+                jTextFieldVlAtendimento.setText("");
+                preencherTotal();
+            } else {
+                try {
+                    venda.getVendaAtendimento().getAtendimento().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+                    venda.getVendaAtendimento().getAtendimento().retornaAtendimento(venda.getVendaAtendimento().getAtendimento());
 
-                if (venda.getVendaAtendimento().getAtendimento().getNrAtendimento() == 0) {
-                    JOptionPane.showMessageDialog(null, "Atendimento não encontrado!");
+                    if (venda.getVendaAtendimento().getAtendimento().getNrAtendimento() == 0) {
+                        JOptionPane.showMessageDialog(null, "Atendimento não encontrado!");
+                        jTextFieldNrAtendimento.setText("");
+                        jTextFieldVlAtendimento.setText("");
+                        jTextFieldNrAtendimento.grabFocus();
+                    } else {
+                        jTextFieldVlAtendimento.setText(decimal.
+                                retornaDecimal(venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                        jTextFieldTotal.setText(decimal.
+                                retornaDecimal(venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Informe um número de atendimento para pesquisar!");
                     jTextFieldNrAtendimento.setText("");
                     jTextFieldVlAtendimento.setText("");
                     jTextFieldNrAtendimento.grabFocus();
-                } else {
-                    jTextFieldVlAtendimento.setText(decimal.
-                            retornaDecimal(venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
-                    jTextFieldTotal.setText(decimal.
-                            retornaDecimal(venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                    preencherTotal();
                 }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Informe um número de atendimento para pesquisar!");
-                jTextFieldNrAtendimento.setText("");
-                jTextFieldVlAtendimento.setText("");
-                jTextFieldNrAtendimento.grabFocus();
             }
         }
     }//GEN-LAST:event_jTextFieldNrAtendimentoFocusLost
@@ -876,6 +911,61 @@ public class TelaVenda extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
 
+    private void jTextFieldVlAtendimentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextFieldVlAtendimentoPropertyChange
+        preencherTotal();
+    }//GEN-LAST:event_jTextFieldVlAtendimentoPropertyChange
+
+    private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
+        int linhas = jTableProdutos.getRowCount();
+        if (jTextFieldCdCliente.getText().equals("")) {
+            if (jRadioButtonVenda.isSelected()) {
+                JOptionPane.showMessageDialog(null, "O cliente é obrigatório!");
+            } else {
+                JOptionPane.showMessageDialog(null, "O fornecedor é obrigatório!");
+            }
+            jTextFieldCdCliente.grabFocus();
+        } else if (jTextFieldCdForma.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "A forma de pagamento é obrigatória!");
+            jTextFieldCdForma.grabFocus();
+        } else if (jTextFieldCdOperacao.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "A operação é obrigatória!");
+            jTextFieldCdOperacao.grabFocus();
+        } else if (linhas == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor adicione produtos na tabela!");
+        }  
+        else{
+            carregarVendaCompra();
+        }
+    }//GEN-LAST:event_jBtGravarActionPerformed
+
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jTextFieldCdOperacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdOperacaoFocusLost
+        if(!jTextFieldCdOperacao.getText().equals("")){
+            try{
+                venda.getOperacao().setCdOperacao(Integer.parseInt(jTextFieldCdOperacao.getText()));
+                venda.getOperacao().retornaOperacao(venda.getOperacao());
+                if(venda.getOperacao().getDsOperacao().equals("")){
+                    jTextFieldCdOperacao.setText("");
+                    jTextFieldCdOperacao.setText("");
+                    jTextFieldCdOperacao.grabFocus();
+                }
+                else{
+                    jTextFieldDsOperacao.setText(venda.getOperacao().getDsOperacao());
+                }
+                
+            }
+            catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                jTextFieldCdOperacao.setText("");
+                jTextFieldCdOperacao.setText("");
+                jTextFieldCdOperacao.grabFocus();
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdOperacaoFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -914,12 +1004,12 @@ public class TelaVenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupTipo;
     private javax.swing.JButton jBtAdicionar;
+    private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisaOperacao;
     private javax.swing.JButton jBtPesquisarAtendimento;
     private javax.swing.JButton jBtRemover;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonPesquisarCliente;
     private javax.swing.JButton jButtonPesquisarForma;
@@ -1049,14 +1139,13 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
         jTextFieldVlAtendimento.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
     }
-    
-    public void retornaCliente(int cd){
+
+    public void retornaCliente(int cd) {
         venda.getCliente().setCdCliente(cd);
         venda.getCliente().retornaCliente(venda.getCliente());
-        if(venda.getCliente().getPessoa().getNome().equals("")){
+        if (venda.getCliente().getPessoa().getNome().equals("")) {
             limparCamposClienteFornecedor();
-        }
-        else{
+        } else {
             jTextFieldNomeCliente.setText(venda.getCliente().getPessoa().getNome());
         }
     }
@@ -1066,15 +1155,62 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldNomeCliente.setText("");
         jTextFieldCdCliente.grabFocus();
     }
-    
-    public void retornaFornecedor(int cd){
+
+    public void retornaFornecedor(int cd) {
         venda.getFornecedor().setCdFornecedor(cd);
         venda.getFornecedor().retornaFornecedor(venda.getFornecedor());
-        if(venda.getFornecedor().getPessoa().getNome().equals("")){
+        if (venda.getFornecedor().getPessoa().getNome().equals("")) {
             limparCamposClienteFornecedor();
-        }
-        else{
+        } else {
             jTextFieldNomeCliente.setText(venda.getFornecedor().getPessoa().getNome());
         }
-    } 
+    }
+
+    public void preencherTotal() {
+        double vlAtendimento;
+        double vlTotal;
+        switch (jTextFieldVlAtendimento.getText().length()) {
+
+            case 0:
+                vlAtendimento = 0;
+                break;
+
+            default:
+                vlAtendimento = Double.parseDouble(jTextFieldVlAtendimento.getText().
+                        replace(".", "").replace(",", "."));
+        }
+
+        vlTotal = venda.retornaTotalVendaCompra(jTableProdutos);
+        jTextFieldTotal.setText(decimal.retornaDecimal(vlAtendimento + vlTotal, 6));
+    }
+    
+    public void carregarVendaCompra(){
+        if (jRadioButtonVenda.isSelected()){
+            venda.getCliente().setCdCliente(Integer.parseInt(jTextFieldCdCliente.getText()));
+        }
+        else{
+            venda.getFornecedor().setCdFornecedor(Integer.parseInt(jTextFieldCdCliente.getText()));
+        }
+        
+        venda.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
+        venda.getOperacao().setCdOperacao(Integer.parseInt(jTextFieldCdOperacao.getText()));
+        venda.setDtVenda(jTextFieldData.getText());
+        venda.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
+        venda.setPago("N");
+        
+        venda.incluir(venda);
+        JOptionPane.showMessageDialog(null, "Venda/Compra gravada com sucesso!");
+        
+        if (!jTextFieldNrAtendimento.getText().equals("")){
+            try{
+                venda.getVendaAtendimento().getAtendimento().setNrAtendimento
+                (Integer.parseInt(jTextFieldNrAtendimento.getText()));
+                venda.getVendaAtendimento().setCdVenda(venda.getCdVendaCompra());
+                venda.getVendaAtendimento().incluir(venda.getVendaAtendimento());
+            }
+            catch(NumberFormatException ex){
+                
+            }
+        }
+    }
 }
