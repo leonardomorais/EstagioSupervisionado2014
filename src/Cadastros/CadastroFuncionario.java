@@ -597,7 +597,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jTextFieldNome.grabFocus();
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        jFormattedTextFieldData.setText(dataAtual.retornaDataAtual(false));
+        jFormattedTextFieldData.setText(dataAtual.retornaDataAtual());
         jComboBoxCidade.setSelectedIndex(0);
         jComboBoxSexo.setSelectedIndex(0);
         jComboBoxSituacao.setSelectedIndex(0);

@@ -2,6 +2,7 @@ package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
+import java.sql.SQLException;
 
 /**
  *
@@ -31,12 +32,18 @@ public class MovEstoque {
         if (venda){
             // atualizar estoque depois de uma venda/compra
 
+            if(produtoRepetido(estoque)){
+                alterar(estoque);
+            }
+            else{
                 sql = "INSERT INTO MOV_ESTOQUE (CD_MOV, CD_PRODUTO, CD_VENDA_COMPRA, "
                         + "QT_ANTERIOR, QT_ATUAL, VL_PRODUTO, VL_CUSTO, DT_MOVIMENTO, ENTRADA) "
                         + "VALUES ('" + estoque.getCdMov() + "','" + estoque.getCdProduto() + "','"
                         + estoque.getCdVendaCompra() + "','" + estoque.getQtAnterior() + "','"
                         + estoque.getQtAtual() + "','" + estoque.getVlProduto() + "','" + estoque.getVlCusto() + "','"
-                        + estoque.getDtMov() + "','" + estoque.getEntrada() + "')";            
+                        + estoque.getDtMov() + "','" + estoque.getEntrada() + "')";
+                conexao.incluirSQL(sql);
+            }            
         }
         else{
             // atualizar estoque a partir do cadastro de produtos
@@ -44,10 +51,38 @@ public class MovEstoque {
                         + "DT_MOVIMENTO, ENTRADA) VALUES ('"+estoque.getCdMov()+"','"+estoque.getCdProduto()+"','"
                         +estoque.getQtAnterior()+"','"+estoque.getQtAtual()+"','"+estoque.getVlProduto()+"','"
                         +estoque.getVlCusto()+"','"+estoque.getDtMov()+"','"+estoque.getEntrada()+"')";
-        }
         conexao.incluirSQL(sql);
+        }
     }
     
+    
+    public void alterar(MovEstoque estoque){
+        String sql = "UPDATE MOV_ESTOQUE SET QT_ATUAL = '"+estoque.getQtAtual()+"' "
+                + "WHERE CD_MOV = "+estoque.getCdMov();
+        conexao.atualizarSQL(sql);
+    }
+    
+    public boolean produtoRepetido(MovEstoque estoque){
+        boolean repetido = false;
+        String sql = "SELECT CD_MOV, CD_PRODUTO, QT_ANTERIOR, QT_ATUAL FROM "
+                + "MOV_ESTOQUE WHERE CD_VENDA_COMPRA = "+estoque.getCdVendaCompra();
+        conexao.executeSQL(sql);
+        try{
+            while (conexao.resultset.next()){
+                int cd_mov = conexao.resultset.getInt("CD_MOV");
+                int cd_prod = conexao.resultset.getInt("CD_PRODUTO");
+                if (estoque.getCdProduto() == cd_prod){
+                    repetido = true;
+                    estoque.setCdMov(cd_mov);
+                    break;
+                }
+            }
+        }catch(SQLException ex){
+            repetido = false;
+        }
+        
+        return repetido;
+    }
 
 // getter e setter
     public Integer getCdMov() {

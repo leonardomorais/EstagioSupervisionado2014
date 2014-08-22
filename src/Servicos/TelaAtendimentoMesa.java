@@ -34,7 +34,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     RetornaData dataHora = new RetornaData();
     RetornaDecimal decimal = new RetornaDecimal();
 
-    ValidaBotoes botoes = new ValidaBotoes();
     ValidaCampos campos = new ValidaCampos();
     LimparCampos limpar = new LimparCampos();
 
@@ -53,7 +52,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldTotal.setDocument(new FormataMoeda());
         formatarTabela();
         rotina = Rotinas.padrao;
-        botoes.validaBotoes(jPanelBotoes, rotina);
+        validaEstadoCampos();
+
     }
 
     /**
@@ -66,7 +66,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupSituacao = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPaneAtendimentos = new javax.swing.JTabbedPane();
         jPanelAtendimento = new javax.swing.JPanel();
         jTextFieldNomeProduto = new javax.swing.JTextField();
         jBtAdicionar = new javax.swing.JButton();
@@ -103,10 +103,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jBtRemover = new javax.swing.JButton();
         jTextFieldVlUnitario = new javax.swing.JTextField();
         jPanelBotoes = new javax.swing.JPanel();
+        jBtNovo = new javax.swing.JButton();
         jBtFechaAtendimento = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
-        jBtNovo = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelConsulta = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableAtendimento = new javax.swing.JTable();
@@ -114,14 +114,19 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jBtPesquisar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAtendimentoProdutos = new javax.swing.JTable();
-        jTextFieldConsulta = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jRadioButtonSim = new javax.swing.JRadioButton();
         jRadioButtonNao = new javax.swing.JRadioButton();
+        jTextFieldConsulta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Atendimento");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTextFieldNomeProduto.setEnabled(false);
 
@@ -248,6 +253,24 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         jTextFieldVlUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
+        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
+        jPanelBotoes.setLayout(jPanelBotoesLayout);
+        jPanelBotoesLayout.setHorizontalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+        jPanelBotoesLayout.setVerticalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jBtNovo.setText("Iniciar Atendimento");
+        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoActionPerformed(evt);
+            }
+        });
+
         jBtFechaAtendimento.setText("Fechar Atendimento");
         jBtFechaAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,34 +284,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 jBtCancelarActionPerformed(evt);
             }
         });
-
-        jBtNovo.setText("Iniciar Atendimento");
-        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
-        jPanelBotoes.setLayout(jPanelBotoesLayout);
-        jPanelBotoesLayout.setHorizontalGroup(
-            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBotoesLayout.createSequentialGroup()
-                .addComponent(jBtNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtFechaAtendimento)
-                .addGap(18, 18, 18)
-                .addComponent(jBtCancelar))
-        );
-        jPanelBotoesLayout.setVerticalGroup(
-            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotoesLayout.createSequentialGroup()
-                .addGap(0, 7, Short.MAX_VALUE)
-                .addGroup(jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtFechaAtendimento)
-                    .addComponent(jBtCancelar)
-                    .addComponent(jBtNovo)))
-        );
 
         javax.swing.GroupLayout jPanelAtendimentoLayout = new javax.swing.GroupLayout(jPanelAtendimento);
         jPanelAtendimento.setLayout(jPanelAtendimentoLayout);
@@ -325,9 +320,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                             .addComponent(jFormattedTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAtendimentoLayout.createSequentialGroup()
-                        .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanelBotoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
+                        .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanelAtendimentoLayout.createSequentialGroup()
+                                .addComponent(jBtNovo)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBtFechaAtendimento)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtCancelar)))
                         .addContainerGap())
                     .addGroup(jPanelAtendimentoLayout.createSequentialGroup()
                         .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -428,11 +430,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBtNovo)
+                        .addComponent(jBtCancelar)
+                        .addComponent(jBtFechaAtendimento)))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Realizar Atendimento", jPanelAtendimento);
+        jTabbedPaneAtendimentos.addTab("Realizar Atendimento", jPanelAtendimento);
 
         jLabel12.setText("Filtro da Consulta");
 
@@ -459,7 +466,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableAtendimento);
 
-        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Nr Atendimento", "Nr Mesa", "Funcionário", "Data" }));
+        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Nr Atendimento", "Nr Mesa", "Funcionário" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -473,11 +489,11 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nr Atendimento", "Cd Produto", "Produto", "Quantidade", "Valor Unitário", "Total"
+                "Cd Produto", "Produto", "Valor Unitário", "Quantidade", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -495,58 +511,58 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         buttonGroupSituacao.add(jRadioButtonNao);
         jRadioButtonNao.setText("Não");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
+        jPanelConsulta.setLayout(jPanelConsultaLayout);
+        jPanelConsultaLayout.setHorizontalGroup(
+            jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                    .addGroup(jPanelConsultaLayout.createSequentialGroup()
+                        .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBoxConsulta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelConsultaLayout.createSequentialGroup()
                                 .addComponent(jRadioButtonSim)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButtonNao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtPesquisar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanelConsultaLayout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanelConsultaLayout.setVerticalGroup(
+            jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisar)
-                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRadioButtonSim)
-                    .addComponent(jRadioButtonNao))
+                    .addComponent(jRadioButtonNao)
+                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jLabel13.getAccessibleContext().setAccessibleName("Mostrar somente \\natendimentos fechados ?");
 
-        jTabbedPane1.addTab("Consulta", jPanel1);
+        jTabbedPaneAtendimentos.addTab("Consulta", jPanelConsulta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -555,14 +571,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             .addGap(0, 750, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPaneAtendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 500, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPaneAtendimentos))
         );
 
         pack();
@@ -583,13 +599,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     jTextFieldCdFunc.setText(atd.getFuncionario().getCd_funcionario().toString());
                     atd.getFuncionario().retornaFuncionario(atd.getFuncionario(), false);
                     jTextFieldNomeFunc.setText(atd.getFuncionario().getPessoa().getNome());
+                    atualizarAtendimento();
                 }
             }
         });
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
     private void jButtonPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisaActionPerformed
-        ConsultaProduto csProd = new ConsultaProduto(this, true);
+        ConsultaProduto csProd = new ConsultaProduto(this, true, false);
         csProd.setVisible(true);
 
         csProd.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -617,8 +634,13 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
                 if (atd.getMesa().getNrMesa() == 0) {
                     jTextFieldNrMesa.setText("");
-                } else {
+                }
+                else if (atd.VerificaMesaDisponivel(atd)){
+                    jTextFieldNrMesa.setText("");
+                }
+                else {
                     jTextFieldNrMesa.setText(atd.getMesa().getNrMesa().toString());
+                    atualizarAtendimento();
                 }
             }
         });
@@ -686,9 +708,15 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         if (!jTextFieldNrMesa.getText().equals("")) {
             try {
                 atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
-                atd.getMesa().retornaMesa(atd.getMesa(), false);
+                if (atd.VerificaMesaDisponivel(atd)) {
+                    atd.getMesa().retornaMesa(atd.getMesa(), false);
+                    atualizarAtendimento();
 
-                if (atd.getMesa().getDsMesa().equals("")) {
+                    if (atd.getMesa().getDsMesa().equals("")) {
+                        jTextFieldNrMesa.setText("");
+                        jTextFieldNrMesa.grabFocus();
+                    }
+                } else {
                     jTextFieldNrMesa.setText("");
                     jTextFieldNrMesa.grabFocus();
                 }
@@ -716,35 +744,35 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Os atendimentos cancelados não serão salvos no sistema.\n"
                 + "Deseja cancelar este atendimento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
-
+        
         if (opcao == JOptionPane.YES_OPTION) {
+        
             if (!jTextFieldNrAtendimento.getText().isEmpty()) {
                 atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
                 atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
-                atd.getAtdProdutos().excluir(atd.getAtdProdutos());
-                atd.excluir(atd);
-
                 // devolve os produtos da jtable para o estoque
                 int linhas = jTableProdutos.getRowCount();
 
                 if (linhas > 0) {
+                    atd.getAtdProdutos().excluirTodos(atd.getAtdProdutos());
                     for (int i = 0; i < linhas; i++) {
 
                         int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
                         int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
 
                         produto.setCdProduto(cd);
-                        produto.retornaProduto(produto, false);
+                        produto.retornaProduto(produto, true);
                         produto.setQtAtual(produto.getQtAtual() + qt);
                         produto.alteraQtAtual(produto);
                     }
                 }
-                rotina = Rotinas.padrao;
-                botoes.validaBotoes(jPanelBotoes, rotina);
-                limpar.limparCampos(jPanelAtendimento);
-                limpar.limparJtable(jTableProdutos);
-                jSpnQuantidade.setValue(1);
+                atd.excluir(atd);
             }
+            rotina = Rotinas.padrao;
+            validaEstadoCampos();
+            limpar.limparCampos(jPanelAtendimento);
+            limpar.limparJtable(jTableProdutos);
+            jSpnQuantidade.setValue(1);
         }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
@@ -788,6 +816,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             if (opcao == JOptionPane.YES_OPTION) {
                 jTextFieldHoraFecha.setText(dataHora.retornaHoraAtual());
                 fecharAtendimento();
+                JOptionPane.showMessageDialog(null, "Atendimento Encerrado");
             }
         }
     }//GEN-LAST:event_jBtFechaAtendimentoActionPerformed
@@ -847,15 +876,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 break;
 
             default:
-                // Consultar por data
-                break;
+
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         iniciarAtendimento();
         rotina = Rotinas.incluir;
-        botoes.validaBotoes(jPanelBotoes, rotina);
+        validaEstadoCampos();
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jTableAtendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAtendimentoMouseClicked
@@ -864,13 +892,21 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         if (linha >= 0) {
             atd.setNrAtendimento(Integer.parseInt(jTableAtendimento.getValueAt(linha, 0).toString()));
             atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
-            tabela.FormatarJtable(jTableAtendimentoProdutos, new int[]{100, 100, 175, 100, 100, 100});
+            tabela.FormatarJtable(jTableAtendimentoProdutos, new int[]{100, 275, 100, 100, 100});
             tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
                     atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
         } else {
             limpar.limparJtable(jTableAtendimentoProdutos);
         }
     }//GEN-LAST:event_jTableAtendimentoMouseClicked
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -933,16 +969,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAtendimento;
     private javax.swing.JPanel jPanelBotoes;
+    private javax.swing.JPanel jPanelConsulta;
     private javax.swing.JRadioButton jRadioButtonNao;
     private javax.swing.JRadioButton jRadioButtonSim;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSpinner jSpnQuantidade;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPaneAtendimentos;
     private javax.swing.JTable jTableAtendimento;
     private javax.swing.JTable jTableAtendimentoProdutos;
     private javax.swing.JTable jTableProdutos;
@@ -1041,8 +1077,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
     public void iniciarAtendimento() {
         jTextFieldHoraAbre.setText(dataHora.retornaHoraAtual());
-        jFormattedTextFieldData.setText(dataHora.retornaDataAtual(false));
-
+        //jFormattedTextFieldData.setText(dataHora.retornaDataAtual(false));
+        jFormattedTextFieldData.setText(dataHora.retornaDataAtual());
         atd.setDtAtendimento(jFormattedTextFieldData.getText());
         atd.setHoraAbertura(jTextFieldHoraAbre.getText());
         atd.setAbertoFechado("A");
@@ -1065,19 +1101,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         atd.alterar(atd);
 
-        //AtendimentoMesaProdutos atdProdutos = new AtendimentoMesaProdutos();
-//            atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
-//            
-//            for (int i = 0; i < linhas; i++) {
-//                int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
-//                double vl = Double.parseDouble(jTableProdutos.getValueAt(i, 2).toString());
-//                int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
-//                
-//                atd.getAtdProdutos().getProduto().setCdProduto(cd);
-//                atd.getAtdProdutos().setQuantidade(qt);
-//                atd.getAtdProdutos().setValor(vl);
-//                atd.getAtdProdutos().incluir(atd.getAtdProdutos());
-//            }
         TelaVenda tela = new TelaVenda();
         tela.setVisible(true);
         tela.CarregarAtendimento(jTableProdutos, atd);
@@ -1108,5 +1131,51 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 //        atd.setHoraAbertura(jTextFieldHoraAbre.getText());
 //        atd.setHoraFechamento("");
 //        atd.alterar(atd);
+    }
+
+    public void limparCampos() {
+        jSpnQuantidade.setValue(1);
+        limpar.limparCampos(jPanelAtendimento);
+    }
+
+    public void exibirAtendimento(int nrAtendimento) {
+        atd.setNrAtendimento(nrAtendimento);
+        jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
+        atd.retornaAtendimento(atd);
+
+        if (atd.getMesa().getNrMesa() <= 0) {
+            jTextFieldNrMesa.setText("");
+        } else {
+            jTextFieldNrMesa.setText(atd.getMesa().getNrMesa().toString());
+        }
+        jTextFieldHoraAbre.setText(atd.getHoraAbertura());
+        jFormattedTextFieldData.setText(atd.getDtAtendimento());
+        jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
+        if (atd.getFuncionario().getCd_funcionario() <= 0) {
+            jTextFieldCdFunc.setText("");
+        } else {
+            jTextFieldCdFunc.setText(atd.getFuncionario().getCd_funcionario().toString());
+            jTextFieldCdFuncFocusLost(null);
+        }
+
+        formatarTabela();
+        atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+        PreencherTabela preencher = new PreencherTabela();
+        preencher.PreencherJtableGenerico(jTableProdutos, atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
+        rotina = Rotinas.incluir;
+        validaEstadoCampos();
+    }
+
+    public void validaEstadoCampos() {
+        ValidaBotoes botoes = new ValidaBotoes();
+        botoes.validaEstadoCampos(jPanelAtendimento, rotina);
+        jTextFieldNrAtendimento.setEnabled(false);
+        jTextFieldHoraAbre.setEnabled(false);
+        jTextFieldHoraFecha.setEnabled(false);
+        jFormattedTextFieldData.setEnabled(false);
+        jTextFieldNomeFunc.setEnabled(false);
+        jTextFieldNomeProduto.setEnabled(false);
+        jTextFieldTotal.setEnabled(false);
+        jTextFieldTotalProduto.setEnabled(false);
     }
 }

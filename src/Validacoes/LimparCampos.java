@@ -27,7 +27,11 @@ public class LimparCampos {
                 JComboBox field = (JComboBox) component;
                 field.setSelectedIndex(0);
             }
-
+            
+            if (component instanceof JTable){
+                JTable table = (JTable) component;
+                limparJtable(table);
+            }
         }
     }
     

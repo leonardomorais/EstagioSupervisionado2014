@@ -82,7 +82,7 @@ public class Mesa {
             mesa.setDsMesa("");
         }
     }
-
+    
 // getter e setter
     public Integer getNrMesa() {
         return nrMesa;

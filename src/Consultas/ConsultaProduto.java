@@ -20,13 +20,15 @@ import javax.swing.JOptionPane;
  */
 public class ConsultaProduto extends javax.swing.JDialog {
     
+    boolean todos;
     Produto produto = new Produto();
 
     /**
      * Creates new form ConsultaProduto
      */
-    public ConsultaProduto(java.awt.Frame telaOrigem, boolean modal) {
+    public ConsultaProduto(java.awt.Frame telaOrigem, boolean modal, boolean consulta) {
         super (telaOrigem, modal);
+        todos = consulta;
         initComponents();
     }
 
@@ -175,11 +177,11 @@ public class ConsultaProduto extends javax.swing.JDialog {
         preencher.FormatarJtable(jTableProdutos, new int[]{50, 150, 150, 70, 70, 60, 60});
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableProdutos, produto.consultarGeral(false));
+            preencher.PreencherJtableGenerico(jTableProdutos, produto.consultarGeral(todos));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 produto.setCdProduto(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableProdutos, produto.consultarCdProduto(produto,false));
+                preencher.PreencherJtableGenerico(jTableProdutos, produto.consultarCdProduto(produto,todos));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                 jTextFieldConsulta.setText("");
@@ -187,7 +189,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
             }
         } else {
             produto.setDsProduto(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableProdutos, produto.consultarDsProduto(produto,false));
+            preencher.PreencherJtableGenerico(jTableProdutos, produto.consultarDsProduto(produto,todos));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 

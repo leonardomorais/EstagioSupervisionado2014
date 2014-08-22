@@ -89,8 +89,8 @@
               <Table columnCount="5" rowCount="0">
                 <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                 <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
-                <Column editable="false" title="Intervalo" type="java.lang.Object"/>
                 <Column editable="false" title="Entrada" type="java.lang.Object"/>
+                <Column editable="false" title="Intervalo" type="java.lang.Object"/>
                 <Column editable="false" title="Parcelas" type="java.lang.Object"/>
               </Table>
             </Property>

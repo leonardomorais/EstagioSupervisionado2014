@@ -332,8 +332,8 @@ public class CadastroEstado extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 estado.incluir(estado);
-                JOptionPane.showMessageDialog(null, "Estado gravado com sucesso!");
                 jTextFieldCdEstado.setText(estado.getCdUf().toString());
+                JOptionPane.showMessageDialog(null, "Estado gravado com sucesso!");
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdEstado.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "É preciso informar o código do estado que deseja alterar!");

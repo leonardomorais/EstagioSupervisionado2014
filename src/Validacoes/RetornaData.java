@@ -1,5 +1,9 @@
 package Validacoes;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -8,28 +12,34 @@ import java.util.Date;
  */
 public class RetornaData {
 
-    public String retornaDataAtual(Boolean comMascara) {
-        String dataAtual = "";
-        Date data = new Date();
-        String dia = "" + data.getDate();
-        String mes = "" + String.valueOf(data.getMonth() + 1);
-        String ano = "" + (1900 + data.getYear());
-
-        if (Integer.parseInt(mes) <= 9) {
-            mes = "0" + mes;
-        }
-        if (Integer.parseInt(dia) <= 9) {
-            dia = "0" + dia;
-        }
-
-        dataAtual = dia + mes + ano;
-
-        if (comMascara) {
-            dataAtual = dia + "/" + mes + "/" + ano;
-        }
-
-        return dataAtual;
+    public String retornaDataAtual() {
+        LocalDate hoje = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return hoje.format(formato);
     }
+
+//    public String retornaDataAtual(Boolean comMascara) {
+//        String dataAtual = "";
+//        Date data = new Date();
+//        String dia = "" + data.getDate();
+//        String mes = "" + String.valueOf(data.getMonth() + 1);
+//        String ano = "" + (1900 + data.getYear());
+//
+//        if (Integer.parseInt(mes) <= 9) {
+//            mes = "0" + mes;
+//        }
+//        if (Integer.parseInt(dia) <= 9) {
+//            dia = "0" + dia;
+//        }
+//
+//        dataAtual = dia + mes + ano;
+//
+//        if (comMascara) {
+//            dataAtual = dia + "/" + mes + "/" + ano;
+//        }
+//
+//        return dataAtual;
+//    }
 
     public String retornaHoraAtual() {
         String horaAtual = "";
@@ -52,4 +62,23 @@ public class RetornaData {
         return horaAtual;
     }
 
+    // copiado de AulaPOO 2013
+    public String retornaSomaData(String data, int dias) {
+        SimpleDateFormat sDate = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+
+        if (data.equals("")) {
+            Date date = new Date();
+            calendar.setTime(date);
+        } else {
+            Date xy = new Date(data);
+            calendar.setTime(xy);
+        }
+        calendar.add(Calendar.DATE, dias);
+        if(calendar.getTime().getDay()==0){
+            // domingo
+            calendar.add(calendar.DATE, dias+1);
+        }
+        return (sDate.format(calendar.getTime()));
+    }
 }

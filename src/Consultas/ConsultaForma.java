@@ -56,7 +56,7 @@ public class ConsultaForma extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Código", "Descrição", "Intervalo", "Entrada", "Parcelas"
+                "Código", "Descrição", "Entrada", "Intervalo", "Parcelas"
             }
         ) {
             boolean[] canEdit = new boolean [] {

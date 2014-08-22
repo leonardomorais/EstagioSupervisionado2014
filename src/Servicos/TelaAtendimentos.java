@@ -1,16 +1,16 @@
 package Servicos;
 
-
 import Classes.AtendimentoMesa;
 import Validacoes.PreencherTabela;
-
-
+import Validacoes.RetornaData;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Leonardo
  */
 public class TelaAtendimentos extends javax.swing.JFrame {
+
     AtendimentoMesa atendimento = new AtendimentoMesa();
 
     /**
@@ -40,17 +40,44 @@ public class TelaAtendimentos extends javax.swing.JFrame {
         jBtAtualizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
+        jPopupMenuAtendimentos.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuAtendimentosPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuAtendimentosPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jMenuItemExibirDetalhes.setText("Exibir Detalhes");
+        jMenuItemExibirDetalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExibirDetalhesActionPerformed(evt);
+            }
+        });
         jPopupMenuAtendimentos.add(jMenuItemExibirDetalhes);
 
         jMenuItemEncerrar.setText("Encerrar Atendimento");
+        jMenuItemEncerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEncerrarActionPerformed(evt);
+            }
+        });
         jPopupMenuAtendimentos.add(jMenuItemEncerrar);
 
         jMenuItemCancelar.setText("Cancelar Atendimento");
+        jMenuItemCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCancelarActionPerformed(evt);
+            }
+        });
         jPopupMenuAtendimentos.add(jMenuItemCancelar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Exibir Atendimentos");
+        setResizable(false);
 
         jBtNovo.setText("Novo Atendimento");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -64,11 +91,11 @@ public class TelaAtendimentos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mesa", "Nr Atendimento", "Funcionário", "Hora Abertura", "Valor"
+                "Mesa", "Nr Atendimento", "Cd Funcionário", "Funcionário", "Hora Abertura", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -94,7 +121,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -102,7 +129,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 441, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -111,12 +138,12 @@ public class TelaAtendimentos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBtAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtNovo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtNovo)
+                    .addComponent(jBtAtualizar))
+                .addContainerGap())
         );
 
         pack();
@@ -131,6 +158,89 @@ public class TelaAtendimentos extends javax.swing.JFrame {
     private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
         consultarAtendimentos();
     }//GEN-LAST:event_jBtAtualizarActionPerformed
+
+    private void jMenuItemExibirDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirDetalhesActionPerformed
+        int linha = jTableMesas.getSelectedRow();
+        int cd = Integer.parseInt(jTableMesas.getValueAt(linha, 1).toString());
+        TelaAtendimentoMesa tela = new TelaAtendimentoMesa();
+        tela.setVisible(true);
+        tela.exibirAtendimento(cd);
+    }//GEN-LAST:event_jMenuItemExibirDetalhesActionPerformed
+
+    private void jMenuItemCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelarActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(null, "Os atendimentos cancelados não serão salvos no sistema.\n"
+                + "Deseja cancelar este atendimento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
+        if (opcao == JOptionPane.YES_OPTION) {
+            int linha = jTableMesas.getSelectedRow();
+            int nr = Integer.parseInt(jTableMesas.getValueAt(linha, 1).toString());
+            atendimento.setNrAtendimento(nr);
+            atendimento.getAtdProdutos().setNrAtendimento(nr);
+            atendimento.getAtdProdutos().excluirTodos(atendimento.getAtdProdutos());
+            atendimento.excluir(atendimento);
+            //
+            consultarAtendimentos();
+        }
+    }//GEN-LAST:event_jMenuItemCancelarActionPerformed
+
+    private void jMenuItemEncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEncerrarActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(null, "Deseja encerrar este atendimento ?", "Encerrar Atendimento", JOptionPane.YES_NO_OPTION);
+
+        if (opcao == JOptionPane.YES_OPTION) {
+            
+            RetornaData data = new RetornaData();
+            int linha = jTableMesas.getSelectedRow();
+            int mesa = Integer.parseInt(jTableMesas.getValueAt(linha, 0).toString());
+            int nr = Integer.parseInt(jTableMesas.getValueAt(linha, 1).toString());
+            int cdFunc = Integer.parseInt(jTableMesas.getValueAt(linha, 2).toString());
+            String horaAbre = jTableMesas.getValueAt(linha, 4).toString();
+            double valor = Double.parseDouble(jTableMesas.getValueAt(linha, 5).toString());
+            
+            atendimento.setNrAtendimento(nr);
+            atendimento.getMesa().setNrMesa(mesa);
+            atendimento.getFuncionario().setCd_funcionario(cdFunc);
+            atendimento.setHoraAbertura(horaAbre);
+            atendimento.setHoraFechamento(data.retornaHoraAtual());
+            atendimento.setDtAtendimento(data.retornaDataAtual());
+            atendimento.setVlTotal(valor);
+            atendimento.setAbertoFechado("F");
+            
+            atendimento.alterar(atendimento);
+            
+            consultarAtendimentos();
+            JOptionPane.showMessageDialog(null, "Atendimento Encerrado");
+            //
+            TelaVenda tela = new TelaVenda();
+            tela.setVisible(true);
+            tela.CarregarAtendimento(atendimento);
+            
+        }
+
+
+    }//GEN-LAST:event_jMenuItemEncerrarActionPerformed
+
+    private void jPopupMenuAtendimentosPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuAtendimentosPopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPopupMenuAtendimentosPopupMenuWillBecomeInvisible
+
+    private void jPopupMenuAtendimentosPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuAtendimentosPopupMenuWillBecomeVisible
+        int linha = jTableMesas.getSelectedRow();
+        if (linha >= 0) {
+            try {
+                String mesa = jTableMesas.getValueAt(linha, 0).toString();
+                String func = jTableMesas.getValueAt(linha, 2).toString();
+                String valor = jTableMesas.getValueAt(linha, 5).toString();
+
+                if (mesa.equals("") || func.equals("") || valor.equals("0.00")) {
+                    jMenuItemEncerrar.setEnabled(false);
+                } else {
+                    jMenuItemEncerrar.setEnabled(true);
+                }
+            } catch (NullPointerException ex) {
+                jMenuItemEncerrar.setEnabled(false);
+            }
+
+        }
+    }//GEN-LAST:event_jPopupMenuAtendimentosPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments
@@ -179,10 +289,10 @@ public class TelaAtendimentos extends javax.swing.JFrame {
     private javax.swing.JTable jTableMesas;
     // End of variables declaration//GEN-END:variables
 
-    private void consultarAtendimentos(){
+    private void consultarAtendimentos() {
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableMesas, new int[]{80, 80, 280, 80, 80});
-        
+        preencher.FormatarJtable(jTableMesas, new int[]{70, 90, 80, 280, 80, 80});
+
         preencher.PreencherJtableGenerico(jTableMesas, atendimento.exibirAtendimentosAtuais());
 
     }

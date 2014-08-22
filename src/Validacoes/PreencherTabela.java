@@ -30,7 +30,7 @@ public class PreencherTabela {
                 setVazia(false);
             }
             if (!resultado.first()) {
-                JOptionPane.showMessageDialog(null, "Registros não localizados !");
+                //JOptionPane.showMessageDialog(null, "Registros não localizados !");
                 setVazia(true);
             }
         } catch (SQLException erro) {

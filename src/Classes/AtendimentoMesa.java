@@ -5,6 +5,7 @@ import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -204,11 +205,43 @@ public class AtendimentoMesa {
         return conexao.resultset;
     }
     
+    public ResultSet consultarPorData(AtendimentoMesa atd, boolean fechados){
+        String sql;
+        
+        if (fechados){
+            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
+                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
+                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
+                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
+                    + "ELSE 'FECHADO' END AS SITUACAO, "
+                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
+                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
+                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
+                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
+                    + "WHERE A.ABERTO_FECHADO = 'F' AND TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') "
+                    + "= '"+atd.getDtAtendimento()+"' ORDER BY A.NR_ATENDIMENTO";
+        }
+        else{
+            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
+                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
+                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
+                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
+                    + "ELSE 'FECHADO' END AS SITUACAO, "
+                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
+                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
+                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
+                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
+                    + "WHERE TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') = '"+atd.getDtAtendimento()+"' "
+                    + "ORDER BY A.NR_ATENDIMENTO";
+        }
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
     public void retornaAtendimento(AtendimentoMesa atd){
         String sql = "SELECT NR_MESA, HORA_ABERTURA, HORA_FECHAMENTO, "
                 + "ABERTO_FECHADO, VL_TOTAL, TO_CHAR(DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
-                + "CD_FUNCIONARIO FROM ATENDIMENTO_MESA WHERE NR_ATENDIMENTO = "+atd.getNrAtendimento()
-                +" AND ABERTO_FECHADO = 'F'";
+                + "CD_FUNCIONARIO FROM ATENDIMENTO_MESA WHERE NR_ATENDIMENTO = "+atd.getNrAtendimento();
         conexao.executeSQL(sql);
         try{
             conexao.resultset.first();
@@ -226,7 +259,8 @@ public class AtendimentoMesa {
     }
     
     public ResultSet exibirAtendimentosAtuais() {
-        String sql = "SELECT A.NR_MESA, A.NR_ATENDIMENTO, P.NOME, A.HORA_ABERTURA, COALESCE(A.VL_TOTAL,0.00) "
+        String sql = "SELECT A.NR_MESA, A.NR_ATENDIMENTO, A.CD_FUNCIONARIO, "
+                + "P.NOME, A.HORA_ABERTURA, COALESCE(A.VL_TOTAL,0.00) "
                 + "FROM ATENDIMENTO_MESA A "
                 + "LEFT JOIN FUNCIONARIO F ON A.CD_FUNCIONARIO = F.CD_PESSOA "
                 + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
@@ -234,6 +268,23 @@ public class AtendimentoMesa {
                 + "WHERE A.ABERTO_FECHADO = 'A' ORDER BY A.NR_MESA";
         conexao.executeSQL(sql);
         return conexao.resultset;
+    }
+    
+    public boolean VerificaMesaDisponivel(AtendimentoMesa atd){
+        boolean disponivel = true;
+        String sql = "SELECT * FROM ATENDIMENTO_MESA WHERE "
+                + "ABERTO_FECHADO = 'A' AND NR_MESA = "+atd.getMesa().getNrMesa();
+        conexao.executeSQL(sql);
+        try{
+            while(conexao.resultset.next()){
+                disponivel = false;
+                JOptionPane.showMessageDialog(null, "Já existe um atendimento aberto na mesa "+atd.getMesa().getNrMesa());
+            }
+        }
+        catch(SQLException ex){
+            disponivel = true;
+        }
+        return disponivel;
     }
 
     // getter e setter

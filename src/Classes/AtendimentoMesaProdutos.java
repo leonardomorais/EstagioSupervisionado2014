@@ -2,11 +2,7 @@ package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -38,9 +34,15 @@ public class AtendimentoMesaProdutos {
         conexao.deleteSQL(sql);
     }
     
+    public void excluirTodos(AtendimentoMesaProdutos atd){
+        String sql = "DELETE FROM ATENDIMENTO_MESA_PRODUTOS WHERE "
+                + "NR_ATENDIMENTO = "+atd.getNrAtendimento();
+        conexao.deleteSQL(sql);
+    }
+    
     public ResultSet consultarProdutos(AtendimentoMesaProdutos atd){
-        String sql = "SELECT A.NR_ATENDIMENTO, A.CD_PRODUTO, P.DS_PRODUTO, "
-                + "A.QT_PRODUTO, A.VL_UNITARIO, A.QT_PRODUTO * A.VL_UNITARIO AS TOTAL "
+        String sql = "SELECT A.CD_PRODUTO, P.DS_PRODUTO, "
+                + " A.VL_UNITARIO, A.QT_PRODUTO, A.QT_PRODUTO * A.VL_UNITARIO AS TOTAL "
                 + "FROM ATENDIMENTO_MESA_PRODUTOS A INNER JOIN "
                 + "PRODUTOS P ON A.CD_PRODUTO = P.CD_PRODUTO "
                 + "WHERE A.NR_ATENDIMENTO = " + atd.getNrAtendimento();

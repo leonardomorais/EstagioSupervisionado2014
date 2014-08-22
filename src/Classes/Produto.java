@@ -143,6 +143,10 @@ public class Produto {
             produto.setQtMin(retorno.getInt("QT_MIN"));
             produto.setVlCusto(retorno.getDouble("VL_CUSTO"));
             produto.setVlProduto(retorno.getDouble("VL_PRODUTO"));
+            
+            if (todos){
+                produto.setAtivo("ATIVO");
+            }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Produto não encontrado !");
@@ -159,7 +163,7 @@ public class Produto {
         MovEstoque estoque = new MovEstoque();
         RetornaData data = new RetornaData();
         estoque.setCdProduto(produto.getCdProduto());
-        estoque.setDtMov(data.retornaDataAtual(true));
+        estoque.setDtMov(data.retornaDataAtual());
         estoque.setQtAnterior(qtAnterior);
         estoque.setQtAtual(produto.getQtAtual());
         estoque.setVlCusto(produto.getVlCusto());

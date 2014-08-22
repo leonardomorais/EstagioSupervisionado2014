@@ -12,6 +12,7 @@ import Validacoes.ValidaCampos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -100,6 +101,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         jLabel2.setText("Código do Produto");
 
+        jTextFieldCdProduto.setName("ATIVOS"); // NOI18N
         jTextFieldCdProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldCdProdutoFocusLost(evt);
@@ -108,6 +110,8 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         jLabel3.setText("Descrição");
 
+        jTextFieldDescricao.setToolTipText("");
+        jTextFieldDescricao.setName("ATIVOS"); // NOI18N
         jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDescricaoKeyTyped(evt);
@@ -117,10 +121,12 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel4.setText("Família de Produtos");
 
         jComboBoxFamilia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboBoxFamilia.setName("ATIVOS"); // NOI18N
 
         jLabel5.setText("Valor do Produto");
 
         jTextFieldVlProduto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldVlProduto.setName("ATIVOS"); // NOI18N
         jTextFieldVlProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldVlProdutoKeyTyped(evt);
@@ -130,6 +136,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel6.setText("Valor de Custo");
 
         jTextFieldVlCusto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldVlCusto.setName("ATIVOS"); // NOI18N
         jTextFieldVlCusto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldVlCustoKeyTyped(evt);
@@ -139,14 +146,17 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel7.setText("Quantidade Atual");
 
         jSpnQtAtual.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        jSpnQtAtual.setName("ATIVOS"); // NOI18N
 
         jLabel8.setText("Quantidade Mínima");
 
         jSpnQtMin.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        jSpnQtMin.setName("ATIVOS"); // NOI18N
 
         jLabel9.setText("Situação");
 
         jComboBoxSituação.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "INATIVO" }));
+        jComboBoxSituação.setName("ATIVOS"); // NOI18N
 
         jBtIncluir.setText("Incluir");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -414,6 +424,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             if (rotina == Rotinas.incluir) {
                 produto.incluir(produto);
                 jTextFieldCdProduto.setText(produto.getCdProduto().toString());
+                JOptionPane.showMessageDialog(null, "Produto gravado com sucesso!");
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdProduto.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "É preciso informar o código do produto que deseja alterar!");
@@ -421,6 +432,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                 } else {
                     produto.setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
                     produto.alterar(produto);
+                    JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
                 }
             }
             rotina = Rotinas.padrao;
@@ -453,8 +465,8 @@ public class CadastroProduto extends javax.swing.JFrame {
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
-        botoes.validaBotoes(jPanelBotoes, rotina);
         limpar.limparCampos(jPanelCadastro);
+        botoes.validaBotoes(jPanelBotoes, rotina);
         jTextFieldCdProduto.grabFocus();
         jComboBoxFamilia.setSelectedIndex(0);
     }//GEN-LAST:event_jBtCancelarActionPerformed
@@ -675,7 +687,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         jSpnQtAtual.setValue(0);
         limpar.limparCampos(jPanelCadastro);
     }
-
+    
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
