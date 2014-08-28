@@ -15,10 +15,10 @@ import javax.swing.JOptionPane;
  */
 public class AgenciaConta {
 
-    private Integer cdAgcConta;
+    private static Integer cdAgcConta;
     private String nrAgencia;
     private String nrConta;
-    private String dsConta;
+    private static String dsConta;
     private Double vlConta;
     private String inAtivo;
 
@@ -54,35 +54,29 @@ public class AgenciaConta {
     }
 
     public ResultSet consultarGeral() {
-        ResultSet retorno = null;
         String sql = "SELECT A.CD_AGENCIA_CONTA, B.NM_BANCO, A.NR_AGENCIA, A.NR_CONTA, A.DS_CONTA, A.VALOR_CONTA, "
                 + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS SITUACAO "
                 + "FROM AGENCIA_CONTA A INNER JOIN BANCO B ON A.CD_BANCO = B.CD_BANCO ORDER BY A.CD_AGENCIA_CONTA";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarCdAgc(AgenciaConta agc) {
-        ResultSet retorno = null;
         String sql = "SELECT A.CD_AGENCIA_CONTA, B.NM_BANCO, A.NR_AGENCIA, A.NR_CONTA, A.DS_CONTA, A.VALOR_CONTA, "
                 + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS SITUACAO "
                 + "FROM AGENCIA_CONTA A INNER JOIN BANCO B ON A.CD_BANCO = B.CD_BANCO "
                 + "WHERE A.CD_AGENCIA_CONTA = " + agc.getCdAgcConta();
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarDsConta(AgenciaConta agc) {
-        ResultSet retorno = null;
         String sql = "SELECT A.CD_AGENCIA_CONTA, B.NM_BANCO, A.NR_AGENCIA, A.NR_CONTA, A.DS_CONTA, A.VALOR_CONTA, "
                 + "CASE WHEN A.IN_ATIVO = 'A' THEN 'ATIVA' ELSE 'INATIVA' END AS SITUACAO "
                 + "FROM AGENCIA_CONTA A INNER JOIN BANCO B ON A.CD_BANCO = B.CD_BANCO "
                 + "WHERE A.DS_CONTA LIKE '%" + agc.getDsConta() + "%' ORDER BY A.CD_AGENCIA_CONTA";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public void retornaAgenciaConta(AgenciaConta agc) {

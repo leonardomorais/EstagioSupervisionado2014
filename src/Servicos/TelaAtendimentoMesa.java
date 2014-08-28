@@ -432,10 +432,11 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtNovo)
-                        .addComponent(jBtCancelar)
-                        .addComponent(jBtFechaAtendimento)))
+                    .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jBtCancelar, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtNovo)
+                            .addComponent(jBtFechaAtendimento))))
                 .addContainerGap())
         );
 
@@ -816,7 +817,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             if (opcao == JOptionPane.YES_OPTION) {
                 jTextFieldHoraFecha.setText(dataHora.retornaHoraAtual());
                 fecharAtendimento();
-                JOptionPane.showMessageDialog(null, "Atendimento Encerrado");
+                //JOptionPane.showMessageDialog(null, "Atendimento Encerrado");
             }
         }
     }//GEN-LAST:event_jBtFechaAtendimentoActionPerformed

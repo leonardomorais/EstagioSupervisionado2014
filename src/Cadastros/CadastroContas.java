@@ -2,9 +2,19 @@ package Cadastros;
 
 import Classes.Contas;
 import Classes.Parcelas;
+import Consultas.ConsultaForma;
+import Telas.TelaPagamento;
+import Validacoes.FormataMoeda;
+import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
+import Validacoes.RetornaData;
+import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
+import Validacoes.ValidaCampos;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -15,8 +25,15 @@ public class CadastroContas extends javax.swing.JFrame {
     Contas contas = new Contas();
 
     ValidaBotoes botoes = new ValidaBotoes();
+    LimparCampos limpar = new LimparCampos();
+    RetornaData rdata = new RetornaData();
+    RetornaDecimal decimal = new RetornaDecimal();
+    
     int rotina;
-
+    double valor = 0;
+    MaskFormatter data;
+    
+    
     /**
      * Creates new form CadastroContas
      */
@@ -38,35 +55,37 @@ public class CadastroContas extends javax.swing.JFrame {
         buttonGroupTipo = new javax.swing.ButtonGroup();
         jPopupMenuPagarParcela = new javax.swing.JPopupMenu();
         jMenuItemPagarParcela = new javax.swing.JMenuItem();
+        jPopupMenuContas = new javax.swing.JPopupMenu();
+        jMenuItemCarregarDados = new javax.swing.JMenuItem();
         jTabbedPaneConta = new javax.swing.JTabbedPane();
         jPanelCadastro = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldCdVendaCompra = new javax.swing.JTextField();
+        jTextFieldCdConta = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldCdForma = new javax.swing.JTextField();
         jTextFieldFormaPgto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldDescrição = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jRadioButtonCredito = new javax.swing.JRadioButton();
-        jRadioButtonDebito = new javax.swing.JRadioButton();
+        jRadioButtonAPagar = new javax.swing.JRadioButton();
+        jRadioButtonAReceber = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldValor = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextFieldDataVenc = new javax.swing.JTextField();
-        jTextFieldDataVenc1 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
         jBtPesquisar = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFormattedTextFieldDataVencimento = new JFormattedTextField(data);
+        try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFormattedTextFieldDataPagamento = new JFormattedTextField(data);
+        jLabel4 = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox();
         jPanelBotoes = new javax.swing.JPanel();
+        jBtCancelar = new javax.swing.JButton();
+        jBtGravar = new javax.swing.JButton();
+        jBtExcluir = new javax.swing.JButton();
         jBtAlterar = new javax.swing.JButton();
         jBtIncluir = new javax.swing.JButton();
-        jBtExcluir = new javax.swing.JButton();
-        jBtGravar = new javax.swing.JButton();
-        jBtCancelar = new javax.swing.JButton();
         jPanelConsulta = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
@@ -78,6 +97,16 @@ public class CadastroContas extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
 
+        jPopupMenuPagarParcela.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuPagarParcelaPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jMenuItemPagarParcela.setText("Pagar Parcela");
         jMenuItemPagarParcela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,42 +115,102 @@ public class CadastroContas extends javax.swing.JFrame {
         });
         jPopupMenuPagarParcela.add(jMenuItemPagarParcela);
 
+        jMenuItemCarregarDados.setText("Carregar Dados");
+        jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCarregarDadosActionPerformed(evt);
+            }
+        });
+        jPopupMenuContas.add(jMenuItemCarregarDados);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciar Contas");
         setResizable(false);
 
         jLabel3.setText("Código da Conta");
 
-        jLabel4.setText("Código Venda/Compra");
+        jTextFieldCdConta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdContaFocusLost(evt);
+            }
+        });
 
         jLabel5.setText("Forma de Pagamento");
 
+        jTextFieldCdForma.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdFormaFocusLost(evt);
+            }
+        });
+
+        jTextFieldFormaPgto.setEnabled(false);
+
         jLabel6.setText("Descrição");
+
+        jTextFieldDescrição.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldDescriçãoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Tipo da Conta");
 
-        buttonGroupTipo.add(jRadioButtonCredito);
-        jRadioButtonCredito.setSelected(true);
-        jRadioButtonCredito.setText("Crédito");
+        buttonGroupTipo.add(jRadioButtonAPagar);
+        jRadioButtonAPagar.setSelected(true);
+        jRadioButtonAPagar.setText("Pagar");
 
-        buttonGroupTipo.add(jRadioButtonDebito);
-        jRadioButtonDebito.setText("Débito");
+        buttonGroupTipo.add(jRadioButtonAReceber);
+        jRadioButtonAReceber.setText("Receber");
 
         jLabel8.setText("Valor");
 
+        jTextFieldValor.setDocument(new FormataMoeda()
+        );
+        jTextFieldValor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldValorFocusLost(evt);
+            }
+        });
+
         jLabel9.setText("Data Vencimento");
 
-        jLabel10.setText("Data Pagamento");
-
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarActionPerformed(evt);
+            }
+        });
 
-        jLabel11.setText("Situação");
+        jLabel2.setText("Data Pagamento");
 
-        jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PAGA", "NÃO PAGA" }));
+        jFormattedTextFieldDataVencimento.setEnabled(false);
+        jFormattedTextFieldDataVencimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextFieldDataVencimentoKeyTyped(evt);
+            }
+        });
 
-        jBtAlterar.setText("Alterar");
+        jFormattedTextFieldDataPagamento.setEnabled(false);
 
-        jBtIncluir.setText("Incluir");
+        jLabel4.setText("Situação");
+
+        jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NÃO PAGA", "PAGA" }));
+        jComboBoxSituacao.setEnabled(false);
+
+        jBtCancelar.setText("Cancelar");
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
+
+        jBtGravar.setText("Gravar");
+        jBtGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGravarActionPerformed(evt);
+            }
+        });
 
         jBtExcluir.setText("Excluir");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -130,15 +219,25 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
 
-        jBtGravar.setText("Gravar");
+        jBtAlterar.setText("Alterar");
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
 
-        jBtCancelar.setText("Cancelar");
+        jBtIncluir.setText("Incluir");
+        jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtIncluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
         jPanelBotoes.setLayout(jPanelBotoesLayout);
         jPanelBotoesLayout.setHorizontalGroup(
             jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBotoesLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -154,84 +253,72 @@ public class CadastroContas extends javax.swing.JFrame {
         jPanelBotoesLayout.setVerticalGroup(
             jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotoesLayout.createSequentialGroup()
-                .addGap(0, 27, Short.MAX_VALUE)
+                .addGap(0, 17, Short.MAX_VALUE)
                 .addGroup(jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtAlterar)
-                    .addComponent(jBtIncluir)
-                    .addComponent(jBtExcluir)
+                    .addComponent(jBtCancelar)
                     .addComponent(jBtGravar)
-                    .addComponent(jBtCancelar)))
+                    .addComponent(jBtExcluir)
+                    .addComponent(jBtAlterar)
+                    .addComponent(jBtIncluir)))
         );
 
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
             jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(310, 310, 310)
-                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                                    .addComponent(jRadioButtonCredito)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jRadioButtonDebito))))
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel6)
-                        .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(97, 97, 97)
-                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextFieldDataVenc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel10)
-                                .addComponent(jTextFieldDataVenc1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11)
-                                .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                            .addComponent(jTextFieldCdForma, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jBtPesquisar)
-                            .addGap(18, 18, 18)
-                            .addComponent(jTextFieldFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jTextFieldDescrição))
-                    .addComponent(jLabel4)
-                    .addComponent(jTextFieldCdVendaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jTextFieldDescrição, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldCdConta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCadastroLayout.createSequentialGroup()
+                        .addComponent(jRadioButtonAPagar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonAReceber))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCadastroLayout.createSequentialGroup()
+                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                                .addComponent(jTextFieldCdForma, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtPesquisar))
+                            .addComponent(jLabel8)
+                            .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(19, 19, 19))
+                                    .addComponent(jFormattedTextFieldDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(79, 79, 79)
+                                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jFormattedTextFieldDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(66, 66, 66)
+                                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jComboBoxSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jTextFieldFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(242, Short.MAX_VALUE))
+            .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelCadastroLayout.setVerticalGroup(
             jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButtonCredito)
-                            .addComponent(jRadioButtonDebito))))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldCdVendaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldCdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldDescrição, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -239,27 +326,34 @@ public class CadastroContas extends javax.swing.JFrame {
                     .addComponent(jTextFieldFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisar))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldDescrição, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButtonAPagar)
+                    .addComponent(jRadioButtonAReceber))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldDataVenc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldDataVenc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jFormattedTextFieldDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                        .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jFormattedTextFieldDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -292,7 +386,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Cd Venda", "Descrição", "Forma de Pagamento", "Valor", "Data Vencimento", "Data Pagamento", "Tipo", "Situação"
+                "Código", "Descrição", "Cd Forma", "Forma Pgto", "Valor", "Data Vencimento", "Data Pgto", "Tipo", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -303,6 +397,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableContas.setComponentPopupMenu(jPopupMenuContas);
         jTableContas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableContasMouseClicked(evt);
@@ -346,7 +441,7 @@ public class CadastroContas extends javax.swing.JFrame {
                         .addComponent(jTextFieldConsulta)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonPesquisar))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -362,9 +457,9 @@ public class CadastroContas extends javax.swing.JFrame {
                     .addComponent(jButtonPesquisar)
                     .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -389,8 +484,8 @@ public class CadastroContas extends javax.swing.JFrame {
         if (jComboBoxConsulta.getSelectedIndex() == 3) {
             jComboBoxTpConta.setEnabled(true);
             jComboBoxTpConta.removeAllItems();
-            jComboBoxTpConta.addItem("Crédito");
-            jComboBoxTpConta.addItem("Débito");
+            jComboBoxTpConta.addItem("Receber");
+            jComboBoxTpConta.addItem("Pagar");
         } else if (jComboBoxConsulta.getSelectedIndex() == 4) {
             jComboBoxTpConta.setEnabled(true);
             jComboBoxTpConta.removeAllItems();
@@ -400,35 +495,57 @@ public class CadastroContas extends javax.swing.JFrame {
             jComboBoxTpConta.removeAllItems();
             jComboBoxTpConta.setEnabled(false);
         }
-//        if(jComboBoxConsulta.getSelectedIndex()==1){
-//            jComboBoxAux.setEnabled(true);
-//            //jComboBoxAux.removeAllItems();
-//            mov.getAgc().retornaComboAgcConta(jComboBoxAux);
-//        }
-//        else if (jComboBoxConsulta.getSelectedIndex()==2){
-//            jComboBoxAux.setEnabled(true);
-//            //jComboBoxAux.removeAllItems();
-//            mov.getAgc().retornaComboBanco(jComboBoxAux,false);
-//            
-//        }
-//        else if (jComboBoxConsulta.getSelectedIndex()==3){
-//            jComboBoxAux.setEnabled(true);
-//            jComboBoxAux.removeAllItems();
-//            jComboBoxAux.addItem("Entrada");
-//            jComboBoxAux.addItem("Saída");
-//        }
-//        else{
-//            jComboBoxAux.removeAllItems();
-//            jComboBoxAux.setEnabled(false);
-//        }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableContas, new int[]{80, 80, 80, 80, 80, 80, 80, 80, 80});
+        preencher.FormatarJtable(jTableContas, new int[]{70, 140, 80, 100, 70, 90, 70, 70, 70});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableContas, contas.consultarGeral());
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableContas, contas.consultarGeral(true));
+            break;
+                
+            case 1:
+                try{
+                    contas.setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableContas, contas.consultarCdConta(contas, true));
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                }
+            
+            break;  
+            
+            case 2:
+                contas.setDsConta(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableContas, contas.consultarDescricao(contas, true));
+            break;
+                
+            case 3:
+                switch(jComboBoxTpConta.getSelectedIndex()){
+                    case 0 : 
+                        contas.setTpConta("R");
+                    break;
+                    default :
+                        contas.setTpConta("P");
+                }
+                preencher.PreencherJtableGenerico(jTableContas, contas.consultarTipo(contas, true));
+
+            break;    
+                
+            default :
+                switch(jComboBoxTpConta.getSelectedIndex()){
+                    case 0 :
+                        contas.setPago("S");
+                    break;
+                        
+                    default :
+                        contas.setPago("N");
+                }
+            preencher.PreencherJtableGenerico(jTableContas, contas.consultarSituacao(contas));
         }
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
@@ -446,12 +563,195 @@ public class CadastroContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableContasMouseClicked
 
     private void jMenuItemPagarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagarParcelaActionPerformed
-        // TODO add your handling code here:
+        int linha = jTableParcelas.getSelectedRow();
+        int cdConta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
+        int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString());
+        
+        TelaPagamento tela = new TelaPagamento();
+        tela.setVisible(true);
+        tela.carregarConta(cdConta, parcela);
     }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        // TODO add your handling code here:
+        rotina = Rotinas.padrao;
+        botoes.validaEstadoCampos(jPanelCadastro, rotina);
     }//GEN-LAST:event_jBtExcluirActionPerformed
+
+    private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
+        rotina = Rotinas.incluir;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+        jTextFieldDescrição.grabFocus();
+    }//GEN-LAST:event_jBtIncluirActionPerformed
+
+    private void jTextFieldDescriçãoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescriçãoKeyTyped
+        ValidaCampos campos = new ValidaCampos();
+        campos.validaCamposLimite(evt, jTextFieldDescrição, 30);
+    }//GEN-LAST:event_jTextFieldDescriçãoKeyTyped
+
+    private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
+        ConsultaForma csForma = new ConsultaForma(this, true);
+        csForma.setVisible(true);
+
+        csForma.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+
+                if (contas.getForma().getCdForma() == 0) {
+                    jTextFieldCdForma.setText("");
+                    jTextFieldFormaPgto.setText("");
+                } else {
+                    jTextFieldCdForma.setText(contas.getForma().getCdForma().toString());
+                    jTextFieldFormaPgto.setText(contas.getForma().getDsForma());
+                }
+            }
+        });
+    }//GEN-LAST:event_jBtPesquisarActionPerformed
+
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        rotina = Rotinas.alterar;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+        jTextFieldDescrição.grabFocus();
+    }//GEN-LAST:event_jBtAlterarActionPerformed
+
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        rotina = Rotinas.padrao;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+        limpar.limparCampos(jPanelCadastro);
+        jTextFieldCdConta.grabFocus();
+    }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
+        if(jTextFieldCdForma.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "A forma de pagamento é obrigatória!");
+            jTextFieldCdForma.grabFocus();
+        }
+        else if (jTextFieldDescrição.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "A descrição é obrigatória");
+            jTextFieldDescrição.grabFocus();
+        }
+        else if (jTextFieldValor.getText().equals("")|| valor < 1){
+            JOptionPane.showMessageDialog(null, "Informe o valor da conta!");
+            jTextFieldValor.setText("");
+            jTextFieldValor.grabFocus();
+        }
+//        else if (!rdata.dataValida(jFormattedTextFieldDataVencimento.getText())){
+//            JOptionPane.showMessageDialog(null, "Informe uma data válida!");
+//            jFormattedTextFieldDataVencimento.grabFocus();
+//        }
+        else{
+            carregarConta();
+            
+            if (rotina == Rotinas.incluir){
+                contas.incluir(contas, false);
+                JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
+                jTextFieldCdConta.setText(contas.getCdConta().toString());
+                jFormattedTextFieldDataVencimento.setText(contas.getDtVencimento());
+            }
+            else if (rotina == Rotinas.alterar){
+                if (jTextFieldCdConta.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "É preciso informar o código da conta que deseja alterar!");
+                    jTextFieldCdConta.grabFocus();
+                }
+                else{
+                    try{
+                        contas.setCdConta(Integer.parseInt(jTextFieldCdConta.getText()));
+                        contas.alterar(contas);
+                        JOptionPane.showMessageDialog(null, "Conta alterada com sucesso!");
+                    }
+                    catch(NumberFormatException ex){
+                        
+                    }
+                }
+            }
+            rotina = Rotinas.padrao;
+            botoes.validaBotoes(jPanelBotoes, rotina);
+        }
+    }//GEN-LAST:event_jBtGravarActionPerformed
+
+    private void jTextFieldValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldValorFocusLost
+        try{
+            valor = Double.parseDouble(jTextFieldValor.getText().replace(".", "").replace(",", "."));    
+        }
+        catch(NumberFormatException ex){
+            valor = 0;
+        }
+    }//GEN-LAST:event_jTextFieldValorFocusLost
+
+    private void jFormattedTextFieldDataVencimentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDataVencimentoKeyTyped
+  
+    }//GEN-LAST:event_jFormattedTextFieldDataVencimentoKeyTyped
+
+    private void jTextFieldCdFormaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdFormaFocusLost
+        if (!jTextFieldCdForma.getText().equals("")) {
+            try {
+                contas.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
+                contas.getForma().retornaForma(contas.getForma());
+
+                if (contas.getForma().getDsForma().equals("")) {
+                    jTextFieldCdForma.setText("");
+                    jTextFieldFormaPgto.setText("");
+                    jTextFieldCdForma.grabFocus();
+                } else {
+                    jTextFieldFormaPgto.setText(contas.getForma().getDsForma());
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
+                jTextFieldCdForma.setText("");
+                jTextFieldFormaPgto.setText("");
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdFormaFocusLost
+
+    private void jMenuItemCarregarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarregarDadosActionPerformed
+        int linha = jTableContas.getSelectedRow();
+
+        if (linha >= 0) {
+            int cd = Integer.parseInt(jTableContas.getValueAt(linha, 0).toString());
+            contas.setCdConta(cd);
+            contas.retornaConta(contas, true);
+            
+            preencherCampos();
+            jTabbedPaneConta.setSelectedIndex(0);
+
+            rotina = Rotinas.padrao;
+            botoes.validaBotoes(jPanelBotoes, rotina);
+        }
+    }//GEN-LAST:event_jMenuItemCarregarDadosActionPerformed
+
+    private void jTextFieldCdContaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdContaFocusLost
+        if (!jTextFieldCdConta.getText().equals("")){
+            try{
+                contas.setCdConta(Integer.parseInt(jTextFieldCdConta.getText()));
+                contas.retornaConta(contas, true);
+                if(contas.getDsConta().equals("")){
+                    jBtCancelarActionPerformed(null);
+                }
+                else{
+                    preencherCampos();
+                }
+            }
+            catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                jBtCancelarActionPerformed(null);
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdContaFocusLost
+
+    private void jPopupMenuPagarParcelaPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuPagarParcelaPopupMenuWillBecomeVisible
+        int linha = jTableParcelas.getSelectedRow();
+        if (linha >= 0) {
+            try {
+                String valor = jTableParcelas.getValueAt(linha, 5).toString();
+                String data = jTableParcelas.getValueAt(linha, 5).toString();
+                if (valor.equals("0.00") || data.equals("")) {
+                    jMenuItemPagarParcela.setEnabled(true);
+                } else {
+                    jMenuItemPagarParcela.setEnabled(false);
+                }
+            } catch (NullPointerException ex) {
+                jMenuItemPagarParcela.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jPopupMenuPagarParcelaPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments
@@ -500,9 +800,10 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxSituacao;
     private javax.swing.JComboBox jComboBoxTpConta;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDataPagamento;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDataVencimento;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -510,26 +811,70 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItemCarregarDados;
     private javax.swing.JMenuItem jMenuItemPagarParcela;
     private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelCadastro;
     private javax.swing.JPanel jPanelConsulta;
+    private javax.swing.JPopupMenu jPopupMenuContas;
     private javax.swing.JPopupMenu jPopupMenuPagarParcela;
-    private javax.swing.JRadioButton jRadioButtonCredito;
-    private javax.swing.JRadioButton jRadioButtonDebito;
+    private javax.swing.JRadioButton jRadioButtonAPagar;
+    private javax.swing.JRadioButton jRadioButtonAReceber;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPaneConta;
     private javax.swing.JTable jTableContas;
     private javax.swing.JTable jTableParcelas;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldCdConta;
     private javax.swing.JTextField jTextFieldCdForma;
-    private javax.swing.JTextField jTextFieldCdVendaCompra;
     private javax.swing.JTextField jTextFieldConsulta;
-    private javax.swing.JTextField jTextFieldDataVenc;
-    private javax.swing.JTextField jTextFieldDataVenc1;
     private javax.swing.JTextField jTextFieldDescrição;
     private javax.swing.JTextField jTextFieldFormaPgto;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
+
+    public void carregarConta(){
+        contas.setDsConta(jTextFieldDescrição.getText().toUpperCase());
+        contas.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
+        contas.setVlConta(valor);
+        if (jRadioButtonAPagar.isSelected()){
+            contas.setTpConta("P");
+        }
+        else{
+            contas.setTpConta("R");
+        }
+        switch (jComboBoxSituacao.getSelectedIndex()){
+            case 0 :
+                contas.setPago("N");
+            break;
+                
+            default:
+                contas.setPago("S");
+        }
+    }
+    
+    public void preencherCampos(){
+        jTextFieldCdConta.setText(contas.getCdConta().toString());
+        jTextFieldDescrição.setText(contas.getDsConta());
+        jTextFieldCdForma.setText(contas.getForma().getCdForma().toString());
+        jTextFieldFormaPgto.setText(contas.getForma().getDsForma());
+        jFormattedTextFieldDataVencimento.setText(contas.getDtVencimento());
+        jFormattedTextFieldDataPagamento.setText(contas.getDtPagamento());
+        valor = contas.getVlConta();
+        jTextFieldValor.setText(decimal.retornaDecimal(contas.getVlConta(), 6));
+        if (contas.getTpConta().equals("A PAGAR")){
+            jRadioButtonAPagar.setSelected(true);
+        }
+        else{
+            jRadioButtonAReceber.setSelected(true);
+        }
+        jComboBoxSituacao.setSelectedItem(contas.getPago());
+//        if (contas.getPago().equals("PAGA")){
+//            jComboBoxSituacao.setSelectedIndex(1);
+//        }
+//        else{
+//            jComboBoxSituacao.setSelectedIndex(0);
+//        }
+    }
+
 }

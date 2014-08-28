@@ -1,12 +1,16 @@
 package Cadastros;
 
 import Classes.Operacao;
+import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
 
 
 /**
@@ -16,6 +20,7 @@ import javax.swing.JOptionPane;
 public class CadastroOperacao extends javax.swing.JFrame {
     
     Operacao operacao = new Operacao();
+    Relatorios report = new Relatorios();
     
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
@@ -282,6 +287,11 @@ public class CadastroOperacao extends javax.swing.JFrame {
 
         jBtRelatorio.setText("Relatório");
         jBtRelatorio.setEnabled(false);
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
@@ -434,12 +444,14 @@ public class CadastroOperacao extends javax.swing.JFrame {
         if (jComboBoxConsulta.getSelectedIndex()==0){
             preencher.PreencherJtableGenerico(jTableOperacao, operacao.consultarGeral());
             editaBotao(preencher.isVazia());
+            report.setConsulta(operacao.consultarGeral());
         }
         else if (jComboBoxConsulta.getSelectedIndex() == 1){
             try{
                 operacao.setCdOperacao(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableOperacao, operacao.consultarCdOperacao(operacao));
                 editaBotao(preencher.isVazia());
+                report.setConsulta(operacao.consultarCdOperacao(operacao));
             }
             catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
@@ -452,6 +464,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             operacao.setDsOperacao(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableOperacao, operacao.consultarDescricao(operacao));
             editaBotao(preencher.isVazia());
+            report.setConsulta(operacao.consultarDescricao(operacao));
         }
         
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -491,6 +504,19 @@ public class CadastroOperacao extends javax.swing.JFrame {
             botoes.validaBotoes(jPanelBotoes, rotina);
         }
     }//GEN-LAST:event_jMenuItemCarregarDadosActionPerformed
+
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        if (report.login()) {
+            try {
+                report.setSubreport(false);
+                report.setTabela("OPERACAO");
+                report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroBanco.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**
      * @param args the command line arguments

@@ -7,6 +7,7 @@ import Classes.VendaCompra;
 import Consultas.ConsultaClienteFornecedor;
 import Consultas.ConsultaForma;
 import Consultas.ConsultaOperacao;
+import Consultas.ConsultaParcelas;
 import Consultas.ConsultaProduto;
 import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
@@ -15,6 +16,7 @@ import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
+import java.awt.Dialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -766,9 +768,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Informe um código válido para consultar!");
                 limparCamposClienteFornecedor();
             }
-
         }
-
     }//GEN-LAST:event_jTextFieldCdClienteFocusLost
 
     private void jTextFieldNrAtendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNrAtendimentoFocusLost
@@ -943,6 +943,12 @@ public class TelaVenda extends javax.swing.JFrame {
             gerarContas();
             rotina = Rotinas.padrao;
             validaEstadoCampos();
+            
+            // mostra as parcelas
+            ConsultaParcelas consulta = new ConsultaParcelas();
+            consulta.setModalExclusionType(Dialog.ModalExclusionType.NO_EXCLUDE);
+            consulta.setVisible(true);
+            consulta.exibirParcelas(); 
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 

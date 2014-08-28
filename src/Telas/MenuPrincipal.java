@@ -78,7 +78,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemBancos = new javax.swing.JMenuItem();
         jMenuItemAgencia = new javax.swing.JMenuItem();
         jMenuItemContas = new javax.swing.JMenuItem();
-        jMenuItemParcelas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Al Tálio Sistema");
@@ -258,14 +257,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemContas);
 
-        jMenuItemParcelas.setText("Exibir Parcelas");
-        jMenuItemParcelas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemParcelasActionPerformed(evt);
-            }
-        });
-        jMenuFinanceiro.add(jMenuItemParcelas);
-
         jMenuBarPrincipal.add(jMenuFinanceiro);
 
         setJMenuBar(jMenuBarPrincipal);
@@ -373,11 +364,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cadContas.setVisible(true);
     }//GEN-LAST:event_jMenuItemContasActionPerformed
 
-    private void jMenuItemParcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemParcelasActionPerformed
-        ConsultaParcelas csParcelas = new ConsultaParcelas();
-        csParcelas.setVisible(true);
-    }//GEN-LAST:event_jMenuItemParcelasActionPerformed
-
     private void jMenuItemExibirAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirAtendimentosActionPerformed
         TelaAtendimentos tela = new TelaAtendimentos();
         tela.setVisible(true);
@@ -440,7 +426,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadTipo;
     private javax.swing.JMenuItem jMenuItemContas;
     private javax.swing.JMenuItem jMenuItemExibirAtendimentos;
-    private javax.swing.JMenuItem jMenuItemParcelas;
     private javax.swing.JMenuItem jMenuItemVenda;
     private javax.swing.JMenu jMenuServicos;
     private javax.swing.JPanel jPanelImagem;

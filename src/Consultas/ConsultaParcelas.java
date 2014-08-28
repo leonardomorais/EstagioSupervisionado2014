@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package Consultas;
 
 import Classes.Parcelas;
+import Validacoes.MostrarDialogo;
 import Validacoes.PreencherTabela;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +19,8 @@ public class ConsultaParcelas extends javax.swing.JFrame {
      */
     public ConsultaParcelas() {
         initComponents();
+        parcelas.getContas().setCdConta(1);
+        exibirParcelas();
     }
 
     /**
@@ -33,40 +32,32 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenuPagarParcela = new javax.swing.JPopupMenu();
+        jPopupMenuPagaParcela = new javax.swing.JPopupMenu();
         jMenuItemPagarParcela = new javax.swing.JMenuItem();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBoxConsulta = new javax.swing.JComboBox();
-        jBtPesquisar = new javax.swing.JButton();
-        jTextFieldConsulta = new javax.swing.JTextField();
+        jLabelTopo = new javax.swing.JLabel();
+        jBtConfirmar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
-        jComboBoxTipo = new javax.swing.JComboBox();
+        jBtCancelar = new javax.swing.JButton();
 
         jMenuItemPagarParcela.setText("Pagar Parcela");
-        jPopupMenuPagarParcela.add(jMenuItemPagarParcela);
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Consultar Parcelas");
-        setResizable(false);
-
-        jLabel1.setText("Filtro da Consulta");
-
-        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código da Conta", "Situação", "Cliente" }));
-        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+        jMenuItemPagarParcela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPagarParcelaActionPerformed(evt);
             }
         });
+        jPopupMenuPagaParcela.add(jMenuItemPagarParcela);
 
-        jBtPesquisar.setText("Pesquisar");
-        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Parcelas Geradas");
+        setResizable(false);
+
+        jLabelTopo.setText("          ");
+
+        jBtConfirmar.setText("Confirmar ");
+        jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisarActionPerformed(evt);
+                jBtConfirmarActionPerformed(evt);
             }
         });
 
@@ -86,11 +77,20 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableParcelas.setComponentPopupMenu(jPopupMenuPagarParcela);
+        jTableParcelas.setComponentPopupMenu(jPopupMenuPagaParcela);
+        jTableParcelas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableParcelasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableParcelas);
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Paga", "Não Paga" }));
-        jComboBoxTipo.setEnabled(false);
+        jBtCancelar.setText("Cancelar");
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,33 +99,28 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)))
+                        .addComponent(jLabelTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jBtConfirmar)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtPesquisar)))
+                        .addComponent(jBtCancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisar)
-                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabelTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtConfirmar)
+                    .addComponent(jBtCancelar))
                 .addContainerGap())
         );
 
@@ -133,23 +128,38 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
-        if(jComboBoxConsulta.getSelectedIndex() == 2){
-            jComboBoxTipo.setEnabled(true);
+    private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(null, "Deseja confirmar estas parcelas ?",
+                "Confirmar Parcelas", JOptionPane.YES_NO_OPTION);
+        if (opcao == JOptionPane.YES_OPTION){
+            // altera as parcelas
+            dispose();
         }
-        else{
-            jComboBoxTipo.setEnabled(false);
-        }
-    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+    }//GEN-LAST:event_jBtConfirmarActionPerformed
 
-    private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
-        PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableParcelas, new int[] {100,100,100,100,100,100});
-        
-        if(jComboBoxConsulta.getSelectedIndex()==0){
-            preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consutarGeral());
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(null, "Deseja voltar as parcelas para o estado anterior ?",
+                "Voltar Parcelas", JOptionPane.YES_NO_OPTION);
+        if (opcao == JOptionPane.YES_OPTION){
+            exibirParcelas();
         }
-    }//GEN-LAST:event_jBtPesquisarActionPerformed
+    }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jTableParcelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableParcelasMouseClicked
+        int linha = jTableParcelas.getSelectedRow();
+        int coluna = jTableParcelas.getSelectedColumn();
+        if (coluna == 3){
+            String data = jTableParcelas.getValueAt(linha, coluna).toString();
+            MostrarDialogo dialogo = new MostrarDialogo();
+            String valor = dialogo.dialogoData(data);
+            jTableParcelas.setValueAt(valor, linha, coluna);
+        }
+    }//GEN-LAST:event_jTableParcelasMouseClicked
+
+    private void jMenuItemPagarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagarParcelaActionPerformed
+        int linha = jTableParcelas.getSelectedRow();
+        
+    }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,14 +197,21 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtPesquisar;
-    private javax.swing.JComboBox jComboBoxConsulta;
-    private javax.swing.JComboBox jComboBoxTipo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtConfirmar;
+    private javax.swing.JLabel jLabelTopo;
     private javax.swing.JMenuItem jMenuItemPagarParcela;
-    private javax.swing.JPopupMenu jPopupMenuPagarParcela;
+    private javax.swing.JPopupMenu jPopupMenuPagaParcela;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableParcelas;
-    private javax.swing.JTextField jTextFieldConsulta;
     // End of variables declaration//GEN-END:variables
+
+    public void exibirParcelas(){
+        PreencherTabela preencher = new PreencherTabela();
+        preencher.FormatarJtable(jTableParcelas, new int[] {90,90,90,90,90,90});
+        preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(parcelas.getContas()));
+        
+        jLabelTopo.setText("Parcelas da Conta "+parcelas.getContas().getCdConta()+": "+parcelas.getContas().getDsConta());
+    }
+
 }

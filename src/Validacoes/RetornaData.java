@@ -1,7 +1,9 @@
 package Validacoes;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +42,6 @@ public class RetornaData {
 //
 //        return dataAtual;
 //    }
-
     public String retornaHoraAtual() {
         String horaAtual = "";
         Date data = new Date();
@@ -75,10 +76,30 @@ public class RetornaData {
             calendar.setTime(xy);
         }
         calendar.add(Calendar.DATE, dias);
-        if(calendar.getTime().getDay()==0){
+        if (calendar.getTime().getDay() == 0) {
             // domingo
-            calendar.add(calendar.DATE, dias+1);
+            calendar.add(calendar.DATE, 1);
         }
         return (sDate.format(calendar.getTime()));
+    }
+
+    public boolean dataValida(String data){
+        boolean valida;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        formato.setLenient(false);
+        
+        try{
+            Date dt = formato.parse(data);
+            if (dt.compareTo(new Date()) < 0){
+                valida = false;
+            }
+            else{
+                valida = true;
+            }
+        }
+        catch(ParseException ex){
+            valida = false;
+        }
+        return valida;
     }
 }
