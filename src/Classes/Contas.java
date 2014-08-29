@@ -59,7 +59,8 @@ public class Contas {
         conexao.incluirSQL(sql);
         Parcelas p = new Parcelas();
         p.setContas(contas);
-        p.gerarParcelas(p);
+        p.geraParcelas(p);
+//        p.gerarParcelas(p);
     }
 
     public void alterar(Contas contas) {
@@ -79,7 +80,11 @@ public class Contas {
         conexao.atualizarSQL(sql);
     }
     
-
+    public void pagarConta(Contas contas){
+        String sql = "UPDATE CONTAS_PAGAR_RECEBER SET PAGO = 'S' WHERE CD_CONTA = "+contas.getCdConta();
+        conexao.atualizarSQL(sql);
+    }
+    
     public ResultSet consultarGeral(boolean todas) {
         String sql;
         if (todas){

@@ -18,7 +18,6 @@ import javax.swing.text.MaskFormatter;
  */
 public class MostrarDialogo {
 
-    
     public String dialogoData(String dataParam){
         RetornaData rdata = new RetornaData();
         String dataRetorno = "";
@@ -61,7 +60,7 @@ public class MostrarDialogo {
             }
             else{
                 JOptionPane.showMessageDialog(null, "Data inválida");
-                dataRetorno = dataParam;
+                //dataRetorno = dataParam;
         }
         }
         else{

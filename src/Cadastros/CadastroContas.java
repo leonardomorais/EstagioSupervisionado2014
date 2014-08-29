@@ -184,7 +184,6 @@ public class CadastroContas extends javax.swing.JFrame {
 
         jLabel2.setText("Data Pagamento");
 
-        jFormattedTextFieldDataVencimento.setEnabled(false);
         jFormattedTextFieldDataVencimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jFormattedTextFieldDataVencimentoKeyTyped(evt);
@@ -566,12 +565,19 @@ public class CadastroContas extends javax.swing.JFrame {
         int linha = jTableParcelas.getSelectedRow();
         int cdConta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
         int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString());
-        
         TelaPagamento tela = new TelaPagamento();
         tela.setVisible(true);
         tela.carregarConta(cdConta, parcela);
-    }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
+ 
+        tela.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                jButtonPesquisarActionPerformed(null);
+                jTableContasMouseClicked(null);
+            }      
+        });
 
+    }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
+                
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaEstadoCampos(jPanelCadastro, rotina);
@@ -633,10 +639,10 @@ public class CadastroContas extends javax.swing.JFrame {
             jTextFieldValor.setText("");
             jTextFieldValor.grabFocus();
         }
-//        else if (!rdata.dataValida(jFormattedTextFieldDataVencimento.getText())){
-//            JOptionPane.showMessageDialog(null, "Informe uma data válida!");
-//            jFormattedTextFieldDataVencimento.grabFocus();
-//        }
+        else if (!rdata.dataValida(jFormattedTextFieldDataVencimento.getText())){
+            JOptionPane.showMessageDialog(null, "Informe uma data válida!");
+            jFormattedTextFieldDataVencimento.grabFocus();
+        }
         else{
             carregarConta();
             
@@ -644,7 +650,6 @@ public class CadastroContas extends javax.swing.JFrame {
                 contas.incluir(contas, false);
                 JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
                 jTextFieldCdConta.setText(contas.getCdConta().toString());
-                jFormattedTextFieldDataVencimento.setText(contas.getDtVencimento());
             }
             else if (rotina == Rotinas.alterar){
                 if (jTextFieldCdConta.getText().equals("")){
@@ -692,6 +697,7 @@ public class CadastroContas extends javax.swing.JFrame {
                     jTextFieldCdForma.grabFocus();
                 } else {
                     jTextFieldFormaPgto.setText(contas.getForma().getDsForma());
+                    jFormattedTextFieldDataVencimento.setText(rdata.retornaSomaData("", contas.getForma().getIntervalo()));
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
@@ -740,7 +746,7 @@ public class CadastroContas extends javax.swing.JFrame {
         int linha = jTableParcelas.getSelectedRow();
         if (linha >= 0) {
             try {
-                String valor = jTableParcelas.getValueAt(linha, 5).toString();
+                String valor = jTableParcelas.getValueAt(linha, 4).toString();
                 String data = jTableParcelas.getValueAt(linha, 5).toString();
                 if (valor.equals("0.00") || data.equals("")) {
                     jMenuItemPagarParcela.setEnabled(true);
@@ -837,6 +843,7 @@ public class CadastroContas extends javax.swing.JFrame {
         contas.setDsConta(jTextFieldDescrição.getText().toUpperCase());
         contas.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
         contas.setVlConta(valor);
+        contas.setDtPagamento(jFormattedTextFieldDataVencimento.getText());
         if (jRadioButtonAPagar.isSelected()){
             contas.setTpConta("P");
         }

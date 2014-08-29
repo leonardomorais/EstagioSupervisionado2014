@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -101,5 +103,19 @@ public class RetornaData {
             valida = false;
         }
         return valida;
+    }
+    
+    public int comparaData(String data){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date dtParam;
+        try {
+            dtParam = formato.parse(data);
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(RetornaData.class.getName()).log(Level.SEVERE, null, ex);
+            dtParam = new Date();
+            
+        }
+        return dtParam.compareTo(new Date());
     }
 }

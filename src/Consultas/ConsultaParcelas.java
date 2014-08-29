@@ -2,9 +2,9 @@
 package Consultas;
 
 import Classes.Parcelas;
+import Telas.TelaPagamento;
 import Validacoes.MostrarDialogo;
 import Validacoes.PreencherTabela;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +19,6 @@ public class ConsultaParcelas extends javax.swing.JFrame {
      */
     public ConsultaParcelas() {
         initComponents();
-        parcelas.getContas().setCdConta(1);
         exibirParcelas();
     }
 
@@ -35,10 +34,19 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         jPopupMenuPagaParcela = new javax.swing.JPopupMenu();
         jMenuItemPagarParcela = new javax.swing.JMenuItem();
         jLabelTopo = new javax.swing.JLabel();
-        jBtConfirmar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
-        jBtCancelar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+
+        jPopupMenuPagaParcela.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuPagaParcelaPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         jMenuItemPagarParcela.setText("Pagar Parcela");
         jMenuItemPagarParcela.addActionListener(new java.awt.event.ActionListener() {
@@ -52,14 +60,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         setTitle("Parcelas Geradas");
         setResizable(false);
 
-        jLabelTopo.setText("          ");
-
-        jBtConfirmar.setText("Confirmar ");
-        jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtConfirmarActionPerformed(evt);
-            }
-        });
+        jLabelTopo.setText("Parcelas");
 
         jTableParcelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,10 +86,10 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableParcelas);
 
-        jBtCancelar.setText("Cancelar");
-        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Fechar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -100,27 +101,21 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabelTopo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jBtConfirmar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtCancelar)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(4, 4, 4)
+                .addComponent(jLabelTopo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtConfirmar)
-                    .addComponent(jBtCancelar))
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -128,38 +123,69 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null, "Deseja confirmar estas parcelas ?",
-                "Confirmar Parcelas", JOptionPane.YES_NO_OPTION);
-        if (opcao == JOptionPane.YES_OPTION){
-            // altera as parcelas
-            dispose();
-        }
-    }//GEN-LAST:event_jBtConfirmarActionPerformed
-
-    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null, "Deseja voltar as parcelas para o estado anterior ?",
-                "Voltar Parcelas", JOptionPane.YES_NO_OPTION);
-        if (opcao == JOptionPane.YES_OPTION){
-            exibirParcelas();
-        }
-    }//GEN-LAST:event_jBtCancelarActionPerformed
-
     private void jTableParcelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableParcelasMouseClicked
         int linha = jTableParcelas.getSelectedRow();
         int coluna = jTableParcelas.getSelectedColumn();
         if (coluna == 3){
-            String data = jTableParcelas.getValueAt(linha, coluna).toString();
-            MostrarDialogo dialogo = new MostrarDialogo();
-            String valor = dialogo.dialogoData(data);
-            jTableParcelas.setValueAt(valor, linha, coluna);
+            try{
+                String dataPago = jTableParcelas.getValueAt(linha, 5).toString();
+            }
+            catch(NullPointerException ex){
+                String data = jTableParcelas.getValueAt(linha, coluna).toString();
+                MostrarDialogo dialogo = new MostrarDialogo();
+                String valor = dialogo.dialogoData(data);
+                jTableParcelas.setValueAt(valor, linha, coluna);
+                if (!data.equals(valor)){
+                    // sofreu alteração
+                parcelas.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
+                parcelas.setVlParcela(Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString()));
+                parcelas.setDtVencimento(valor);
+                parcelas.getContas().setCdConta(Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString()));
+                // altera a parcela
+                parcelas.alterar(parcelas);
+                }
+            }
         }
     }//GEN-LAST:event_jTableParcelasMouseClicked
 
     private void jMenuItemPagarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagarParcelaActionPerformed
         int linha = jTableParcelas.getSelectedRow();
+        int cdConta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
+        int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString());
+        
+        TelaPagamento tela = new TelaPagamento();
+        tela.setVisible(true);
+        tela.carregarConta(cdConta, parcela);
+        
+        tela.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evento){
+                exibirParcelas();
+            }
+});
+        
         
     }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
+
+    private void jPopupMenuPagaParcelaPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuPagaParcelaPopupMenuWillBecomeVisible
+        int linha = jTableParcelas.getSelectedRow();
+        if (linha >= 0) {
+            try {
+                String valor = jTableParcelas.getValueAt(linha, 4).toString();
+                String data = jTableParcelas.getValueAt(linha, 5).toString();
+                if (valor.equals("0.00") || data.equals("")) {
+                    jMenuItemPagarParcela.setEnabled(true);
+                } else {
+                    jMenuItemPagarParcela.setEnabled(false);
+                }
+            } catch (NullPointerException ex) {
+                jMenuItemPagarParcela.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jPopupMenuPagaParcelaPopupMenuWillBecomeVisible
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,8 +223,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtConfirmar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabelTopo;
     private javax.swing.JMenuItem jMenuItemPagarParcela;
     private javax.swing.JPopupMenu jPopupMenuPagaParcela;
@@ -210,8 +235,8 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableParcelas, new int[] {90,90,90,90,90,90});
         preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(parcelas.getContas()));
-        
-        jLabelTopo.setText("Parcelas da Conta "+parcelas.getContas().getCdConta()+": "+parcelas.getContas().getDsConta());
+        parcelas.getContas().retornaConta(parcelas.getContas(), true);
+        jLabelTopo.setText("Parcelas da Conta "+parcelas.getContas().getCdConta()+" : "+parcelas.getContas().getDsConta());
     }
 
 }

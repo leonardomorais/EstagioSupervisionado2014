@@ -83,7 +83,7 @@ public class Pagamento {
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
-
+    
     // getter e setter
     public TipoPagamento getTipo() {
         return tipo;

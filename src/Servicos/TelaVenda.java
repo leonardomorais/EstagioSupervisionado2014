@@ -749,6 +749,7 @@ public class TelaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarFormaActionPerformed
 
     private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
+        limparCampos();
         jTextFieldData.setText(rdata.retornaDataAtual());
         jTextFieldCdCliente.grabFocus();
         rotina = Rotinas.incluir;
@@ -1419,7 +1420,8 @@ public class TelaVenda extends javax.swing.JFrame {
     }
     
     public void limparCampos(){
-        jRadioButtonCompra.setEnabled(true);
+        jRadioButtonCompra.setEnabled(false);
+        jRadioButtonVenda.setEnabled(false);
         limpar.limparCampos(jPanelGravar);
         limpar.limparJtable(jTableProdutos);
         jSpnQuantidade.setValue(1);
