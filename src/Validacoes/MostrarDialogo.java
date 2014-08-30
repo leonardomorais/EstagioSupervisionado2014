@@ -60,7 +60,7 @@ public class MostrarDialogo {
             }
             else{
                 JOptionPane.showMessageDialog(null, "Data inválida");
-                //dataRetorno = dataParam;
+                dataRetorno = dataParam;
         }
         }
         else{

@@ -170,6 +170,7 @@ public class Parcelas {
                 + "AND NR_PARCELA = " + parcelas.getNrParcela();
         conexao.atualizarSQL(sql);
         if (verificaParcelasPagas(parcelas)) {
+            parcelas.getContas().setDtPagamento(parcelas.getDtPago());
             parcelas.getContas().pagarConta(parcelas.getContas());
         }
     }
@@ -215,8 +216,8 @@ public class Parcelas {
 
     public String retornaDataUltimaParcela(Parcelas parcelas) {
         String dataUltima;
-        String sql = "SELECT (MAX(TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY'))) AS DT_VENC"
-                + "FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta();
+        String sql = "SELECT TO_CHAR((MAX(DT_VENCIMENTO)),'DD/MM/YYYY') AS DT_VENC "
+                + "FROM PARCELAS WHERE CD_CONTA = "+parcelas.getContas().getCdConta();
         conexao.executeSQL(sql);
         try {
             conexao.resultset.first();

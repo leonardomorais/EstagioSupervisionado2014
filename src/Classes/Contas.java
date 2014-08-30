@@ -81,7 +81,8 @@ public class Contas {
     }
     
     public void pagarConta(Contas contas){
-        String sql = "UPDATE CONTAS_PAGAR_RECEBER SET PAGO = 'S' WHERE CD_CONTA = "+contas.getCdConta();
+        String sql = "UPDATE CONTAS_PAGAR_RECEBER SET PAGO = 'S', "
+                + "DT_PAGAMENTO = '"+contas.getDtPagamento()+"' WHERE CD_CONTA = "+contas.getCdConta();
         conexao.atualizarSQL(sql);
     }
     

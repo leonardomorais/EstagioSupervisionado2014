@@ -754,6 +754,7 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldCdCliente.grabFocus();
         rotina = Rotinas.incluir;
         validaEstadoCampos();
+        jRadioButtonVendaActionPerformed(null);
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
     private void jTextFieldCdClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdClienteFocusLost
@@ -947,7 +948,7 @@ public class TelaVenda extends javax.swing.JFrame {
             
             // mostra as parcelas
             ConsultaParcelas consulta = new ConsultaParcelas();
-            consulta.setModalExclusionType(Dialog.ModalExclusionType.NO_EXCLUDE);
+            consulta.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
             consulta.setVisible(true);
             consulta.exibirParcelas(); 
         }

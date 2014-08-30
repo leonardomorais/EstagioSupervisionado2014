@@ -3,6 +3,7 @@ package Cadastros;
 import Classes.Contas;
 import Classes.Parcelas;
 import Consultas.ConsultaForma;
+import Consultas.ConsultaParcelas;
 import Telas.TelaPagamento;
 import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
@@ -12,6 +13,7 @@ import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.Dialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -604,9 +606,12 @@ public class CadastroContas extends javax.swing.JFrame {
                 if (contas.getForma().getCdForma() == 0) {
                     jTextFieldCdForma.setText("");
                     jTextFieldFormaPgto.setText("");
+                    jFormattedTextFieldDataVencimento.setText("");
                 } else {
                     jTextFieldCdForma.setText(contas.getForma().getCdForma().toString());
                     jTextFieldFormaPgto.setText(contas.getForma().getDsForma());
+                    jFormattedTextFieldDataVencimento.setText(rdata.retornaSomaData("", 
+                            contas.getForma().getIntervalo() * contas.getForma().getQtParcelas()));
                 }
             }
         });
@@ -650,7 +655,13 @@ public class CadastroContas extends javax.swing.JFrame {
                 contas.incluir(contas, false);
                 JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
                 jTextFieldCdConta.setText(contas.getCdConta().toString());
+                // mostra as parcelas geradas
+                ConsultaParcelas consulta = new ConsultaParcelas();
+                consulta.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+                consulta.setVisible(true);
+                consulta.exibirParcelas();
             }
+            
             else if (rotina == Rotinas.alterar){
                 if (jTextFieldCdConta.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "É preciso informar o código da conta que deseja alterar!");
@@ -694,15 +705,18 @@ public class CadastroContas extends javax.swing.JFrame {
                 if (contas.getForma().getDsForma().equals("")) {
                     jTextFieldCdForma.setText("");
                     jTextFieldFormaPgto.setText("");
+                    jFormattedTextFieldDataVencimento.setText("");
                     jTextFieldCdForma.grabFocus();
                 } else {
                     jTextFieldFormaPgto.setText(contas.getForma().getDsForma());
-                    jFormattedTextFieldDataVencimento.setText(rdata.retornaSomaData("", contas.getForma().getIntervalo()));
+                    jFormattedTextFieldDataVencimento.setText(rdata.retornaSomaData("", 
+                            contas.getForma().getIntervalo() * contas.getForma().getQtParcelas()));
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                 jTextFieldCdForma.setText("");
                 jTextFieldFormaPgto.setText("");
+                jFormattedTextFieldDataVencimento.setText("");
             }
         }
     }//GEN-LAST:event_jTextFieldCdFormaFocusLost

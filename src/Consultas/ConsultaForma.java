@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package Consultas;
 
@@ -184,6 +179,7 @@ public class ConsultaForma extends javax.swing.JDialog {
         int linha = jTableConsulta.getSelectedRow(); 
         vendaC.getForma().setCdForma(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
         vendaC.getForma().setDsForma(jTableConsulta.getValueAt(linha, 1).toString());
+        vendaC.getForma().retornaForma(vendaC.getForma());
     }//GEN-LAST:event_jTableConsultaMouseClicked
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed

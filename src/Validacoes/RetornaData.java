@@ -2,6 +2,7 @@ package Validacoes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,21 @@ public class RetornaData {
         return hoje.format(formato);
     }
 
+    public String retornaSomaData(String data, int dias){
+        LocalDate dt ;
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        if (data.equals("")){
+            dt = LocalDate.parse(retornaDataAtual(), formato);
+        }
+        else{
+            dt = LocalDate.parse(data, formato);
+        }
+        dt = dt.plusDays(dias);
+        if (dt.getDayOfWeek().equals(DayOfWeek.SUNDAY)){
+            dt = dt.plusDays(1);
+        }
+        return dt.format(formato);
+    }
 //    public String retornaDataAtual(Boolean comMascara) {
 //        String dataAtual = "";
 //        Date data = new Date();
@@ -66,55 +82,58 @@ public class RetornaData {
     }
 
     // copiado de AulaPOO 2013
-    public String retornaSomaData(String data, int dias) {
-        SimpleDateFormat sDate = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar calendar = Calendar.getInstance();
+//    public String retornaSomaData(String data, int dias) {
+//        SimpleDateFormat sDate = new SimpleDateFormat("dd/MM/yyyy");
+//        Calendar calendar = Calendar.getInstance();
+//
+//        if (data.equals("")) {
+//            Date date = new Date();
+//            calendar.setTime(date);
+//        } else {
+//            Date xy = new Date(data);
+//            calendar.setTime(xy);
+//        }
+//        calendar.add(Calendar.DATE, dias);
+//        if (calendar.getTime().getDay() == 0) {
+//            // domingo
+//            calendar.add(Calendar.DATE, 1);
+//        }
+//        return (sDate.format(calendar.getTime()));
+//    }
 
-        if (data.equals("")) {
-            Date date = new Date();
-            calendar.setTime(date);
-        } else {
-            Date xy = new Date(data);
-            calendar.setTime(xy);
-        }
-        calendar.add(Calendar.DATE, dias);
-        if (calendar.getTime().getDay() == 0) {
-            // domingo
-            calendar.add(calendar.DATE, 1);
-        }
-        return (sDate.format(calendar.getTime()));
-    }
-
-    public boolean dataValida(String data){
+    public boolean dataValida(String data) {
         boolean valida;
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         formato.setLenient(false);
-        
-        try{
+
+        try {
             Date dt = formato.parse(data);
-            if (dt.compareTo(new Date()) < 0){
+            if (dt.getDay() == 0) {
+                // se for um domingo
                 valida = false;
+            } else {
+                if (dt.compareTo(new Date()) < 0) {
+                    valida = false;
+                } else {
+                    valida = true;
+                }
             }
-            else{
-                valida = true;
-            }
-        }
-        catch(ParseException ex){
+        } catch (ParseException ex) {
             valida = false;
         }
         return valida;
     }
-    
-    public int comparaData(String data){
+
+    public int comparaData(String data) {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date dtParam;
         try {
             dtParam = formato.parse(data);
-            
+
         } catch (ParseException ex) {
             Logger.getLogger(RetornaData.class.getName()).log(Level.SEVERE, null, ex);
             dtParam = new Date();
-            
+
         }
         return dtParam.compareTo(new Date());
     }
