@@ -15,7 +15,6 @@ public class MovCaixa {
     private Double valorMov;
     private String dataMov;
     private String observacao;
-    private String tipo;
     
     private AgenciaConta agc = new AgenciaConta();
     private Parcelas parcelas = new Parcelas();
@@ -45,9 +44,6 @@ public class MovCaixa {
         conexao.incluirSQL(sql);
     }
     
-    public void retornaOperacaoPelaConta(MovCaixa mov){
-
-    }
     
     
 // getter e setter
@@ -122,17 +118,7 @@ public class MovCaixa {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-    
-    
+    }  
     
     
 }

@@ -36,10 +36,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         validaEstadoCampos();
-
-//        pagamento.getParcelas().getContas().setCdConta(2);
-//        pagamento.getParcelas().getContas().retornaConta(pagamento.getParcelas().getContas());
-//        pagamento.getParcelas().gerarParcelas(pagamento.getParcelas());
     }
 
     /**
@@ -112,6 +108,12 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTextFieldAgenciaConta.setEnabled(false);
 
         jLabel4.setText("Código do Pagamento");
+
+        jTextFieldCdPagamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdPagamentoFocusLost(evt);
+            }
+        });
 
         jBtPesquisaConta.setText("Pesquisar");
         jBtPesquisaConta.addActionListener(new java.awt.event.ActionListener() {
@@ -485,7 +487,6 @@ public class TelaPagamento extends javax.swing.JFrame {
             jTextFieldCdTipo.grabFocus();
         } else {
             carregarPagamento();
-//            pagamento.incluir(pagamento);
 //            jTextFieldCdPagamento.setText(pagamento.getCdPagamento().toString());
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
@@ -578,8 +579,6 @@ public class TelaPagamento extends javax.swing.JFrame {
                 }
             }
         }
-
-
     }//GEN-LAST:event_jTableParcelasKeyTyped
 
     private void jTableParcelasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableParcelasPropertyChange
@@ -599,7 +598,6 @@ public class TelaPagamento extends javax.swing.JFrame {
                     jTableParcelas.setValueAt("0.00", i, 4);
                 }
             }
-
         }
     }//GEN-LAST:event_jTableParcelasPropertyChange
 
@@ -659,6 +657,10 @@ public class TelaPagamento extends javax.swing.JFrame {
             validaEstadoCampos();
         }
     }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jTextFieldCdPagamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdPagamentoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCdPagamentoFocusLost
 
     /**
      * @param args the command line arguments
@@ -758,7 +760,6 @@ public class TelaPagamento extends javax.swing.JFrame {
 
         preencher.PreencherJtableGenericoSel(jTableParcelas,
                 pagamento.getParcelas().consultarCdConta(pagamento.getParcelas().getContas()));
-                
     }
 
     public int parcelasSelecionadas() {
@@ -771,7 +772,6 @@ public class TelaPagamento extends javax.swing.JFrame {
                 }
             }
         }
-
         return selecionadas;
     }
 
@@ -814,6 +814,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                 total = total + vlPago;
                 // grava o pagamento
                 pagamento.incluir(pagamento);
+                //pagamento.gravarMovCaixa(pagamento, i);
                 jTextFieldCdPagamento.setText(pagamento.getCdPagamento().toString());
             }
         }
@@ -835,18 +836,5 @@ public class TelaPagamento extends javax.swing.JFrame {
             pagamento.getAgc().setVlConta(vlAnterior + valor);
         }
         pagamento.getAgc().atualizarValorConta(pagamento.getAgc());
-        
-        gravarMovCaixa(vlAnterior, valor);
-    }
-    
-    public void gravarMovCaixa(double anterior, double valor){
-        MovCaixa mov = new MovCaixa();
-        mov.setAgc(pagamento.getAgc());
-        mov.setParcelas(pagamento.getParcelas());
-        mov.setDataMov(data.retornaDataAtual());
-        mov.setSaldoAnterior(anterior);
-        mov.setSaldoFinal(pagamento.getAgc().getVlConta());
-        mov.setValorMov(valor);
-        
     }
 }

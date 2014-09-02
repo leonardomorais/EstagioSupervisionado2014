@@ -4,9 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +22,7 @@ public class RetornaData {
     }
 
     public String retornaSomaData(String data, int dias){
-        LocalDate dt ;
+        LocalDate dt;
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         if (data.equals("")){
             dt = LocalDate.parse(retornaDataAtual(), formato);
@@ -38,28 +36,7 @@ public class RetornaData {
         }
         return dt.format(formato);
     }
-//    public String retornaDataAtual(Boolean comMascara) {
-//        String dataAtual = "";
-//        Date data = new Date();
-//        String dia = "" + data.getDate();
-//        String mes = "" + String.valueOf(data.getMonth() + 1);
-//        String ano = "" + (1900 + data.getYear());
-//
-//        if (Integer.parseInt(mes) <= 9) {
-//            mes = "0" + mes;
-//        }
-//        if (Integer.parseInt(dia) <= 9) {
-//            dia = "0" + dia;
-//        }
-//
-//        dataAtual = dia + mes + ano;
-//
-//        if (comMascara) {
-//            dataAtual = dia + "/" + mes + "/" + ano;
-//        }
-//
-//        return dataAtual;
-//    }
+    
     public String retornaHoraAtual() {
         String horaAtual = "";
         Date data = new Date();
@@ -81,26 +58,6 @@ public class RetornaData {
         return horaAtual;
     }
 
-    // copiado de AulaPOO 2013
-//    public String retornaSomaData(String data, int dias) {
-//        SimpleDateFormat sDate = new SimpleDateFormat("dd/MM/yyyy");
-//        Calendar calendar = Calendar.getInstance();
-//
-//        if (data.equals("")) {
-//            Date date = new Date();
-//            calendar.setTime(date);
-//        } else {
-//            Date xy = new Date(data);
-//            calendar.setTime(xy);
-//        }
-//        calendar.add(Calendar.DATE, dias);
-//        if (calendar.getTime().getDay() == 0) {
-//            // domingo
-//            calendar.add(Calendar.DATE, 1);
-//        }
-//        return (sDate.format(calendar.getTime()));
-//    }
-
     public boolean dataValida(String data) {
         boolean valida;
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -112,7 +69,7 @@ public class RetornaData {
                 // se for um domingo
                 valida = false;
             } else {
-                if (dt.compareTo(new Date()) < 0) {
+                if (comparaData(data) < 0) {
                     valida = false;
                 } else {
                     valida = true;
@@ -127,14 +84,15 @@ public class RetornaData {
     public int comparaData(String data) {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date dtParam;
+        Date dtAtual;
         try {
             dtParam = formato.parse(data);
-
+            dtAtual = formato.parse(retornaDataAtual());
         } catch (ParseException ex) {
             Logger.getLogger(RetornaData.class.getName()).log(Level.SEVERE, null, ex);
             dtParam = new Date();
-
+            dtAtual = new Date();
         }
-        return dtParam.compareTo(new Date());
+        return dtParam.compareTo(dtAtual);
     }
 }

@@ -157,9 +157,9 @@
                                                   <Component id="jComboBoxSexo" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jLabel6" max="32767" attributes="0"/>
-                                                  <Component id="jFormattedTextFieldData" min="-2" pref="85" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jFormattedTextFieldData" min="-2" pref="90" max="-2" attributes="0"/>
+                                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>

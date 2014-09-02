@@ -9,6 +9,7 @@ import Consultas.ConsultaForma;
 import Consultas.ConsultaOperacao;
 import Consultas.ConsultaParcelas;
 import Consultas.ConsultaProduto;
+import Validacoes.EditarJtable;
 import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
@@ -39,7 +40,7 @@ public class TelaVenda extends javax.swing.JFrame {
     RetornaData rdata = new RetornaData();
     RetornaDecimal decimal = new RetornaDecimal();
     LimparCampos limpar = new LimparCampos();
-
+    EditarJtable edit = new EditarJtable();
     MaskFormatter data;
 
     /**
@@ -672,6 +673,7 @@ public class TelaVenda extends javax.swing.JFrame {
             jTextFieldCdProduto.grabFocus();
         } else {
             adicionarProdutos();
+            edit.editarTabela(jTableProdutos);
             preencherTotal();
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
@@ -1263,6 +1265,9 @@ public class TelaVenda extends javax.swing.JFrame {
         
         linhasAtendimento = model.getRowCount();
         jRadioButtonCompra.setEnabled(false);
+        edit.editarTabela(jTableProdutos);
+        edit.setTipo("VENDA_COMPRA");
+        edit.setLinhas(linhasAtendimento);
     }
     
     public void CarregarAtendimento(AtendimentoMesa atd){
@@ -1280,6 +1285,9 @@ public class TelaVenda extends javax.swing.JFrame {
         
         linhasAtendimento = jTableProdutos.getRowCount();
         jRadioButtonCompra.setEnabled(false);
+        edit.editarTabela(jTableProdutos);
+        edit.setTipo("VENDA_COMPRA");
+        edit.setLinhas(linhasAtendimento);
     }
 
     public void retornaCliente(int cd) {

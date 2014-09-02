@@ -84,6 +84,25 @@ public class Pagamento {
         return conexao.resultset;
     }
     
+    public void gravarMovCaixa(Pagamento pagamento, int cd){
+        MovCaixa mov = new MovCaixa();
+        mov.getOperacao().setCdOperacao(cd);
+        mov.getOperacao().retornaOperacao(mov.getOperacao());
+        mov.setParcelas(pagamento.getParcelas());
+        mov.setAgc(pagamento.getAgc());
+        mov.setValorMov(getParcelas().getVlPago());
+        mov.setSaldoAnterior(getAgc().getVlConta());
+        if (mov.getParcelas().getContas().getTpConta().equals("A PAGAR")){
+            mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
+        }
+        else{
+            mov.setSaldoFinal(mov.getSaldoAnterior() + mov.getValorMov());
+        }
+        mov.setObservacao("PAGAMENTO DA CONTA "+mov.getParcelas().getContas().getCdConta()+
+                " PARCELA "+mov.getParcelas().getNrParcela());
+        mov.incluir(mov, true);
+    }
+    
     // getter e setter
     public TipoPagamento getTipo() {
         return tipo;
