@@ -115,7 +115,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
             }
         });
 
-        jBtCadastrarNova.setText("Cadastrar Nova");
+        jBtCadastrarNova.setText("Exibir Cadastro");
         jBtCadastrarNova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarNovaActionPerformed(evt);

@@ -673,6 +673,8 @@ public class TelaVenda extends javax.swing.JFrame {
             jTextFieldCdProduto.grabFocus();
         } else {
             adicionarProdutos();
+            edit.setLinhas(linhasAtendimento);
+            edit.setTipo("VENDA_COMPRA");
             edit.editarTabela(jTableProdutos);
             preencherTotal();
         }

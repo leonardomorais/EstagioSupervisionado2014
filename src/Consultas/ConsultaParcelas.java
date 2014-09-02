@@ -1,5 +1,6 @@
 package Consultas;
 
+import Dialogos.DialogoData;
 import Classes.Parcelas;
 import Telas.TelaPagamento;
 import Validacoes.EditarJtable;
@@ -13,12 +14,12 @@ public class ConsultaParcelas extends javax.swing.JFrame {
 
     Parcelas parcelas = new Parcelas();
 
+    EditarJtable edit = new EditarJtable();
     /**
      * Creates new form ConsultaParcelas
      */
     public ConsultaParcelas() {
         initComponents();
-        exibirParcelas();
     }
 
     /**
@@ -254,7 +255,6 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         parcelas.getContas().retornaConta(parcelas.getContas(), true);
         jLabelTopo.setText("Parcelas da Conta " + parcelas.getContas().getCdConta() + " : " + parcelas.getContas().getDsConta());
         
-        EditarJtable edit = new EditarJtable();
         edit.editarTabela(jTableParcelas);
         edit.setTipo("PARCELAS");
     }

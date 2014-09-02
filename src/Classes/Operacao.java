@@ -4,6 +4,9 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +20,8 @@ public class Operacao {
     private String tipo;
     private String movEstoque;
     private String movFinanceiro;
+
+    private Map<Integer, Integer> operacoes = new HashMap<Integer, Integer>();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -54,8 +59,8 @@ public class Operacao {
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
-    
-    public ResultSet consultarCdOperacao(Operacao operacao){
+
+    public ResultSet consultarCdOperacao(Operacao operacao) {
         String sql = "SELECT CD_OPERACAO, DS_OPERACAO, "
                 + "CASE WHEN TIPO = 'E' THEN 'ENTRADA' "
                 + "ELSE 'SAÍDA' END AS TP, "
@@ -63,12 +68,12 @@ public class Operacao {
                 + "ELSE 'NÃO' END AS ESTOQUE, "
                 + "CASE WHEN MOV_FINANCEIRO = 'S' THEN 'SIM' "
                 + "ELSE 'NÃO' END AS FINANCEIRO FROM OPERACAO "
-                + "WHERE CD_OPERACAO = "+operacao.getCdOperacao();
+                + "WHERE CD_OPERACAO = " + operacao.getCdOperacao();
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
-    
-    public ResultSet consultarDescricao(Operacao operacao){
+
+    public ResultSet consultarDescricao(Operacao operacao) {
         String sql = "SELECT CD_OPERACAO, DS_OPERACAO, "
                 + "CASE WHEN TIPO = 'E' THEN 'ENTRADA' "
                 + "ELSE 'SAÍDA' END AS TP, "
@@ -76,25 +81,45 @@ public class Operacao {
                 + "ELSE 'NÃO' END AS ESTOQUE, "
                 + "CASE WHEN MOV_FINANCEIRO = 'S' THEN 'SIM' "
                 + "ELSE 'NÃO' END AS FINANCEIRO FROM OPERACAO "
-                + "WHERE DS_OPERACAO LIKE '%"+operacao.getDsOperacao()+"%' "
+                + "WHERE DS_OPERACAO LIKE '%" + operacao.getDsOperacao() + "%' "
                 + "ORDER BY CD_OPERACAO";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
-    
-    public void retornaOperacao(Operacao operacao){
+
+    public void retornaOperacao(Operacao operacao) {
         ResultSet retorno = consultarCdOperacao(operacao);
-        try{
+        try {
             retorno.first();
             operacao.setDsOperacao(retorno.getString("DS_OPERACAO"));
             operacao.setMovEstoque(retorno.getString("ESTOQUE"));
             operacao.setMovFinanceiro(retorno.getString("FINANCEIRO"));
             operacao.setTipo(retorno.getString("TP"));
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Operação não encontrada");
             operacao.setDsOperacao("");
         }
+    }
+
+    public void retornaComboOperacao(JComboBox combo, String tipo) {
+        String sql
+                = "SELECT * FROM OPERACAO WHERE MOV_FINANCEIRO = 'S' AND "
+                + "TIPO = '"+tipo+"'";
+        conexao.executeSQL(sql);
+        
+        combo.removeAllItems();
+        int conta = 0;
+        
+        try{
+            while (conexao.resultset.next()){
+                combo.addItem(conexao.resultset.getString("DS_OPERACAO"));
+                operacoes.put(conta, conexao.resultset.getInt("CD_OPERACAO"));
+                conta++;
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Operação não encontrada!");
+        }
+
     }
 
 // getter e setter
@@ -136,6 +161,18 @@ public class Operacao {
 
     public void setMovFinanceiro(String movFinanceiro) {
         this.movFinanceiro = movFinanceiro;
+    }
+
+    public Map<Integer, Integer> getOperacoes() {
+        return operacoes;
+    }
+
+    public int getOperacao(int pos) {
+        return operacoes.get(pos);
+    }
+
+    public void setOperacoes(Map<Integer, Integer> operacoes) {
+        this.operacoes = operacoes;
     }
 
 }

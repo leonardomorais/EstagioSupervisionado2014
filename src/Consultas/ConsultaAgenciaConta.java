@@ -81,7 +81,7 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTableConsulta);
 
-        jBtCadastrar.setText("Cadastrar Nova");
+        jBtCadastrar.setText("Exibir Cadastro");
         jBtCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarActionPerformed(evt);

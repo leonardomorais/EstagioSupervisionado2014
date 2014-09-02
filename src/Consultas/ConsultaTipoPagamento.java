@@ -95,7 +95,7 @@ public class ConsultaTipoPagamento extends javax.swing.JDialog {
             }
         });
 
-        jBtCadastrar.setText("Cadastrar Novo");
+        jBtCadastrar.setText("Exibir Cadastro");
         jBtCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarActionPerformed(evt);

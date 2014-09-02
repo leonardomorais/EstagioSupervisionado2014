@@ -36,13 +36,15 @@ public class EditarJtable extends DefaultTableCellRenderer {
         } 
         // se for a tabela das parcelas
         else {
-            String 
-                dataTabela = table.getValueAt(row, 3).toString();
-
+            String dataTabela = table.getValueAt(row, 3).toString();
+            double vlPago = Double.parseDouble(table.getValueAt(row, 4).toString());
                 if (data.comparaData(dataTabela) > 0) {
                     comp.setForeground(Color.black);
                 } else {
                     comp.setForeground(Color.red);
+                    if (vlPago > 0){
+                        comp.setForeground(Color.black);
+                    }
                 }
         }
         return comp;

@@ -1,10 +1,10 @@
 package Telas;
 
-import Classes.MovCaixa;
 import Classes.Pagamento;
 import Consultas.ConsultaAgenciaConta;
 import Consultas.ConsultaContas;
 import Consultas.ConsultaTipoPagamento;
+import Dialogos.DialogoOperacao;
 import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
@@ -486,7 +486,28 @@ public class TelaPagamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um tipo de pagamento!");
             jTextFieldCdTipo.grabFocus();
         } else {
-            carregarPagamento();
+            int op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+        if (op == 0){
+            String tp;
+            if (pagamento.getParcelas().getContas().getTpConta().equals("A PAGAR")){
+                tp = "S";
+            }
+            else{
+                tp = "E";
+            }
+            final DialogoOperacao dialogo = new DialogoOperacao(this, true, tp);
+            dialogo.setVisible(true);
+            
+            dialogo.addWindowListener(new java.awt.event.WindowAdapter(){
+                public void windowClosed(java.awt.event.WindowEvent evt) {
+                    carregarPagamento(dialogo.retorno());
+                }
+            });
+        }
+        else{
+            carregarPagamento(op);
+        }
+            
 //            jTextFieldCdPagamento.setText(pagamento.getCdPagamento().toString());
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
@@ -775,10 +796,10 @@ public class TelaPagamento extends javax.swing.JFrame {
         return selecionadas;
     }
 
-    public void carregarPagamento() {
+    public void carregarPagamento(int cdOperacao) {
 
         int linhas = jTableParcelas.getRowCount();
-
+        
         pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldCdAgencia.getText()));
         pagamento.getTipo().setCdTipo(Integer.parseInt(jTextFieldCdTipo.getText()));
         pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTextFieldCdConta.getText()));
@@ -814,7 +835,8 @@ public class TelaPagamento extends javax.swing.JFrame {
                 total = total + vlPago;
                 // grava o pagamento
                 pagamento.incluir(pagamento);
-                //pagamento.gravarMovCaixa(pagamento, i);
+                // grava movimentação de caixa
+                pagamento.gravarMovCaixa(pagamento, cdOperacao);
                 jTextFieldCdPagamento.setText(pagamento.getCdPagamento().toString());
             }
         }

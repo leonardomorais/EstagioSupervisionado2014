@@ -92,6 +92,7 @@ public class Pagamento {
         mov.setAgc(pagamento.getAgc());
         mov.setValorMov(getParcelas().getVlPago());
         mov.setSaldoAnterior(getAgc().getVlConta());
+        mov.setDataMov(getParcelas().getDtPago());
         if (mov.getParcelas().getContas().getTpConta().equals("A PAGAR")){
             mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
         }

@@ -43,7 +43,6 @@ public class CadastroContas extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        System.err.println("Valor: "+rdata.comparaData("01/09/2014"));
     }
 
     /**

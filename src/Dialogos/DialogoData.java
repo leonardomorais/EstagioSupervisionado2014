@@ -1,4 +1,4 @@
-package Consultas;
+package Dialogos;
 
 import Validacoes.RetornaData;
 import static java.awt.Component.RIGHT_ALIGNMENT;

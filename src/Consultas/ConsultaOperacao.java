@@ -6,7 +6,6 @@
 
 package Consultas;
 
-import Cadastros.CadastroFormadePagamento;
 import Cadastros.CadastroOperacao;
 import Classes.Operacao;
 import Validacoes.PreencherTabela;
@@ -100,7 +99,7 @@ public class ConsultaOperacao extends javax.swing.JDialog {
             }
         });
 
-        jBtCadastrarNova.setText("Cadastrar Nova");
+        jBtCadastrarNova.setText("Exibir Cadastro");
         jBtCadastrarNova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarNovaActionPerformed(evt);
@@ -260,4 +259,9 @@ public class ConsultaOperacao extends javax.swing.JDialog {
     private javax.swing.JTable jTableConsulta;
     private javax.swing.JTextField jTextFieldConsulta;
     // End of variables declaration//GEN-END:variables
+
+    public int retorno(){
+        return operacao.getCdOperacao();
+    }
+
 }

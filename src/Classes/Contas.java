@@ -16,7 +16,7 @@ public class Contas {
     private static Integer cdConta;
     private Integer cdVendaCompra;
     private static String dsConta;
-    private String tpConta;
+    private static String tpConta;
     private static Double vlConta;
     private String dtVencimento;
     private String dtPagamento;

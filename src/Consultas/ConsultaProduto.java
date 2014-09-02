@@ -103,7 +103,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
             }
         });
 
-        jBtNovo.setText("Cadastro de Produtos");
+        jBtNovo.setText("Exibir Cadastro");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovoActionPerformed(evt);
