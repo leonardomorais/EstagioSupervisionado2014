@@ -78,6 +78,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemBancos = new javax.swing.JMenuItem();
         jMenuItemAgencia = new javax.swing.JMenuItem();
         jMenuItemContas = new javax.swing.JMenuItem();
+        jMenuItemPagamento = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemMovCaixa = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Al Tálio Sistema");
@@ -88,11 +91,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelImagem.setLayout(jPanelImagemLayout);
         jPanelImagemLayout.setHorizontalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1080, Short.MAX_VALUE)
         );
         jPanelImagemLayout.setVerticalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 607, Short.MAX_VALUE)
         );
 
         jMenuCadastros.setText("Cadastros");
@@ -257,6 +260,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemContas);
 
+        jMenuItemPagamento.setText("Realizar Pagamentos");
+        jMenuItemPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPagamentoActionPerformed(evt);
+            }
+        });
+        jMenuFinanceiro.add(jMenuItemPagamento);
+        jMenuFinanceiro.add(jSeparator6);
+
+        jMenuItemMovCaixa.setText("Consultar Movimentação de Caixa");
+        jMenuItemMovCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemMovCaixaActionPerformed(evt);
+            }
+        });
+        jMenuFinanceiro.add(jMenuItemMovCaixa);
+
         jMenuBarPrincipal.add(jMenuFinanceiro);
 
         setJMenuBar(jMenuBarPrincipal);
@@ -270,9 +290,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -369,6 +389,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_jMenuItemExibirAtendimentosActionPerformed
 
+    private void jMenuItemPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagamentoActionPerformed
+        TelaPagamento pag = new TelaPagamento();
+        pag.setVisible(true);
+    }//GEN-LAST:event_jMenuItemPagamentoActionPerformed
+
+    private void jMenuItemMovCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMovCaixaActionPerformed
+       TelaMovCaixa mov = new TelaMovCaixa();
+       mov.setVisible(true);
+    }//GEN-LAST:event_jMenuItemMovCaixaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -426,6 +456,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadTipo;
     private javax.swing.JMenuItem jMenuItemContas;
     private javax.swing.JMenuItem jMenuItemExibirAtendimentos;
+    private javax.swing.JMenuItem jMenuItemMovCaixa;
+    private javax.swing.JMenuItem jMenuItemPagamento;
     private javax.swing.JMenuItem jMenuItemVenda;
     private javax.swing.JMenu jMenuServicos;
     private javax.swing.JPanel jPanelImagem;
@@ -434,6 +466,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     // End of variables declaration//GEN-END:variables
 
     public void carregaImagem() {
@@ -442,10 +475,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         String caminho = "src\\Extras\\Imagens\\";
 
         int nr = aleatorio.nextInt(6);
-        if (nr == 0) {
-            nr = 1;
-        }
-
+        
         ImageIcon img = new ImageIcon(caminho + nr + ".jpg");
 
         int largura = img.getIconWidth();

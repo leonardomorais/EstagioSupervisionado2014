@@ -28,17 +28,17 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="1030" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" pref="95" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="985" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jComboBoxConsulta" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jComboBoxAux" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="jComboBoxAux" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTextFieldConsulta" max="32767" attributes="0"/>
+                      <Component id="jTextFieldConsulta" min="-2" pref="581" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jBtPesquisar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -60,7 +60,7 @@
                   <Component id="jTextFieldConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="367" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="397" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -106,14 +106,15 @@
     <Component class="javax.swing.JComboBox" name="jComboBoxConsulta">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="7">
+          <StringArray count="8">
             <StringItem index="0" value="Geral"/>
             <StringItem index="1" value="C&#xf3;digo Movimenta&#xe7;&#xe3;o"/>
-            <StringItem index="2" value="C&#xf3;digo Ag&#xea;ncia Conta"/>
-            <StringItem index="3" value="C&#xf3;digo da Opera&#xe7;&#xe3;o"/>
-            <StringItem index="4" value="C&#xf3;digo da Conta"/>
-            <StringItem index="5" value="Observa&#xe7;&#xe3;o"/>
-            <StringItem index="6" value="Tipo"/>
+            <StringItem index="2" value="Ag&#xea;ncia Conta"/>
+            <StringItem index="3" value="Opera&#xe7;&#xe3;o"/>
+            <StringItem index="4" value="Cd Conta"/>
+            <StringItem index="5" value="Descri&#xe7;&#xe3;o da Conta"/>
+            <StringItem index="6" value="Observa&#xe7;&#xe3;o"/>
+            <StringItem index="7" value="Tipo"/>
           </StringArray>
         </Property>
       </Properties>

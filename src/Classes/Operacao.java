@@ -21,7 +21,7 @@ public class Operacao {
     private String movEstoque;
     private String movFinanceiro;
 
-    private Map<Integer, Integer> operacoes = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> operacoes = new HashMap <Integer, Integer>();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -102,9 +102,11 @@ public class Operacao {
     }
 
     public void retornaComboOperacao(JComboBox combo, String tipo) {
-        String sql
-                = "SELECT * FROM OPERACAO WHERE MOV_FINANCEIRO = 'S' AND "
-                + "TIPO = '"+tipo+"'";
+        String sql = "SELECT * FROM OPERACAO WHERE MOV_FINANCEIRO = 'S' AND "
+                + "TIPO = '"+tipo+"' ORDER BY CD_OPERACAO";
+        if (tipo.equals("TODOS")){
+            sql = "SELECT * FROM OPERACAO ORDER BY CD_OPERACAO";
+        }
         conexao.executeSQL(sql);
         
         combo.removeAllItems();
@@ -119,7 +121,6 @@ public class Operacao {
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Operação não encontrada!");
         }
-
     }
 
 // getter e setter

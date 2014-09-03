@@ -5,6 +5,9 @@ import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +25,8 @@ public class Contas {
     private String dtPagamento;
     private String pago;
     private FormaPagamento forma = new FormaPagamento();
+    
+    private Map <Integer, Integer> contas = new HashMap <Integer, Integer>();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -324,4 +329,15 @@ public class Contas {
         this.forma = forma;
     }
 
+    public int getConta(int pos){
+        return contas.get(pos);
+    }
+    
+    public Map <Integer, Integer> getContas() {
+        return contas;
+    }
+
+    public void setContas(Map <Integer, Integer> contas) {
+        this.contas = contas;
+    }
 }

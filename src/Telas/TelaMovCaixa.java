@@ -65,7 +65,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
 
         jLabel1.setText("Selecione o filtro");
 
-        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código Movimentação", "Código Agência Conta", "Código da Operação", "Código da Conta", "Observação", "Tipo" }));
+        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código Movimentação", "Agência Conta", "Operação", "Cd Conta", "Descrição da Conta", "Observação", "Tipo" }));
         jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -92,16 +92,16 @@ public class TelaMovCaixa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 985, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBoxAux, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxAux, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldConsulta)
+                        .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBtPesquisar)))
                 .addContainerGap())
@@ -118,7 +118,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                     .addComponent(jBtPesquisar)
                     .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -127,22 +127,34 @@ public class TelaMovCaixa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
-        if (jComboBoxConsulta.getSelectedIndex()==6){
-            jComboBoxAux.setEnabled(true);
-            jComboBoxAux.removeAllItems();
-            jComboBoxAux.addItem("Entrada");
-            jComboBoxAux.addItem("Saída");
-        }
-        else{
-            jComboBoxAux.removeAllItems();
-            jComboBoxAux.setEnabled(false);
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 2:
+                mov.getAgc().retornaComboAgcConta(jComboBoxAux);
+                jComboBoxAux.setEnabled(true);
+            break;
+            
+            case 3:
+                mov.getOperacao().retornaComboOperacao(jComboBoxAux, "TODOS");
+                jComboBoxAux.setEnabled(true);
+            break;
+                
+            case 7:
+                jComboBoxAux.setEnabled(true);
+                jComboBoxAux.removeAllItems();
+                jComboBoxAux.addItem("Entrada");
+                jComboBoxAux.addItem("Saída");
+            break;    
+                
+            default:
+                jComboBoxAux.removeAllItems();
+                jComboBoxAux.setEnabled(false);
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableMovCaixa, 
-                new int [] {50, 40, 100, 40, 100, 40, 100, 50, 90, 70, 70, 70, 180, 60});
+                new int [] {50, 40, 100, 40, 110, 40, 110, 50, 90, 70, 70, 70, 180, 60});
         
         switch (jComboBoxConsulta.getSelectedIndex()){
             case 0 :
@@ -163,27 +175,13 @@ public class TelaMovCaixa extends javax.swing.JFrame {
             break;
                 
             case 2 :
-                try{
-                    mov.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarCdAgenciaConta(mov));
-                }
-                catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                   jTextFieldConsulta.setText("");
-                   jTextFieldConsulta.grabFocus();
-                }
+                mov.getAgc().setDsConta(jComboBoxAux.getSelectedItem().toString());
+                preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarAgenciaConta(mov));
             break;
                 
             case 3 :
-                try{
-                    mov.getOperacao().setCdOperacao(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarCdOperacao(mov));
-                }
-                catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                   jTextFieldConsulta.setText("");
-                   jTextFieldConsulta.grabFocus();
-                }
+                mov.getOperacao().setDsOperacao(jComboBoxAux.getSelectedItem().toString());
+                preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarOperacao(mov));
             break;
                 
             case 4 :
@@ -196,8 +194,14 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                    jTextFieldConsulta.setText("");
                    jTextFieldConsulta.grabFocus();
                 }
+            break;
             
             case 5:
+                mov.getParcelas().getContas().setDsConta(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarConta(mov));
+            break;    
+            
+            case 6:
                 mov.setObservacao(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarObservacao(mov));
             break;    
