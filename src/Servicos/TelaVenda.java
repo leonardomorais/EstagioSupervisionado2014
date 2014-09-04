@@ -1076,7 +1076,8 @@ public class TelaVenda extends javax.swing.JFrame {
                     venda.getVcProdutos().consultarProdutos(venda.getVcProdutos()));
             tabela.FormatarJtable(jTableConta, new int []{80,100,200,100,100,100,100,100});
             Contas c = new Contas();
-            c.setCdVendaCompra(venda.getCdVendaCompra());
+            c.setVendaCompra(venda);
+//            c.setCdVendaCompra(venda.getCdVendaCompra());
             tabela.PreencherJtableGenerico(jTableConta, c.consultarCdVendaCompra(c));
             
         } else {
@@ -1421,7 +1422,8 @@ public class TelaVenda extends javax.swing.JFrame {
             tipoConta = "P"; // conta a pagar
         }
         Contas contas = new Contas();
-        contas.setCdVendaCompra(venda.getCdVendaCompra());
+        //contas.setCdVendaCompra(venda.getCdVendaCompra());
+        contas.setVendaCompra(venda);
         contas.setForma(venda.getForma());
         contas.setDsConta(tipo.toUpperCase()+" "+venda.getCdVendaCompra().toString());
         contas.setVlConta(venda.getVlTotal());

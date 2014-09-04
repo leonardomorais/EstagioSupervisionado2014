@@ -486,5 +486,4 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanelImagem.add(labelimg, RIGHT_ALIGNMENT);
     }
-
 }

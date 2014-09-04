@@ -84,9 +84,9 @@ public class Pagamento {
         return conexao.resultset;
     }
     
-    public void gravarMovCaixa(Pagamento pagamento, int cd){
+    public void gravarMovCaixa(Pagamento pagamento){
         MovCaixa mov = new MovCaixa();
-        mov.getOperacao().setCdOperacao(cd);
+        mov.getOperacao().setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getCdOperacao());
         mov.getOperacao().retornaOperacao(mov.getOperacao());
         mov.setParcelas(pagamento.getParcelas());
         mov.setAgc(pagamento.getAgc());

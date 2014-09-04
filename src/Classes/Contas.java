@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +16,7 @@ import javax.swing.JOptionPane;
 public class Contas {
 
     private static Integer cdConta;
-    private Integer cdVendaCompra;
+    //private Integer cdVendaCompra;
     private static String dsConta;
     private static String tpConta;
     private static Double vlConta;
@@ -25,8 +24,9 @@ public class Contas {
     private String dtPagamento;
     private String pago;
     private FormaPagamento forma = new FormaPagamento();
-    
-    private Map <Integer, Integer> contas = new HashMap <Integer, Integer>();
+    private VendaCompra vendaCompra = new VendaCompra();
+
+    private Map<Integer, Integer> contas = new HashMap<Integer, Integer>();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -49,7 +49,7 @@ public class Contas {
             sql = "INSERT INTO CONTAS_PAGAR_RECEBER (CD_CONTA, CD_VENDA_COMPRA, "
                     + "CD_FORMA, DS_CONTA, TIPO_CONTA, VL_CONTA, DT_VENCIMENTO, "
                     + "DT_PAGAMENTO, PAGO) VALUES ('" + contas.getCdConta() + "','"
-                    + contas.getCdVendaCompra() + "','" + contas.getForma().getCdForma() + "','"
+                    + contas.getVendaCompra().getCdVendaCompra() + "','" + contas.getForma().getCdForma() + "','"
                     + contas.getDsConta() + "','" + contas.getTpConta() + "','"
                     + contas.getVlConta() + "','" + contas.getDtVencimento() + "'," + null
                     + ",'" + contas.getPago() + "')";
@@ -210,7 +210,24 @@ public class Contas {
                 + "CASE WHEN C.PAGO = 'S' THEN 'PAGO' ELSE 'NÃO PAGO' END AS PAGO "
                 + "FROM CONTAS_PAGAR_RECEBER C "
                 + "INNER JOIN FORMA_PGTO F ON C.CD_FORMA = F.CD_FORMA "
-                + "WHERE C.CD_VENDA_COMPRA = " + contas.getCdVendaCompra();
+                + "WHERE C.CD_VENDA_COMPRA = " + contas.getVendaCompra().getCdVendaCompra();
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+
+    public ResultSet consultarCdPessoa(Contas contas) {
+        String sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_VENDA_COMPRA, "
+                + "C.CD_FORMA, F.DS_FORMA, "
+                + "C.VL_CONTA, TO_CHAR(C.DT_VENCIMENTO,'DD/MM/YYYY') AS DT_VENC, "
+                + "TO_CHAR(C.DT_PAGAMENTO,'DD/MM/YYYY') AS DT_PGTO, "
+                + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
+                + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
+                + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F "
+                + "ON C.CD_FORMA = F.CD_FORMA "
+                + "LEFT JOIN VENDA_COMPRA VC ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "WHERE VC.CD_FORNECEDOR = "+contas.getVendaCompra().getFornecedor().getCdFornecedor()+" "
+                + "OR VC.CD_CLIENTE = "+contas.getVendaCompra().getCliente().getCdCliente() +" "
+                + "ORDER BY C.CD_CONTA ";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
@@ -243,20 +260,18 @@ public class Contas {
                 + "INNER JOIN OPERACAO O "
                 + "ON VC.CD_OPERACAO = O.CD_OPERACAO "
                 + "WHERE C.CD_VENDA_COMPRA IS NOT NULL "
-                + "AND C.CD_CONTA = "+contas.getCdConta();
+                + "AND C.CD_CONTA = " + contas.getCdConta();
         conexao.executeSQL(sql);
-        try{
+        try {
             conexao.resultset.first();
             cd = conexao.resultset.getInt("CD_OPERACAO");
-        }
-        catch(SQLException ex){
-            cd = 0;   
+        } catch (SQLException ex) {
+            cd = 0;
         }
         return cd;
     }
 
     // getter e setter
-
     public Integer getCdConta() {
         return cdConta;
     }
@@ -265,14 +280,13 @@ public class Contas {
         this.cdConta = cdConta;
     }
 
-    public Integer getCdVendaCompra() {
-        return cdVendaCompra;
-    }
-
-    public void setCdVendaCompra(Integer cdVendaCompra) {
-        this.cdVendaCompra = cdVendaCompra;
-    }
-
+//    public Integer getCdVendaCompra() {
+//        return cdVendaCompra;
+//    }
+//
+//    public void setCdVendaCompra(Integer cdVendaCompra) {
+//        this.cdVendaCompra = cdVendaCompra;
+//    }
     public String getDsConta() {
         return dsConta;
     }
@@ -329,15 +343,24 @@ public class Contas {
         this.forma = forma;
     }
 
-    public int getConta(int pos){
+    public int getConta(int pos) {
         return contas.get(pos);
     }
-    
-    public Map <Integer, Integer> getContas() {
+
+    public Map<Integer, Integer> getContas() {
         return contas;
     }
 
-    public void setContas(Map <Integer, Integer> contas) {
+    public void setContas(Map<Integer, Integer> contas) {
         this.contas = contas;
     }
+
+    public VendaCompra getVendaCompra() {
+        return vendaCompra;
+    }
+
+    public void setVendaCompra(VendaCompra vendaCompra) {
+        this.vendaCompra = vendaCompra;
+    }
+
 }

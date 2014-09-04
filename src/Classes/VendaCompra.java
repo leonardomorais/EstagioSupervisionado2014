@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VendaCompra {
 
-    private Integer cdVendaCompra;
+    private static Integer cdVendaCompra;
 
     private Operacao operacao = new Operacao();
     private Cliente cliente = new Cliente();

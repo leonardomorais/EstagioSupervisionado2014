@@ -1,6 +1,7 @@
 
 package Dialogos;
 
+import Cadastros.CadastroOperacao;
 import Classes.Operacao;
 
 /**
@@ -10,6 +11,7 @@ import Classes.Operacao;
 public class DialogoOperacao extends javax.swing.JDialog {
 
     Operacao operacao = new Operacao();
+    String tp;
     /**
      * Creates new form DialogoOperacao
      */
@@ -17,6 +19,7 @@ public class DialogoOperacao extends javax.swing.JDialog {
         super(telaOrigem, modal);
         initComponents();
         operacao.retornaComboOperacao(jComboBoxOperação, tipo);
+        tp = tipo;
     }
 
     /**
@@ -50,6 +53,11 @@ public class DialogoOperacao extends javax.swing.JDialog {
         jLabel2.setText("Por favor informe uma operação.");
 
         jBtExibirCadastro.setText("Exibir Cadastro");
+        jBtExibirCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExibirCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,14 +65,13 @@ public class DialogoOperacao extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addComponent(jComboBoxOperação, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBoxOperação, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtConfirmar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtExibirCadastro)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
@@ -91,6 +98,18 @@ public class DialogoOperacao extends javax.swing.JDialog {
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
         dispose();
     }//GEN-LAST:event_jBtConfirmarActionPerformed
+
+    private void jBtExibirCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExibirCadastroActionPerformed
+        CadastroOperacao cad = new CadastroOperacao();
+        cad.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+        cad.setVisible(true);
+        
+        cad.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                operacao.retornaComboOperacao(jComboBoxOperação, tp);
+            }
+        });
+    }//GEN-LAST:event_jBtExibirCadastroActionPerformed
 
     /**
      * @param args thjComboBoxOperaçãoline arguments
