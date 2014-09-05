@@ -139,6 +139,21 @@ public class Contas {
         return conexao.resultset;
     }
 
+    // método usado na tela de pagamento
+    public ResultSet consultarCdConta(Contas contas) {
+        String sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_VENDA_COMPRA, C.CD_FORMA, F.DS_FORMA, "
+                + "C.VL_CONTA, TO_CHAR(C.DT_VENCIMENTO,'DD/MM/YYYY') AS DT_VENC, "
+                + "TO_CHAR(C.DT_PAGAMENTO,'DD/MM/YYYY') AS DT_PGTO, "
+                + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
+                + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
+                + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F "
+                + "ON C.CD_FORMA = F.CD_FORMA "
+                + "LEFT JOIN VENDA_COMPRA VC ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "WHERE C.CD_CONTA = " + contas.getCdConta();
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+
     public ResultSet consultarDescricao(Contas contas, boolean todas) {
         String sql;
         if (todas) {
@@ -225,8 +240,8 @@ public class Contas {
                 + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F "
                 + "ON C.CD_FORMA = F.CD_FORMA "
                 + "LEFT JOIN VENDA_COMPRA VC ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
-                + "WHERE VC.CD_FORNECEDOR = "+contas.getVendaCompra().getFornecedor().getCdFornecedor()+" "
-                + "OR VC.CD_CLIENTE = "+contas.getVendaCompra().getCliente().getCdCliente() +" "
+                + "WHERE VC.CD_FORNECEDOR = " + contas.getVendaCompra().getFornecedor().getCdFornecedor() + " "
+                + "OR VC.CD_CLIENTE = " + contas.getVendaCompra().getCliente().getCdCliente() + " "
                 + "ORDER BY C.CD_CONTA ";
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -265,6 +280,7 @@ public class Contas {
         try {
             conexao.resultset.first();
             cd = conexao.resultset.getInt("CD_OPERACAO");
+            contas.getVendaCompra().setCdVendaCompra(conexao.resultset.getInt("CD_VENDA_COMPRA"));
         } catch (SQLException ex) {
             cd = 0;
         }

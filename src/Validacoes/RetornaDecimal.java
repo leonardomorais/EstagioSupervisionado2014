@@ -27,10 +27,15 @@ public class RetornaDecimal {
     }
 
     public String removeZeros(String str) {
-        String tresUltimos = str.substring(str.length()-3, str.length());
-        str = str.substring(0, str.length()-3);
+//        String tresUltimos = str.substring(str.length()-3, str.length());
+//        str = str.substring(0, str.length()-3);
+//        
+//        str = str.replace("0", "");
+//        return str + tresUltimos;
+        while (str.startsWith("0")){
+            str = str.substring(1, str.length());
+        }
         
-        str = str.replace("0", "");
-        return str + tresUltimos;
+        return str;
     }
 }

@@ -146,7 +146,23 @@ public class Pessoa {
             JOptionPane.showMessageDialog(null, "Pessoa não encontrada!");
             pessoa.setNome("");
         }
+    }
 
+    public String retornaTipoPessoa(Pessoa pessoa) {
+        String sql = "SELECT CASE WHEN P.CD_PESSOA IN (SELECT CD_PESSOA FROM FORNECEDOR) "
+                + "THEN 'FORNECEDOR' WHEN P.CD_PESSOA IN (SELECT CD_PESSOA FROM CLIENTE) "
+                + "THEN 'CLIENTE' ELSE 'FUNCIONÁRIO' END AS TIPO FROM PESSOA P "
+                + "WHERE P.CD_PESSOA = " + pessoa.getCdPessoa();
+        conexao.executeSQL(sql);
+        String tipo;
+        try{
+            conexao.resultset.first();
+            tipo = conexao.resultset.getString("TIPO");
+        }
+        catch(SQLException ex){
+            tipo = "";
+        }
+        return tipo;
     }
 
     public ResultSet consultarGeral() {

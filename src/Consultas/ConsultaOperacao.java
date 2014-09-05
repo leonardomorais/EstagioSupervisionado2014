@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Consultas;
 
 import Cadastros.CadastroOperacao;
@@ -197,7 +191,7 @@ public class ConsultaOperacao extends javax.swing.JDialog {
     private void jTableConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaMouseClicked
         int linha = jTableConsulta.getSelectedRow(); 
         operacao.setCdOperacao(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
-        operacao.setDsOperacao(jTableConsulta.getValueAt(linha, 1).toString());
+        operacao.retornaOperacao(operacao);
     }//GEN-LAST:event_jTableConsultaMouseClicked
 
     private void jBtCadastrarNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovaActionPerformed

@@ -4,6 +4,7 @@ import Classes.Pagamento;
 import Consultas.ConsultaAgenciaConta;
 import Consultas.ConsultaClienteFornecedor;
 import Consultas.ConsultaContas;
+import Consultas.ConsultaOperacao;
 import Consultas.ConsultaTipoPagamento;
 import Dialogos.DialogoOperacao;
 import Validacoes.FormataMoeda;
@@ -75,7 +76,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTableContas = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldcdOperacao = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jBtPesquisaOperacao = new javax.swing.JButton();
         jTextFieldOperacao = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jRadioButtonCliente = new javax.swing.JRadioButton();
@@ -248,7 +249,12 @@ public class TelaPagamento extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Pesquisar");
+        jBtPesquisaOperacao.setText("Pesquisar");
+        jBtPesquisaOperacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisaOperacaoActionPerformed(evt);
+            }
+        });
 
         jTextFieldOperacao.setEnabled(false);
 
@@ -283,53 +289,51 @@ public class TelaPagamento extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(jPanelPagamentoLayout.createSequentialGroup()
                         .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel5)
-                                .addGroup(jPanelPagamentoLayout.createSequentialGroup()
-                                    .addComponent(jTextFieldCdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jBtPesquisarTpPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTextFieldPagamento))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPagamentoLayout.createSequentialGroup()
-                                    .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jTextFieldCdPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                                    .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanelPagamentoLayout.createSequentialGroup()
-                                            .addComponent(jRadioButtonCliente)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jRadioButtonFornecedor))
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addGroup(jPanelPagamentoLayout.createSequentialGroup()
-                                            .addComponent(jTextFieldCdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jBtPesquisaPessoa)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(jPanelPagamentoLayout.createSequentialGroup()
-                                    .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextFieldCdAgencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButtonPesquisar)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTextFieldAgenciaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel7)
-                                        .addGroup(jPanelPagamentoLayout.createSequentialGroup()
-                                            .addComponent(jTextFieldcdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jButton2)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jTextFieldOperacao, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))))
+                            .addGroup(jPanelPagamentoLayout.createSequentialGroup()
+                                .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jTextFieldCdPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanelPagamentoLayout.createSequentialGroup()
+                                        .addComponent(jRadioButtonCliente)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jRadioButtonFornecedor))
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addGroup(jPanelPagamentoLayout.createSequentialGroup()
+                                        .addComponent(jTextFieldCdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jBtPesquisaPessoa)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanelPagamentoLayout.createSequentialGroup()
+                                .addComponent(jTextFieldCdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtPesquisarTpPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelPagamentoLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(374, 374, 374)
+                                .addComponent(jLabel7))
+                            .addGroup(jPanelPagamentoLayout.createSequentialGroup()
+                                .addComponent(jTextFieldCdAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonPesquisar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldAgenciaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldcdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtPesquisaOperacao)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 10, Short.MAX_VALUE))))
         );
         jPanelPagamentoLayout.setVerticalGroup(
@@ -361,31 +365,35 @@ public class TelaPagamento extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldCdAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonPesquisar)
-                    .addComponent(jTextFieldAgenciaConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldcdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(jTextFieldOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldCdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisarTpPagamento)
-                    .addComponent(jTextFieldPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtNovo)
-                    .addComponent(jBtGravar)
-                    .addComponent(jBtCancelar))
+                .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPagamentoLayout.createSequentialGroup()
+                        .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldCdAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonPesquisar)
+                            .addComponent(jTextFieldAgenciaConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldcdOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesquisaOperacao)
+                            .addComponent(jTextFieldOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldCdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtPesquisarTpPagamento)
+                            .addComponent(jTextFieldPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jBtNovo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPagamentoLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBtCancelar)
+                            .addComponent(jBtGravar))))
                 .addContainerGap())
         );
 
@@ -450,7 +458,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                     .addComponent(jBtPesquisar)
                     .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -780,6 +788,26 @@ public class TelaPagamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldcdOperacaoFocusLost
 
+    private void jBtPesquisaOperacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaOperacaoActionPerformed
+        ConsultaOperacao consulta = new ConsultaOperacao(this, true);
+        consulta.setVisible(true);
+        
+        consulta.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                if (pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getCdOperacao() == 0){
+                    jTextFieldcdOperacao.setText("");
+                    jTextFieldOperacao.setText("");
+                }
+                else{
+                    jTextFieldcdOperacao.setText(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
+                            getCdOperacao().toString());
+                    jTextFieldOperacao.setText(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
+                            getDsOperacao());
+                }
+            }
+        });
+    }//GEN-LAST:event_jBtPesquisaOperacaoActionPerformed
+
     public void limparCamposPessoa() {
         jTextFieldCdPessoa.setText("");
         jTextFieldNome.setText("");
@@ -827,10 +855,10 @@ public class TelaPagamento extends javax.swing.JFrame {
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtNovo;
+    private javax.swing.JButton jBtPesquisaOperacao;
     private javax.swing.JButton jBtPesquisaPessoa;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtPesquisarTpPagamento;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JLabel jLabel1;
@@ -874,13 +902,37 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     public void carregarConta(int conta, int parcela) {
         pagamento.getParcelas().getContas().setCdConta(conta);
-        pagamento.getParcelas().getContas().retornaConta(pagamento.getParcelas().getContas(), false);
-        pagamento.getParcelas().setNrParcela(parcela);
-        pagamento.getParcelas().retornaParcela(pagamento.getParcelas());
+        carregarTabelaContas();
+        preencheTabela();
+        //pagamento.getParcelas().getContas().retornaConta(pagamento.getParcelas().getContas(), false);
+//        pagamento.getParcelas().setNrParcela(parcela);
+//        pagamento.getParcelas().retornaParcela(pagamento.getParcelas());
 
         jBtNovoActionPerformed(null);
 
         jTableParcelas.setValueAt(true, parcela - 1, 0);
+        int op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+        if (op > 0){
+            jTextFieldcdOperacao.setText(""+op);
+            jTextFieldcdOperacaoFocusLost(null);
+            pagamento.getParcelas().getContas().getVendaCompra().retornaVendaCompra
+            (pagamento.getParcelas().getContas().getVendaCompra());
+            
+            if (pagamento.getParcelas().getContas().getVendaCompra().getCdVendaCompra()>0){
+                jTextFieldCdPessoa.setText(pagamento.getParcelas().getContas().getVendaCompra()
+                    .getCliente().getPessoa().getCdPessoa().toString());
+            jTextFieldNome.setText(pagamento.getParcelas().getContas().getVendaCompra()
+                    .getCliente().getPessoa().getNome());
+            if (pagamento.getParcelas().getContas().getVendaCompra().getCliente()
+        .getPessoa().retornaTipoPessoa(pagamento.getParcelas().getContas().getVendaCompra().getCliente().getPessoa())
+                .equals("FORNECEDOR")){
+                jRadioButtonFornecedor.setSelected(true);
+            }
+            else{
+                jRadioButtonCliente.setSelected(true);
+            }
+            }
+        }
         jTextFieldCdAgencia.grabFocus();
     }
 
@@ -899,7 +951,16 @@ public class TelaPagamento extends javax.swing.JFrame {
         pagamento.getParcelas().getContas().getVendaCompra().getFornecedor().setCdFornecedor(cd);
         pagamento.getParcelas().getContas().getVendaCompra().getCliente().setCdCliente(cd);
 
-        preencher.PreencherJtableGenerico(jTableContas, pagamento.getParcelas().getContas().consultarCdPessoa(pagamento.getParcelas().getContas()));
+        preencher.PreencherJtableGenerico(jTableContas, pagamento.getParcelas().getContas().
+                consultarCdPessoa(pagamento.getParcelas().getContas()));
+    }
+    
+    public void carregarTabelaContas(){
+        PreencherTabela preencher = new PreencherTabela();
+        preencher.FormatarJtable(jTableContas, new int[]{50, 100, 95, 60, 100, 70, 90, 80, 80, 80});
+        
+        preencher.PreencherJtableGenerico(jTableContas, pagamento.getParcelas().getContas().
+                consultarCdConta(pagamento.getParcelas().getContas()));
     }
 
     public int parcelasSelecionadas() {

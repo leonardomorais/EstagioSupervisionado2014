@@ -3,6 +3,8 @@ package Classes;
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -58,8 +60,8 @@ public class VendaCompra {
     }
 
     public ResultSet consultarGeral() {
-        String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, CASE "
-                + "WHEN VC.CD_FORNECEDOR IS NULL THEN "
+        String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, P.CD_PESSOA, "
+                + "CASE WHEN VC.CD_FORNECEDOR IS NULL THEN "
                 + "(SELECT P.NOME FROM PESSOA P "
                 + "INNER JOIN CLIENTE C ON P.CD_PESSOA = C.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA V ON V.CD_CLIENTE = C.CD_PESSOA "
@@ -68,22 +70,24 @@ public class VendaCompra {
                 + "(SELECT P.NOME FROM PESSOA P "
                 + "INNER JOIN FORNECEDOR F ON P.CD_PESSOA = F.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA SUB ON SUB.CD_FORNECEDOR = F.CD_PESSOA "
-                + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) "
-                + "END AS PESSOA, TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
+                + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) END AS NOME , "
+                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
                 + "FROM VENDA_COMPRA VC "
                 + "LEFT JOIN VENDA_ATENDIMENTO_MESA VA "
                 + "ON VC.CD_VENDA_COMPRA = VA.CD_VENDA "
                 + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
+                + "INNER JOIN PESSOA P ON P.CD_PESSOA = VC.CD_FORNECEDOR OR "
+                + "P.CD_PESSOA = VC.CD_CLIENTE "
                 + "ORDER BY VC.CD_VENDA_COMPRA";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
     public ResultSet consultarCdVendaCompra(VendaCompra vc) {
-        String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, CASE "
-                + "WHEN VC.CD_FORNECEDOR IS NULL THEN "
+        String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, P.CD_PESSOA, "
+                + "CASE WHEN VC.CD_FORNECEDOR IS NULL THEN "
                 + "(SELECT P.NOME FROM PESSOA P "
                 + "INNER JOIN CLIENTE C ON P.CD_PESSOA = C.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA V ON V.CD_CLIENTE = C.CD_PESSOA "
@@ -92,21 +96,23 @@ public class VendaCompra {
                 + "(SELECT P.NOME FROM PESSOA P "
                 + "INNER JOIN FORNECEDOR F ON P.CD_PESSOA = F.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA SUB ON SUB.CD_FORNECEDOR = F.CD_PESSOA "
-                + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) "
-                + "END AS CD_PESSOA, TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
+                + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) END AS NOME , "
+                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY') AS DATA, "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
                 + "FROM VENDA_COMPRA VC "
                 + "LEFT JOIN VENDA_ATENDIMENTO_MESA VA "
                 + "ON VC.CD_VENDA_COMPRA = VA.CD_VENDA "
                 + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
+                + "INNER JOIN PESSOA P ON P.CD_PESSOA = VC.CD_FORNECEDOR OR "
+                + "P.CD_PESSOA = VC.CD_CLIENTE "
                 + "WHERE VC.CD_VENDA_COMPRA = " + vc.getCdVendaCompra();
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
     public ResultSet consultarCliente(VendaCompra vc) {
-        String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, P.NOME, "
+        String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, VC.CD_CLIENTE, P.NOME, "
                 + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
@@ -123,7 +129,7 @@ public class VendaCompra {
     }
 
     public ResultSet consultarFornecedor(VendaCompra vc) {
-        String sql = "SELECT VC.CD_VENDA_COMPRA, 'SEM ATENDIMENTO' , P.NOME, "
+        String sql = "SELECT VC.CD_VENDA_COMPRA, 'SEM ATENDIMENTO' , VC.CD_FORNECEDOR, P.NOME, "
                 + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
@@ -138,8 +144,8 @@ public class VendaCompra {
     }
 
     public ResultSet consultarPorTipo(String tipo) {
-        String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, CASE "
-                + "WHEN VC.CD_FORNECEDOR IS NULL THEN "
+        String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, P.CD_PESSOA, "
+                + "CASE WHEN VC.CD_FORNECEDOR IS NULL THEN "
                 + "(SELECT P.NOME FROM PESSOA P "
                 + "INNER JOIN CLIENTE C ON P.CD_PESSOA = C.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA V ON V.CD_CLIENTE = C.CD_PESSOA "
@@ -148,15 +154,17 @@ public class VendaCompra {
                 + "(SELECT P.NOME FROM PESSOA P "
                 + "INNER JOIN FORNECEDOR F ON P.CD_PESSOA = F.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA SUB ON SUB.CD_FORNECEDOR = F.CD_PESSOA "
-                + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) "
-                + "END AS CD_PESSOA, TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
+                + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) END AS NOME , "
+                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
                 + "FROM VENDA_COMPRA VC "
                 + "LEFT JOIN VENDA_ATENDIMENTO_MESA VA "
                 + "ON VC.CD_VENDA_COMPRA = VA.CD_VENDA "
                 + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
-                + "WHERE O.TIPO = '"+tipo+"' "
+                + "INNER JOIN PESSOA P ON P.CD_PESSOA = VC.CD_FORNECEDOR OR "
+                + "P.CD_PESSOA = VC.CD_CLIENTE "
+                + "WHERE O.TIPO = '" + tipo + "' "
                 + "ORDER BY VC.CD_VENDA_COMPRA";
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -173,6 +181,21 @@ public class VendaCompra {
         }
 
         return total;
+    }
+
+    public void retornaVendaCompra(VendaCompra vc) {
+        ResultSet retorno = consultarCdVendaCompra(vc);
+        try{
+            retorno.first();
+            vc.setDtVenda(retorno.getString("DATA"));
+            vc.setVlTotal(retorno.getDouble("VL_TOTAL"));
+            vc.getCliente().getPessoa().setCdPessoa(retorno.getInt("CD_PESSOA"));
+            vc.getCliente().getPessoa().setNome(retorno.getString("NOME"));
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Venda/Compra não encontrada!");
+            vc.setCdVendaCompra(0);
+        }
     }
     // getter e setter
 

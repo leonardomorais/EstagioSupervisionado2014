@@ -115,6 +115,26 @@ public class AgenciaConta {
             JOptionPane.showMessageDialog(null, "Agência Conta não encontrada !");
         }
     }
+    
+    public void retornaComboAgcConta(JComboBox combo, AgenciaConta agc){
+        String sql = "SELECT * FROM AGENCIA_CONTA WHERE IN_ATIVO = 'A' "
+                + "AND CD_BANCO = "+agc.getBanco().getCdBanco()+" "
+                + "ORDER BY CD_AGENCIA_CONTA";
+        conexao.executeSQL(sql);
+        
+        combo.removeAllItems();
+        int conta = 0;
+        try{
+            while (conexao.resultset.next()){
+                combo.addItem(conexao.resultset.getString("DS_CONTA"));
+                contas.put(conta, conexao.resultset.getInt("CD_AGENCIA_CONTA"));
+                conta++;
+            }
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Agência Conta não encontrada !");
+        }
+    }
 
     public void retornaComboBanco(JComboBox combo,boolean todos) {
         banco.retornaComboBanco(combo,todos);
