@@ -58,6 +58,7 @@ public class CadastroCidade extends javax.swing.JFrame {
         jBtExcluir = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
         jBtGravar = new javax.swing.JButton();
+        jbtCadEstado = new javax.swing.JButton();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -166,6 +167,13 @@ public class CadastroCidade extends javax.swing.JFrame {
                     .addComponent(jBtGravar)))
         );
 
+        jbtCadEstado.setText("Exibir Cadastro");
+        jbtCadEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtCadEstadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -176,9 +184,13 @@ public class CadastroCidade extends javax.swing.JFrame {
                     .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                            .addComponent(jComboBoxEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jbtCadEstado))
+                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -196,8 +208,10 @@ public class CadastroCidade extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtCadEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -347,7 +361,7 @@ public class CadastroCidade extends javax.swing.JFrame {
                 cidade.setCdCidade(Integer.parseInt(jTextFieldCodigo.getText()));
                 int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta cidade ?",
                         "Excluir Cidade", JOptionPane.YES_OPTION);
-                if(delete == JOptionPane.YES_OPTION){
+                if (delete == JOptionPane.YES_OPTION) {
                     cidade.excluir(cidade);
                     JOptionPane.showMessageDialog(null, "Cidade excluída com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
@@ -448,6 +462,20 @@ public class CadastroCidade extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
+    private void jbtCadEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCadEstadoActionPerformed
+        CadastroEstado cadEstado = new CadastroEstado();
+        cadEstado.setVisible(true);
+
+        this.setFocusableWindowState(false);
+
+        cadEstado.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                cidade.retornaComboEstado(jComboBoxEstado);
+                habilitar();
+            }
+        });
+    }//GEN-LAST:event_jbtCadEstadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -508,6 +536,7 @@ public class CadastroCidade extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldConsulta;
     private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JButton jbtCadEstado;
     // End of variables declaration//GEN-END:variables
 
     public void carregarCidade() {
@@ -528,6 +557,10 @@ public class CadastroCidade extends javax.swing.JFrame {
         } else {
             jBtRelatorio.setEnabled(true);
         }
+    }
+    
+    public void habilitar(){
+        this.setFocusableWindowState(true);
     }
 
 }

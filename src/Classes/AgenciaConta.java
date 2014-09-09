@@ -22,10 +22,9 @@ public class AgenciaConta {
     private Double vlConta;
     private String inAtivo;
 
-    private Map <Integer, Integer> contas = new HashMap<Integer, Integer>();
-   // private int[] vetAgcConta = new int[100];
+    private Map<Integer, Integer> contas = new HashMap<Integer, Integer>();
+    // private int[] vetAgcConta = new int[100];
     private Banco banco = new Banco();
-    
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -94,8 +93,8 @@ public class AgenciaConta {
             agc.setDsConta("");
         }
     }
-    
-    public void retornaComboAgcConta(JComboBox combo){
+
+    public void retornaComboAgcConta(JComboBox combo) {
         String sql = "SELECT * FROM AGENCIA_CONTA ORDER BY CD_AGENCIA_CONTA";
         conexao.executeSQL(sql);
 
@@ -115,37 +114,37 @@ public class AgenciaConta {
             JOptionPane.showMessageDialog(null, "Agência Conta não encontrada !");
         }
     }
-    
-    public void retornaComboAgcConta(JComboBox combo, AgenciaConta agc){
-        String sql = "SELECT * FROM AGENCIA_CONTA WHERE IN_ATIVO = 'A' "
-                + "AND CD_BANCO = "+agc.getBanco().getCdBanco()+" "
-                + "ORDER BY CD_AGENCIA_CONTA";
+
+    public void retornaComboAgcConta(JComboBox combo, AgenciaConta agc) {
+        String sql = "SELECT A.CD_AGENCIA_CONTA, A.DS_CONTA, B.NM_BANCO "
+                + "FROM AGENCIA_CONTA A INNER JOIN BANCO B ON "
+                + "A.CD_BANCO = B.CD_BANCO AND A.IN_ATIVO = 'A'";
         conexao.executeSQL(sql);
-        
+
         combo.removeAllItems();
         int conta = 0;
-        try{
-            while (conexao.resultset.next()){
-                combo.addItem(conexao.resultset.getString("DS_CONTA"));
-                contas.put(conta, conexao.resultset.getInt("CD_AGENCIA_CONTA"));
+        try {
+            while (conexao.resultset.next()) {
+                combo.addItem(conexao.resultset.getInt("CD_AGENCIA_CONTA") + " - " 
+                        + conexao.resultset.getString("DS_CONTA") + " - "
+                        + conexao.resultset.getString("NM_BANCO"));
                 conta++;
             }
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Agência Conta não encontrada !");
         }
     }
 
-    public void retornaComboBanco(JComboBox combo,boolean todos) {
-        banco.retornaComboBanco(combo,todos);
+    public void retornaComboBanco(JComboBox combo) {
+        banco.retornaComboBanco(combo);
     }
-    
-    public void atualizarValorConta(AgenciaConta agc){
-        String sql = "UPDATE AGENCIA_CONTA SET VALOR_CONTA = '"+agc.getVlConta()+"' WHERE "
-                + "CD_AGENCIA_CONTA = "+agc.getCdAgcConta();
+
+    public void atualizarValorConta(AgenciaConta agc) {
+        String sql = "UPDATE AGENCIA_CONTA SET VALOR_CONTA = '" + agc.getVlConta() + "' WHERE "
+                + "CD_AGENCIA_CONTA = " + agc.getCdAgcConta();
         conexao.atualizarSQL(sql);
     }
-    
+
     // getter  e setter
     public Integer getCdAgcConta() {
         return cdAgcConta;
@@ -210,9 +209,8 @@ public class AgenciaConta {
 //    public void setVetAgcConta(int[] vetAgcConta) {
 //        this.vetAgcConta = vetAgcConta;
 //    }
-
-    public int getConta(int pos){
+    public int getConta(int pos) {
         return contas.get(pos);
     }
-    
+
 }

@@ -18,11 +18,10 @@ public class Banco {
     private Integer cdBanco;
     private String nmBanco;
     private String inAtivo;
-    
-    private Map <Integer, Integer> bancos = new HashMap<Integer, Integer>();
+
+    private Map<Integer, Integer> bancos = new HashMap<Integer, Integer>();
 
 //   private int vetBanco [] = new int[100];
-
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
     public void incluir(Banco banco) {
@@ -87,21 +86,13 @@ public class Banco {
         }
     }
 
-    public void retornaComboBanco(JComboBox combo, boolean todos) {
-        String sql = "";
-        if (todos) {
-            sql = "SELECT * FROM BANCO ORDER BY CD_BANCO";
-        } else {
-            sql = "SELECT * FROM BANCO INNER JOIN AGENCIA_CONTA "
-                    + "ON BANCO.CD_BANCO = AGENCIA_CONTA.CD_BANCO ORDER BY BANCO.CD_BANCO";
-        }
-
+    public void retornaComboBanco(JComboBox combo) {
+        String sql = "SELECT * FROM BANCO ORDER BY CD_BANCO";
         conexao.executeSQL(sql);
 
         combo.removeAllItems();
         int conta = 0;
 //        int[] vet = new int[100];
-
         try {
             while (conexao.resultset.next()) {
                 combo.addItem(conexao.resultset.getString("NM_BANCO"));
@@ -147,8 +138,7 @@ public class Banco {
 //    public void setVetBanco(int[] vetBanco) {
 //        this.vetBanco = vetBanco;
 //    }
-    
-    public int getBanco(int pos){
+    public int getBanco(int pos) {
         return bancos.get(pos);
     }
 }

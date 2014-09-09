@@ -41,7 +41,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         initComponents();
 
         jTextFieldVlConta.setDocument(new FormataMoeda());
-        agc.retornaComboBanco(jComboBoxBanco, true);
+        agc.retornaComboBanco(jComboBoxBanco);
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
     }
@@ -81,6 +81,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jBtCancelar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldDsConta = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -201,6 +202,13 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Exibir Cadastro");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -237,8 +245,11 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
                             .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jComboBoxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(141, 141, 141))
+                    .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                        .addComponent(jComboBoxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addGap(81, 81, 81))
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -266,8 +277,10 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                             .addComponent(jTextFieldNrConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
                         .addGap(18, 18, 18)
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelCadastroLayout.createSequentialGroup()
@@ -431,7 +444,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         } else if (jTextFieldNrConta.getText().equals(nrConta.getMask().replace("#", " "))) {
             JOptionPane.showMessageDialog(null, "O número da conta é obrigatório!");
             jTextFieldNrConta.grabFocus();
-        } else if (jTextFieldVlConta.getText().length()<3) {
+        } else if (jTextFieldVlConta.getText().length()< 3) {
             JOptionPane.showMessageDialog(null, "Informe um valor válido na conta");
             jTextFieldVlConta.grabFocus();
         } else {
@@ -555,6 +568,20 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldVlContaActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CadastroBanco cadBanco = new CadastroBanco();
+        cadBanco.setVisible(true);
+        
+        this.setFocusableWindowState(false);
+        
+        cadBanco.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt){
+                agc.retornaComboBanco(jComboBoxBanco);
+                habilitar();
+            }
+        });
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -598,6 +625,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtRelatorio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBoxBanco;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxSituacao;
@@ -662,5 +690,9 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         } else {
             jBtRelatorio.setEnabled(true);
         }
+    }
+    
+    public void habilitar(){
+        this.setFocusableWindowState(true);
     }
 }

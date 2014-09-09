@@ -1,11 +1,15 @@
-
 package Telas;
 
+import Cadastros.CadastroAgenciaConta;
+import Cadastros.CadastroOperacao;
 import Classes.AgenciaConta;
 import Classes.MovCaixa;
 import Validacoes.FormataMoeda;
+import Validacoes.LimparCampos;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
+import Validacoes.Rotinas;
+import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import javax.swing.JOptionPane;
 
@@ -17,15 +21,18 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
 
     AgenciaConta agc = new AgenciaConta();
     RetornaDecimal decimal = new RetornaDecimal();
+    LimparCampos limpar = new LimparCampos();
     MovCaixa mov = new MovCaixa();
     int rotina;
-    
+
     /**
      * Creates new form TelaTransferenciaContas
      */
     public TelaTransferenciaContas() {
         initComponents();
-        
+        rotina = Rotinas.padrao;
+        validaEstadoCampos();
+
     }
 
     /**
@@ -37,13 +44,8 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jComboBoxBancoOrigem = new javax.swing.JComboBox();
         jComboBoxContaOrigem = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBoxBancoDestino = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jComboBoxContaDestino = new javax.swing.JComboBox();
         jBtNovaTransferencia = new javax.swing.JButton();
@@ -53,8 +55,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jTextFieldVlContaOrigem = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldVlContaDestino = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jBtCadAgenciaConta = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldVlTransferência = new javax.swing.JTextField();
         jLabelNrAgenciaOrigem = new javax.swing.JLabel();
@@ -63,22 +64,13 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jLabelNrAgenciaDestino = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBoxOperação = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        jBtCadOperação = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Tranferência");
-
-        jLabel1.setText("Selecione um banco");
-
-        jComboBoxBancoOrigem.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                jComboBoxBancoOrigemPopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-        });
+        setResizable(false);
 
         jComboBoxContaOrigem.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -90,23 +82,9 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Selecione a conta de origem");
+        jLabel3.setText("Selecione a conta a ser debidata");
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel4.setText("Selecione um banco");
-
-        jComboBoxBancoDestino.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-                jComboBoxBancoDestinoPopupMenuWillBecomeInvisible(evt);
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-        });
-
-        jLabel5.setText("Selecione a conta destino");
+        jLabel5.setText("Selecione a conta a ser creditada");
 
         jComboBoxContaDestino.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -126,6 +104,11 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
 
         jBtGravar.setText("Gravar");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -146,9 +129,12 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jTextFieldVlContaDestino.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldVlContaDestino.setEnabled(false);
 
-        jButton5.setText("Exibir Cadastro");
-
-        jButton6.setText("Exibir Cadastro");
+        jBtCadAgenciaConta.setText("Exibir Cadastro");
+        jBtCadAgenciaConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCadAgenciaContaActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Valor da Tranferência");
 
@@ -170,134 +156,130 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
 
         jLabel2.setText("Selecione a Operação");
 
-        jButton1.setText("Exibir Cadastro");
+        jBtCadOperação.setText("Exibir Cadastro");
+        jBtCadOperação.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCadOperaçãoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtNovaTransferencia)
-                        .addGap(381, 381, 381)
-                        .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
-                                .addGap(203, 203, 203))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jComboBoxBancoOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton6))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jComboBoxContaOrigem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabelNrAgenciaOrigem, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabelNrContaOrigem, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextFieldVlContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton5)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBoxOperação, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1)))
-                                .addGap(18, 18, 18)))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jComboBoxContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jComboBoxBancoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jComboBoxContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jBtCadAgenciaConta))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabelNrAgenciaOrigem)
+                                        .addComponent(jLabelNrContaOrigem))
+                                    .addGap(51, 51, 51)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldVlContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel5)
+                                .addComponent(jComboBoxContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jComboBoxOperação, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jBtCadOperação))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelNrAgenciaDestino)
                             .addComponent(jLabelNrContaDestino))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldVlContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(35, 35, 35)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3)
+                            .addComponent(jSeparator1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jBtNovaTransferencia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
+                .addComponent(jLabel3)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtCadAgenciaConta))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabelNrAgenciaOrigem))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxBancoOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6))
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel3)
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5))
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextFieldVlContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabelNrAgenciaOrigem))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jTextFieldVlContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelNrContaOrigem)))
+                        .addComponent(jLabelNrContaOrigem)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(6, 6, 6)
+                .addComponent(jComboBoxContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelNrAgenciaDestino)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabelNrContaDestino))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldVlContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxOperação, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(6, 6, 6)
-                        .addComponent(jComboBoxBancoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addGap(6, 6, 6)
-                        .addComponent(jComboBoxContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelNrAgenciaDestino)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelNrContaDestino))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldVlContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtCadOperação))))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtNovaTransferencia)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtCancelar)
-                        .addComponent(jBtGravar)))
+                    .addComponent(jBtGravar)
+                    .addComponent(jBtCancelar))
                 .addContainerGap())
         );
 
@@ -305,65 +287,73 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBoxBancoOrigemPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxBancoOrigemPopupMenuWillBecomeInvisible
-        agc.getBanco().setCdBanco(agc.getBanco().getBanco(jComboBoxBancoOrigem.getSelectedIndex()));
-        //System.err.println("CD BANCO "+agc.getBanco().getCdBanco());
-        agc.retornaComboAgcConta(jComboBoxContaOrigem, agc);
-        jComboBoxContaOrigemPopupMenuWillBecomeInvisible(evt);
-    }//GEN-LAST:event_jComboBoxBancoOrigemPopupMenuWillBecomeInvisible
-
     private void jComboBoxContaOrigemPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxContaOrigemPopupMenuWillBecomeInvisible
-        agc.setCdAgcConta(agc.getConta(jComboBoxContaOrigem.getSelectedIndex()));
-        agc.retornaAgenciaConta(agc);
-        jLabelNrAgenciaOrigem.setText("Nr Agência: "+agc.getNrAgencia());
-        jLabelNrContaOrigem.setText("Nr Conta: "+agc.getNrConta());
-        jTextFieldVlContaOrigem.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
+        try {
+            int pos = jComboBoxContaOrigem.getSelectedItem().toString().indexOf(" ");
+            int cd = Integer.parseInt(jComboBoxContaOrigem.getSelectedItem().toString().substring(0, pos));
+            //System.out.println("CD "+cd);
+            agc.setCdAgcConta(cd);
+            agc.retornaAgenciaConta(agc);
+            jLabelNrAgenciaOrigem.setText("Nr Agência: " + agc.getNrAgencia());
+            jLabelNrContaOrigem.setText("Nr Conta: " + agc.getNrConta());
+            jTextFieldVlContaOrigem.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
+
+            agc.retornaComboAgcConta(jComboBoxContaDestino, agc);
+            jComboBoxContaDestino.removeItemAt(jComboBoxContaOrigem.getSelectedIndex());
+            jComboBoxContaDestinoPopupMenuWillBecomeInvisible(evt);
+        } catch (NullPointerException ex) {
+
+        }
     }//GEN-LAST:event_jComboBoxContaOrigemPopupMenuWillBecomeInvisible
 
-    private void jComboBoxBancoDestinoPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxBancoDestinoPopupMenuWillBecomeInvisible
-        agc.getBanco().setCdBanco(agc.getBanco().getBanco(jComboBoxBancoDestino.getSelectedIndex()));
-        agc.retornaComboAgcConta(jComboBoxContaDestino, agc);
-        jComboBoxContaDestinoPopupMenuWillBecomeInvisible(evt);
-    }//GEN-LAST:event_jComboBoxBancoDestinoPopupMenuWillBecomeInvisible
-
     private void jComboBoxContaDestinoPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxContaDestinoPopupMenuWillBecomeInvisible
-        agc.setCdAgcConta(agc.getConta(jComboBoxContaDestino.getSelectedIndex()));
-        agc.retornaAgenciaConta(agc);
-        jLabelNrAgenciaDestino.setText("Nr Agência: "+agc.getNrAgencia());
-        jLabelNrContaDestino.setText("Nr Conta: "+agc.getNrConta());
-        jTextFieldVlContaDestino.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
+        try {
+            int pos = jComboBoxContaDestino.getSelectedItem().toString().indexOf(" ");
+            int cd = Integer.parseInt(jComboBoxContaDestino.getSelectedItem().toString().substring(0, pos));
+            //System.out.println("CD "+cd);
+            agc.setCdAgcConta(cd);
+            agc.retornaAgenciaConta(agc);
+            jLabelNrAgenciaDestino.setText("Nr Agência: " + agc.getNrAgencia());
+            jLabelNrContaDestino.setText("Nr Conta: " + agc.getNrConta());
+            jTextFieldVlContaDestino.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
+
+        } catch (NullPointerException ex) {
+
+        }
     }//GEN-LAST:event_jComboBoxContaDestinoPopupMenuWillBecomeInvisible
 
     private void jBtNovaTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaTransferenciaActionPerformed
-        agc.getBanco().retornaComboBanco(jComboBoxBancoOrigem, false);
-        jComboBoxBancoOrigemPopupMenuWillBecomeInvisible(null);
-        agc.getBanco().retornaComboBanco(jComboBoxBancoDestino, false);
-        jComboBoxBancoDestinoPopupMenuWillBecomeInvisible(null);
+        agc.retornaComboAgcConta(jComboBoxContaOrigem, agc);
         mov.getOperacao().retornaComboOperacao(jComboBoxOperação, "TODOS");
+        rotina = Rotinas.incluir;
+        validaEstadoCampos();
     }//GEN-LAST:event_jBtNovaTransferenciaActionPerformed
 
     private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
-        try{
+        try {
             double valor = Double.parseDouble(jTextFieldVlTransferência.getText().replace(".", "").replace(",", "."));
             double vlConta = Double.parseDouble(jTextFieldVlContaOrigem.getText().replace(".", "").replace(",", "."));
-            if (valor > vlConta){
+            if (jTextFieldVlTransferência.getText().length() < 3) {
+                JOptionPane.showMessageDialog(null, "Informe um valor válido!");
+                jTextFieldVlTransferência.grabFocus();
+            } else if (jComboBoxContaDestino.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(null, "Informe a conta a ser creditada!");
+                jComboBoxContaDestino.grabFocus();
+            } else if (valor > vlConta) {
                 JOptionPane.showMessageDialog(null, "Não é possível transferir um valor maior que o valor da conta!");
                 jTextFieldVlTransferência.grabFocus();
-            }
-            else if (jComboBoxBancoOrigem.getSelectedIndex() == jComboBoxBancoDestino.getSelectedIndex() 
-                    && jComboBoxContaOrigem.getSelectedIndex() == jComboBoxBancoDestino.getSelectedIndex()){
-                JOptionPane.showMessageDialog(null, "Selecione uma conta diferente para realizar a transferência!");
-            }
-            else{
-                int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer a tranferência de R$ "+valor+" da "
-                        + "conta "+jComboBoxContaOrigem.getSelectedItem().toString()+" para a conta "
-                        +jComboBoxContaDestino.getSelectedItem().toString()+" ?", "Confirmar Transferência", JOptionPane.YES_NO_OPTION);
-                if (opcao == JOptionPane.YES_OPTION){
-                    System.err.println("GRAVAR");
+            } else {
+                int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer a tranferência de R$ " + valor + 
+                        " entre as contas ?", "Confirmar Transferência", JOptionPane.YES_NO_OPTION);
+                if (opcao == JOptionPane.YES_OPTION) {
+                    gravarTransferencia(valor);
+                    JOptionPane.showMessageDialog(null, "Transferência realizada com sucesso!");
+                    limpar.limparCampos(this);
+                    rotina = Rotinas.padrao;
+                    validaEstadoCampos();
                 }
             }
-        }
-        catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Informe um valor válido!");
             jTextFieldVlTransferência.grabFocus();
         }
@@ -373,6 +363,40 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         ValidaCampos campos = new ValidaCampos();
         campos.validaCamposApenasNumeros(evt);
     }//GEN-LAST:event_jTextFieldVlTransferênciaKeyTyped
+
+    private void jBtCadOperaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadOperaçãoActionPerformed
+        CadastroOperacao cadOperacao = new CadastroOperacao();
+
+        cadOperacao.setVisible(true);
+        this.setFocusableWindowState(false);
+
+        cadOperacao.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                mov.getOperacao().retornaComboOperacao(jComboBoxOperação, "TODOS");
+                habilitar();
+            }
+        });
+    }//GEN-LAST:event_jBtCadOperaçãoActionPerformed
+
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        rotina = Rotinas.padrao;
+        limpar.limparCampos(this);
+        validaEstadoCampos();
+    }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jBtCadAgenciaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadAgenciaContaActionPerformed
+        CadastroAgenciaConta cadAgc = new CadastroAgenciaConta();
+        cadAgc.setVisible(true);
+        this.setFocusableWindowState(false);
+
+        cadAgc.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+
+                agc.retornaComboAgcConta(jComboBoxContaOrigem, agc);
+                habilitar();
+            }
+        });
+    }//GEN-LAST:event_jBtCadAgenciaContaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,21 +434,16 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtCadAgenciaConta;
+    private javax.swing.JButton jBtCadOperação;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtNovaTransferencia;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox jComboBoxBancoDestino;
-    private javax.swing.JComboBox jComboBoxBancoOrigem;
     private javax.swing.JComboBox jComboBoxContaDestino;
     private javax.swing.JComboBox jComboBoxContaOrigem;
     private javax.swing.JComboBox jComboBoxOperação;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -434,21 +453,58 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNrContaDestino;
     private javax.swing.JLabel jLabelNrContaOrigem;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextFieldVlContaDestino;
     private javax.swing.JTextField jTextFieldVlContaOrigem;
     private javax.swing.JTextField jTextFieldVlTransferência;
     // End of variables declaration//GEN-END:variables
 
-    public void gravarTransferencia(double valor){
+    public void gravarTransferencia(double valor) {
         RetornaData data = new RetornaData();
-        agc.setCdAgcConta(agc.getConta(jComboBoxContaOrigem.getSelectedIndex()));
+        int pos = jComboBoxContaOrigem.getSelectedItem().toString().indexOf(" ");
+        int cd = Integer.parseInt(jComboBoxContaOrigem.getSelectedItem().toString().substring(0, pos));
+        agc.setCdAgcConta(cd);
         double vlAnterior = Double.parseDouble(jTextFieldVlContaOrigem.getText().replace(".", "").replace(",", "."));
-        
+        // atualiza a conta a ser debitada
         agc.setVlConta(vlAnterior - valor);
         agc.atualizarValorConta(agc);
-        
+
         mov.setAgc(agc);
         mov.setDataMov(data.retornaDataAtual());
+        mov.setValorMov(valor);
+        mov.setSaldoAnterior(vlAnterior);
+        mov.setSaldoFinal(agc.getVlConta());
+        mov.getOperacao().setCdOperacao(mov.getOperacao().getOperacao(jComboBoxOperação.getSelectedIndex()));
+        mov.setObservacao("TRANSFERÊNCIA ENTRE CONTAS");
+        // grava a movimentação de saída na conta a ser debitada
+        mov.incluir(mov, false);
+        jTextFieldVlContaOrigem.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
+
+        pos = jComboBoxContaDestino.getSelectedItem().toString().indexOf(" ");
+        cd = Integer.parseInt(jComboBoxContaDestino.getSelectedItem().toString().substring(0, pos));
+        agc.setCdAgcConta(cd);
+        vlAnterior = Double.parseDouble(jTextFieldVlContaDestino.getText().replace(".", "").replace(",", "."));
+        // atualiza a conta creditada
+        agc.setVlConta(vlAnterior + valor);
+        agc.atualizarValorConta(agc);
+        mov.setAgc(agc);
+        mov.setSaldoAnterior(vlAnterior);
+        mov.setSaldoFinal(agc.getVlConta());
+        // grava a movimentação de entrada na conta creditada
+        mov.incluir(mov, false);
+
+        jTextFieldVlContaDestino.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
+    }
+
+    public void validaEstadoCampos() {
+        ValidaBotoes botoes = new ValidaBotoes();
+        botoes.validaEstadoCampos(this.getContentPane(), rotina);
+        jTextFieldVlContaOrigem.setEnabled(false);
+        jTextFieldVlContaDestino.setEnabled(false);
+    }
+
+    public void habilitar() {
+        this.setFocusableWindowState(true);
     }
 
 }

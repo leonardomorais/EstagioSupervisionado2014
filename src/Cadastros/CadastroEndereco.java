@@ -279,9 +279,9 @@ public class CadastroEndereco extends javax.swing.JFrame {
                                     .addGap(157, 157, 157)
                                     .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
-                                        .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel10)
-                                        .addComponent(jTextFieldNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(jTextFieldNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addComponent(jLabel4)
                     .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jBtCidades, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -546,10 +546,12 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
     private void jBtCidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCidadesActionPerformed
         CadastroCidade cadCidade = new CadastroCidade();
+        this.setFocusableWindowState(false);
         cadCidade.setVisible(true);
         cadCidade.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evento) {
                 endereco.retornaComboCidade(jComboBoxCidade);
+                habilitar();
             }
         });
     }//GEN-LAST:event_jBtCidadesActionPerformed
@@ -785,7 +787,10 @@ public class CadastroEndereco extends javax.swing.JFrame {
         endereco.setCdPessoa(pessoa.getCdPessoa());
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 40, 200, 100, 120, 40, 80, 60, 55});
         preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarCodigo(endereco));
-
+    }
+    
+    public void habilitar(){
+        this.setFocusableWindowState(true);
     }
 
 }

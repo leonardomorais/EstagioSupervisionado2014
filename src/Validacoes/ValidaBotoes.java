@@ -59,7 +59,7 @@ public class ValidaBotoes {
                     case Rotinas.padrao:
                         if (nome.equals("Incluir") | nome.equals("Excluir") | nome.equals("Alterar")
                             | nome.equals("Iniciar Atendimento") | nome.equals("Incluir Venda/Compra")
-                            | nome.equals("Novo Pagamento")) {
+                            | nome.equals("Novo Pagamento") | nome.equals("Nova Tranferência")) {
                             botao.setEnabled(true);
                         }
                         else{
@@ -70,7 +70,7 @@ public class ValidaBotoes {
                     default:
                         if (nome.equals("Incluir") | nome.equals("Excluir") | nome.equals("Alterar")
                             | nome.equals("Iniciar Atendimento") | nome.equals("Incluir Venda/Compra")
-                            | nome.equals("Novo Pagamento")) {
+                            | nome.equals("Novo Pagamento") | nome.equals("Nova Tranferência")) {
                             botao.setEnabled(false);
                         }
                         else{

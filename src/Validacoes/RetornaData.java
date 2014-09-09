@@ -95,4 +95,48 @@ public class RetornaData {
         }
         return dtParam.compareTo(dtAtual);
     }
+    
+    public String somaPeriodo(String periodo, int quantidade){
+        LocalDate data = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        switch(periodo){
+            case "DIAS":
+                data = data.plusDays(quantidade);
+            break;
+            
+            case "MESES":
+                data = data.plusMonths(quantidade);
+            break;
+            
+            case "ANOS":
+                data = data.plusYears(quantidade);
+            break;
+            
+            default :
+                data = data.plusWeeks(quantidade);
+        }
+        return data.format(formato);
+    }
+    
+    public String periodoAnterior(String periodo, int quantidade){
+        LocalDate data = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        switch(periodo){
+            case "DIAS":
+                data = data.minusDays(quantidade);
+            break;
+            
+            case "MESES":
+                data = data.minusMonths(quantidade);
+            break;
+            
+            case "ANOS":
+                data = data.minusYears(quantidade);
+            break;
+            
+            default :
+                data = data.minusWeeks(quantidade);
+        }
+        return data.format(formato);
+    }
 }

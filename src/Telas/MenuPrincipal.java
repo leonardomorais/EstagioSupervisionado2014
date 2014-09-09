@@ -477,13 +477,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int nr = aleatorio.nextInt(6);
         
         ImageIcon img = new ImageIcon(caminho + nr + ".jpg");
-
+        
         int largura = img.getIconWidth();
         int altura = img.getIconHeight();
 
         JLabel labelimg = new JLabel(img);
         labelimg.setSize(largura, altura);
-
+        
         jPanelImagem.add(labelimg, RIGHT_ALIGNMENT);
     }
 }

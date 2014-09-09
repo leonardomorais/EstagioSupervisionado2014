@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package Telas;
 
 import Classes.MovCaixa;
 import Validacoes.PreencherTabela;
+import Validacoes.ValidaCampos;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -65,7 +62,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
 
         jLabel1.setText("Selecione o filtro");
 
-        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código Movimentação", "Agência Conta", "Operação", "Cd Conta", "Descrição da Conta", "Observação", "Tipo" }));
+        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código Movimentação", "Agência Conta", "Operação", "Cd Conta", "Descrição da Conta", "Observação", "Tipo", "Período" }));
         jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -77,6 +74,15 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         });
 
         jComboBoxAux.setEnabled(false);
+        jComboBoxAux.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxAuxPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +149,16 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                 jComboBoxAux.removeAllItems();
                 jComboBoxAux.addItem("Entrada");
                 jComboBoxAux.addItem("Saída");
-            break;    
+            break;
+                
+            case 8:
+                jComboBoxAux.setEnabled(true);
+                jComboBoxAux.removeAllItems();
+                jComboBoxAux.addItem("Dias");
+                jComboBoxAux.addItem("Semanas");
+                jComboBoxAux.addItem("Meses");
+                jComboBoxAux.addItem("Anos");
+            break;
                 
             default:
                 jComboBoxAux.removeAllItems();
@@ -205,7 +220,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                 mov.setObservacao(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarObservacao(mov));
             break;    
-            default:
+            case 7:
                 switch(jComboBoxAux.getSelectedIndex()){
                     case 0:
                         mov.getOperacao().setTipo("E");
@@ -214,8 +229,34 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                         mov.getOperacao().setTipo("S");
                 }
                 preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarTipo(mov));
+            break;
+            
+            default:
+                try{
+                    int vl = Integer.parseInt(jTextFieldConsulta.getText());
+                    String periodo = jComboBoxAux.getSelectedItem().toString().toUpperCase();
+                    if (vl == 0){
+                        throw new NumberFormatException();
+                    }
+                    else{
+                        preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarPeriodo(periodo, vl));
+                    }
+                }
+                catch(NumberFormatException ex){    
+                   JOptionPane.showMessageDialog(null, "Informe a quantidade de dias meses ou anos que deseja pesquisar!");
+                   jTextFieldConsulta.setText("");
+                   jTextFieldConsulta.grabFocus();
+                
+                }
+                
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
+
+    private void jComboBoxAuxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxAuxPopupMenuWillBecomeInvisible
+        if (jComboBoxConsulta.getSelectedIndex() == 8){
+            jTextFieldConsulta.grabFocus();
+        }
+    }//GEN-LAST:event_jComboBoxAuxPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
