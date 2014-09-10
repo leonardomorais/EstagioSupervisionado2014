@@ -80,7 +80,37 @@ public class RetornaData {
         }
         return valida;
     }
+    
+    public boolean dataExiste(String data){
+        boolean existe;
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        formato.setLenient(false);
+        
+        try{
+            Date dt = formato.parse(data);
+            existe = true;
+        }
+        catch(ParseException ex){
+            existe = false;
+        }
+        return existe;
+    }
 
+    public int comparaData(String dt1, String dt2){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date dtInicio;
+        Date dtFim;
+        try{
+           dtInicio = formato.parse(dt1);
+           dtFim = formato.parse(dt2); 
+        }
+        catch(ParseException ex){
+           dtInicio = new Date();
+           dtFim = new Date();
+        }
+        return dtInicio.compareTo(dtFim);
+    }
+    
     public int comparaData(String data) {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date dtParam;
@@ -96,47 +126,47 @@ public class RetornaData {
         return dtParam.compareTo(dtAtual);
     }
     
-    public String somaPeriodo(String periodo, int quantidade){
-        LocalDate data = LocalDate.now();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        switch(periodo){
-            case "DIAS":
-                data = data.plusDays(quantidade);
-            break;
-            
-            case "MESES":
-                data = data.plusMonths(quantidade);
-            break;
-            
-            case "ANOS":
-                data = data.plusYears(quantidade);
-            break;
-            
-            default :
-                data = data.plusWeeks(quantidade);
-        }
-        return data.format(formato);
-    }
+//    public String somaPeriodo(String periodo, int quantidade){
+//        LocalDate data = LocalDate.now();
+//        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        switch(periodo){
+//            case "DIAS":
+//                data = data.plusDays(quantidade);
+//            break;
+//            
+//            case "MESES":
+//                data = data.plusMonths(quantidade);
+//            break;
+//            
+//            case "ANOS":
+//                data = data.plusYears(quantidade);
+//            break;
+//            
+//            default :
+//                data = data.plusWeeks(quantidade);
+//        }
+//        return data.format(formato);
+//    }
     
-    public String periodoAnterior(String periodo, int quantidade){
-        LocalDate data = LocalDate.now();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        switch(periodo){
-            case "DIAS":
-                data = data.minusDays(quantidade);
-            break;
-            
-            case "MESES":
-                data = data.minusMonths(quantidade);
-            break;
-            
-            case "ANOS":
-                data = data.minusYears(quantidade);
-            break;
-            
-            default :
-                data = data.minusWeeks(quantidade);
-        }
-        return data.format(formato);
-    }
+//    public String periodoAnterior(String periodo, int quantidade){
+//        LocalDate data = LocalDate.now();
+//        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        switch(periodo){
+//            case "DIAS":
+//                data = data.minusDays(quantidade);
+//            break;
+//            
+//            case "MESES":
+//                data = data.minusMonths(quantidade);
+//            break;
+//            
+//            case "ANOS":
+//                data = data.minusYears(quantidade);
+//            break;
+//            
+//            default :
+//                data = data.minusWeeks(quantidade);
+//        }
+//        return data.format(formato);
+//    }
 }

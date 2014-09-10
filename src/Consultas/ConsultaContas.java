@@ -161,7 +161,7 @@ public class ConsultaContas extends javax.swing.JDialog {
                         .addComponent(jBtPesquisar)
                         .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtCancelar)
@@ -252,9 +252,8 @@ public class ConsultaContas extends javax.swing.JDialog {
         CadastroContas cad = new CadastroContas();
         cad.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         cad.setVisible(true);
-        
         cad.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+            public void windowClosed(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);
                 jBtPesquisarActionPerformed(null);
             }

@@ -193,8 +193,7 @@ public class MovCaixa {
         return conexao.resultset;
     }
     
-    public ResultSet consultarPeriodo(String periodo, int valor){
-        RetornaData data = new RetornaData();
+    public ResultSet consultarPeriodo(String dtInicial, String dtFinal){
          String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
                 + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
                 + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
@@ -204,7 +203,7 @@ public class MovCaixa {
                 + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
                 + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
                 + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE DATA_MOV BETWEEN '" + data.periodoAnterior(periodo, valor) + "' AND '"+data.retornaDataAtual()+"' "
+                + "WHERE DATA_MOV BETWEEN '"+dtInicial+"' AND '"+dtFinal+"' "
                 + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;

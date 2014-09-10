@@ -546,12 +546,10 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
     private void jBtCidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCidadesActionPerformed
         CadastroCidade cadCidade = new CadastroCidade();
-        this.setFocusableWindowState(false);
         cadCidade.setVisible(true);
         cadCidade.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evento) {
                 endereco.retornaComboCidade(jComboBoxCidade);
-                habilitar();
             }
         });
     }//GEN-LAST:event_jBtCidadesActionPerformed
@@ -788,9 +786,4 @@ public class CadastroEndereco extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 40, 200, 100, 120, 40, 80, 60, 55});
         preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarCodigo(endereco));
     }
-    
-    public void habilitar(){
-        this.setFocusableWindowState(true);
-    }
-
 }

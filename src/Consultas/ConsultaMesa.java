@@ -250,13 +250,12 @@ public class ConsultaMesa extends javax.swing.JDialog {
 
     private void jBtCadastrarNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovaActionPerformed
         CadastroMesa cadMesa = new CadastroMesa();
-          cadMesa.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-          cadMesa.setVisible(true);
+        cadMesa.setVisible(true);
           
-           cadMesa.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
-                jComboBoxConsulta.setSelectedIndex(0);
-                jBtPesquisarActionPerformed(null);
+        cadMesa.addWindowListener(new WindowAdapter() {
+        public void windowClosing(WindowEvent evento) {
+            jComboBoxConsulta.setSelectedIndex(0);
+            jBtPesquisarActionPerformed(null);
             }
         });
     }//GEN-LAST:event_jBtCadastrarNovaActionPerformed

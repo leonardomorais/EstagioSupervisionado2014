@@ -178,11 +178,9 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
 
     private void jBtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarActionPerformed
         CadastroAgenciaConta cad = new CadastroAgenciaConta();
-        cad.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         cad.setVisible(true);
-
         cad.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+            public void windowClosed(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);
                 jBtPesquisarActionPerformed(null);
             }
@@ -262,4 +260,5 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
     private javax.swing.JTable jTableConsulta;
     private javax.swing.JTextField jTextFieldConsulta;
     // End of variables declaration//GEN-END:variables
+
 }

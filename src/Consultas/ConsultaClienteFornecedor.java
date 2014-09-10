@@ -228,9 +228,7 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
     private void jBtExibirCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExibirCadastroActionPerformed
         if (cliente) {
             CadastroCliente cad = new CadastroCliente();
-            cad.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             cad.setVisible(true);
-
             cad.addWindowListener(new java.awt.event.WindowAdapter() {
                 public void windowClosed(java.awt.event.WindowEvent evt) {
                     jComboBoxConsulta.setSelectedIndex(0);
@@ -241,7 +239,6 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
             CadastroFornecedor cadForn = new CadastroFornecedor();
             cadForn.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
             cadForn.setVisible(true);
-
             cadForn.addWindowListener(new java.awt.event.WindowAdapter() {
                 public void windowClosed(java.awt.event.WindowEvent evt) {
                     jComboBoxConsulta.setSelectedIndex(0);
@@ -297,4 +294,5 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
     private javax.swing.JTable jTableConsulta;
     private javax.swing.JTextField jTextFieldConsulta;
     // End of variables declaration//GEN-END:variables
+
 }

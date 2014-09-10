@@ -99,7 +99,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
             }
         });
 
-        jBtCadastrarNovo.setText("Cadastrar Novo");
+        jBtCadastrarNovo.setText("Exibir Cadastro");
         jBtCadastrarNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarNovoActionPerformed(evt);
@@ -199,13 +199,12 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
 
     private void jBtCadastrarNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovoActionPerformed
           CadastroFuncionario cadFunc = new CadastroFuncionario();
-          cadFunc.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
           cadFunc.setVisible(true);
            cadFunc.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+           public void windowClosed(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);
                 jBtPesquisarActionPerformed(null);
-            }
+           }
         });
     }//GEN-LAST:event_jBtCadastrarNovoActionPerformed
 

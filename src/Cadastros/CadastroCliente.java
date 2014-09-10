@@ -849,11 +849,9 @@ public class CadastroCliente extends javax.swing.JFrame {
         CadastroCidade cadCidade = new CadastroCidade();
         cadCidade.setVisible(true);
         
-        this.setFocusableWindowState(false);
         cadCidade.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+            public void windowClosed(WindowEvent evento) {
                 cliente.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
-                habilitar();
             }
         });
     }//GEN-LAST:event_jBtCidadeActionPerformed
@@ -927,12 +925,10 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void jBtContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtContatosActionPerformed
         CadastroContato cadContato = new CadastroContato();
-        this.setFocusableWindowState(false);
         cadContato.setVisible(true);
         try {
             cliente.getPessoa().setCdPessoa(Integer.parseInt(jTextFieldCdCliente.getText()));
             cadContato.getValores();
-            habilitar();
         } catch (NumberFormatException ex) {
 
         }
@@ -1212,7 +1208,4 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
     }
     
-    public void habilitar(){
-        this.setFocusableWindowState(true);
-    }
 }

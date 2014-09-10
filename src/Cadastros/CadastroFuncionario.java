@@ -740,7 +740,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         CadastroCidade cadCidade = new CadastroCidade();
         cadCidade.setVisible(true);
         cadCidade.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+            public void windowClosed(WindowEvent evento) {
                 funcionario.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
             }
         });

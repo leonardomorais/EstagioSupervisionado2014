@@ -82,8 +82,14 @@
                           <Component id="jTextFieldCdFamilia" min="-2" pref="70" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxOrigem" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="jTextFieldDescricao" alignment="0" min="-2" pref="390" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jComboBoxOrigem" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jBtExibirCadastro" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jTextFieldDescricao" alignment="0" min="-2" pref="390" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="95" max="32767" attributes="0"/>
                   </Group>
@@ -104,8 +110,11 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jComboBoxOrigem" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jComboBoxOrigem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExibirCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="21" max="32767" attributes="0"/>
                       <Component id="jPanelBotoes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -223,6 +232,14 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="jBtExibirCadastro">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exibir Cadastro"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExibirCadastroActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanelConsulta">

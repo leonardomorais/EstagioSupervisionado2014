@@ -197,11 +197,9 @@ public class ConsultaTipoPagamento extends javax.swing.JDialog {
 
     private void jBtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarActionPerformed
         CadastroTipoPagamento cadTipo = new CadastroTipoPagamento();
-        cadTipo.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         cadTipo.setVisible(true);
-
         cadTipo.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+            public void windowClosed(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);
                 jBtPesquisarActionPerformed(null);
             }
@@ -261,4 +259,5 @@ public class ConsultaTipoPagamento extends javax.swing.JDialog {
     private javax.swing.JTable jTableConsulta;
     private javax.swing.JTextField jTextFieldConsulta;
     // End of variables declaration//GEN-END:variables
+
 }

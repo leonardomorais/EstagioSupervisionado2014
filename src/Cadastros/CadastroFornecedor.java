@@ -873,7 +873,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         CadastroCidade cadCidade = new CadastroCidade();
         cadCidade.setVisible(true);
         cadCidade.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+            public void windowClosed(WindowEvent evento) {
                 fornecedor.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
             }
         });

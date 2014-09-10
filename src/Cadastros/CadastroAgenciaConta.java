@@ -572,12 +572,10 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         CadastroBanco cadBanco = new CadastroBanco();
         cadBanco.setVisible(true);
         
-        this.setFocusableWindowState(false);
         
         cadBanco.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt){
                 agc.retornaComboBanco(jComboBoxBanco);
-                habilitar();
             }
         });
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -692,7 +690,4 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         }
     }
     
-    public void habilitar(){
-        this.setFocusableWindowState(true);
-    }
 }

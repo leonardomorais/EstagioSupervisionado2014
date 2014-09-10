@@ -196,11 +196,10 @@ public class ConsultaOperacao extends javax.swing.JDialog {
 
     private void jBtCadastrarNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovaActionPerformed
         CadastroOperacao cadOperacao = new CadastroOperacao();
-        cadOperacao.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         cadOperacao.setVisible(true);
         
         cadOperacao.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+            public void windowClosed(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);
                 jBtPesquisarActionPerformed(null);
             }
@@ -257,5 +256,4 @@ public class ConsultaOperacao extends javax.swing.JDialog {
     public int retorno(){
         return operacao.getCdOperacao();
     }
-
 }

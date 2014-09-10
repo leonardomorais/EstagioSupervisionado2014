@@ -61,6 +61,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
         jBtExcluir = new javax.swing.JButton();
         jBtGravar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
+        jBtExibirCadastro = new javax.swing.JButton();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -164,6 +165,13 @@ public class CadastroFamilia extends javax.swing.JFrame {
                     .addComponent(jBtCancelar)))
         );
 
+        jBtExibirCadastro.setText("Exibir Cadastro");
+        jBtExibirCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExibirCadastroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -175,8 +183,12 @@ public class CadastroFamilia extends javax.swing.JFrame {
                     .addComponent(jTextFieldCdFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBoxOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                            .addComponent(jComboBoxOrigem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jBtExibirCadastro))
+                        .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(95, Short.MAX_VALUE))
             .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -194,8 +206,10 @@ public class CadastroFamilia extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtExibirCadastro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -460,8 +474,19 @@ public class CadastroFamilia extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTableConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaMouseClicked
-  
+
     }//GEN-LAST:event_jTableConsultaMouseClicked
+
+    private void jBtExibirCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExibirCadastroActionPerformed
+        CadastroOrigem cadOrigem = new CadastroOrigem();
+        cadOrigem.setVisible(true);
+        
+        cadOrigem.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt){
+                familia.retoraComboOrigem(jComboBoxOrigem);
+            }
+        });
+    }//GEN-LAST:event_jBtExibirCadastroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -502,6 +527,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtExcluir;
+    private javax.swing.JButton jBtExibirCadastro;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisar;

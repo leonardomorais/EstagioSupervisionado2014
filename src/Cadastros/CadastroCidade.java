@@ -466,12 +466,9 @@ public class CadastroCidade extends javax.swing.JFrame {
         CadastroEstado cadEstado = new CadastroEstado();
         cadEstado.setVisible(true);
 
-        this.setFocusableWindowState(false);
-
         cadEstado.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 cidade.retornaComboEstado(jComboBoxEstado);
-                habilitar();
             }
         });
     }//GEN-LAST:event_jbtCadEstadoActionPerformed
@@ -557,10 +554,6 @@ public class CadastroCidade extends javax.swing.JFrame {
         } else {
             jBtRelatorio.setEnabled(true);
         }
-    }
-    
-    public void habilitar(){
-        this.setFocusableWindowState(true);
     }
 
 }

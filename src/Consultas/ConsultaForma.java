@@ -198,11 +198,9 @@ public class ConsultaForma extends javax.swing.JDialog {
 
     private void jBtCadastrarNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovaActionPerformed
         CadastroFormadePagamento cadForma = new CadastroFormadePagamento();
-        cadForma.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         cadForma.setVisible(true);
-        
         cadForma.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+            public void windowClosed(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);
                 jBtPesquisarActionPerformed(null);
             }
@@ -256,4 +254,5 @@ public class ConsultaForma extends javax.swing.JDialog {
     private javax.swing.JTable jTableConsulta;
     private javax.swing.JTextField jTextFieldConsulta;
     // End of variables declaration//GEN-END:variables
+
 }

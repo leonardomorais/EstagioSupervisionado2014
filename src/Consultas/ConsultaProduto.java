@@ -200,13 +200,12 @@ public class ConsultaProduto extends javax.swing.JDialog {
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         CadastroProduto cad = new CadastroProduto();
-          cad.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-          cad.setVisible(true);
-           cad.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evento) {
+        cad.setVisible(true);
+        cad.addWindowListener(new WindowAdapter() {
+        public void windowClosed(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);
                 jBtPesquisarActionPerformed(null);
-            }
+          }
         });
     }//GEN-LAST:event_jBtNovoActionPerformed
 
