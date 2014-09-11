@@ -163,6 +163,11 @@ public class Parcelas {
                 + "NR_PARCELA = " + parcelas.getNrParcela();
         conexao.atualizarSQL(sql);
     }
+    
+    public void excluir(Parcelas parcelas){
+        String sql = "DELETE FROM PARCELAS WHERE CD_CONTA = "+parcelas.getContas().getCdConta();
+        conexao.deleteSQL(sql);
+    }
 
     public void pagarParcela(Parcelas parcelas) {
         String sql = "UPDATE PARCELAS SET VL_PAGO = '" + parcelas.getVlPago() + "', "
@@ -173,6 +178,49 @@ public class Parcelas {
             parcelas.getContas().setDtPagamento(parcelas.getDtPago());
             parcelas.getContas().pagarConta(parcelas.getContas());
         }
+    }
+    
+    public void extornarParcela(Parcelas parcelas){
+        //parcelas.getContas().retornaConta(parcelas.getContas(), true);
+        if (verificaParcelasPagas(parcelas)){
+            // se a conta possuir todas as parcelas pagas a situação da conta deve ser alterada
+            
+            parcelas.getContas().setPago("N");
+            parcelas.getContas().setDtPagamento("NULL");
+            parcelas.getContas().alterar(parcelas.getContas());
+        }
+        
+        String sql = "UPDATE PARCELAS SET VL_PAGO = '0.00' , DT_PAGO = "+null+" "
+                + "WHERE CD_CONTA = "+parcelas.getContas().getCdConta()+" AND "
+                + "NR_PARCELA = "+parcelas.getNrParcela();
+        conexao.atualizarSQL(sql);
+        
+        // atualiza a parcela 
+        RetornaData data = new RetornaData();
+        MovCaixa mov = new MovCaixa();
+        mov.setParcelas(parcelas);
+        mov.retornaMov(mov);
+        
+        // retorna a agencia Conta e o valor que foi movimentado
+        mov.getAgc().retornaAgenciaConta(mov.getAgc());
+        mov.setSaldoAnterior(mov.getAgc().getVlConta());
+        
+        if (parcelas.getContas().getTpConta().equals("A PAGAR")){
+            mov.setSaldoFinal(mov.getSaldoAnterior()+ mov.getValorMov());
+        }
+        else{
+            mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
+        }
+        
+        // atualiza a agencia Conta
+        mov.getAgc().setVlConta(mov.getSaldoFinal());
+        mov.getAgc().atualizarValorConta(mov.getAgc());
+        
+        mov.getOperacao().setCdOperacao(9); // operação de extorno de parcela
+        mov.setDataMov(data.retornaDataAtual());
+        mov.setObservacao("EXTORNO CONTA "+mov.getParcelas().getContas().getCdConta()
+        +" PARCELA "+mov.getParcelas().getNrParcela());
+        mov.incluir(mov, true);
     }
 
     public ResultSet consutarGeral() {

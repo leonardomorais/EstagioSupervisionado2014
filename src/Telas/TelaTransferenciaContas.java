@@ -62,9 +62,6 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jLabelNrContaOrigem = new javax.swing.JLabel();
         jLabelNrContaDestino = new javax.swing.JLabel();
         jLabelNrAgenciaDestino = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBoxOperação = new javax.swing.JComboBox();
-        jBtCadOperação = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
 
@@ -154,15 +151,6 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
 
         jLabelNrAgenciaDestino.setText("Nr Agência");
 
-        jLabel2.setText("Selecione a Operação");
-
-        jBtCadOperação.setText("Exibir Cadastro");
-        jBtCadOperação.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCadOperaçãoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,19 +176,9 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
                                         .addComponent(jTextFieldVlContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addComponent(jLabel5)
                                 .addComponent(jComboBoxContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBoxOperação, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jBtCadOperação))))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8)
+                                .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,18 +242,10 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxOperação, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtCadOperação))))
-                .addGap(35, 35, 35)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtNovaTransferencia)
                     .addComponent(jBtGravar)
@@ -318,13 +288,11 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
             jTextFieldVlContaDestino.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
 
         } catch (NullPointerException ex) {
-
         }
     }//GEN-LAST:event_jComboBoxContaDestinoPopupMenuWillBecomeInvisible
 
     private void jBtNovaTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovaTransferenciaActionPerformed
         agc.retornaComboAgcConta(jComboBoxContaOrigem, agc);
-        mov.getOperacao().retornaComboOperacao(jComboBoxOperação, "TODOS");
         rotina = Rotinas.incluir;
         validaEstadoCampos();
     }//GEN-LAST:event_jBtNovaTransferenciaActionPerformed
@@ -343,8 +311,8 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Não é possível transferir um valor maior que o valor da conta!");
                 jTextFieldVlTransferência.grabFocus();
             } else {
-                int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer a tranferência de R$ " + valor + 
-                        " entre as contas ?", "Confirmar Transferência", JOptionPane.YES_NO_OPTION);
+                int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer a tranferência de R$ " + valor
+                        + " entre as contas ?", "Confirmar Transferência", JOptionPane.YES_NO_OPTION);
                 if (opcao == JOptionPane.YES_OPTION) {
                     gravarTransferencia(valor);
                     JOptionPane.showMessageDialog(null, "Transferência realizada com sucesso!");
@@ -364,20 +332,6 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         campos.validaCamposApenasNumeros(evt);
     }//GEN-LAST:event_jTextFieldVlTransferênciaKeyTyped
 
-    private void jBtCadOperaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadOperaçãoActionPerformed
-        CadastroOperacao cadOperacao = new CadastroOperacao();
-
-        cadOperacao.setVisible(true);
-        this.setFocusableWindowState(false);
-
-        cadOperacao.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                mov.getOperacao().retornaComboOperacao(jComboBoxOperação, "TODOS");
-                habilitar();
-            }
-        });
-    }//GEN-LAST:event_jBtCadOperaçãoActionPerformed
-
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         limpar.limparCampos(this);
@@ -387,13 +341,11 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     private void jBtCadAgenciaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadAgenciaContaActionPerformed
         CadastroAgenciaConta cadAgc = new CadastroAgenciaConta();
         cadAgc.setVisible(true);
-        this.setFocusableWindowState(false);
 
         cadAgc.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
 
                 agc.retornaComboAgcConta(jComboBoxContaOrigem, agc);
-                habilitar();
             }
         });
     }//GEN-LAST:event_jBtCadAgenciaContaActionPerformed
@@ -435,14 +387,11 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtCadAgenciaConta;
-    private javax.swing.JButton jBtCadOperação;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtNovaTransferencia;
     private javax.swing.JComboBox jComboBoxContaDestino;
     private javax.swing.JComboBox jComboBoxContaOrigem;
-    private javax.swing.JComboBox jComboBoxOperação;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -474,8 +423,9 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         mov.setValorMov(valor);
         mov.setSaldoAnterior(vlAnterior);
         mov.setSaldoFinal(agc.getVlConta());
-        mov.getOperacao().setCdOperacao(mov.getOperacao().getOperacao(jComboBoxOperação.getSelectedIndex()));
-        mov.setObservacao("TRANSFERÊNCIA ENTRE CONTAS");
+        mov.getOperacao().setCdOperacao(7);
+        // OPERAÇÃO "SAÍDA POR TRANSFERÊNCIA BANCÁRIA"
+        mov.setObservacao("SAÍDA POR TRANSFERÊNCIA");
         // grava a movimentação de saída na conta a ser debitada
         mov.incluir(mov, false);
         jTextFieldVlContaOrigem.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
@@ -488,8 +438,12 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         agc.setVlConta(vlAnterior + valor);
         agc.atualizarValorConta(agc);
         mov.setAgc(agc);
+
         mov.setSaldoAnterior(vlAnterior);
         mov.setSaldoFinal(agc.getVlConta());
+        mov.getOperacao().setCdOperacao(8);
+        // OPERAÇÃO "ENTRADA POR TRANSFERÊNCIA BANCÁRIA"
+        mov.setObservacao("ENTRADA POR TRANSFERÊNCIA");
         // grava a movimentação de entrada na conta creditada
         mov.incluir(mov, false);
 
@@ -502,9 +456,4 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jTextFieldVlContaOrigem.setEnabled(false);
         jTextFieldVlContaDestino.setEnabled(false);
     }
-
-    public void habilitar() {
-        this.setFocusableWindowState(true);
-    }
-
 }

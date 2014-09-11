@@ -30,12 +30,11 @@ public class CadastroContas extends javax.swing.JFrame {
     LimparCampos limpar = new LimparCampos();
     RetornaData rdata = new RetornaData();
     RetornaDecimal decimal = new RetornaDecimal();
-    
+
     int rotina;
     double valor = 0;
     MaskFormatter data;
-    
-    
+
     /**
      * Creates new form CadastroContas
      */
@@ -57,6 +56,7 @@ public class CadastroContas extends javax.swing.JFrame {
         buttonGroupTipo = new javax.swing.ButtonGroup();
         jPopupMenuPagarParcela = new javax.swing.JPopupMenu();
         jMenuItemPagarParcela = new javax.swing.JMenuItem();
+        jMenuItemExtornarParcela = new javax.swing.JMenuItem();
         jPopupMenuContas = new javax.swing.JPopupMenu();
         jMenuItemCarregarDados = new javax.swing.JMenuItem();
         jTabbedPaneConta = new javax.swing.JTabbedPane();
@@ -116,6 +116,14 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
         jPopupMenuPagarParcela.add(jMenuItemPagarParcela);
+
+        jMenuItemExtornarParcela.setText("ExtornarParcela");
+        jMenuItemExtornarParcela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExtornarParcelaActionPerformed(evt);
+            }
+        });
+        jPopupMenuPagarParcela.add(jMenuItemExtornarParcela);
 
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
@@ -502,51 +510,50 @@ public class CadastroContas extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableContas, new int[]{70, 140, 80, 100, 70, 90, 70, 70, 70});
 
-        switch (jComboBoxConsulta.getSelectedIndex()){
+        switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarGeral(true));
-            break;
-                
+                break;
+
             case 1:
-                try{
+                try {
                     contas.setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableContas, contas.consultarCdConta(contas, true));
-                }
-                catch(NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
                 }
-            
-            break;  
-            
+
+                break;
+
             case 2:
                 contas.setDsConta(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarDescricao(contas, true));
-            break;
-                
+                break;
+
             case 3:
-                switch(jComboBoxTpConta.getSelectedIndex()){
-                    case 0 : 
+                switch (jComboBoxTpConta.getSelectedIndex()) {
+                    case 0:
                         contas.setTpConta("R");
-                    break;
-                    default :
+                        break;
+                    default:
                         contas.setTpConta("P");
                 }
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarTipo(contas, true));
 
-            break;    
-                
-            default :
-                switch(jComboBoxTpConta.getSelectedIndex()){
-                    case 0 :
+                break;
+
+            default:
+                switch (jComboBoxTpConta.getSelectedIndex()) {
+                    case 0:
                         contas.setPago("S");
-                    break;
-                        
-                    default :
+                        break;
+
+                    default:
                         contas.setPago("N");
                 }
-            preencher.PreencherJtableGenerico(jTableContas, contas.consultarSituacao(contas));
+                preencher.PreencherJtableGenerico(jTableContas, contas.consultarSituacao(contas));
         }
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
@@ -570,19 +577,40 @@ public class CadastroContas extends javax.swing.JFrame {
         TelaPagamento tela = new TelaPagamento();
         tela.setVisible(true);
         tela.carregarConta(cdConta, parcela);
- 
+
         tela.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 jButtonPesquisarActionPerformed(null);
                 jTableContasMouseClicked(null);
-            }      
+            }
         });
 
     }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
-                
+
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        rotina = Rotinas.padrao;
-        botoes.validaEstadoCampos(jPanelCadastro, rotina);
+        if (jTextFieldCdConta.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informe o código da conta que deseja excluir!");
+            jTextFieldCdConta.grabFocus();
+        } else {
+            try {
+                contas.setCdConta(Integer.parseInt(jTextFieldCdConta.getText()));
+
+                if (contas.permiteExclusao(contas)) {
+                    contas.excluir(contas);
+                    JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
+                    rotina = Rotinas.padrao;
+                    limpar.limparCampos(jPanelCadastro);
+                    botoes.validaEstadoCampos(jPanelCadastro, rotina);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Esta conta já possui parcelas pagas, "
+                            + "é necessário extornar as parcelas da conta para excluí-la!");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Informe um código válido!");
+                jTextFieldCdConta.setText("");
+                jTextFieldCdConta.grabFocus();
+            }
+        }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
@@ -610,7 +638,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 } else {
                     jTextFieldCdForma.setText(contas.getForma().getCdForma().toString());
                     jTextFieldFormaPgto.setText(contas.getForma().getDsForma());
-                    jFormattedTextFieldDataVencimento.setText(rdata.retornaSomaData("", 
+                    jFormattedTextFieldDataVencimento.setText(rdata.retornaSomaData("",
                             contas.getForma().getIntervalo() * contas.getForma().getQtParcelas()));
                 }
             }
@@ -631,27 +659,23 @@ public class CadastroContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
-        if(jTextFieldCdForma.getText().equals("")){
+        if (jTextFieldCdForma.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "A forma de pagamento é obrigatória!");
             jTextFieldCdForma.grabFocus();
-        }
-        else if (jTextFieldDescrição.getText().equals("")){
+        } else if (jTextFieldDescrição.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "A descrição é obrigatória");
             jTextFieldDescrição.grabFocus();
-        }
-        else if (jTextFieldValor.getText().equals("")|| valor < 1){
+        } else if (jTextFieldValor.getText().equals("") || valor < 1) {
             JOptionPane.showMessageDialog(null, "Informe o valor da conta!");
             jTextFieldValor.setText("");
             jTextFieldValor.grabFocus();
-        }
-        else if (!rdata.dataValida(jFormattedTextFieldDataVencimento.getText())){
+        } else if (!rdata.dataValida(jFormattedTextFieldDataVencimento.getText())) {
             JOptionPane.showMessageDialog(null, "Informe uma data válida!");
             jFormattedTextFieldDataVencimento.grabFocus();
-        }
-        else{
+        } else {
             carregarConta();
-            
-            if (rotina == Rotinas.incluir){
+
+            if (rotina == Rotinas.incluir) {
                 contas.incluir(contas, false);
                 JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
                 jTextFieldCdConta.setText(contas.getCdConta().toString());
@@ -660,21 +684,17 @@ public class CadastroContas extends javax.swing.JFrame {
                 consulta.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
                 consulta.setVisible(true);
                 consulta.exibirParcelas();
-            }
-            
-            else if (rotina == Rotinas.alterar){
-                if (jTextFieldCdConta.getText().equals("")){
+            } else if (rotina == Rotinas.alterar) {
+                if (jTextFieldCdConta.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "É preciso informar o código da conta que deseja alterar!");
                     jTextFieldCdConta.grabFocus();
-                }
-                else{
-                    try{
+                } else {
+                    try {
                         contas.setCdConta(Integer.parseInt(jTextFieldCdConta.getText()));
                         contas.alterar(contas);
                         JOptionPane.showMessageDialog(null, "Conta alterada com sucesso!");
-                    }
-                    catch(NumberFormatException ex){
-                        
+                    } catch (NumberFormatException ex) {
+
                     }
                 }
             }
@@ -684,16 +704,15 @@ public class CadastroContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtGravarActionPerformed
 
     private void jTextFieldValorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldValorFocusLost
-        try{
-            valor = Double.parseDouble(jTextFieldValor.getText().replace(".", "").replace(",", "."));    
-        }
-        catch(NumberFormatException ex){
+        try {
+            valor = Double.parseDouble(jTextFieldValor.getText().replace(".", "").replace(",", "."));
+        } catch (NumberFormatException ex) {
             valor = 0;
         }
     }//GEN-LAST:event_jTextFieldValorFocusLost
 
     private void jFormattedTextFieldDataVencimentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDataVencimentoKeyTyped
-  
+
     }//GEN-LAST:event_jFormattedTextFieldDataVencimentoKeyTyped
 
     private void jTextFieldCdFormaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdFormaFocusLost
@@ -709,7 +728,7 @@ public class CadastroContas extends javax.swing.JFrame {
                     jTextFieldCdForma.grabFocus();
                 } else {
                     jTextFieldFormaPgto.setText(contas.getForma().getDsForma());
-                    jFormattedTextFieldDataVencimento.setText(rdata.retornaSomaData("", 
+                    jFormattedTextFieldDataVencimento.setText(rdata.retornaSomaData("",
                             contas.getForma().getIntervalo() * contas.getForma().getQtParcelas()));
                 }
             } catch (NumberFormatException ex) {
@@ -728,7 +747,7 @@ public class CadastroContas extends javax.swing.JFrame {
             int cd = Integer.parseInt(jTableContas.getValueAt(linha, 0).toString());
             contas.setCdConta(cd);
             contas.retornaConta(contas, true);
-            
+
             preencherCampos();
             jTabbedPaneConta.setSelectedIndex(0);
 
@@ -738,18 +757,16 @@ public class CadastroContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCarregarDadosActionPerformed
 
     private void jTextFieldCdContaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdContaFocusLost
-        if (!jTextFieldCdConta.getText().equals("")){
-            try{
+        if (!jTextFieldCdConta.getText().equals("")) {
+            try {
                 contas.setCdConta(Integer.parseInt(jTextFieldCdConta.getText()));
                 contas.retornaConta(contas, true);
-                if(contas.getDsConta().equals("")){
+                if (contas.getDsConta().equals("")) {
                     jBtCancelarActionPerformed(null);
-                }
-                else{
+                } else {
                     preencherCampos();
                 }
-            }
-            catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
                 jBtCancelarActionPerformed(null);
             }
@@ -764,14 +781,36 @@ public class CadastroContas extends javax.swing.JFrame {
                 String data = jTableParcelas.getValueAt(linha, 5).toString();
                 if (valor.equals("0.00") || data.equals("")) {
                     jMenuItemPagarParcela.setEnabled(true);
+                    jMenuItemExtornarParcela.setEnabled(false);
                 } else {
                     jMenuItemPagarParcela.setEnabled(false);
+                    jMenuItemExtornarParcela.setEnabled(true);
                 }
             } catch (NullPointerException ex) {
                 jMenuItemPagarParcela.setEnabled(true);
+                jMenuItemExtornarParcela.setEnabled(false);
             }
         }
     }//GEN-LAST:event_jPopupMenuPagarParcelaPopupMenuWillBecomeVisible
+
+    private void jMenuItemExtornarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExtornarParcelaActionPerformed
+        int linha = jTableParcelas.getSelectedRow();
+        int linhaConta = jTableContas.getSelectedRow();
+        int opcao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja extornar esta parcela ?",
+                "Extornar Parcela", JOptionPane.YES_NO_OPTION);
+        if (opcao == JOptionPane.YES_OPTION) {
+            Parcelas p = new Parcelas();
+            p.getContas().setCdConta(Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString()));
+            p.getContas().setTpConta(jTableContas.getValueAt(linhaConta, 7).toString());
+            p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
+            p.extornarParcela(p);
+
+            JOptionPane.showMessageDialog(null, "Parcela extornada com sucesso!");
+
+            jButtonPesquisarActionPerformed(null);
+            jTableContasMouseClicked(null);
+        }
+    }//GEN-LAST:event_jMenuItemExtornarParcelaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -832,6 +871,7 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItemCarregarDados;
+    private javax.swing.JMenuItem jMenuItemExtornarParcela;
     private javax.swing.JMenuItem jMenuItemPagarParcela;
     private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelCadastro;
@@ -853,28 +893,27 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarConta(){
+    public void carregarConta() {
         contas.setDsConta(jTextFieldDescrição.getText().toUpperCase());
         contas.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
         contas.setVlConta(valor);
         contas.setDtPagamento(jFormattedTextFieldDataVencimento.getText());
-        if (jRadioButtonAPagar.isSelected()){
+        if (jRadioButtonAPagar.isSelected()) {
             contas.setTpConta("P");
-        }
-        else{
+        } else {
             contas.setTpConta("R");
         }
-        switch (jComboBoxSituacao.getSelectedIndex()){
-            case 0 :
+        switch (jComboBoxSituacao.getSelectedIndex()) {
+            case 0:
                 contas.setPago("N");
-            break;
-                
+                break;
+
             default:
                 contas.setPago("S");
         }
     }
-    
-    public void preencherCampos(){
+
+    public void preencherCampos() {
         jTextFieldCdConta.setText(contas.getCdConta().toString());
         jTextFieldDescrição.setText(contas.getDsConta());
         jTextFieldCdForma.setText(contas.getForma().getCdForma().toString());
@@ -883,10 +922,9 @@ public class CadastroContas extends javax.swing.JFrame {
         jFormattedTextFieldDataPagamento.setText(contas.getDtPagamento());
         valor = contas.getVlConta();
         jTextFieldValor.setText(decimal.retornaDecimal(contas.getVlConta(), 6));
-        if (contas.getTpConta().equals("A PAGAR")){
+        if (contas.getTpConta().equals("A PAGAR")) {
             jRadioButtonAPagar.setSelected(true);
-        }
-        else{
+        } else {
             jRadioButtonAReceber.setSelected(true);
         }
         jComboBoxSituacao.setSelectedItem(contas.getPago());

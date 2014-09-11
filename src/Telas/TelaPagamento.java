@@ -355,13 +355,14 @@ public class TelaPagamento extends javax.swing.JFrame {
                     .addGroup(jPanelPagamentoLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldCdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtPesquisaPessoa)
-                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jRadioButtonCliente)
-                                .addComponent(jRadioButtonFornecedor))))
+                                .addComponent(jRadioButtonFornecedor))
+                            .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldCdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtPesquisaPessoa)
+                                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -586,7 +587,12 @@ public class TelaPagamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione uma operação");
         } else {
             carregarPagamento();
-            carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
+            try{
+                carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
+            }
+            catch(NumberFormatException ex){
+                
+            }
 //            jTextFieldCdPagamento.setText(pagamento.getCdPagamento().toString());
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
@@ -977,7 +983,11 @@ public class TelaPagamento extends javax.swing.JFrame {
     public void carregarPagamento() {
 
         int linhas = jTableParcelas.getRowCount();
-
+        int row = jTableContas.getSelectedRow();
+        if (row < 0){
+            row = 0;
+        }
+        pagamento.getParcelas().getContas().setTpConta(jTableContas.getValueAt(row, 8).toString());
         pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldCdAgencia.getText()));
         pagamento.getTipo().setCdTipo(Integer.parseInt(jTextFieldCdTipo.getText()));
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().

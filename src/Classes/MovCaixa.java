@@ -4,6 +4,7 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -207,6 +208,21 @@ public class MovCaixa {
                 + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
+    }
+    
+    public void retornaMov(MovCaixa mov){
+        String sql = "SELECT * FROM MOV_CAIXA WHERE "
+                + "CD_CONTA = "+mov.getParcelas().getContas().getCdConta()+" "
+                + "AND NR_PARCELA = "+mov.getParcelas().getNrParcela();
+        conexao.executeSQL(sql);
+        try{
+            conexao.resultset.first();
+            mov.getAgc().setCdAgcConta(conexao.resultset.getInt("CD_AGENCIA_CONTA"));
+            mov.setValorMov(conexao.resultset.getDouble("VALOR_MOV"));
+        }
+        catch(SQLException ex){
+            mov.getAgc().setCdAgcConta(0);
+        }
     }
 
 // getter e setter

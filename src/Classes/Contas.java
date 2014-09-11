@@ -70,19 +70,35 @@ public class Contas {
 
     public void alterar(Contas contas) {
         String sql;
-        if (contas.getDtPagamento().equals("")) {
-            sql = "UPDATE CONTAS_PAGAR_RECEBER SET CD_FORMA = '" + contas.getCdConta() + "', "
+        switch (contas.getDtPagamento()){
+            case "":
+                sql = "UPDATE CONTAS_PAGAR_RECEBER SET CD_FORMA = '" + contas.getForma().getCdForma() + "', "
                     + "DS_CONTA = '" + contas.getDsConta() + "', TIPO_CONTA = '" + contas.getTpConta() + "', "
                     + "VL_CONTA = '" + contas.getVlConta() + "', DT_VENCIMENTO = '" + contas.getDtVencimento() + "' "
                     + "WHERE CD_CONTA = " + contas.getCdConta();
-        } else {
-            sql = "UPDATE CONTAS_PAGAR_RECEBER SET CD_FORMA = '" + contas.getCdConta() + "', "
+            break;
+                
+            case "NULL":
+                sql = "UPDATE CONTAS_PAGAR_RECEBER SET DT_PAGAMENTO = "+null+", PAGO = 'N' "
+                    + "WHERE CD_CONTA = "+contas.getCdConta();
+            break;
+            
+            default:
+                sql = "UPDATE CONTAS_PAGAR_RECEBER SET CD_FORMA = '" + contas.getCdConta() + "', "
                     + "DS_CONTA = '" + contas.getDsConta() + "', TIPO_CONTA = '" + contas.getTpConta() + "', "
                     + "VL_CONTA = '" + contas.getVlConta() + "', DT_VENCIMENTO = '" + contas.getDtVencimento() + "', "
                     + "DT_PAGAMENTO = '" + contas.getDtPagamento() + "', PAGO = '" + contas.getPago() + "' "
                     + "WHERE CD_CONTA = " + contas.getCdConta();
         }
         conexao.atualizarSQL(sql);
+    }
+    
+    public void excluir(Contas contas){
+        Parcelas p = new Parcelas();
+        p.setContas(contas);
+        p.excluir(p);
+        String sql = "DELETE FROM CONTAS_PAGAR_RECEBER WHERE CD_CONTA = "+contas.getCdConta();
+        conexao.deleteSQL(sql);
     }
 
     public void pagarConta(Contas contas) {
@@ -285,6 +301,27 @@ public class Contas {
             cd = 0;
         }
         return cd;
+    }
+    
+    public boolean permiteExclusao(Contas contas){
+        boolean permitido = true;
+        ResultSet retorno = consultarCdConta(contas, false); // irá pesquisar as contas ainda não pagas
+        try{
+            retorno.first();
+            Parcelas p = new Parcelas();
+            
+            ResultSet parcelas = p.consultarCdConta(contas);
+            while (parcelas.next()){
+                p.setVlPago(parcelas.getDouble("VL_PAGO"));
+                if (p.getVlPago() > 0){
+                    permitido = false;
+                }
+            }
+        }
+        catch(SQLException ex){
+            permitido = false;
+        }
+        return permitido;
     }
 
     // getter e setter

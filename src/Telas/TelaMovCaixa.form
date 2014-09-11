@@ -99,7 +99,7 @@
               <Table columnCount="14" rowCount="0">
                 <Column editable="false" title="Cd Mov" type="java.lang.Object"/>
                 <Column editable="false" title="C&#xf3;d." type="java.lang.Object"/>
-                <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
+                <Column editable="false" title="Agc Conta" type="java.lang.Object"/>
                 <Column editable="false" title="C&#xf3;d." type="java.lang.Object"/>
                 <Column editable="false" title="Opera&#xe7;&#xe3;o" type="java.lang.Object"/>
                 <Column editable="false" title="C&#xf3;d." type="java.lang.Object"/>

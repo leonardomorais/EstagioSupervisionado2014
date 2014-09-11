@@ -57,7 +57,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cd Mov", "Cód.", "Descrição", "Cód.", "Operação", "Cód.", "Conta", "Parcela", "Saldo Anterior", "Saldo Final", "Data", "Valor", "Observação", "Tipo"
+                "Cd Mov", "Cód.", "Agc Conta", "Cód.", "Operação", "Cód.", "Conta", "Parcela", "Saldo Anterior", "Saldo Final", "Data", "Valor", "Observação", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {

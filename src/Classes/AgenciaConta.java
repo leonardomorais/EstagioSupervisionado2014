@@ -118,7 +118,8 @@ public class AgenciaConta {
     public void retornaComboAgcConta(JComboBox combo, AgenciaConta agc) {
         String sql = "SELECT A.CD_AGENCIA_CONTA, A.DS_CONTA, B.NM_BANCO "
                 + "FROM AGENCIA_CONTA A INNER JOIN BANCO B ON "
-                + "A.CD_BANCO = B.CD_BANCO AND A.IN_ATIVO = 'A'";
+                + "A.CD_BANCO = B.CD_BANCO AND A.IN_ATIVO = 'A' "
+                + "ORDER BY A.CD_AGENCIA_CONTA";
         conexao.executeSQL(sql);
 
         combo.removeAllItems();

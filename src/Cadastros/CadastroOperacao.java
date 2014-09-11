@@ -608,7 +608,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
                 operacao.setMovFinanceiro("S");
             }
             else{
-                operacao.setMovFinanceiro("F");
+                operacao.setMovFinanceiro("N");
             }
     }
     
