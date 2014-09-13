@@ -15,20 +15,18 @@ public class ValidaCampos {
             evt.consume();
         }
     }
+    
+    public void validaCamposReais(KeyEvent evt){
+        String caracteres = "0987654321.";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
 
     public void validaCamposLimite(KeyEvent evt, JTextField field, int max) {
         String campo = field.getText();
         if (campo.length() >= max) {
             evt.consume();
         }
-    }
-    
-    public boolean StringVazia(String campo){
-        String valores = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0987654321";
-        
-        boolean achou = false;
-        
-        
-        return true;
     }
 }

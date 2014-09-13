@@ -57,6 +57,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jPopupMenuPagarParcela = new javax.swing.JPopupMenu();
         jMenuItemPagarParcela = new javax.swing.JMenuItem();
         jMenuItemExtornarParcela = new javax.swing.JMenuItem();
+        jMenuItemExcluirParcela = new javax.swing.JMenuItem();
         jPopupMenuContas = new javax.swing.JPopupMenu();
         jMenuItemCarregarDados = new javax.swing.JMenuItem();
         jTabbedPaneConta = new javax.swing.JTabbedPane();
@@ -124,6 +125,14 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
         jPopupMenuPagarParcela.add(jMenuItemExtornarParcela);
+
+        jMenuItemExcluirParcela.setText("Excluir Parcela");
+        jMenuItemExcluirParcela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExcluirParcelaActionPerformed(evt);
+            }
+        });
+        jPopupMenuPagarParcela.add(jMenuItemExcluirParcela);
 
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
@@ -572,19 +581,19 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void jMenuItemPagarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagarParcelaActionPerformed
         int linha = jTableParcelas.getSelectedRow();
-        int cdConta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
-        int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString());
-        TelaPagamento tela = new TelaPagamento();
-        tela.setVisible(true);
-        tela.carregarConta(cdConta, parcela);
+        if (linha >= 0) {
+            final int cdConta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
+            int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString());
+            TelaPagamento tela = new TelaPagamento();
+            tela.setVisible(true);
+            tela.carregarConta(cdConta, parcela);
 
-        tela.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                jButtonPesquisarActionPerformed(null);
-                jTableContasMouseClicked(null);
-            }
-        });
-
+            tela.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowClosed(java.awt.event.WindowEvent evt) {
+                    atualizaJtable(cdConta);
+                }
+            });
+        }
     }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
@@ -782,12 +791,15 @@ public class CadastroContas extends javax.swing.JFrame {
                 if (valor.equals("0.00") || data.equals("")) {
                     jMenuItemPagarParcela.setEnabled(true);
                     jMenuItemExtornarParcela.setEnabled(false);
+                    jMenuItemExcluirParcela.setEnabled(itemExcluirAtivo());
                 } else {
                     jMenuItemPagarParcela.setEnabled(false);
+                    jMenuItemExcluirParcela.setEnabled(false);
                     jMenuItemExtornarParcela.setEnabled(true);
                 }
             } catch (NullPointerException ex) {
                 jMenuItemPagarParcela.setEnabled(true);
+                jMenuItemExcluirParcela.setEnabled(itemExcluirAtivo());
                 jMenuItemExtornarParcela.setEnabled(false);
             }
         }
@@ -795,22 +807,85 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void jMenuItemExtornarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExtornarParcelaActionPerformed
         int linha = jTableParcelas.getSelectedRow();
-        int linhaConta = jTableContas.getSelectedRow();
-        int opcao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja extornar esta parcela ?",
-                "Extornar Parcela", JOptionPane.YES_NO_OPTION);
-        if (opcao == JOptionPane.YES_OPTION) {
-            Parcelas p = new Parcelas();
-            p.getContas().setCdConta(Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString()));
-            p.getContas().setTpConta(jTableContas.getValueAt(linhaConta, 7).toString());
-            p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
-            p.extornarParcela(p);
+        if (linha >= 0) {
 
-            JOptionPane.showMessageDialog(null, "Parcela extornada com sucesso!");
+            int linhaConta = jTableContas.getSelectedRow();
+            if (linhaConta < 0) {
+                linhaConta = 0;
+            }
+            int opcao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja extornar esta parcela ?",
+                    "Extornar Parcela", JOptionPane.YES_NO_OPTION);
+            if (opcao == JOptionPane.YES_OPTION) {
+                int conta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
+                Parcelas p = new Parcelas();
+                p.getContas().setCdConta(conta);
+                p.getContas().setTpConta(jTableContas.getValueAt(linhaConta, 7).toString());
+                p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
+                p.extornarParcela(p);
 
-            jButtonPesquisarActionPerformed(null);
-            jTableContasMouseClicked(null);
+                JOptionPane.showMessageDialog(null, "Parcela extornada com sucesso!");
+                atualizaJtable(conta);
+            }
         }
     }//GEN-LAST:event_jMenuItemExtornarParcelaActionPerformed
+
+    private void jMenuItemExcluirParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExcluirParcelaActionPerformed
+        if (jTableParcelas.getSelectedRow() >= 0) {
+
+            int opcao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esta parcela ?\n"
+                    + "O valor desta parcela será adicionado nas parcelas ainda não pagas!", "Excluir Parcela",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (opcao == JOptionPane.YES_OPTION) {
+                int linha = jTableParcelas.getSelectedRow();
+
+                int conta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
+                int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString());
+                double vl = Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString());
+
+                Parcelas p = new Parcelas();
+                p.getContas().setCdConta(conta);
+                p.setNrParcela(parcela);
+                if (p.permiteExclusao(p)){
+                    p.excluir(p);
+                // 
+                atualizaJtable(conta);
+
+                int parc = 0;
+                for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
+                    // conta quantas parcela ainda não estão pagas
+                    try {
+                        String pago = jTableParcelas.getValueAt(i, 4).toString();
+                        String dtPago = jTableParcelas.getValueAt(i, 5).toString();
+                        if (pago.equals("0.00") || dtPago.equals("")) {
+                            parc = parc + 1;
+                        }
+                    } catch (NullPointerException ex) {
+                        parc = parc + 1;
+                    }
+                }
+                double vlParcela = (double) vl / parc;
+                // percorre novamente as parcelas e altera o valor das que não estão pagas
+                for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
+                    String pago = jTableParcelas.getValueAt(i, 4).toString();
+                    if (pago.equals("0.00")) {
+                        p.getContas().setCdConta(conta);
+                        p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()));
+                        p.retornaParcela(p);
+                        p.setVlParcela(p.getVlParcela() + vlParcela);
+                        p.setDtVencimento(jTableParcelas.getValueAt(i, 3).toString());
+                        p.alterar(p);
+                    }
+                }
+                atualizaJtable(conta);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Esta parcela não pode ser excluída, "
+                            + "pois a mesma já possui pagamento e/ou movimentação no caixa!");
+                }
+            }
+        }
+    }//GEN-LAST:event_jMenuItemExcluirParcelaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -871,6 +946,7 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItemCarregarDados;
+    private javax.swing.JMenuItem jMenuItemExcluirParcela;
     private javax.swing.JMenuItem jMenuItemExtornarParcela;
     private javax.swing.JMenuItem jMenuItemPagarParcela;
     private javax.swing.JPanel jPanelBotoes;
@@ -936,4 +1012,39 @@ public class CadastroContas extends javax.swing.JFrame {
 //        }
     }
 
+    private boolean itemExcluirAtivo() {
+        boolean ativo = false;
+        int linha = jTableParcelas.getSelectedRow();
+        for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
+            if (i != linha) {
+                try {
+                    String valor = jTableParcelas.getValueAt(i, 4).toString();
+                    String data = jTableParcelas.getValueAt(i, 5).toString();
+                    if (valor.equals("0.00") || data.equals("")) {
+                        ativo = false;
+                    }
+                } catch (NullPointerException ex) {
+                    ativo = true;
+                }
+            }
+        }
+        return ativo;
+    }
+
+    private void atualizaJtable(int conta) {
+        PreencherTabela preencher = new PreencherTabela();
+        preencher.FormatarJtable(jTableContas, new int[]{70, 140, 80, 100, 70, 90, 70, 70, 70});
+        contas.setCdConta(conta);
+        preencher.PreencherJtableGenerico(jTableContas, contas.consultarCdConta(contas, true));
+
+        Parcelas parcelas = new Parcelas();
+        preencher.FormatarJtable(jTableParcelas, new int[]{100, 100, 100, 100, 100, 100});
+
+        preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(contas));
+    }
+
+    public void exibirConta(int conta){
+        jTabbedPaneConta.setSelectedIndex(1);
+        atualizaJtable(conta);
+    }
 }

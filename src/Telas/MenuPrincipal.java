@@ -74,6 +74,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemVenda = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExibirAtendimentos = new javax.swing.JMenuItem();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemExibirMovEstoque = new javax.swing.JMenuItem();
         jMenuFinanceiro = new javax.swing.JMenu();
         jMenuItemBancos = new javax.swing.JMenuItem();
         jMenuItemAgencia = new javax.swing.JMenuItem();
@@ -231,6 +233,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuServicos.add(jMenuItemExibirAtendimentos);
+        jMenuServicos.add(jSeparator7);
+
+        jMenuItemExibirMovEstoque.setText("Exibir Movimentação de Estoque");
+        jMenuItemExibirMovEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExibirMovEstoqueActionPerformed(evt);
+            }
+        });
+        jMenuServicos.add(jMenuItemExibirMovEstoque);
 
         jMenuBarPrincipal.add(jMenuServicos);
 
@@ -399,6 +410,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
        mov.setVisible(true);
     }//GEN-LAST:event_jMenuItemMovCaixaActionPerformed
 
+    private void jMenuItemExibirMovEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirMovEstoqueActionPerformed
+        TelaMovEstoque movEstoque = new TelaMovEstoque();
+        movEstoque.setVisible(true);
+    }//GEN-LAST:event_jMenuItemExibirMovEstoqueActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -456,6 +472,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadTipo;
     private javax.swing.JMenuItem jMenuItemContas;
     private javax.swing.JMenuItem jMenuItemExibirAtendimentos;
+    private javax.swing.JMenuItem jMenuItemExibirMovEstoque;
     private javax.swing.JMenuItem jMenuItemMovCaixa;
     private javax.swing.JMenuItem jMenuItemPagamento;
     private javax.swing.JMenuItem jMenuItemVenda;
@@ -467,6 +484,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     // End of variables declaration//GEN-END:variables
 
     public void carregaImagem() {
@@ -474,7 +492,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         String caminho = "src\\Extras\\Imagens\\";
 
-        int nr = aleatorio.nextInt(6);
+        int nr = aleatorio.nextInt(5);
         
         ImageIcon img = new ImageIcon(caminho + nr + ".jpg");
         

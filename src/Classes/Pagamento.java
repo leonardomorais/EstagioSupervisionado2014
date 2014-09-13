@@ -29,6 +29,13 @@ public class Pagamento {
                 + pagamento.getAgc().getCdAgcConta() + "')";
         conexao.incluirSQL(sql);
     }
+    
+    public void excluir(Pagamento pagamento){
+        String sql = "DELETE FROM PAGAMENTO WHERE CD_CONTA = "
+                +pagamento.getParcelas().getContas().getCdConta()+" AND "
+                + "NR_PARCELA = "+pagamento.getParcelas().getNrParcela();
+        conexao.deleteSQL(sql);
+    }
 
     public ResultSet consultarGeral() {
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, PAG.NR_PARCELA, P.VL_PAGO, "
@@ -88,17 +95,23 @@ public class Pagamento {
         MovCaixa mov = new MovCaixa();
         mov.getOperacao().setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getCdOperacao());
         mov.getOperacao().retornaOperacao(mov.getOperacao());
+        pagamento.getAgc().retornaAgenciaConta(pagamento.getAgc());
         mov.setParcelas(pagamento.getParcelas());
         mov.setAgc(pagamento.getAgc());
         mov.setValorMov(getParcelas().getVlPago());
         mov.setSaldoAnterior(getAgc().getVlConta());
         mov.setDataMov(getParcelas().getDtPago());
+        
         if (mov.getParcelas().getContas().getTpConta().equals("A PAGAR")){
             mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
         }
         else{
             mov.setSaldoFinal(mov.getSaldoAnterior() + mov.getValorMov());
         }
+        // atualiza a conta
+        mov.getAgc().setVlConta(mov.getSaldoFinal());
+        mov.getAgc().atualizarValorConta(mov.getAgc());
+        //
         mov.setObservacao("PAGAMENTO DA CONTA "+mov.getParcelas().getContas().getCdConta()+
                 " PARCELA "+mov.getParcelas().getNrParcela());
         mov.incluir(mov, true);

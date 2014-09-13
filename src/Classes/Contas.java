@@ -96,7 +96,7 @@ public class Contas {
     public void excluir(Contas contas){
         Parcelas p = new Parcelas();
         p.setContas(contas);
-        p.excluir(p);
+        p.excluirTodas(p);
         String sql = "DELETE FROM CONTAS_PAGAR_RECEBER WHERE CD_CONTA = "+contas.getCdConta();
         conexao.deleteSQL(sql);
     }

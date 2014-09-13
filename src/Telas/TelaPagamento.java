@@ -14,6 +14,7 @@ import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
+import Validacoes.ValidaCampos;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -600,7 +601,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                     pagamento.getParcelas().getContas().setCdConta(conta);
                     carregarTabelaContas();
                 }
-                catch(NumberFormatException e){
+                catch(Exception e){
                     conta = Integer.parseInt(jTableContas.getValueAt(0, 0).toString());
                     pagamento.getParcelas().getContas().setCdConta(conta);
                     carregarTabelaContas();
@@ -644,6 +645,10 @@ public class TelaPagamento extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Informe um valor válido!");
                     jTableParcelas.setValueAt("0.00", linha, coluna);
                 }
+            }
+            else{
+                ValidaCampos campos = new ValidaCampos();
+                campos.validaCamposReais(evt);
             }
         }
     }//GEN-LAST:event_jTableParcelasKeyTyped
@@ -935,8 +940,9 @@ public class TelaPagamento extends javax.swing.JFrame {
 //        pagamento.getParcelas().retornaParcela(pagamento.getParcelas());
 
         jBtNovoActionPerformed(null);
+        int linha = retornaLinha(parcela);
 
-        jTableParcelas.setValueAt(true, parcela - 1, 0);
+        jTableParcelas.setValueAt(true, linha, 0);
         int op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
         if (op > 0) {
             jTextFieldcdOperacao.setText("" + op);
@@ -1000,13 +1006,14 @@ public class TelaPagamento extends javax.swing.JFrame {
         if (row < 0){
             row = 0;
         }
-        pagamento.getParcelas().getContas().setTpConta(jTableContas.getValueAt(row, 8).toString());
+        // preenche as informações do pagamento 
+        pagamento.getParcelas().getContas().setTpConta(jTableContas.getValueAt(row, 8).toString());//se é A PAGAR ou RECEBER
         pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldCdAgencia.getText()));
         pagamento.getTipo().setCdTipo(Integer.parseInt(jTextFieldCdTipo.getText()));
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
                 setCdOperacao(Integer.parseInt(jTextFieldcdOperacao.getText()));
 
-        double total = 0;
+        // percorre as parcelas
         for (int i = 0; i < linhas; i++) {
             if ((boolean) jTableParcelas.getValueAt(i, 0)) {
                 double vlPago;
@@ -1031,10 +1038,10 @@ public class TelaPagamento extends javax.swing.JFrame {
                 pagamento.getParcelas().setVlPago(vlPago);
                 pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()));
                 pagamento.getParcelas().pagarParcela(pagamento.getParcelas());
-                // soma o total para atualizar a agenciaConta
-                total = total + vlPago;
+                
                 // grava o pagamento
                 pagamento.incluir(pagamento);
+                
                 // grava movimentação de caixa
                 if (pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getMovFinanceiro().equals("SIM")) {
                     pagamento.gravarMovCaixa(pagamento);
@@ -1043,22 +1050,11 @@ public class TelaPagamento extends javax.swing.JFrame {
             }
         }
         preencheTabela();
-        atualizarAgenciaConta(total);
     }
 
     public void gerarNovaParcela(double valor) {
         pagamento.getParcelas().setVlParcela(valor);
         pagamento.getParcelas().gerarParcela(pagamento.getParcelas());
-    }
-
-    public void atualizarAgenciaConta(double valor) {
-        double vlAnterior = pagamento.getAgc().getVlConta();
-        if (pagamento.getParcelas().getContas().getTpConta().equals("A PAGAR")) {
-            pagamento.getAgc().setVlConta(vlAnterior - valor);
-        } else {
-            pagamento.getAgc().setVlConta(vlAnterior + valor);
-        }
-        pagamento.getAgc().atualizarValorConta(pagamento.getAgc());
     }
 
     public void retornaFornecedor(int cd) {
@@ -1089,5 +1085,15 @@ public class TelaPagamento extends javax.swing.JFrame {
             jTextFieldNome.setText(pagamento.getParcelas().getContas().getVendaCompra().getCliente().getPessoa().getNome());
             carregaTabelaContas(cd);
         }
+    }
+    
+    public int retornaLinha(int parcela){
+        int row = 0;
+        for (int i = 0; i < jTableParcelas.getRowCount(); i++){
+            if (Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()) == parcela){
+                row = i;
+            }
+        }
+        return row;
     }
 }

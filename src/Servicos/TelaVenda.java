@@ -1,5 +1,6 @@
 package Servicos;
 
+import Cadastros.CadastroContas;
 import Classes.AtendimentoMesa;
 import Classes.Contas;
 import Classes.MovEstoque;
@@ -63,6 +64,10 @@ public class TelaVenda extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupTipo = new javax.swing.ButtonGroup();
+        jPopupMenuVendaCompra = new javax.swing.JPopupMenu();
+        jMenuItemCarregarDados = new javax.swing.JMenuItem();
+        jPopupMenuConta = new javax.swing.JPopupMenu();
+        jMenuItemExibirParcelas = new javax.swing.JMenuItem();
         jTabbedPaneVendaCompra = new javax.swing.JTabbedPane();
         jPanelGravar = new javax.swing.JPanel();
         jTextFieldCdVendaCompra = new javax.swing.JTextField();
@@ -122,6 +127,22 @@ public class TelaVenda extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox();
         jTextFieldConsulta = new javax.swing.JTextField();
+
+        jMenuItemCarregarDados.setText("Carregar Dados");
+        jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCarregarDadosActionPerformed(evt);
+            }
+        });
+        jPopupMenuVendaCompra.add(jMenuItemCarregarDados);
+
+        jMenuItemExibirParcelas.setText("Exibir Parcelas");
+        jMenuItemExibirParcelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExibirParcelasActionPerformed(evt);
+            }
+        });
+        jPopupMenuConta.add(jMenuItemExibirParcelas);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Venda/Compra");
@@ -541,6 +562,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableVendaCompra.setComponentPopupMenu(jPopupMenuVendaCompra);
         jTableVendaCompra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableVendaCompraMouseClicked(evt);
@@ -577,6 +599,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableConta.setComponentPopupMenu(jPopupMenuConta);
         jScrollPane3.setViewportView(jTableConta);
 
         jTableProdutosVenda.setModel(new javax.swing.table.DefaultTableModel(
@@ -785,37 +808,7 @@ public class TelaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCdClienteFocusLost
 
     private void jTextFieldNrAtendimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNrAtendimentoFocusLost
-//        if (!jTextFieldNrAtendimento.getText().equals("")) {
-//            if (jRadioButtonCompra.isSelected()) {
-//                JOptionPane.showMessageDialog(null, "Não é possível adicionar um atendimento em uma compra de produtos!");
-//                jTextFieldNrAtendimento.setText("");
-//                jTextFieldVlAtendimento.setText("");
-//                preencherTotal();
-//            } else {
-//                try {
-//                    venda.getVendaAtendimento().getAtendimento().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-//                    venda.getVendaAtendimento().getAtendimento().retornaAtendimento(venda.getVendaAtendimento().getAtendimento());
-//
-//                    if (venda.getVendaAtendimento().getAtendimento().getNrAtendimento() == 0) {
-//                        JOptionPane.showMessageDialog(null, "Atendimento não encontrado!");
-//                        jTextFieldNrAtendimento.setText("");
-//                        jTextFieldVlAtendimento.setText("");
-//                        jTextFieldNrAtendimento.grabFocus();
-//                    } else {
-//                        jTextFieldVlAtendimento.setText(decimal.
-//                                retornaDecimal(venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
-//                        jTextFieldTotal.setText(decimal.
-//                                retornaDecimal(venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
-//                    }
-//                } catch (NumberFormatException ex) {
-//                    JOptionPane.showMessageDialog(null, "Informe um número de atendimento para pesquisar!");
-//                    jTextFieldNrAtendimento.setText("");
-//                    jTextFieldVlAtendimento.setText("");
-//                    jTextFieldNrAtendimento.grabFocus();
-//                    preencherTotal();
-//                }
-//            }
-//        }
+
     }//GEN-LAST:event_jTextFieldNrAtendimentoFocusLost
 
     private void jTextFieldCdFormaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdFormaFocusLost
@@ -1168,6 +1161,28 @@ public class TelaVenda extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
+    private void jMenuItemCarregarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarregarDadosActionPerformed
+        int linha = jTableVendaCompra.getSelectedRow();
+        if (linha >= 0){
+            String cd = jTableVendaCompra.getValueAt(linha, 0).toString();
+            jBtIncluirActionPerformed(evt);
+            jTextFieldCdVendaCompra.setText(cd);
+            jTextFieldCdVendaCompraFocusLost(null);
+            jTabbedPaneVendaCompra.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jMenuItemCarregarDadosActionPerformed
+
+    private void jMenuItemExibirParcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirParcelasActionPerformed
+        int linha = jTableConta.getSelectedRow();
+        if (linha >=0){
+            int cd = Integer.parseInt(jTableConta.getValueAt(linha, 0).toString());
+        CadastroContas cadConta = new CadastroContas();
+        cadConta.setVisible(true);
+        cadConta.exibirConta(cd);
+        }
+        
+    }//GEN-LAST:event_jMenuItemExibirParcelasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1233,8 +1248,12 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItemCarregarDados;
+    private javax.swing.JMenuItem jMenuItemExibirParcelas;
     private javax.swing.JPanel jPanelConsulta;
     private javax.swing.JPanel jPanelGravar;
+    private javax.swing.JPopupMenu jPopupMenuConta;
+    private javax.swing.JPopupMenu jPopupMenuVendaCompra;
     private javax.swing.JRadioButton jRadioButtonCompra;
     private javax.swing.JRadioButton jRadioButtonVenda;
     private javax.swing.JScrollPane jScrollPane1;
