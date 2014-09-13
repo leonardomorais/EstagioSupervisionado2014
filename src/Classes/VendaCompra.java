@@ -32,21 +32,26 @@ public class VendaCompra {
         RetornaSequencia seq = new RetornaSequencia();
         vendaC.setCdVendaCompra(seq.retornaSequencia("CD_VENDA_COMPRA", "VENDA_COMPRA"));
         String sql;
-        vendaC.getOperacao().retornaOperacao(vendaC.getOperacao());
-        if (vendaC.getOperacao().getTipo().equals("SAÍDA")) {
-            // se a operação for saída é uma venda
-            sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_CLIENTE, "
+        //vendaC.getOperacao().retornaOperacao(vendaC.getOperacao());
+        switch (vendaC.getOperacao().getDsOperacao()){
+            case "VENDA":
+                sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_CLIENTE, "
                     + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, PAGO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
-                    + vendaC.getOperacao().getCdOperacao() + "','" + vendaC.getCliente().getCdCliente() + "','"
+                    + vendaC .getOperacao().getCdOperacao() + "','" + vendaC.getCliente().getCdCliente() + "','"
                     + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','"
                     + vendaC.getPago() + "')";
-        } else {
-            // se a operação for entrada é uma compra
-            sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_FORNECEDOR, "
+            break;
+                
+            case "COMPRA":
+                sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_FORNECEDOR, "
                     + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, PAGO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
                     + vendaC.getOperacao().getCdOperacao() + "','" + vendaC.getFornecedor().getCdFornecedor() + "','"
                     + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','"
                     + vendaC.getPago() + "')";
+            break;
+            
+            default:
+               sql = "";   
         }
         conexao.incluirSQL(sql);
     }
@@ -54,9 +59,22 @@ public class VendaCompra {
     public void alterar(VendaCompra vendaC) {
     }
 
-    public void excluir(VendaCompra vendaC) {
-        String sql = "DELETE FROM VENDA_COMPRA WHERE CD_VENDA_COMPRA = " + vendaC.getCdVendaCompra();
-        conexao.deleteSQL(sql);
+    public void excluir(VendaCompra vc) {
+        Contas contas = new Contas();
+        contas.setVendaCompra(vc);
+        ResultSet retorno = contas.consultarCdVendaCompra(contas);
+        try{
+            retorno.first();
+            contas.setCdConta(retorno.getInt("CD_CONTA"));
+            contas.excluir(contas);
+            vc.getVcProdutos().setCdVendaCompra(vc.getCdVendaCompra());
+            vc.getVcProdutos().excluir(vc.getVcProdutos());
+//            String sql = "DELETE FROM VENDA_COMPRA WHERE CD_VENDA_COMPRA = " + vc.getCdVendaCompra();
+//            conexao.deleteSQL(sql);
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir esta venda/compra!");
+        }
     }
 
     public ResultSet consultarGeral() {
@@ -71,13 +89,15 @@ public class VendaCompra {
                 + "INNER JOIN FORNECEDOR F ON P.CD_PESSOA = F.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA SUB ON SUB.CD_FORNECEDOR = F.CD_PESSOA "
                 + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) END AS NOME , "
-                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
+                + "F.CD_FORMA, "
+                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY') AS DATA, "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
                 + "FROM VENDA_COMPRA VC "
                 + "LEFT JOIN VENDA_ATENDIMENTO_MESA VA "
                 + "ON VC.CD_VENDA_COMPRA = VA.CD_VENDA "
                 + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
+                + "INNER JOIN FORMA_PGTO F ON F.CD_FORMA = VC.CD_FORMA "
                 + "INNER JOIN PESSOA P ON P.CD_PESSOA = VC.CD_FORNECEDOR OR "
                 + "P.CD_PESSOA = VC.CD_CLIENTE "
                 + "ORDER BY VC.CD_VENDA_COMPRA";
@@ -97,6 +117,7 @@ public class VendaCompra {
                 + "INNER JOIN FORNECEDOR F ON P.CD_PESSOA = F.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA SUB ON SUB.CD_FORNECEDOR = F.CD_PESSOA "
                 + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) END AS NOME , "
+                + "F.CD_FORMA, "
                 + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY') AS DATA, "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
@@ -104,6 +125,7 @@ public class VendaCompra {
                 + "LEFT JOIN VENDA_ATENDIMENTO_MESA VA "
                 + "ON VC.CD_VENDA_COMPRA = VA.CD_VENDA "
                 + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
+                + "INNER JOIN FORMA_PGTO F ON F.CD_FORMA = VC.CD_FORMA "
                 + "INNER JOIN PESSOA P ON P.CD_PESSOA = VC.CD_FORNECEDOR OR "
                 + "P.CD_PESSOA = VC.CD_CLIENTE "
                 + "WHERE VC.CD_VENDA_COMPRA = " + vc.getCdVendaCompra();
@@ -113,6 +135,7 @@ public class VendaCompra {
 
     public ResultSet consultarCliente(VendaCompra vc) {
         String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, VC.CD_CLIENTE, P.NOME, "
+                + "F.CD_FORMA, "
                 + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
@@ -122,6 +145,7 @@ public class VendaCompra {
                 + "INNER JOIN CLIENTE C ON VC.CD_CLIENTE = C.CD_PESSOA "
                 + "INNER JOIN PESSOA P ON C.CD_PESSOA = P.CD_PESSOA "
                 + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
+                + "INNER JOIN FORMA_PGTO F ON VC.CD_FORMA = F.CD_FORMA "
                 + "WHERE P.NOME LIKE '%" + vc.getCliente().getPessoa().getNome() + "%' "
                 + "ORDER BY VC.CD_VENDA_COMPRA";
         conexao.executeSQL(sql);
@@ -130,20 +154,22 @@ public class VendaCompra {
 
     public ResultSet consultarFornecedor(VendaCompra vc) {
         String sql = "SELECT VC.CD_VENDA_COMPRA, 'SEM ATENDIMENTO' , VC.CD_FORNECEDOR, P.NOME, "
-                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
+                + "F.CD_FORMA, "
+                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'),"
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
                 + "FROM VENDA_COMPRA VC "
                 + "INNER JOIN FORNECEDOR FN ON VC.CD_FORNECEDOR = FN.CD_PESSOA "
                 + "INNER JOIN PESSOA P ON FN.CD_PESSOA = P.CD_PESSOA "
                 + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
+                + "INNER JOIN FORMA_PGTO F ON VC.CD_FORMA = F.CD_FORMA "
                 + "WHERE P.NOME LIKE '%" + vc.getFornecedor().getPessoa().getNome() + "%' "
                 + "ORDER BY VC.CD_VENDA_COMPRA";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarPorTipo(String tipo) {
+    public ResultSet consultarPorTipo(VendaCompra vc) {
         String sql = "SELECT VC.CD_VENDA_COMPRA, VA.NR_ATENDIMENTO, P.CD_PESSOA, "
                 + "CASE WHEN VC.CD_FORNECEDOR IS NULL THEN "
                 + "(SELECT P.NOME FROM PESSOA P "
@@ -155,16 +181,18 @@ public class VendaCompra {
                 + "INNER JOIN FORNECEDOR F ON P.CD_PESSOA = F.CD_PESSOA "
                 + "INNER JOIN VENDA_COMPRA SUB ON SUB.CD_FORNECEDOR = F.CD_PESSOA "
                 + "WHERE SUB.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA) END AS NOME , "
-                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
+                + "F.CD_FORMA, "
+                + "TO_CHAR(VC.DT_VENDA_COMPRA,'DD/MM/YYYY') AS DATA, "
                 + "VC.VL_TOTAL, "
                 + "O.DS_OPERACAO "
                 + "FROM VENDA_COMPRA VC "
                 + "LEFT JOIN VENDA_ATENDIMENTO_MESA VA "
                 + "ON VC.CD_VENDA_COMPRA = VA.CD_VENDA "
                 + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
+                + "INNER JOIN FORMA_PGTO F ON F.CD_FORMA = VC.CD_FORMA "
                 + "INNER JOIN PESSOA P ON P.CD_PESSOA = VC.CD_FORNECEDOR OR "
                 + "P.CD_PESSOA = VC.CD_CLIENTE "
-                + "WHERE O.TIPO = '" + tipo + "' "
+                + "WHERE O.DS_OPERACAO = '" + vc.getOperacao().getDsOperacao() + "' "
                 + "ORDER BY VC.CD_VENDA_COMPRA";
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -185,17 +213,39 @@ public class VendaCompra {
 
     public void retornaVendaCompra(VendaCompra vc) {
         ResultSet retorno = consultarCdVendaCompra(vc);
-        try{
+        try {
             retorno.first();
             vc.setDtVenda(retorno.getString("DATA"));
             vc.setVlTotal(retorno.getDouble("VL_TOTAL"));
             vc.getCliente().getPessoa().setCdPessoa(retorno.getInt("CD_PESSOA"));
             vc.getCliente().getPessoa().setNome(retorno.getString("NOME"));
-        }
-        catch(SQLException ex){
+            vc.getOperacao().setDsOperacao(retorno.getString("DS_OPERACAO"));
+            vc.getForma().setCdForma(retorno.getInt("CD_FORMA"));
+            try {
+                vc.getVendaAtendimento().getAtendimento().setNrAtendimento(retorno.getInt("NR_ATENDIMENTO"));
+            } catch (SQLException ex) {
+                vc.getVendaAtendimento().getAtendimento().setNrAtendimento(0);
+            }
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Venda/Compra não encontrada!");
             vc.setCdVendaCompra(0);
         }
+    }
+    
+    public boolean permiteExclusao(VendaCompra vc){
+        boolean permitido = true;
+        Contas contas = new Contas();
+        contas.setVendaCompra(vc);
+        ResultSet retorno = contas.consultarCdVendaCompra(contas);
+        try{
+            retorno.first();
+            contas.setCdConta(retorno.getInt("CD_CONTA"));
+            permitido = contas.permiteExclusao(contas);
+        }
+        catch(SQLException ex){
+            
+        }
+        return permitido;
     }
     // getter e setter
 

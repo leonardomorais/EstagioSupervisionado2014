@@ -36,7 +36,7 @@ public class TelaVenda extends javax.swing.JFrame {
     int rotina;
     int linhasAtendimento = 0;
     String tipo;
-    
+
     RetornaData rdata = new RetornaData();
     RetornaDecimal decimal = new RetornaDecimal();
     LimparCampos limpar = new LimparCampos();
@@ -108,7 +108,7 @@ public class TelaVenda extends javax.swing.JFrame {
         jBtIncluir = new javax.swing.JButton();
         jBtGravar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jBtExcluir = new javax.swing.JButton();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableVendaCompra = new javax.swing.JTable();
@@ -128,6 +128,11 @@ public class TelaVenda extends javax.swing.JFrame {
         setResizable(false);
 
         jTextFieldCdVendaCompra.setName(""); // NOI18N
+        jTextFieldCdVendaCompra.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdVendaCompraFocusLost(evt);
+            }
+        });
 
         jLabel1.setText("Código Venda/Compra");
 
@@ -329,7 +334,12 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Excluir Venda/Compra");
+        jBtExcluir.setText("Excluir Venda/Compra");
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelGravarLayout = new javax.swing.GroupLayout(jPanelGravar);
         jPanelGravar.setLayout(jPanelGravarLayout);
@@ -416,7 +426,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addGroup(jPanelGravarLayout.createSequentialGroup()
                         .addComponent(jBtIncluir)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(jBtExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -509,7 +519,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(jBtIncluir)
                     .addComponent(jBtGravar)
                     .addComponent(jBtCancelar)
-                    .addComponent(jButton1))
+                    .addComponent(jBtExcluir))
                 .addContainerGap())
         );
 
@@ -520,11 +530,11 @@ public class TelaVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cd VendaCompra", "Nr Atendimento", "Código", "Cliente/Fornecedor", "Data Venda Compra", "Valor Total", "Operação"
+                "Cd VendaCompra", "Nr Atendimento", "Código", "Cliente/Fornecedor", "Cd Forma", "Data", "Valor Total", "Operação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -681,10 +691,9 @@ public class TelaVenda extends javax.swing.JFrame {
     private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRemoverActionPerformed
         int linha = jTableProdutos.getSelectedRow();
         if (linha >= 0) {
-            if(jTableProdutos.getSelectedRow() < linhasAtendimento){
+            if (jTableProdutos.getSelectedRow() < linhasAtendimento) {
                 JOptionPane.showMessageDialog(null, "Este produto pertence ao atendimento e não pode ser removido!");
-            }
-            else{
+            } else {
                 int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente remover este produto ?",
                         "Remover Produto", JOptionPane.YES_NO_OPTION);
                 if (opcao == JOptionPane.YES_OPTION) {
@@ -853,17 +862,15 @@ public class TelaVenda extends javax.swing.JFrame {
                 venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
                         .setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
                 // se for uma venda retorna apenas os produtos disponíveis
-                if(tipo.equals("venda")){  
-                   venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
-                        retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
-                }
-                // senão retorna todos os produtos
-                else{ 
+                if (tipo.equals("venda")) {
                     venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
-                        retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), true);
+                            retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
+                } // senão retorna todos os produtos
+                else {
+                    venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
+                            retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), true);
                 }
-                
-                
+
                 if (venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
                         .getDsProduto().equals("")) {
                     jTextFieldCdProduto.setText("");
@@ -912,7 +919,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     jTextFieldCdProduto.setText(venda.getVendaAtendimento().getAtendimento()
                             .getAtdProdutos().getProduto().getCdProduto().toString());
                     venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
-                    .retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), jRadioButtonCompra.isSelected());
+                            .retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), jRadioButtonCompra.isSelected());
                     preencherProduto();
                 }
             }
@@ -943,30 +950,29 @@ public class TelaVenda extends javax.swing.JFrame {
         } else {
 
             carregarVendaCompra();
-            JOptionPane.showMessageDialog(null, "A "+tipo+" foi gravada com sucesso!");
+            JOptionPane.showMessageDialog(null, "A " + tipo + " foi gravada com sucesso!");
             gerarContas();
             rotina = Rotinas.padrao;
             validaEstadoCampos();
-            
+
             // mostra as parcelas
             ConsultaParcelas consulta = new ConsultaParcelas();
             consulta.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
             consulta.setVisible(true);
-            consulta.exibirParcelas(); 
+            consulta.exibirParcelas();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
-        if(jTableProdutos.getRowCount() > 0){
-            int escolha = JOptionPane.showConfirmDialog(null, "Deseja realmente cancelar a "+tipo+" ?",
-                        "Cancelar "+tipo, JOptionPane.YES_NO_OPTION);
-                if (escolha == JOptionPane.YES_OPTION) {
-                    rotina = Rotinas.padrao;
-                    validaEstadoCampos();
-                    limparCampos();
-                }
-        }
-        else{
+        if (jTableProdutos.getRowCount() > 0) {
+            int escolha = JOptionPane.showConfirmDialog(null, "Deseja realmente cancelar a " + tipo + " ?",
+                    "Cancelar " + tipo, JOptionPane.YES_NO_OPTION);
+            if (escolha == JOptionPane.YES_OPTION) {
+                rotina = Rotinas.padrao;
+                validaEstadoCampos();
+                limparCampos();
+            }
+        } else {
             rotina = Rotinas.padrao;
             validaEstadoCampos();
             limparCampos();
@@ -999,9 +1005,9 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldCdOperacao.setText("1");
         tipo = "venda";
         jTextFieldCdOperacaoFocusLost(null);
-        if(!jTextFieldCdProduto.getText().equals("")){
+        if (!jTextFieldCdProduto.getText().equals("")) {
             venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
-            retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
+                    retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
             preencherProduto();
         }
     }//GEN-LAST:event_jRadioButtonVendaActionPerformed
@@ -1010,9 +1016,9 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldCdOperacao.setText("2");
         tipo = "compra";
         jTextFieldCdOperacaoFocusLost(null);
-        if(!jTextFieldCdProduto.getText().equals("")){
+        if (!jTextFieldCdProduto.getText().equals("")) {
             venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
-            retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
+                    retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
             preencherProduto();
         }
     }//GEN-LAST:event_jRadioButtonCompraActionPerformed
@@ -1022,43 +1028,38 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableVendaCompra, new int [] {110,100,50,300,120,120,180});
-        switch (jComboBoxConsulta.getSelectedIndex()){
+        preencher.FormatarJtable(jTableVendaCompra, new int[]{110, 90, 50, 280, 60, 70, 70, 150});
+        switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
                 preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarGeral());
-           
-            break;
-            
+
+                break;
+
             case 1:
-               try{
-                   venda.setCdVendaCompra(Integer.parseInt(jTextFieldConsulta.getText()));
-                   preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCdVendaCompra(venda));
-               }catch(NumberFormatException ex){
-                   JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                   jTextFieldConsulta.setText("");
-                   jTextFieldConsulta.grabFocus();
-               }  
-            break;
-                
+                try {
+                    venda.setCdVendaCompra(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCdVendaCompra(venda));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                }
+                break;
+
             case 2:
                 venda.getCliente().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCliente(venda));
-            break;
-                
+                break;
+
             case 3:
                 venda.getFornecedor().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarFornecedor(venda));
-            break;
-                
-            default:    
-                switch (jComboBoxTipo.getSelectedIndex()){
-                    case 0 :
-                        preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarPorTipo("S"));
-                    break;
-                        
-                    default:
-                        preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarPorTipo("E"));
-                }
+                break;
+
+            default:
+                String operacao = jComboBoxTipo.getSelectedItem().toString().toUpperCase();
+                venda.getOperacao().setDsOperacao(operacao);
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarPorTipo(venda));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -1066,23 +1067,106 @@ public class TelaVenda extends javax.swing.JFrame {
         PreencherTabela tabela = new PreencherTabela();
         int linha = jTableVendaCompra.getSelectedRow();
         if (linha >= 0) {
-            venda.setCdVendaCompra(Integer.parseInt(jTableVendaCompra.getValueAt(linha,0).toString()));
+            venda.setCdVendaCompra(Integer.parseInt(jTableVendaCompra.getValueAt(linha, 0).toString()));
             venda.getVcProdutos().setCdVendaCompra(venda.getCdVendaCompra());
-            
+
             tabela.FormatarJtable(jTableProdutosVenda, new int[]{170, 200, 170, 170, 170});
             tabela.PreencherJtableGenerico(jTableProdutosVenda,
                     venda.getVcProdutos().consultarProdutos(venda.getVcProdutos()));
-            tabela.FormatarJtable(jTableConta, new int []{80,100,200,100,100,100,100,100});
+            tabela.FormatarJtable(jTableConta, new int[]{80, 100, 200, 100, 100, 100, 100, 100});
             Contas c = new Contas();
             c.setVendaCompra(venda);
 //            c.setCdVendaCompra(venda.getCdVendaCompra());
             tabela.PreencherJtableGenerico(jTableConta, c.consultarCdVendaCompra(c));
-            
+
         } else {
             limpar.limparJtable(jTableProdutosVenda);
             limpar.limparJtable(jTableConta);
         }
     }//GEN-LAST:event_jTableVendaCompraMouseClicked
+
+    private void jTextFieldCdVendaCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdVendaCompraFocusLost
+        if (!jTextFieldCdVendaCompra.getText().equals("")) {
+            try {
+                venda.setCdVendaCompra(Integer.parseInt(jTextFieldCdVendaCompra.getText()));
+                venda.retornaVendaCompra(venda);
+                if (venda.getCdVendaCompra() == 0) {
+                    jBtCancelarActionPerformed(null);
+                } else {
+                    switch (venda.getVendaAtendimento().getAtendimento().getNrAtendimento()) {
+                        case 0:
+                            jTextFieldNrAtendimento.setText("");
+                            jTextFieldVlAtendimento.setText("");
+                            break;
+
+                        default:
+                            jTextFieldNrAtendimento.setText(venda.getVendaAtendimento().getAtendimento().getNrAtendimento().toString());
+                            venda.getVendaAtendimento().getAtendimento().retornaAtendimento(venda.getVendaAtendimento().getAtendimento());
+                            jTextFieldVlAtendimento.setText(decimal.retornaDecimal(venda.getVendaAtendimento().
+                                    getAtendimento().getVlTotal(), 6));
+                    }
+                    // preenche os campos retornados
+                    switch (venda.getOperacao().getDsOperacao()) {
+                        case "VENDA":
+                            tipo = "Venda";
+                            jRadioButtonVenda.setSelected(true);
+                            jTextFieldCdOperacao.setText("1");
+                            jTextFieldCdOperacaoFocusLost(null);
+                            break;
+
+                        default:
+                            tipo = "Compra";
+                            jRadioButtonCompra.setSelected(true);
+                            jTextFieldCdOperacao.setText("2");
+                            jTextFieldCdOperacaoFocusLost(null);
+                    }
+                    jTextFieldData.setText(venda.getDtVenda());
+                    jTextFieldCdCliente.setText(venda.getCliente().getPessoa().getCdPessoa().toString());
+                    jTextFieldNomeCliente.setText(venda.getCliente().getPessoa().getNome());
+                    jTextFieldCdForma.setText(venda.getForma().getCdForma().toString());
+                    jTextFieldCdFormaFocusLost(null);
+                    jTextFieldTotal.setText(decimal.retornaDecimal(venda.getVlTotal(), 6));
+
+                    PreencherTabela preencher = new PreencherTabela();
+                    preencher.FormatarJtable(jTableProdutos, new int[]{150, 280, 150, 150, 150});
+                    venda.getVcProdutos().setCdVendaCompra(venda.getCdVendaCompra());
+                    preencher.PreencherJtableGenerico(jTableProdutos, venda.getVcProdutos().consultarProdutos(venda.getVcProdutos()));
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                jBtCancelarActionPerformed(null);
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdVendaCompraFocusLost
+
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        if (jTextFieldCdVendaCompra.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informe o código da " + tipo + " que deseja excluir!");
+            jTextFieldCdVendaCompra.grabFocus();
+        } else {
+
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta " + tipo + " ?",
+                    "Excluir " + tipo, JOptionPane.YES_NO_OPTION);
+            if (opcao == JOptionPane.YES_OPTION) {
+                try {
+                    venda.setCdVendaCompra(Integer.parseInt(jTextFieldCdVendaCompra.getText()));
+                    if (venda.permiteExclusao(venda)) {
+                        venda.excluir(venda);
+                        limpar.limparCampos(jPanelGravar);
+                        limpar.limparJtable(jTableProdutos);
+                        rotina = Rotinas.padrao;
+                        validaEstadoCampos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Esta " + tipo + " possui parcelas pagas e não pode ser excluída!");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Informe um código válido!");
+                    jTextFieldCdVendaCompra.setText("");
+                    jTextFieldCdVendaCompra.grabFocus();
+                }
+            }
+        }
+    }//GEN-LAST:event_jBtExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1123,12 +1207,12 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupTipo;
     private javax.swing.JButton jBtAdicionar;
     private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisaOperacao;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtRemover;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonPesquisarCliente;
     private javax.swing.JButton jButtonPesquisarForma;
     private javax.swing.JButton jButtonPesquisarProduto;
@@ -1185,14 +1269,13 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldProduto.setText(venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
                 .getProduto().getDsProduto());
         int max;
-        if(jRadioButtonVenda.isSelected()){
+        if (jRadioButtonVenda.isSelected()) {
             max = venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
-                .getProduto().getQtAtual();
-        }
-        else{
+                    .getProduto().getQtAtual();
+        } else {
             max = 500;
         }
-        
+
         SpinnerNumberModel model = new SpinnerNumberModel(1, 1, max, 1);
         jSpnQuantidade.setModel(model);
         jTextFieldVlUnitario.setText(decimal.retornaDecimal(venda.getVendaAtendimento().getAtendimento()
@@ -1228,7 +1311,7 @@ public class TelaVenda extends javax.swing.JFrame {
             tabela.setNumRows(linhas + 1);
         } else {
             for (int i = 0; i < linhas; i++) {
-                if (jTableProdutos.getValueAt(i, 0).toString().equals(cd) && i >= linhasAtendimento){
+                if (jTableProdutos.getValueAt(i, 0).toString().equals(cd) && i >= linhasAtendimento) {
                     repetido = true;
                     posicao = i;
                 }
@@ -1263,27 +1346,27 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldData.setText(atd.getDtAtendimento());
         jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
         jTextFieldVlAtendimento.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
-        
+
         linhasAtendimento = model.getRowCount();
         jRadioButtonCompra.setEnabled(false);
         edit.editarTabela(jTableProdutos);
         edit.setTipo("VENDA_COMPRA");
         edit.setLinhas(linhasAtendimento);
     }
-    
-    public void CarregarAtendimento(AtendimentoMesa atd){
+
+    public void CarregarAtendimento(AtendimentoMesa atd) {
         jBtIncluirActionPerformed(null);
         atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
         jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
         jTextFieldData.setText(atd.getDtAtendimento());
         jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
         jTextFieldVlAtendimento.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
-        
+
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableProdutos, new int[]{150, 280, 150, 150, 150});
-        
+
         preencher.PreencherJtableGenerico(jTableProdutos, atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
-        
+
         linhasAtendimento = jTableProdutos.getRowCount();
         jRadioButtonCompra.setEnabled(false);
         edit.editarTabela(jTableProdutos);
@@ -1331,11 +1414,12 @@ public class TelaVenda extends javax.swing.JFrame {
 
         venda.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
         venda.getOperacao().setCdOperacao(Integer.parseInt(jTextFieldCdOperacao.getText()));
+        venda.getOperacao().setDsOperacao(jTextFieldDsOperacao.getText());
         venda.setDtVenda(jTextFieldData.getText());
         venda.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
         venda.setPago("N");
 
-       venda.incluir(venda);
+        venda.incluir(venda);
         jTextFieldCdVendaCompra.setText(venda.getCdVendaCompra().toString());
 
         // grava os produtos da venda/compra
@@ -1344,7 +1428,7 @@ public class TelaVenda extends javax.swing.JFrame {
         venda.getVcProdutos().setCdVendaCompra(venda.getCdVendaCompra());
 
         for (int i = 0; i < linhas; i++) {
-            
+
             int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
             double vl = Double.parseDouble(jTableProdutos.getValueAt(i, 2).toString());
             int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
@@ -1352,27 +1436,24 @@ public class TelaVenda extends javax.swing.JFrame {
             venda.getVcProdutos().getProduto().setCdProduto(cd);
             venda.getVcProdutos().setValor(vl);
             venda.getVcProdutos().setQuantidade(qt);
-            
+
             venda.getVcProdutos().incluir(venda.getVcProdutos());
 
             // atualiza a quantidade atual dos produtos 
             venda.getVcProdutos().getProduto().retornaProduto(venda.getVcProdutos().getProduto(), true);
             int qtAnterior = venda.getVcProdutos().getProduto().getQtAtual();
-            
-            if (i < linhasAtendimento){ // se for um produto do atendimento
+
+            if (i < linhasAtendimento) { // se for um produto do atendimento
                 qtAnterior = qtAnterior + Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
-            }
-            
-            else{  // se for um produto apenas da venda compra
-                if(jRadioButtonVenda.isSelected()){
+            } else {  // se for um produto apenas da venda compra
+                if (jRadioButtonVenda.isSelected()) {
                     venda.getVcProdutos().getProduto().setQtAtual(qtAnterior - qt);
-                }
-                else{
+                } else {
                     venda.getVcProdutos().getProduto().setQtAtual(qtAnterior + qt);
-                }    
+                }
                 venda.getVcProdutos().getProduto().alteraQtAtual(venda.getVcProdutos().getProduto());
             }
-            
+
             // se a operacao gera movimentação de estoque
             venda.getOperacao().retornaOperacao(venda.getOperacao());
             if (venda.getOperacao().getMovEstoque().equals("SIM")) {
@@ -1380,7 +1461,7 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         }
 
-         //se possuir um atendimento grava a venda com atendimento
+        //se possuir um atendimento grava a venda com atendimento
         if (!jTextFieldNrAtendimento.getText().equals("")) {
             try {
                 venda.getVendaAtendimento().getAtendimento().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
@@ -1402,10 +1483,9 @@ public class TelaVenda extends javax.swing.JFrame {
         mov.setVlProduto(venda.getVcProdutos().getProduto().getVlProduto());
         mov.setVlCusto(venda.getVcProdutos().getProduto().getVlCusto());
         mov.setDtMov(venda.getDtVenda());
-        if (tipo.equals("venda")){
+        if (tipo.equals("venda")) {
             mov.setEntrada("S"); // saída
-        }
-        else{
+        } else {
             mov.setEntrada("E"); // entrada
         }
 
@@ -1423,22 +1503,22 @@ public class TelaVenda extends javax.swing.JFrame {
         //contas.setCdVendaCompra(venda.getCdVendaCompra());
         contas.setVendaCompra(venda);
         contas.setForma(venda.getForma());
-        contas.setDsConta(tipo.toUpperCase()+" "+venda.getCdVendaCompra().toString());
+        contas.setDsConta(tipo.toUpperCase() + " " + venda.getCdVendaCompra().toString());
         contas.setVlConta(venda.getVlTotal());
         contas.setTpConta(tipoConta);
         contas.setPago("N");
         contas.incluir(contas, true);
     }
-    
-    public void limparCampos(){
+
+    public void limparCampos() {
         jRadioButtonCompra.setEnabled(false);
         jRadioButtonVenda.setEnabled(false);
         limpar.limparCampos(jPanelGravar);
         limpar.limparJtable(jTableProdutos);
         jSpnQuantidade.setValue(1);
     }
-    
-    public void validaEstadoCampos(){
+
+    public void validaEstadoCampos() {
         ValidaBotoes botoes = new ValidaBotoes();
         botoes.validaEstadoCampos(jPanelGravar, rotina);
         jTextFieldNrAtendimento.setEnabled(false);

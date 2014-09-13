@@ -146,7 +146,7 @@
                           <Group type="102" attributes="0">
                               <Component id="jBtIncluir" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jBtExcluir" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jBtGravar" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -263,7 +263,7 @@
                           <Component id="jBtIncluir" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtGravar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -275,6 +275,9 @@
               <Properties>
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldCdVendaCompraFocusLost"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -564,10 +567,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="jBtExcluir">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Excluir Venda/Compra"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -651,12 +657,13 @@
                 <Component class="javax.swing.JTable" name="jTableVendaCompra">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="0">
+                      <Table columnCount="8" rowCount="0">
                         <Column editable="false" title="Cd VendaCompra" type="java.lang.Object"/>
                         <Column editable="false" title="Nr Atendimento" type="java.lang.Object"/>
                         <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                         <Column editable="false" title="Cliente/Fornecedor" type="java.lang.Object"/>
-                        <Column editable="false" title="Data Venda Compra" type="java.lang.Object"/>
+                        <Column editable="false" title="Cd Forma" type="java.lang.Object"/>
+                        <Column editable="false" title="Data" type="java.lang.Object"/>
                         <Column editable="false" title="Valor Total" type="java.lang.Object"/>
                         <Column editable="false" title="Opera&#xe7;&#xe3;o" type="java.lang.Object"/>
                       </Table>

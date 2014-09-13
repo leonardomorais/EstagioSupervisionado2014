@@ -2,6 +2,7 @@ package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -55,6 +56,19 @@ public class MovEstoque {
         }
     }
     
+    public void incluir(MovEstoque estoque){
+        RetornaSequencia seq = new RetornaSequencia();
+
+        estoque.setCdMov(seq.retornaSequencia("CD_MOV", "MOV_ESTOQUE"));
+        String sql = "INSERT INTO MOV_ESTOQUE (CD_MOV, CD_PRODUTO, CD_VENDA_COMPRA, "
+                        + "QT_ANTERIOR, QT_ATUAL, VL_PRODUTO, VL_CUSTO, DT_MOVIMENTO, ENTRADA) "
+                        + "VALUES ('" + estoque.getCdMov() + "','" + estoque.getCdProduto() + "','"
+                        + estoque.getCdVendaCompra() + "','" + estoque.getQtAnterior() + "','"
+                        + estoque.getQtAtual() + "','" + estoque.getVlProduto() + "','" + estoque.getVlCusto() + "','"
+                        + estoque.getDtMov() + "','" + estoque.getEntrada() + "')";
+                conexao.incluirSQL(sql);
+    }
+    
     
     public void alterar(MovEstoque estoque){
         String sql = "UPDATE MOV_ESTOQUE SET QT_ATUAL = '"+estoque.getQtAtual()+"' "
@@ -62,16 +76,128 @@ public class MovEstoque {
         conexao.atualizarSQL(sql);
     }
     
+    public ResultSet consultarGeral(){
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
+                + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
+                + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
+                + "TO_CHAR(MOV.DT_MOVIMENTO, 'DD/MM/YYYY') AS DATA, "
+                + "CASE WHEN ENTRADA = 'E' THEN 'ENTRADA' ELSE "
+                + "'SAÍDA' END AS TIPO "
+                + "FROM MOV_ESTOQUE MOV "
+                + "INNER JOIN PRODUTOS P "
+                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
+                + "ORDER BY MOV.CD_MOV";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    } 
+    
+    public ResultSet consultarCdMov(MovEstoque estoque){
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
+                + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
+                + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
+                + "TO_CHAR(MOV.DT_MOVIMENTO, 'DD/MM/YYYY') AS DATA, "
+                + "CASE WHEN ENTRADA = 'E' THEN 'ENTRADA' ELSE "
+                + "'SAÍDA' END AS TIPO "
+                + "FROM MOV_ESTOQUE MOV "
+                + "INNER JOIN PRODUTOS P "
+                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
+                + "WHERE MOV.CD_MOV = "+estoque.getCdMov();
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarCdVendaCompra(MovEstoque estoque){
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
+                + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
+                + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
+                + "TO_CHAR(MOV.DT_MOVIMENTO, 'DD/MM/YYYY') AS DATA, "
+                + "CASE WHEN ENTRADA = 'E' THEN 'ENTRADA' ELSE "
+                + "'SAÍDA' END AS TIPO "
+                + "FROM MOV_ESTOQUE MOV "
+                + "INNER JOIN PRODUTOS P "
+                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
+                + "WHERE MOV.CD_VENDA_COMPRA = "+estoque.getCdVendaCompra() 
+                + " ORDER BY MOV.CD_MOV";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarCdProduto(MovEstoque estoque){
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
+                + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
+                + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
+                + "TO_CHAR(MOV.DT_MOVIMENTO, 'DD/MM/YYYY') AS DATA, "
+                + "CASE WHEN ENTRADA = 'E' THEN 'ENTRADA' ELSE "
+                + "'SAÍDA' END AS TIPO "
+                + "FROM MOV_ESTOQUE MOV "
+                + "INNER JOIN PRODUTOS P "
+                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
+                + "WHERE MOV.CD_PRODUTO = "+estoque.getCdProduto()
+                + " ORDER BY MOV.CD_PRODUTO";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarProduto(String nome){
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
+                + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
+                + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
+                + "TO_CHAR(MOV.DT_MOVIMENTO, 'DD/MM/YYYY') AS DATA, "
+                + "CASE WHEN ENTRADA = 'E' THEN 'ENTRADA' ELSE "
+                + "'SAÍDA' END AS TIPO "
+                + "FROM MOV_ESTOQUE MOV "
+                + "INNER JOIN PRODUTOS P "
+                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
+                + "WHERE P.DS_PRODUTO LIKE '%"+nome+"%' "
+                + "ORDER BY MOV.CD_MOV";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarTipo(MovEstoque estoque){
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
+                + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
+                + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
+                + "TO_CHAR(MOV.DT_MOVIMENTO, 'DD/MM/YYYY') AS DATA, "
+                + "CASE WHEN ENTRADA = 'E' THEN 'ENTRADA' ELSE "
+                + "'SAÍDA' END AS TIPO "
+                + "FROM MOV_ESTOQUE MOV "
+                + "INNER JOIN PRODUTOS P "
+                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
+                + "WHERE  MOV.ENTRADA = '"+estoque.getEntrada()+"' "
+                + "ORDER BY MOV.CD_MOV";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarPeriodo(String dataInicial, String dataFinal){
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
+                + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
+                + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
+                + "TO_CHAR(MOV.DT_MOVIMENTO, 'DD/MM/YYYY') AS DATA, "
+                + "CASE WHEN ENTRADA = 'E' THEN 'ENTRADA' ELSE "
+                + "'SAÍDA' END AS TIPO "
+                + "FROM MOV_ESTOQUE MOV "
+                + "INNER JOIN PRODUTOS P "
+                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
+                + "WHERE MOV.DT_MOVIMENTO BETWEEN '"+dataInicial+"' AND '"+dataFinal+"' "
+                + "ORDER BY MOV.CD_MOV";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
     public boolean produtoRepetido(MovEstoque estoque){
         boolean repetido = false;
-        String sql = "SELECT CD_MOV, CD_PRODUTO, QT_ANTERIOR, QT_ATUAL FROM "
+        String sql = "SELECT CD_MOV, CD_PRODUTO, CD_VENDA_COMPRA ,QT_ANTERIOR, QT_ATUAL FROM "
                 + "MOV_ESTOQUE WHERE CD_VENDA_COMPRA = "+estoque.getCdVendaCompra();
         conexao.executeSQL(sql);
         try{
             while (conexao.resultset.next()){
                 int cd_mov = conexao.resultset.getInt("CD_MOV");
                 int cd_prod = conexao.resultset.getInt("CD_PRODUTO");
-                if (estoque.getCdProduto() == cd_prod){
+                int cd_vendaCompra = conexao.resultset.getInt("CD_VENDA_COMPRA");
+                if (estoque.getCdProduto() == cd_prod && 
+                        estoque.getCdVendaCompra() == cd_vendaCompra){
                     repetido = true;
                     estoque.setCdMov(cd_mov);
                     break;

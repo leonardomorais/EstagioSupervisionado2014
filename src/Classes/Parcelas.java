@@ -207,16 +207,17 @@ public class Parcelas {
         
         if (parcelas.getContas().getTpConta().equals("A PAGAR")){
             mov.setSaldoFinal(mov.getSaldoAnterior()+ mov.getValorMov());
+            mov.getOperacao().setCdOperacao(9); // operação de extorno de parcela ENTRADA
         }
         else{
             mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
+            mov.getOperacao().setCdOperacao(10); // operação de extorno de parcela SAÍDA
         }
         
         // atualiza a agencia Conta
         mov.getAgc().setVlConta(mov.getSaldoFinal());
         mov.getAgc().atualizarValorConta(mov.getAgc());
         
-        mov.getOperacao().setCdOperacao(9); // operação de extorno de parcela
         mov.setDataMov(data.retornaDataAtual());
         mov.setObservacao("EXTORNO CONTA "+mov.getParcelas().getContas().getCdConta()
         +" PARCELA "+mov.getParcelas().getNrParcela());

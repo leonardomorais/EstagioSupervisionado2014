@@ -587,13 +587,26 @@ public class TelaPagamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione uma operação");
         } else {
             carregarPagamento();
+            JOptionPane.showMessageDialog(null, "Parcela(s) paga(s)!");
             try{
                 carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
             }
             catch(NumberFormatException ex){
-                
+                int conta;
+                int linha;
+                try{
+                    linha = jTableContas.getSelectedRow();
+                    conta = Integer.parseInt(jTableContas.getValueAt(linha, 0).toString());
+                    pagamento.getParcelas().getContas().setCdConta(conta);
+                    carregarTabelaContas();
+                }
+                catch(NumberFormatException e){
+                    conta = Integer.parseInt(jTableContas.getValueAt(0, 0).toString());
+                    pagamento.getParcelas().getContas().setCdConta(conta);
+                    carregarTabelaContas();
+                }
+
             }
-//            jTextFieldCdPagamento.setText(pagamento.getCdPagamento().toString());
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
