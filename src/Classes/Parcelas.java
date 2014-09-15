@@ -5,6 +5,8 @@ import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -163,14 +165,15 @@ public class Parcelas {
     }
 
     public void excluir(Parcelas parcelas) {
-        try {
+        //try {
             String sql = "DELETE FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta()
                     + " AND NR_PARCELA = " + parcelas.getNrParcela();
-
             conexao.deleteSQL(sql);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Esta parcela não pode ser excluída!");
-        }
+            ajustaParcelas(parcelas);    
+        //} 
+        //catch (Exception ex) {
+          //  JOptionPane.showMessageDialog(null, "Esta parcela não pode ser excluída!");
+        //}
     }
 
     public void excluirTodas(Parcelas parcelas) {
@@ -189,7 +192,7 @@ public class Parcelas {
         }
     }
 
-    public void extornarParcela(Parcelas parcelas) {
+    public void estornarParcela(Parcelas parcelas) {
         //parcelas.getContas().retornaConta(parcelas.getContas(), true);
         if (verificaParcelasPagas(parcelas)) {
             // se a conta possuir todas as parcelas pagas a situação da conta deve ser alterada
@@ -236,6 +239,72 @@ public class Parcelas {
                 + " PARCELA " + mov.getParcelas().getNrParcela());
         // grava uma nova movimentação para o extorno da parcela
         mov.incluir(mov, true);
+    }
+    
+    public void ajustaParcelas(Parcelas parcelas){
+        double valor = parcelas.getVlParcela();
+        String data = parcelas.getDtVencimento(); // data da primeira parcela
+        
+        ResultSet retorno = consultarCdConta(parcelas.getContas());
+            int quantidade = 0;
+        try {
+            while (retorno.next()){ // conta as parcelas ainda não pagas
+                parcelas.setVlPago(retorno.getDouble("VL_PAGO"));
+                if (parcelas.getVlPago() == 0){
+                    quantidade = quantidade + 1;
+                }
+            }
+        } 
+        catch (SQLException ex) {
+            //Logger.getLogger(Parcelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            valor = (double) valor/quantidade;
+            
+            parcelas.getContas().retornaConta(parcelas.getContas(), true);
+            parcelas.getContas().getForma().retornaForma(parcelas.getContas().getForma());
+            int dias = 0; //parcelas.getContas().getForma().getIntervalo();
+            
+            RetornaData rdata = new RetornaData();
+            retorno = parcelas.consultarCdConta(parcelas.getContas());
+            int count = 0;
+        try {
+            while (retorno.next()){
+                count = count + 1;
+                parcelas.setVlPago(retorno.getDouble("VL_PAGO"));
+                parcelas.setNrParcela(retorno.getInt("NR_PARCELA"));
+                parcelas.setVlParcela(retorno.getDouble("VL_PARCELA"));
+                
+                if (parcelas.getVlPago() == 0.00){
+                    // divide o valor entre as parcelas não pagas
+                    parcelas.setVlParcela(parcelas.getVlParcela() + valor);
+                    
+                    if (count == 1){
+                        parcelas.setDtVencimento(data);
+                    }
+                    else{
+                        parcelas.setDtVencimento(rdata.retornaSomaData(data, dias));
+                    }
+                    
+                    // altera a parcela
+                    parcelas.alterar(parcelas);
+                }
+                dias = dias + parcelas.getContas().getForma().getIntervalo();
+            }
+        } 
+        catch (SQLException ex) {
+            //Logger.getLogger(Parcelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            // atualiza a data de vencimento da conta
+            parcelas.getContas().setDtVencimento(retornaDataUltimaParcela(parcelas));
+            if (parcelas.getContas().getTpConta().equals("A RECEBER")){
+                parcelas.getContas().setTpConta("R");
+            }
+            else{
+                parcelas.getContas().setTpConta("P");
+            }
+            parcelas.getContas().setDtPagamento("");
+            parcelas.getContas().alterar(parcelas.getContas());
     }
 
     public ResultSet consutarGeral() {

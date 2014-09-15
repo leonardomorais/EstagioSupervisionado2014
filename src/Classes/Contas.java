@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -305,21 +307,28 @@ public class Contas {
     
     public boolean permiteExclusao(Contas contas){
         boolean permitido = true;
-        ResultSet retorno = consultarCdConta(contas, false); // irá pesquisar as contas ainda não pagas
-        try{
-            retorno.first();
-            Parcelas p = new Parcelas();
-            
-            ResultSet parcelas = p.consultarCdConta(contas);
-            while (parcelas.next()){
-                p.setVlPago(parcelas.getDouble("VL_PAGO"));
-                if (p.getVlPago() > 0){
-                    permitido = false;
-                }
-            }
-        }
-        catch(SQLException ex){
+        retornaConta(contas, true);
+        
+        if (contas.getPago().equals("PAGA")){
             permitido = false;
+        }
+        
+        else{
+            Parcelas p = new Parcelas();
+        
+            ResultSet parcelas = p.consultarCdConta(contas);
+            try {
+                while (parcelas.next()){
+                    p.setVlPago(parcelas.getDouble("VL_PAGO"));
+                    if (p.getVlPago() > 0){
+                        // se ao menos uma parcela da conta estiver paga, a exclusão não é permitida
+                        permitido = false;
+                    }
+                }
+            } 
+            catch (SQLException ex) {
+                permitido = true;  
+            }
         }
         return permitido;
     }

@@ -21,7 +21,7 @@ public class Operacao {
     private String movEstoque;
     private String movFinanceiro;
 
-    private Map<Integer, Integer> operacoes = new HashMap <Integer, Integer>();
+    private Map<Integer, Integer> operacoes = new HashMap<Integer, Integer>();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -62,13 +62,13 @@ public class Operacao {
 
     public ResultSet consultarCdOperacao(Operacao operacao) {
         String sql = "SELECT CD_OPERACAO, DS_OPERACAO, "
-                + "CASE WHEN TIPO = 'E' THEN 'ENTRADA' "
-                + "ELSE 'SAÍDA' END AS TP, "
-                + "CASE WHEN MOV_ESTOQUE = 'S' THEN 'SIM' "
-                + "ELSE 'NÃO' END AS ESTOQUE, "
-                + "CASE WHEN MOV_FINANCEIRO = 'S' THEN 'SIM' "
-                + "ELSE 'NÃO' END AS FINANCEIRO FROM OPERACAO "
-                + "WHERE CD_OPERACAO = " + operacao.getCdOperacao();
+                    + "CASE WHEN TIPO = 'E' THEN 'ENTRADA' "
+                    + "ELSE 'SAÍDA' END AS TP, "
+                    + "CASE WHEN MOV_ESTOQUE = 'S' THEN 'SIM' "
+                    + "ELSE 'NÃO' END AS ESTOQUE, "
+                    + "CASE WHEN MOV_FINANCEIRO = 'S' THEN 'SIM' "
+                    + "ELSE 'NÃO' END AS FINANCEIRO FROM OPERACAO "
+                    + "WHERE CD_OPERACAO = " + operacao.getCdOperacao();
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
@@ -103,22 +103,22 @@ public class Operacao {
 
     public void retornaComboOperacao(JComboBox combo, String tipo) {
         String sql = "SELECT * FROM OPERACAO WHERE MOV_FINANCEIRO = 'S' AND "
-                + "TIPO = '"+tipo+"' ORDER BY CD_OPERACAO";
-        if (tipo.equals("TODOS")){
+                + "TIPO = '" + tipo + "' ORDER BY CD_OPERACAO";
+        if (tipo.equals("TODOS")) {
             sql = "SELECT * FROM OPERACAO ORDER BY CD_OPERACAO";
         }
         conexao.executeSQL(sql);
-        
+
         combo.removeAllItems();
         int conta = 0;
-        
-        try{
-            while (conexao.resultset.next()){
+
+        try {
+            while (conexao.resultset.next()) {
                 combo.addItem(conexao.resultset.getString("DS_OPERACAO"));
                 operacoes.put(conta, conexao.resultset.getInt("CD_OPERACAO"));
                 conta++;
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Operação não encontrada!");
         }
     }

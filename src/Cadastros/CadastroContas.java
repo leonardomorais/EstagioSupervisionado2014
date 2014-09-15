@@ -56,7 +56,7 @@ public class CadastroContas extends javax.swing.JFrame {
         buttonGroupTipo = new javax.swing.ButtonGroup();
         jPopupMenuPagarParcela = new javax.swing.JPopupMenu();
         jMenuItemPagarParcela = new javax.swing.JMenuItem();
-        jMenuItemExtornarParcela = new javax.swing.JMenuItem();
+        jMenuItemEstornarParcela = new javax.swing.JMenuItem();
         jMenuItemExcluirParcela = new javax.swing.JMenuItem();
         jPopupMenuContas = new javax.swing.JPopupMenu();
         jMenuItemCarregarDados = new javax.swing.JMenuItem();
@@ -118,13 +118,13 @@ public class CadastroContas extends javax.swing.JFrame {
         });
         jPopupMenuPagarParcela.add(jMenuItemPagarParcela);
 
-        jMenuItemExtornarParcela.setText("ExtornarParcela");
-        jMenuItemExtornarParcela.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemEstornarParcela.setText("Estornar Parcela");
+        jMenuItemEstornarParcela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemExtornarParcelaActionPerformed(evt);
+                jMenuItemEstornarParcelaActionPerformed(evt);
             }
         });
-        jPopupMenuPagarParcela.add(jMenuItemExtornarParcela);
+        jPopupMenuPagarParcela.add(jMenuItemEstornarParcela);
 
         jMenuItemExcluirParcela.setText("Excluir Parcela");
         jMenuItemExcluirParcela.addActionListener(new java.awt.event.ActionListener() {
@@ -608,6 +608,7 @@ public class CadastroContas extends javax.swing.JFrame {
                     contas.excluir(contas);
                     JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
                     rotina = Rotinas.padrao;
+                    botoes.validaBotoes(jPanelBotoes, rotina);
                     limpar.limparCampos(jPanelCadastro);
                     botoes.validaEstadoCampos(jPanelCadastro, rotina);
                 } else {
@@ -624,6 +625,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
         rotina = Rotinas.incluir;
+        botoes.validaEstadoCampos(jPanelCadastro, rotina);
         botoes.validaBotoes(jPanelBotoes, rotina);
         jTextFieldDescrição.grabFocus();
     }//GEN-LAST:event_jBtIncluirActionPerformed
@@ -790,22 +792,22 @@ public class CadastroContas extends javax.swing.JFrame {
                 String data = jTableParcelas.getValueAt(linha, 5).toString();
                 if (valor.equals("0.00") || data.equals("")) {
                     jMenuItemPagarParcela.setEnabled(true);
-                    jMenuItemExtornarParcela.setEnabled(false);
+                    jMenuItemEstornarParcela.setEnabled(false);
                     jMenuItemExcluirParcela.setEnabled(itemExcluirAtivo());
                 } else {
                     jMenuItemPagarParcela.setEnabled(false);
                     jMenuItemExcluirParcela.setEnabled(false);
-                    jMenuItemExtornarParcela.setEnabled(true);
+                    jMenuItemEstornarParcela.setEnabled(true);
                 }
             } catch (NullPointerException ex) {
                 jMenuItemPagarParcela.setEnabled(true);
                 jMenuItemExcluirParcela.setEnabled(itemExcluirAtivo());
-                jMenuItemExtornarParcela.setEnabled(false);
+                jMenuItemEstornarParcela.setEnabled(false);
             }
         }
     }//GEN-LAST:event_jPopupMenuPagarParcelaPopupMenuWillBecomeVisible
 
-    private void jMenuItemExtornarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExtornarParcelaActionPerformed
+    private void jMenuItemEstornarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstornarParcelaActionPerformed
         int linha = jTableParcelas.getSelectedRow();
         if (linha >= 0) {
 
@@ -821,13 +823,13 @@ public class CadastroContas extends javax.swing.JFrame {
                 p.getContas().setCdConta(conta);
                 p.getContas().setTpConta(jTableContas.getValueAt(linhaConta, 7).toString());
                 p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
-                p.extornarParcela(p);
+                p.estornarParcela(p);
 
                 JOptionPane.showMessageDialog(null, "Parcela extornada com sucesso!");
                 atualizaJtable(conta);
             }
         }
-    }//GEN-LAST:event_jMenuItemExtornarParcelaActionPerformed
+    }//GEN-LAST:event_jMenuItemEstornarParcelaActionPerformed
 
     private void jMenuItemExcluirParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExcluirParcelaActionPerformed
         if (jTableParcelas.getSelectedRow() >= 0) {
@@ -847,36 +849,40 @@ public class CadastroContas extends javax.swing.JFrame {
                 p.getContas().setCdConta(conta);
                 p.setNrParcela(parcela);
                 if (p.permiteExclusao(p)){
+                    p.setDtVencimento(jTableParcelas.getValueAt(0, 3).toString()); // data da primeira parcela
+                    p.setVlParcela(vl);
                     p.excluir(p);
+                    
+                    
                 // 
-                atualizaJtable(conta);
-
-                int parc = 0;
-                for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
-                    // conta quantas parcela ainda não estão pagas
-                    try {
-                        String pago = jTableParcelas.getValueAt(i, 4).toString();
-                        String dtPago = jTableParcelas.getValueAt(i, 5).toString();
-                        if (pago.equals("0.00") || dtPago.equals("")) {
-                            parc = parc + 1;
-                        }
-                    } catch (NullPointerException ex) {
-                        parc = parc + 1;
-                    }
-                }
-                double vlParcela = (double) vl / parc;
-                // percorre novamente as parcelas e altera o valor das que não estão pagas
-                for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
-                    String pago = jTableParcelas.getValueAt(i, 4).toString();
-                    if (pago.equals("0.00")) {
-                        p.getContas().setCdConta(conta);
-                        p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()));
-                        p.retornaParcela(p);
-                        p.setVlParcela(p.getVlParcela() + vlParcela);
-                        p.setDtVencimento(jTableParcelas.getValueAt(i, 3).toString());
-                        p.alterar(p);
-                    }
-                }
+//                atualizaJtable(conta);
+//
+//                int parc = 0;
+//                for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
+//                    // conta quantas parcela ainda não estão pagas
+//                    try {
+//                        String pago = jTableParcelas.getValueAt(i, 4).toString();
+//                        String dtPago = jTableParcelas.getValueAt(i, 5).toString();
+//                        if (pago.equals("0.00") || dtPago.equals("")) {
+//                            parc = parc + 1;
+//                        }
+//                    } catch (NullPointerException ex) {
+//                        parc = parc + 1;
+//                    }
+//                }
+//                double vlParcela = (double) vl / parc;
+//                // percorre novamente as parcelas e altera o valor das que não estão pagas
+//                for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
+//                    String pago = jTableParcelas.getValueAt(i, 4).toString();
+//                    if (pago.equals("0.00")) {
+//                        p.getContas().setCdConta(conta);
+//                        p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()));
+//                        p.retornaParcela(p);
+//                        p.setVlParcela(p.getVlParcela() + vlParcela);
+//                        p.setDtVencimento(jTableParcelas.getValueAt(i, 3).toString());
+//                        p.alterar(p);
+//                    }
+//                }
                 atualizaJtable(conta);
                 }
                 else{
@@ -946,8 +952,8 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItemCarregarDados;
+    private javax.swing.JMenuItem jMenuItemEstornarParcela;
     private javax.swing.JMenuItem jMenuItemExcluirParcela;
-    private javax.swing.JMenuItem jMenuItemExtornarParcela;
     private javax.swing.JMenuItem jMenuItemPagarParcela;
     private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelCadastro;

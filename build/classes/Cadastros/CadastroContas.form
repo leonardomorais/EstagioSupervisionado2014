@@ -21,12 +21,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPagarParcelaActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExtornarParcela">
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEstornarParcela">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ExtornarParcela"/>
+            <Property name="text" type="java.lang.String" value="Estornar Parcela"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExtornarParcelaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEstornarParcelaActionPerformed"/>
           </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExcluirParcela">
