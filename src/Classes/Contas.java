@@ -316,7 +316,7 @@ public class Contas {
         else{
             Parcelas p = new Parcelas();
         
-            ResultSet parcelas = p.consultarCdConta(contas);
+            ResultSet parcelas = p.consultarCdConta(contas, true);
             try {
                 while (parcelas.next()){
                     p.setVlPago(parcelas.getDouble("VL_PAGO"));

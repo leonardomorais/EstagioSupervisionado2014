@@ -20,11 +20,8 @@ import Consultas.ConsultaParcelas;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -37,7 +34,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        carregaImagem();
+        //carregaImagem();
     }
 
     /**

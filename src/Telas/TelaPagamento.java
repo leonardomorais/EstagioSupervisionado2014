@@ -51,6 +51,7 @@ public class TelaPagamento extends javax.swing.JFrame {
     private void initComponents() {
 
         btGroupTipo = new javax.swing.ButtonGroup();
+        buttonGroupSituacao = new javax.swing.ButtonGroup();
         jTabbedPanePagamentos = new javax.swing.JTabbedPane();
         jPanelPagamento = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -88,6 +89,9 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTextFieldConsulta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jRbSim = new javax.swing.JRadioButton();
+        jRadiobNao = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Pagamento");
@@ -287,7 +291,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                                 .addComponent(jRadioButtonCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButtonFornecedor)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addGroup(jPanelPagamentoLayout.createSequentialGroup()
@@ -357,7 +361,6 @@ public class TelaPagamento extends javax.swing.JFrame {
                 .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelPagamentoLayout.createSequentialGroup()
                         .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -387,6 +390,15 @@ public class TelaPagamento extends javax.swing.JFrame {
         jLabel6.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código do Pagamento", "Código da Conta", "Descrição da Conta", "Código Agência Conta" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -413,6 +425,15 @@ public class TelaPagamento extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableConsulta);
 
+        jLabel10.setText("Ocultar registros inativos ?");
+
+        buttonGroupSituacao.add(jRbSim);
+        jRbSim.setSelected(true);
+        jRbSim.setText("Sim");
+
+        buttonGroupSituacao.add(jRadiobNao);
+        jRadiobNao.setText("Não");
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -422,26 +443,38 @@ public class TelaPagamento extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelConsultaLayout.createSequentialGroup()
-                        .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtPesquisar)))
+                        .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelConsultaLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanelConsultaLayout.createSequentialGroup()
+                                .addComponent(jRbSim)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadiobNao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtPesquisar)))))
                 .addContainerGap())
         );
         jPanelConsultaLayout.setVerticalGroup(
             jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
+                .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisar)
-                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRbSim)
+                    .addComponent(jRadiobNao))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                 .addContainerGap())
@@ -657,13 +690,13 @@ public class TelaPagamento extends javax.swing.JFrame {
 
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
-                preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarGeral());
+                preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarGeral(jRbSim.isSelected()));
                 break;
 
             case 1:
                 try {
                     pagamento.setCdPagamento(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdPagamento(pagamento));
+                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdPagamento(pagamento,jRbSim.isSelected()));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
@@ -674,7 +707,7 @@ public class TelaPagamento extends javax.swing.JFrame {
             case 2:
                 try {
                     pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdConta(pagamento));
+                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdConta(pagamento,jRbSim.isSelected()));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
@@ -684,8 +717,19 @@ public class TelaPagamento extends javax.swing.JFrame {
 
             case 3:
                 pagamento.getParcelas().getContas().setDsConta(jTextFieldConsulta.getText().toUpperCase());
-                preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarDsConta(pagamento));
-                break;
+                preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarDsConta(pagamento,jRbSim.isSelected()));
+            break;
+                
+            default:
+                try{
+                    pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdAgencia(pagamento,jRbSim.isSelected()));
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                }
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -785,6 +829,10 @@ public class TelaPagamento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonFornecedorActionPerformed
 
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+
     public void limparCamposPessoa() {
         jTextFieldCdPessoa.setText("");
         jTextFieldNome.setText("");
@@ -829,6 +877,7 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btGroupTipo;
+    private javax.swing.ButtonGroup buttonGroupSituacao;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtNovo;
@@ -839,6 +888,7 @@ public class TelaPagamento extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxOperacao;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -851,6 +901,8 @@ public class TelaPagamento extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelPagamento;
     private javax.swing.JRadioButton jRadioButtonCliente;
     private javax.swing.JRadioButton jRadioButtonFornecedor;
+    private javax.swing.JRadioButton jRadiobNao;
+    private javax.swing.JRadioButton jRbSim;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -920,7 +972,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableParcelas, new int[]{105, 110, 110, 110, 110, 110});
 
         preencher.PreencherJtableGenericoSel(jTableParcelas,
-                pagamento.getParcelas().consultarCdConta(pagamento.getParcelas().getContas()));
+                pagamento.getParcelas().consultarCdConta(pagamento.getParcelas().getContas(),true));
     }
 
     public void carregaTabelaContas(int cd) {

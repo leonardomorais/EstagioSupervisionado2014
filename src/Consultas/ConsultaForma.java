@@ -199,6 +199,7 @@ public class ConsultaForma extends javax.swing.JDialog {
     private void jBtCadastrarNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovaActionPerformed
         CadastroFormadePagamento cadForma = new CadastroFormadePagamento();
         cadForma.setVisible(true);
+        
         cadForma.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent evento) {
                 jComboBoxConsulta.setSelectedIndex(0);

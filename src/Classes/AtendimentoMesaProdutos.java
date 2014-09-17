@@ -2,45 +2,57 @@ package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
 import java.sql.ResultSet;
-
-
+import java.sql.SQLException;
 
 /**
  *
  * @author Leonardo
  */
 public class AtendimentoMesaProdutos {
-    
+
     private Integer nrAtendimento;
     private Produto produto = new Produto();
     private Integer quantidade;
     private Double valor;
-    
+
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
-    
-    public void incluir(AtendimentoMesaProdutos atd){
+
+    public void incluir(AtendimentoMesaProdutos atd) {
         String sql = "INSERT INTO ATENDIMENTO_MESA_PRODUTOS "
                 + "(NR_ATENDIMENTO, CD_PRODUTO, QT_PRODUTO, VL_UNITARIO) "
-                + "VALUES ('"+atd.getNrAtendimento()+"','"
-                +atd.getProduto().getCdProduto()+"','"+atd.getQuantidade()+"','"
-                +atd.getValor()+"')";
+                + "VALUES ('" + atd.getNrAtendimento() + "','"
+                + atd.getProduto().getCdProduto() + "','" + atd.getQuantidade() + "','"
+                + atd.getValor() + "')";
         conexao.incluirSQL(sql);
     }
-    
-    public void excluir(AtendimentoMesaProdutos atd){
+
+    public void excluir(AtendimentoMesaProdutos atd) {
         String sql = "DELETE FROM ATENDIMENTO_MESA_PRODUTOS WHERE "
-                + "NR_ATENDIMENTO = "+atd.getNrAtendimento()+" AND "
-                + "CD_PRODUTO = "+atd.getProduto().getCdProduto();
+                + "NR_ATENDIMENTO = " + atd.getNrAtendimento() + " AND "
+                + "CD_PRODUTO = " + atd.getProduto().getCdProduto();
         conexao.deleteSQL(sql);
     }
-    
-    public void excluirTodos(AtendimentoMesaProdutos atd){
+
+    public void excluirTodos(AtendimentoMesaProdutos atd) {
+        ResultSet retorno = atd.consultarProdutos(atd);
+        try {
+            while (retorno.next()) {
+                atd.getProduto().setCdProduto(retorno.getInt("CD_PRODUTO"));
+                atd.setQuantidade(retorno.getInt("QT_PRODUTO"));
+                atd.getProduto().retornaProduto(atd.getProduto(), true);
+                atd.getProduto().setQtAtual(atd.getProduto().getQtAtual() + atd.getQuantidade());
+                atd.getProduto().alteraQtAtual(atd.getProduto());
+                // atualiza a quantidade atual dos produtos
+            }
+        } catch (SQLException ex) {
+
+        }
         String sql = "DELETE FROM ATENDIMENTO_MESA_PRODUTOS WHERE "
-                + "NR_ATENDIMENTO = "+atd.getNrAtendimento();
+                + "NR_ATENDIMENTO = " + atd.getNrAtendimento();
         conexao.deleteSQL(sql);
     }
-    
-    public ResultSet consultarProdutos(AtendimentoMesaProdutos atd){
+
+    public ResultSet consultarProdutos(AtendimentoMesaProdutos atd) {
         String sql = "SELECT A.CD_PRODUTO, P.DS_PRODUTO, "
                 + " A.VL_UNITARIO, A.QT_PRODUTO, A.QT_PRODUTO * A.VL_UNITARIO AS TOTAL "
                 + "FROM ATENDIMENTO_MESA_PRODUTOS A INNER JOIN "
@@ -48,10 +60,9 @@ public class AtendimentoMesaProdutos {
                 + "WHERE A.NR_ATENDIMENTO = " + atd.getNrAtendimento();
         conexao.executeSQL(sql);
         return conexao.resultset;
-    }   
-    
+    }
+
     // getter e setter
-    
     public Produto getProduto() {
         return produto;
     }
@@ -84,9 +95,4 @@ public class AtendimentoMesaProdutos {
         this.nrAtendimento = nrAtendimento;
     }
 
-    
-    
-    
-    
-    
 }

@@ -68,6 +68,7 @@ public class TelaVenda extends javax.swing.JFrame {
         jMenuItemCarregarDados = new javax.swing.JMenuItem();
         jPopupMenuConta = new javax.swing.JPopupMenu();
         jMenuItemExibirParcelas = new javax.swing.JMenuItem();
+        buttonGroupSituacao = new javax.swing.ButtonGroup();
         jTabbedPaneVendaCompra = new javax.swing.JTabbedPane();
         jPanelGravar = new javax.swing.JPanel();
         jTextFieldCdVendaCompra = new javax.swing.JTextField();
@@ -127,6 +128,9 @@ public class TelaVenda extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox();
         jTextFieldConsulta = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jRadioButtonSim = new javax.swing.JRadioButton();
+        jRadioButtonNao = new javax.swing.JRadioButton();
 
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
@@ -632,6 +636,15 @@ public class TelaVenda extends javax.swing.JFrame {
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Venda", "Compra" }));
         jComboBoxTipo.setEnabled(false);
 
+        jLabel16.setText("Ocultar registros inativos ?");
+
+        buttonGroupSituacao.add(jRadioButtonSim);
+        jRadioButtonSim.setSelected(true);
+        jRadioButtonSim.setText("Sim");
+
+        buttonGroupSituacao.add(jRadioButtonNao);
+        jRadioButtonNao.setText("Não");
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -645,14 +658,20 @@ public class TelaVenda extends javax.swing.JFrame {
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelConsultaLayout.createSequentialGroup()
-                                .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jRadioButtonSim)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldConsulta)
+                                .addComponent(jRadioButtonNao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtPesquisar))
                             .addGroup(jPanelConsultaLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
+                                .addComponent(jLabel16)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
                     .addComponent(jScrollPane4)
@@ -665,13 +684,16 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel14))
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisar)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButtonSim)
+                    .addComponent(jRadioButtonNao))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1024,14 +1046,14 @@ public class TelaVenda extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableVendaCompra, new int[]{110, 90, 50, 280, 60, 70, 70, 150});
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
-                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarGeral());
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarGeral(jRadioButtonSim.isSelected()));
 
                 break;
 
             case 1:
                 try {
                     venda.setCdVendaCompra(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCdVendaCompra(venda));
+                    preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCdVendaCompra(venda, jRadioButtonSim.isSelected()));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
@@ -1041,18 +1063,18 @@ public class TelaVenda extends javax.swing.JFrame {
 
             case 2:
                 venda.getCliente().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCliente(venda));
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCliente(venda, jRadioButtonSim.isSelected()));
                 break;
 
             case 3:
                 venda.getFornecedor().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarFornecedor(venda));
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarFornecedor(venda, jRadioButtonSim.isSelected()));
                 break;
 
             default:
                 String operacao = jComboBoxTipo.getSelectedItem().toString().toUpperCase();
                 venda.getOperacao().setDsOperacao(operacao);
-                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarPorTipo(venda));
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarPorTipo(venda, jRadioButtonSim.isSelected()));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -1219,6 +1241,7 @@ public class TelaVenda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupSituacao;
     private javax.swing.ButtonGroup buttonGroupTipo;
     private javax.swing.JButton jBtAdicionar;
     private javax.swing.JButton jBtCancelar;
@@ -1240,6 +1263,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1255,6 +1279,8 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenuConta;
     private javax.swing.JPopupMenu jPopupMenuVendaCompra;
     private javax.swing.JRadioButton jRadioButtonCompra;
+    private javax.swing.JRadioButton jRadioButtonNao;
+    private javax.swing.JRadioButton jRadioButtonSim;
     private javax.swing.JRadioButton jRadioButtonVenda;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

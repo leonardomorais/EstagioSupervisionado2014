@@ -155,7 +155,8 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                             parcelas.getContas().setCdConta(Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString()));
                             // altera a parcela
                             parcelas.alterar(parcelas);
-
+                            parcelas.getContas().retornaConta(parcelas.getContas(), true);
+                            parcelas.getContas().setDtVencimento(parcelas.retornaDataUltimaParcela(parcelas));
                         }
                     }
                 });
@@ -251,7 +252,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     public void exibirParcelas() {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableParcelas, new int[]{90, 90, 90, 90, 90, 90});
-        preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(parcelas.getContas()));
+        preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(parcelas.getContas(),true));
         parcelas.getContas().retornaConta(parcelas.getContas(), true);
         jLabelTopo.setText("Parcelas da Conta " + parcelas.getContas().getCdConta() + " : " + parcelas.getContas().getDsConta());
         

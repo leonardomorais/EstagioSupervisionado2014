@@ -575,7 +575,7 @@ public class CadastroContas extends javax.swing.JFrame {
             PreencherTabela preencher = new PreencherTabela();
             preencher.FormatarJtable(jTableParcelas, new int[]{100, 100, 100, 100, 100, 100});
 
-            preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(contas));
+            preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(contas,true));
         }
     }//GEN-LAST:event_jTableContasMouseClicked
 
@@ -848,7 +848,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 Parcelas p = new Parcelas();
                 p.getContas().setCdConta(conta);
                 p.setNrParcela(parcela);
-                if (p.permiteExclusao(p)){
+                //if (p.permiteExclusao(p)){
                     p.setDtVencimento(jTableParcelas.getValueAt(0, 3).toString()); // data da primeira parcela
                     p.setVlParcela(vl);
                     p.excluir(p);
@@ -884,11 +884,11 @@ public class CadastroContas extends javax.swing.JFrame {
 //                    }
 //                }
                 atualizaJtable(conta);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Esta parcela não pode ser excluída, "
-                            + "pois a mesma já possui pagamento e/ou movimentação no caixa!");
-                }
+//                }
+//                else{
+//                    JOptionPane.showMessageDialog(null, "Esta parcela não pode ser excluída, "
+//                            + "pois a mesma já possui pagamento e/ou movimentação no caixa!");
+//                }
             }
         }
     }//GEN-LAST:event_jMenuItemExcluirParcelaActionPerformed
@@ -1046,7 +1046,7 @@ public class CadastroContas extends javax.swing.JFrame {
         Parcelas parcelas = new Parcelas();
         preencher.FormatarJtable(jTableParcelas, new int[]{100, 100, 100, 100, 100, 100});
 
-        preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(contas));
+        preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(contas,true));
     }
 
     public void exibirConta(int conta){

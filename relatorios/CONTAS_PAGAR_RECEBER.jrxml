@@ -137,51 +137,6 @@ C.CD_FORMA = F.CD_FORMA ORDER BY C.CD_CONTA;]]>
 					<printWhenExpression><![CDATA[new Boolean(($V{REPORT_COUNT}.intValue()%2==0))]]></printWhenExpression>
 				</reportElement>
 			</rectangle>
-			<textField>
-				<reportElement uuid="7a305853-7454-4095-b01e-6a04b8d03578" x="0" y="0" width="42" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cd_conta}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="c377214f-c6db-400d-864f-aa5d9f4192e1" x="42" y="0" width="134" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{ds_conta}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="f71562f9-ecdf-4d1c-bf60-f2e8ff4aed73" x="176" y="0" width="36" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cd_forma}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="42208baa-43ef-4529-bf16-96f4eff55472" x="212" y="0" width="84" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{ds_forma}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="df9a2772-1990-4e8b-95c1-53a97a741ee5" x="296" y="0" width="53" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{vl_conta}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="89e7225c-52c4-46d2-a437-fe328cdb7906" x="349" y="0" width="59" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{dt_venc}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="18eb3170-d726-4cee-a52f-2f7e4e0db1d2" x="408" y="0" width="59" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{dt_pgto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="6b648da8-2da8-414a-8405-089fc0d61919" x="467" y="0" width="47" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="c4638759-3db6-425e-ad1b-116a5df9db46" x="514" y="0" width="41" height="18"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{sit}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<columnFooter>

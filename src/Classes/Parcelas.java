@@ -20,7 +20,7 @@ public class Parcelas {
     private String dtVencimento;
     private Double vlPago;
     private String dtPago;
-
+    private String situacao;
     private Contas contas = new Contas();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
@@ -35,9 +35,9 @@ public class Parcelas {
         RetornaSequencia seq = new RetornaSequencia();
         parcelas.setNrParcela(seq.retornaSequencia("NR_PARCELA", "PARCELAS", "CD_CONTA", parcelas.getContas().getCdConta()));
 
-        String sql = "INSERT INTO PARCELAS (CD_CONTA, NR_PARCELA, VL_PARCELA, DT_VENCIMENTO, VL_PAGO, DT_PAGO) "
+        String sql = "INSERT INTO PARCELAS (CD_CONTA, NR_PARCELA, VL_PARCELA, DT_VENCIMENTO, VL_PAGO, DT_PAGO, SITUACAO) "
                 + "VALUES ('" + parcelas.getContas().getCdConta() + "','" + parcelas.getNrParcela() + "','" + parcelas.getVlParcela() + "','"
-                + parcelas.getDtVencimento() + "','" + parcelas.getVlPago() + "', " + null + ")";
+                + parcelas.getDtVencimento() + "','" + parcelas.getVlPago() + "', " + null + ",'A')";
         conexao.incluirSQL(sql);
     }
 
@@ -78,9 +78,9 @@ public class Parcelas {
                 }
             }
             String sql = "INSERT INTO PARCELAS (CD_CONTA, NR_PARCELA, VL_PARCELA, "
-                    + "DT_VENCIMENTO, VL_PAGO, DT_PAGO) VALUES ('" + parcelas.getContas().getCdConta() + "','"
+                    + "DT_VENCIMENTO, VL_PAGO, DT_PAGO, SITUACAO) VALUES ('" + parcelas.getContas().getCdConta() + "','"
                     + parcelas.getNrParcela() + "','" + parcelas.getVlParcela() + "','" + parcelas.getDtVencimento() + "','"
-                    + parcelas.getVlPago() + "', " + null + ")";
+                    + parcelas.getVlPago() + "', " + null + ",'A')";
             conexao.incluirSQL(sql);
             dias = dias + intervalo;
         }
@@ -166,9 +166,9 @@ public class Parcelas {
 
     public void excluir(Parcelas parcelas) {
         //try {
-            String sql = "DELETE FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta()
+            String sql = "UPDATE PARCELAS SET SITUACAO = 'I' WHERE CD_CONTA = " + parcelas.getContas().getCdConta()
                     + " AND NR_PARCELA = " + parcelas.getNrParcela();
-            conexao.deleteSQL(sql);
+            conexao.atualizarSQL(sql);
             ajustaParcelas(parcelas);    
         //} 
         //catch (Exception ex) {
@@ -178,7 +178,8 @@ public class Parcelas {
 
     public void excluirTodas(Parcelas parcelas) {
         String sql = "DELETE FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta();
-        conexao.deleteSQL(sql);
+        //String sql = "UPDATE PARCELAS SET SITUACAO = 'I' WHERE C_CONTA = "+parcelas.getContas().getCdConta();
+        conexao.atualizarSQL(sql);
     }
 
     public void pagarParcela(Parcelas parcelas) {
@@ -209,9 +210,9 @@ public class Parcelas {
         conexao.atualizarSQL(sql);
 
         // remove o pagamento da parcela e a conta
-//        Pagamento pag = new Pagamento();
-//        pag.setParcelas(parcelas);
-//        pag.excluir(pag);
+        Pagamento pag = new Pagamento();
+        pag.setParcelas(parcelas);
+        pag.alterar(pag);
 
         RetornaData data = new RetornaData();
         MovCaixa mov = new MovCaixa();
@@ -245,7 +246,7 @@ public class Parcelas {
         double valor = parcelas.getVlParcela();
         String data = parcelas.getDtVencimento(); // data da primeira parcela
         
-        ResultSet retorno = consultarCdConta(parcelas.getContas());
+        ResultSet retorno = consultarCdConta(parcelas.getContas(),true);
             int quantidade = 0;
         try {
             while (retorno.next()){ // conta as parcelas ainda não pagas
@@ -266,7 +267,7 @@ public class Parcelas {
             int dias = 0; //parcelas.getContas().getForma().getIntervalo();
             
             RetornaData rdata = new RetornaData();
-            retorno = parcelas.consultarCdConta(parcelas.getContas());
+            retorno = parcelas.consultarCdConta(parcelas.getContas(),true);
             int count = 0;
         try {
             while (retorno.next()){
@@ -314,25 +315,44 @@ public class Parcelas {
         return conexao.resultset;
     }
 
-    public ResultSet consultarCdConta(Contas contas) {
-        String sql = "SELECT CD_CONTA, NR_PARCELA, VL_PARCELA, TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+    public ResultSet consultarCdConta(Contas contas, boolean ativas) {
+        String sql;
+        if (ativas){
+            sql = "SELECT CD_CONTA, NR_PARCELA, VL_PARCELA, TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+                + "VL_PAGO, TO_CHAR(DT_PAGO, 'DD/MM/YYYY') AS DT_PAGO "
+                + "FROM PARCELAS WHERE CD_CONTA = " + contas.getCdConta() + ""
+                + "AND SITUACAO = 'A' ORDER BY NR_PARCELA";
+        }
+        else{
+            sql = "SELECT CD_CONTA, NR_PARCELA, VL_PARCELA, TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
                 + "VL_PAGO, TO_CHAR(DT_PAGO, 'DD/MM/YYYY') AS DT_PAGO "
                 + "FROM PARCELAS WHERE CD_CONTA = " + contas.getCdConta() + " ORDER BY NR_PARCELA";
+        }
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarNrParcela(Parcelas parcelas) {
-        String sql = "SELECT CD_CONTA, NR_PARCELA, VL_PARCELA, TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+    public ResultSet consultarNrParcela(Parcelas parcelas, boolean ativas) {
+        String sql;
+        if (ativas){
+            // retorna apenas as ativas
+            sql = "SELECT CD_CONTA, NR_PARCELA, VL_PARCELA, TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+                + "VL_PAGO, TO_CHAR(DT_PAGO, 'DD/MM/YYYY') AS DT_PAGO "
+                + "FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta() + " AND "
+                + "NR_PARCELA = " + parcelas.getNrParcela()+" AND SITUACAO = 'A'"; 
+        }
+        else{
+            sql = "SELECT CD_CONTA, NR_PARCELA, VL_PARCELA, TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
                 + "VL_PAGO, TO_CHAR(DT_PAGO, 'DD/MM/YYYY') AS DT_PAGO "
                 + "FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta() + " AND "
                 + "NR_PARCELA = " + parcelas.getNrParcela();
+        }
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public void retornaParcela(Parcelas parcelas) {
-        ResultSet retorno = consultarNrParcela(parcelas);
+    public void retornaParcela(Parcelas parcelas, boolean ativas) {
+        ResultSet retorno = consultarNrParcela(parcelas, ativas);
         try {
             retorno.first();
             parcelas.setNrParcela(retorno.getInt("NR_PARCELA"));
@@ -340,7 +360,8 @@ public class Parcelas {
             parcelas.setDtVencimento(retorno.getString("DT_VENC"));
             parcelas.setVlPago(retorno.getDouble("VL_PAGO"));
             parcelas.setDtPago(retorno.getString("DT_PAGO"));
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             parcelas.setNrParcela(0);
             JOptionPane.showMessageDialog(null, "Parcela não encontrada!");
         }
@@ -349,7 +370,8 @@ public class Parcelas {
     public String retornaDataUltimaParcela(Parcelas parcelas) {
         String dataUltima;
         String sql = "SELECT TO_CHAR((MAX(DT_VENCIMENTO)),'DD/MM/YYYY') AS DT_VENC "
-                + "FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta();
+                + "FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta() +
+                "AND SITUACAO = 'A'";
         conexao.executeSQL(sql);
         try {
             conexao.resultset.first();
@@ -362,7 +384,7 @@ public class Parcelas {
 
     public boolean verificaParcelasPagas(Parcelas parcelas) {
         boolean todasPagas = true;
-        ResultSet retorno = consultarCdConta(parcelas.getContas());
+        ResultSet retorno = consultarCdConta(parcelas.getContas(),true);
         String dataPago;
 
         try {
@@ -381,34 +403,34 @@ public class Parcelas {
         return todasPagas;
     }
 
-    public boolean permiteExclusao(Parcelas parcelas) {
-        String sql = "SELECT * FROM PARCELAS P INNER JOIN PAGAMENTO PAG "
-                + "ON P.CD_CONTA = PAG.CD_CONTA AND P.NR_PARCELA = PAG.NR_PARCELA "
-                + "WHERE P.CD_CONTA = "+parcelas.getContas().getCdConta()+" AND "
-                + "P.NR_PARCELA = "+parcelas.getNrParcela();
-        conexao.executeSQL(sql);
-        try{
-            conexao.resultset.first();
-            int cd = conexao.resultset.getInt("CD_CONTA");
-            return false; // a parcela possui um pagamento
-        }
-        catch(SQLException ex){
-            // a parcela não está em um pagamento , verifica se possui mov caixa
-            sql = "SELECT * FROM PARCELAS P INNER JOIN MOV_CAIXA MOV "
-                + "ON P.CD_CONTA = MOV.CD_CONTA AND P.NR_PARCELA = MOV.NR_PARCELA "
-                + "WHERE P.CD_CONTA = "+parcelas.getContas().getCdConta()+" AND "
-                + "P.NR_PARCELA = "+parcelas.getNrParcela();
-            conexao.executeSQL(sql);
-            try{
-                conexao.resultset.first();
-                int cd = conexao.resultset.getInt("CD_CONTA");
-                return false; // a parcela é refenciada na tabela mov_caixa
-            }
-            catch(SQLException e){
-                return true; // a parcela não possui pagamento e nem mov_caixa
-            }
-        }
-    }
+//    public boolean permiteExclusao(Parcelas parcelas) {
+//        String sql = "SELECT * FROM PARCELAS P INNER JOIN PAGAMENTO PAG "
+//                + "ON P.CD_CONTA = PAG.CD_CONTA AND P.NR_PARCELA = PAG.NR_PARCELA "
+//                + "WHERE P.CD_CONTA = "+parcelas.getContas().getCdConta()+" AND "
+//                + "P.NR_PARCELA = "+parcelas.getNrParcela()+" AND P.SITUACAO = 'A'";
+//        conexao.executeSQL(sql);
+//        try{
+//            conexao.resultset.first();
+//            int cd = conexao.resultset.getInt("CD_CONTA");
+//            return false; // a parcela possui um pagamento
+//        }
+//        catch(SQLException ex){
+//            // a parcela não está em um pagamento , verifica se possui mov caixa
+//            sql = "SELECT * FROM PARCELAS P INNER JOIN MOV_CAIXA MOV "
+//                + "ON P.CD_CONTA = MOV.CD_CONTA AND P.NR_PARCELA = MOV.NR_PARCELA "
+//                + "WHERE P.CD_CONTA = "+parcelas.getContas().getCdConta()+" AND "
+//                + "P.NR_PARCELA = "+parcelas.getNrParcela();
+//            conexao.executeSQL(sql);
+//            try{
+//                conexao.resultset.first();
+//                int cd = conexao.resultset.getInt("CD_CONTA");
+//                return false; // a parcela é refenciada na tabela mov_caixa
+//            }
+//            catch(SQLException e){
+//                return true; // a parcela não possui pagamento e nem mov_caixa
+//            }
+//        }
+//    }
 
     // getter  e setter
     public Contas getContas() {
@@ -457,6 +479,14 @@ public class Parcelas {
 
     public void setDtPago(String dtPago) {
         this.dtPago = dtPago;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
 
 }

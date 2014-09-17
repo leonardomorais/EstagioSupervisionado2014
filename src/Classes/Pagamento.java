@@ -15,29 +15,37 @@ public class Pagamento {
     private AgenciaConta agc = new AgenciaConta();
     private Parcelas parcelas = new Parcelas();
     private TipoPagamento tipo = new TipoPagamento();
-
+    private String situacao;
+    
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
     public void incluir(Pagamento pagamento) {
         RetornaSequencia seq = new RetornaSequencia();
         pagamento.setCdPagamento(seq.retornaSequencia("CD_PAGAMENTO", "PAGAMENTO"));
         String sql = "INSERT INTO PAGAMENTO (CD_PAGAMENTO, NR_PARCELA, CD_CONTA, CD_TIPO, "
-                + "CD_AGENCIA_CONTA) VALUES ('" + pagamento.getCdPagamento() + "','"
+                + "CD_AGENCIA_CONTA, SITUACAO) VALUES ('" + pagamento.getCdPagamento() + "','"
                 + pagamento.getParcelas().getNrParcela() + "','"
                 + pagamento.getParcelas().getContas().getCdConta() + "','"
                 + pagamento.getTipo().getCdTipo() + "','"
-                + pagamento.getAgc().getCdAgcConta() + "')";
+                + pagamento.getAgc().getCdAgcConta() + "','A')";
         conexao.incluirSQL(sql);
     }
     
-    public void excluir(Pagamento pagamento){
-        String sql = "DELETE FROM PAGAMENTO WHERE CD_CONTA = "
+    public void alterar(Pagamento pagamento){
+        String sql = "UPDATE PAGAMENTO SET SITUACAO = 'I' WHERE CD_CONTA = "
                 +pagamento.getParcelas().getContas().getCdConta()+" AND "
                 + "NR_PARCELA = "+pagamento.getParcelas().getNrParcela();
-        conexao.deleteSQL(sql);
+        conexao.atualizarSQL(sql);
     }
 
-    public ResultSet consultarGeral() {
+    public ResultSet consultarGeral(boolean ativos) {
+        String clausula;
+        if (ativos){
+            clausula = "WHERE PAG.SITUACAO = 'A'";
+        } 
+        else{
+            clausula = "";
+        }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, PAG.NR_PARCELA, P.VL_PAGO, "
                 + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
                 + "FROM PAGAMENTO PAG "
@@ -45,12 +53,20 @@ public class Pagamento {
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
                 + "INNER JOIN CONTAS_PAGAR_RECEBER C ON C.CD_CONTA = P.CD_CONTA "
                 + "INNER JOIN AGENCIA_CONTA A ON A.CD_AGENCIA_CONTA = PAG.CD_AGENCIA_CONTA "
-                + "ORDER BY PAG.CD_PAGAMENTO";
+                +clausula+" ORDER BY PAG.CD_PAGAMENTO";
+        
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarCdPagamento(Pagamento pagamento) {
+    public ResultSet consultarCdPagamento(Pagamento pagamento, boolean ativos) {
+        String clausula;
+        if (ativos){
+            clausula = "AND PAG.SITUACAO = 'A'";
+        }
+        else{
+            clausula = "";
+        }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
                 + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
                 + "FROM PAGAMENTO PAG "
@@ -58,12 +74,19 @@ public class Pagamento {
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
                 + "INNER JOIN CONTAS_PAGAR_RECEBER C ON C.CD_CONTA = P.CD_CONTA "
                 + "INNER JOIN AGENCIA_CONTA A ON A.CD_AGENCIA_CONTA = PAG.CD_AGENCIA_CONTA "
-                + "WHERE PAG.CD_PAGAMENTO = " + pagamento.getCdPagamento();
+                + "WHERE PAG.CD_PAGAMENTO = " + pagamento.getCdPagamento()+clausula;
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarCdConta(Pagamento pagamento) {
+    public ResultSet consultarCdConta(Pagamento pagamento, boolean ativos) {
+        String clausula;
+        if (ativos){
+            clausula = "AND PAG.SITUACAO = 'A'";
+        }
+        else{
+            clausula = "";
+        }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
                 + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
                 + "FROM PAGAMENTO PAG "
@@ -71,13 +94,20 @@ public class Pagamento {
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
                 + "INNER JOIN CONTAS_PAGAR_RECEBER C ON C.CD_CONTA = P.CD_CONTA "
                 + "INNER JOIN AGENCIA_CONTA A ON A.CD_AGENCIA_CONTA = PAG.CD_AGENCIA_CONTA "
-                + "WHERE PAG.CD_CONTA = " + pagamento.getParcelas().getContas().getCdConta() + " "
+                + "WHERE PAG.CD_CONTA = " + pagamento.getParcelas().getContas().getCdConta() +clausula+ " "
                 + "ORDER BY PAG.CD_PAGAMENTO ";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarDsConta(Pagamento pagamento) {
+    public ResultSet consultarDsConta(Pagamento pagamento, boolean ativos) {
+        String clausula;
+        if (ativos){
+            clausula = "AND PAG.SITUACAO = 'A'";
+        }
+        else{
+            clausula = "";
+        }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
                 + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
                 + "FROM PAGAMENTO PAG "
@@ -85,8 +115,49 @@ public class Pagamento {
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
                 + "INNER JOIN CONTAS_PAGAR_RECEBER C ON C.CD_CONTA = P.CD_CONTA "
                 + "INNER JOIN AGENCIA_CONTA A ON A.CD_AGENCIA_CONTA = PAG.CD_AGENCIA_CONTA "
-                + "WHERE C.DS_CONTA = " + pagamento.getParcelas().getContas().getDsConta() + " "
+                + "WHERE C.DS_CONTA = " + pagamento.getParcelas().getContas().getDsConta() +clausula+ " "
                 + "ORDER BY PAG.CD_PAGAMENTO";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarCdAgencia(Pagamento pagamento, boolean ativos){
+        String clausula;
+        if(ativos){
+            clausula = "AND PAG.SITUACAO = 'A'";
+        }
+        else{
+            clausula = "";
+        }
+        String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
+                + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
+                + "FROM PAGAMENTO PAG "
+                + "INNER JOIN PARCELAS P ON PAG.NR_PARCELA = P.NR_PARCELA "
+                + "AND PAG.CD_CONTA = P.CD_CONTA "
+                + "INNER JOIN CONTAS_PAGAR_RECEBER C ON C.CD_CONTA = P.CD_CONTA "
+                + "INNER JOIN AGENCIA_CONTA A ON A.CD_AGENCIA_CONTA = PAG.CD_AGENCIA_CONTA "
+                + "WHERE A.CD_AGENCIA_CONTA = " + pagamento.getAgc().getCdAgcConta() +clausula+ " "
+                + "ORDER BY PAG.CD_PAGAMENTO";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarSituacao(Pagamento pagamento){
+        String sql = "";
+        if (pagamento.getSituacao().equals("TODOS")){
+            sql = "";
+        }
+        else{
+            sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
+                + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
+                + "FROM PAGAMENTO PAG "
+                + "INNER JOIN PARCELAS P ON PAG.NR_PARCELA = P.NR_PARCELA "
+                + "AND PAG.CD_CONTA = P.CD_CONTA "
+                + "INNER JOIN CONTAS_PAGAR_RECEBER C ON C.CD_CONTA = P.CD_CONTA "
+                + "INNER JOIN AGENCIA_CONTA A ON A.CD_AGENCIA_CONTA = PAG.CD_AGENCIA_CONTA "
+                + "WHERE PAG.SITUACAO = '" + pagamento.getSituacao() + "' "
+                + "ORDER BY PAG.CD_PAGAMENTO";
+        }
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
@@ -150,4 +221,11 @@ public class Pagamento {
         this.parcelas = parcelas;
     }
 
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
 }
