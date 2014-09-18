@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PARCELAS" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2bb49b8-715b-4e13-b361-9eda1f34ed86">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="conta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     parcelas."cd_conta" AS parcelas_cd_conta,
+     parcelas."nr_parcela" AS parcelas_nr_parcela,
+     parcelas."vl_parcela" AS parcelas_vl_parcela,
+     TO_CHAR(parcelas."dt_vencimento",'DD/MM/YYYY') AS parcelas_dt_vencimento,
+     parcelas."vl_pago" AS parcelas_vl_pago,
+     TO_CHAR(parcelas."dt_pago",'DD/MM/YYYY') AS parcelas_dt_pago,
+     parcelas."situacao" AS parcelas_situacao
+FROM
+     "public"."parcelas" parcelas
+WHERE cd_conta = $P{conta} and situacao = 'A'
+ORDER BY nr_parcela]]>
+	</queryString>
+	<field name="parcelas_cd_conta" class="java.lang.Integer"/>
+	<field name="parcelas_nr_parcela" class="java.lang.Integer"/>
+	<field name="parcelas_vl_parcela" class="java.math.BigDecimal"/>
+	<field name="parcelas_dt_vencimento" class="java.sql.Date"/>
+	<field name="parcelas_vl_pago" class="java.math.BigDecimal"/>
+	<field name="parcelas_dt_pago" class="java.sql.Date"/>
+	<field name="parcelas_situacao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="555" height="20" backcolor="#006666"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d752f38f-6515-4902-ba00-ed7b36918609" x="-19" y="0" width="63" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Conta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9104d29c-627e-43ab-81c1-266eb591aebf" x="44" y="0" width="63" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Nr Parcela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5c65c2ab-fee1-4fd1-9b7a-2dd41f4c7413" x="107" y="0" width="96" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="68982fe3-94b9-45be-b699-68b298a60e67" x="203" y="0" width="114" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Data Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb053b35-0a25-4aef-9cd7-c9507bfb6f98" x="317" y="0" width="88" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="48fe26b5-b803-43f1-85dd-3d6d353b8a77" x="405" y="0" width="130" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Data Pagamento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="555" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="69b489c2-2671-477f-9fa2-91ce2772908f" x="-19" y="0" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parcelas_cd_conta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5b1eb8ad-5469-414d-b8d5-0fd2ffbd872d" x="44" y="0" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parcelas_nr_parcela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ca3b2cfd-a449-4dd8-a3f1-e5b301041cab" x="107" y="0" width="96" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parcelas_vl_parcela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7ee8e8fa-0fb0-42df-80bb-7acbda44e582" x="203" y="0" width="114" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parcelas_dt_vencimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1771504e-8b5b-43a4-8610-f011056abcb2" x="317" y="0" width="88" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parcelas_vl_pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f5c92b09-5946-453a-b804-95b0444b6be0" x="405" y="0" width="130" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{parcelas_dt_pago} != null ? $F{parcelas_dt_pago} : "A PAGAR"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

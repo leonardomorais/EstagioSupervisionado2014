@@ -1,6 +1,7 @@
 package Servicos;
 
 import Cadastros.CadastroContas;
+import Cadastros.CadastroFornecedor;
 import Classes.AtendimentoMesa;
 import Classes.Contas;
 import Classes.MovEstoque;
@@ -10,6 +11,7 @@ import Consultas.ConsultaForma;
 import Consultas.ConsultaOperacao;
 import Consultas.ConsultaParcelas;
 import Consultas.ConsultaProduto;
+import Relatorios.Relatorios;
 import Validacoes.EditarJtable;
 import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
@@ -19,12 +21,15 @@ import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import java.awt.Dialog;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -33,7 +38,7 @@ import javax.swing.text.MaskFormatter;
 public class TelaVenda extends javax.swing.JFrame {
 
     VendaCompra venda = new VendaCompra();
-
+    Relatorios report = new Relatorios();
     int rotina;
     int linhasAtendimento = 0;
     String tipo;
@@ -129,8 +134,9 @@ public class TelaVenda extends javax.swing.JFrame {
         jComboBoxTipo = new javax.swing.JComboBox();
         jTextFieldConsulta = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jRadioButtonSim = new javax.swing.JRadioButton();
+        jRadioBtSim = new javax.swing.JRadioButton();
         jRadioButtonNao = new javax.swing.JRadioButton();
+        jBtRelatorio = new javax.swing.JButton();
 
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
@@ -638,12 +644,20 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jLabel16.setText("Ocultar registros inativos ?");
 
-        buttonGroupSituacao.add(jRadioButtonSim);
-        jRadioButtonSim.setSelected(true);
-        jRadioButtonSim.setText("Sim");
+        buttonGroupSituacao.add(jRadioBtSim);
+        jRadioBtSim.setSelected(true);
+        jRadioBtSim.setText("Sim");
 
         buttonGroupSituacao.add(jRadioButtonNao);
         jRadioButtonNao.setText("Não");
+
+        jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
@@ -663,13 +677,15 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelConsultaLayout.createSequentialGroup()
-                                .addComponent(jRadioButtonSim)
+                                .addComponent(jRadioBtSim)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButtonNao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBtPesquisar))
+                                .addComponent(jBtPesquisar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtRelatorio))
                             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(0, 0, Short.MAX_VALUE))))
@@ -692,8 +708,9 @@ public class TelaVenda extends javax.swing.JFrame {
                     .addComponent(jBtPesquisar)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButtonSim)
-                    .addComponent(jRadioButtonNao))
+                    .addComponent(jRadioBtSim)
+                    .addComponent(jRadioButtonNao)
+                    .addComponent(jBtRelatorio))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1046,15 +1063,19 @@ public class TelaVenda extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableVendaCompra, new int[]{110, 90, 50, 280, 60, 70, 70, 150});
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
-                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarGeral(jRadioButtonSim.isSelected()));
-
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarGeral(jRadioBtSim.isSelected()));
+                editaBotao(preencher.Vazia());
+                report.setConsulta(venda.consultarGeral(jRadioBtSim.isSelected()));
                 break;
 
             case 1:
                 try {
                     venda.setCdVendaCompra(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCdVendaCompra(venda, jRadioButtonSim.isSelected()));
-                } catch (NumberFormatException ex) {
+                    preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCdVendaCompra(venda, jRadioBtSim.isSelected()));
+                    editaBotao(preencher.Vazia());
+                    report.setConsulta(venda.consultarCdVendaCompra(venda, jRadioBtSim.isSelected()));
+                } 
+                catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
@@ -1063,18 +1084,24 @@ public class TelaVenda extends javax.swing.JFrame {
 
             case 2:
                 venda.getCliente().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCliente(venda, jRadioButtonSim.isSelected()));
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCliente(venda, jRadioBtSim.isSelected()));
+                editaBotao(preencher.Vazia());
+                report.setConsulta(venda.consultarCliente(venda, jRadioBtSim.isSelected()));
                 break;
 
             case 3:
                 venda.getFornecedor().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarFornecedor(venda, jRadioButtonSim.isSelected()));
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarFornecedor(venda, jRadioBtSim.isSelected()));
+                editaBotao(preencher.Vazia());
+                report.setConsulta(venda.consultarFornecedor(venda, jRadioBtSim.isSelected()));
                 break;
 
             default:
                 String operacao = jComboBoxTipo.getSelectedItem().toString().toUpperCase();
                 venda.getOperacao().setDsOperacao(operacao);
-                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarPorTipo(venda, jRadioButtonSim.isSelected()));
+                preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarPorTipo(venda, jRadioBtSim.isSelected()));
+                editaBotao(preencher.Vazia());
+                report.setConsulta(venda.consultarPorTipo(venda, jRadioBtSim.isSelected()));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -1205,6 +1232,19 @@ public class TelaVenda extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemExibirParcelasActionPerformed
 
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        if (report.login()) {
+            try {
+                report.setSubreport(true);
+                report.setTabela("VENDA_COMPRA");
+                report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
+            } catch (JRException ex) {
+                Logger.getLogger(CadastroFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1250,6 +1290,7 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisaOperacao;
     private javax.swing.JButton jBtPesquisar;
+    private javax.swing.JButton jBtRelatorio;
     private javax.swing.JButton jBtRemover;
     private javax.swing.JButton jButtonPesquisarCliente;
     private javax.swing.JButton jButtonPesquisarForma;
@@ -1278,9 +1319,9 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelGravar;
     private javax.swing.JPopupMenu jPopupMenuConta;
     private javax.swing.JPopupMenu jPopupMenuVendaCompra;
+    private javax.swing.JRadioButton jRadioBtSim;
     private javax.swing.JRadioButton jRadioButtonCompra;
     private javax.swing.JRadioButton jRadioButtonNao;
-    private javax.swing.JRadioButton jRadioButtonSim;
     private javax.swing.JRadioButton jRadioButtonVenda;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1573,5 +1614,13 @@ public class TelaVenda extends javax.swing.JFrame {
         jTextFieldForma.setEnabled(false);
         jTextFieldProduto.setEnabled(false);
         jTextFieldTotalProduto.setEnabled(false);
+    }
+    
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
+        }
     }
 }

@@ -398,13 +398,13 @@ public class CadastroFamilia extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(familia.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 familia.setCdFamilia(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarCdFamilia(familia));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(familia.consultarCdFamilia(familia));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
@@ -415,7 +415,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
         } else {
             familia.setDsFamilia(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarDsFamilia(familia));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(familia.consultarDsFamilia(familia));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

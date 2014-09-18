@@ -382,13 +382,13 @@ public class CadastroOrigem extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, origem.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(origem.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 origem.setCdOrigem(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, origem.consultarCdOrigem(origem));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(origem.consultarCdOrigem(origem));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
@@ -399,7 +399,7 @@ public class CadastroOrigem extends javax.swing.JFrame {
         } else {
             origem.setDsOrigem(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, origem.consultarDsOrigem(origem));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(origem.consultarDsOrigem(origem));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

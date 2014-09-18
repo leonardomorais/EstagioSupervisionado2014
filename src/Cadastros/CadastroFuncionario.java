@@ -697,13 +697,13 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarGeral(true));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(funcionario.consultarGeral(true));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 funcionario.setCd_funcionario(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarCdFuncionario(funcionario, true));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(funcionario.consultarCdFuncionario(funcionario, true));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
@@ -713,7 +713,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         } else {
             funcionario.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarNomeFuncionario(funcionario, true));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(funcionario.consultarNomeFuncionario(funcionario, true));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

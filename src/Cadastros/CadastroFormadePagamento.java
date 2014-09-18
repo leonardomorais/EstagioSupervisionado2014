@@ -439,13 +439,13 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(forma.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 forma.setCdForma(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarCodigo(forma));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(forma.consultarCodigo(forma));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
@@ -456,7 +456,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         } else {
             forma.setDsForma(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarDsForma(forma));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(forma.consultarDsForma(forma));
         }
 

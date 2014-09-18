@@ -383,14 +383,14 @@ public class CadastroMesa extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, mesa.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(mesa.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
 
             try {
                 mesa.setNrMesa(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, mesa.consultarNrMesa(mesa));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(mesa.consultarNrMesa(mesa));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um número para pesquisar!");
@@ -401,7 +401,7 @@ public class CadastroMesa extends javax.swing.JFrame {
         } else {
             mesa.setDsMesa(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, mesa.consultarDescricao(mesa));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(mesa.consultarDescricao(mesa));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

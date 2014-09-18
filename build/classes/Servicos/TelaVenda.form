@@ -639,13 +639,15 @@
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jRadioButtonSim" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRadioBtSim" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jRadioButtonNao" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="jTextFieldConsulta" min="-2" pref="405" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldConsulta" min="-2" pref="348" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jBtPesquisar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jBtRelatorio" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
@@ -676,8 +678,9 @@
                           <Component id="jBtPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBoxTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonSim" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioBtSim" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButtonNao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="159" max="-2" attributes="0"/>
@@ -824,7 +827,7 @@
                 <Property name="text" type="java.lang.String" value="Ocultar registros inativos ?"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonSim">
+            <Component class="javax.swing.JRadioButton" name="jRadioBtSim">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroupSituacao"/>
@@ -840,6 +843,15 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="N&#xe3;o"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jBtRelatorio">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtRelatorioActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

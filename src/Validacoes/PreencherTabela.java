@@ -80,7 +80,7 @@ public class PreencherTabela {
         }
     }    
 
-    public boolean isVazia() {
+    public boolean Vazia() {
         return vazia;
     }
 

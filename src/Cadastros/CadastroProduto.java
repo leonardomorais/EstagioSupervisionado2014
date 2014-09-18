@@ -501,13 +501,13 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarGeral(true));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(produto.consultarGeral(true));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 produto.setCdProduto(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarCdProduto(produto, true));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(produto.consultarCdProduto(produto, true));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
@@ -518,7 +518,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         } else {
             produto.setDsProduto(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarDsProduto(produto, true));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(produto.consultarDsProduto(produto, true));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

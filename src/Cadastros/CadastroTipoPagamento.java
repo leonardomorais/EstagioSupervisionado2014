@@ -370,13 +370,13 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, tipo.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(tipo.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 tipo.setCdTipo(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, tipo.consultarCdTipo(tipo));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(tipo.consultarCdTipo(tipo));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
@@ -387,7 +387,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
         } else {
             tipo.setDsTipo(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, tipo.consultarDsTipo(tipo));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(tipo.consultarDsTipo(tipo));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

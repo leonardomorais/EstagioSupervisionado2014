@@ -426,13 +426,13 @@ public class CadastroEstado extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, estado.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(estado.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 estado.setCdUf(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, estado.consultarCodigo(estado));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(estado.consultarCodigo(estado));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
@@ -443,7 +443,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         } else {
             estado.setDsUf(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, estado.consultarNome(estado));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(estado.consultarNome(estado));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

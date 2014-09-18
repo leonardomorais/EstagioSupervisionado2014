@@ -384,13 +384,13 @@ public class CadastroBanco extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableConsulta, new int[]{75, 300, 100});
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(banco.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 banco.setCdBanco(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarCdBanco(banco));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(banco.consultarCdBanco(banco));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
@@ -402,7 +402,7 @@ public class CadastroBanco extends javax.swing.JFrame {
             banco.setNmBanco(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarDsBanco(banco));
             report.setConsulta(banco.consultarDsBanco(banco));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 

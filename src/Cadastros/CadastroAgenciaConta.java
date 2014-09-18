@@ -485,13 +485,13 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(agc.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 agc.setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarCdAgc(agc));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(agc.consultarCdAgc(agc));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
@@ -502,7 +502,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         } else {
             agc.setDsConta(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarDsConta(agc));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(agc.consultarDsConta(agc));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

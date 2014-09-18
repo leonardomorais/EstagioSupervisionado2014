@@ -443,14 +443,14 @@ public class CadastroOperacao extends javax.swing.JFrame {
         
         if (jComboBoxConsulta.getSelectedIndex()==0){
             preencher.PreencherJtableGenerico(jTableOperacao, operacao.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(operacao.consultarGeral());
         }
         else if (jComboBoxConsulta.getSelectedIndex() == 1){
             try{
                 operacao.setCdOperacao(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableOperacao, operacao.consultarCdOperacao(operacao));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(operacao.consultarCdOperacao(operacao));
             }
             catch(NumberFormatException ex){
@@ -463,7 +463,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         else{
             operacao.setDsOperacao(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableOperacao, operacao.consultarDescricao(operacao));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(operacao.consultarDescricao(operacao));
         }
         

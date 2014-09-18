@@ -4,6 +4,7 @@ import Classes.Contas;
 import Classes.Parcelas;
 import Consultas.ConsultaForma;
 import Consultas.ConsultaParcelas;
+import Relatorios.Relatorios;
 import Telas.TelaPagamento;
 import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
@@ -17,6 +18,7 @@ import java.awt.Dialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -25,6 +27,7 @@ import javax.swing.text.MaskFormatter;
 public class CadastroContas extends javax.swing.JFrame {
 
     Contas contas = new Contas();
+    Relatorios report = new Relatorios();
 
     ValidaBotoes botoes = new ValidaBotoes();
     LimparCampos limpar = new LimparCampos();
@@ -99,6 +102,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jTableContas = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
+        jBtRelatorio = new javax.swing.JButton();
 
         jPopupMenuPagarParcela.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -442,6 +446,13 @@ public class CadastroContas extends javax.swing.JFrame {
         jTableParcelas.setComponentPopupMenu(jPopupMenuPagarParcela);
         jScrollPane2.setViewportView(jTableParcelas);
 
+        jBtRelatorio.setText("Relatório");
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -458,7 +469,9 @@ public class CadastroContas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldConsulta)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonPesquisar))
+                        .addComponent(jButtonPesquisar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtRelatorio))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -473,7 +486,8 @@ public class CadastroContas extends javax.swing.JFrame {
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxTpConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonPesquisar)
-                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtRelatorio))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -522,12 +536,16 @@ public class CadastroContas extends javax.swing.JFrame {
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarGeral(true));
+                editaBotao(preencher.Vazia());
+                report.setConsulta(contas.consultarGeral(true));
                 break;
 
             case 1:
                 try {
                     contas.setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableContas, contas.consultarCdConta(contas, true));
+                    editaBotao(preencher.Vazia());
+                    report.setConsulta(contas.consultarCdConta(contas, true));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
@@ -539,6 +557,9 @@ public class CadastroContas extends javax.swing.JFrame {
             case 2:
                 contas.setDsConta(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarDescricao(contas, true));
+                editaBotao(preencher.Vazia());
+                report.setConsulta(contas.consultarDescricao(contas, true));
+            
                 break;
 
             case 3:
@@ -550,7 +571,8 @@ public class CadastroContas extends javax.swing.JFrame {
                         contas.setTpConta("P");
                 }
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarTipo(contas, true));
-
+                editaBotao(preencher.Vazia());
+                report.setConsulta(contas.consultarTipo(contas, true));
                 break;
 
             default:
@@ -563,6 +585,8 @@ public class CadastroContas extends javax.swing.JFrame {
                         contas.setPago("N");
                 }
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarSituacao(contas));
+                editaBotao(preencher.Vazia());
+                report.setConsulta(contas.consultarSituacao(contas));
         }
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
 
@@ -893,6 +917,19 @@ public class CadastroContas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemExcluirParcelaActionPerformed
 
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        if (report.login()) {
+            try {
+                report.setSubreport(true);
+                report.setTabela("CONTAS_PAGAR_RECEBER");
+                report.gerarRelatorio(report);
+                jBtPesquisarActionPerformed(null);
+            } catch (JRException ex) {
+                
+            }
+        }
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -936,6 +973,7 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisar;
+    private javax.swing.JButton jBtRelatorio;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxSituacao;
@@ -1052,5 +1090,13 @@ public class CadastroContas extends javax.swing.JFrame {
     public void exibirConta(int conta){
         jTabbedPaneConta.setSelectedIndex(1);
         atualizaJtable(conta);
+    }
+    
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
+        }
     }
 }

@@ -778,13 +778,13 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarGeral(true));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(cliente.consultarGeral(true));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 cliente.setCdCliente(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarCdCliente(cliente, true));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(cliente.consultarCdCliente(cliente, true));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
@@ -795,7 +795,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         } else {
             cliente.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarNomeCliente(cliente, true));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(cliente.consultarNomeCliente(cliente, true));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed

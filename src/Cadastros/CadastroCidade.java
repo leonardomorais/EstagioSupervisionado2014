@@ -406,13 +406,13 @@ public class CadastroCidade extends javax.swing.JFrame {
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
             preencher.PreencherJtableGenerico(jTableConsulta, cidade.consultarGeral());
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(cidade.consultarGeral());
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
                 cidade.setCdCidade(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableConsulta, cidade.consultarCodigo(cidade));
-                editaBotao(preencher.isVazia());
+                editaBotao(preencher.Vazia());
                 report.setConsulta(cidade.consultarCodigo(cidade));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
@@ -423,7 +423,7 @@ public class CadastroCidade extends javax.swing.JFrame {
         } else {
             cidade.setDsCidade(jTextFieldConsulta.getText().toUpperCase());
             preencher.PreencherJtableGenerico(jTableConsulta, cidade.consultarNome(cidade));
-            editaBotao(preencher.isVazia());
+            editaBotao(preencher.Vazia());
             report.setConsulta(cidade.consultarNome(cidade));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
