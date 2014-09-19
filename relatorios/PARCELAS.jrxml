@@ -11,13 +11,13 @@
      parcelas."cd_conta" AS parcelas_cd_conta,
      parcelas."nr_parcela" AS parcelas_nr_parcela,
      parcelas."vl_parcela" AS parcelas_vl_parcela,
-     TO_CHAR(parcelas."dt_vencimento",'DD/MM/YYYY') AS parcelas_dt_vencimento,
+     parcelas."dt_vencimento" AS parcelas_dt_vencimento,
      parcelas."vl_pago" AS parcelas_vl_pago,
-     TO_CHAR(parcelas."dt_pago",'DD/MM/YYYY') AS parcelas_dt_pago,
+     parcelas."dt_pago" AS parcelas_dt_pago,
      parcelas."situacao" AS parcelas_situacao
 FROM
      "public"."parcelas" parcelas
-WHERE cd_conta = $P{conta} and situacao = 'A'
+WHERE cd_conta = $P{conta} AND situacao = 'A'
 ORDER BY nr_parcela]]>
 	</queryString>
 	<field name="parcelas_cd_conta" class="java.lang.Integer"/>
@@ -91,34 +91,46 @@ ORDER BY nr_parcela]]>
 				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="555" height="20"/>
 			</rectangle>
 			<textField>
-				<reportElement uuid="69b489c2-2671-477f-9fa2-91ce2772908f" x="-19" y="0" width="63" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement uuid="f5d25e7a-c316-4b47-87ef-75b09c374e2c" x="-19" y="0" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_cd_conta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5b1eb8ad-5469-414d-b8d5-0fd2ffbd872d" x="44" y="0" width="63" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement uuid="cf572053-bb04-4730-9e4b-bef1ebb5f3fb" x="44" y="0" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_nr_parcela}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="ca3b2cfd-a449-4dd8-a3f1-e5b301041cab" x="107" y="0" width="96" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement uuid="aa3ad4f9-ae26-4c5f-b4a2-fd7f7806a8f8" x="107" y="0" width="96" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_vl_parcela}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7ee8e8fa-0fb0-42df-80bb-7acbda44e582" x="203" y="0" width="114" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{parcelas_dt_vencimento}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="1771504e-8b5b-43a4-8610-f011056abcb2" x="317" y="0" width="88" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement uuid="88a31287-0019-4194-81ad-5ff7427143c3" x="317" y="0" width="88" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_vl_pago}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="f5c92b09-5946-453a-b804-95b0444b6be0" x="405" y="0" width="130" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="4ecce711-1ae7-47aa-83a3-e00338158abf" x="405" y="0" width="130" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_dt_pago} != null ? $F{parcelas_dt_pago} : "A PAGAR"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="f03b5ecd-323b-41b7-aa5a-db98f0a0cafe" x="203" y="0" width="114" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parcelas_dt_vencimento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

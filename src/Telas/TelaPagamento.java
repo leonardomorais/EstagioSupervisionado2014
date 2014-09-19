@@ -3,11 +3,8 @@ package Telas;
 import Classes.Pagamento;
 import Consultas.ConsultaAgenciaConta;
 import Consultas.ConsultaClienteFornecedor;
-import Consultas.ConsultaContas;
-import Consultas.ConsultaOperacao;
 import Consultas.ConsultaTipoPagamento;
-import Dialogos.DialogoOperacao;
-import Validacoes.FormataMoeda;
+import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
@@ -16,6 +13,8 @@ import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,7 +24,9 @@ import javax.swing.JOptionPane;
 public class TelaPagamento extends javax.swing.JFrame {
 
     Pagamento pagamento = new Pagamento();
-
+    Relatorios report = new Relatorios();
+    List<Integer> parcelas; // 
+    
     RetornaDecimal decimal = new RetornaDecimal();
     RetornaData data = new RetornaData();
     LimparCampos limpar = new LimparCampos();
@@ -39,6 +40,10 @@ public class TelaPagamento extends javax.swing.JFrame {
         rotina = Rotinas.padrao;
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, "TODOS");
         validaEstadoCampos();
+        parcelas = new ArrayList<>();
+        parcelas.add(1);
+        parcelas.add(2);
+        report.emitirTicketPagamento(parcelas, 5);
     }
 
     /**
@@ -92,6 +97,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jRbSim = new javax.swing.JRadioButton();
         jRadiobNao = new javax.swing.JRadioButton();
+        jBtRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Pagamento");
@@ -434,6 +440,14 @@ public class TelaPagamento extends javax.swing.JFrame {
         buttonGroupSituacao.add(jRadiobNao);
         jRadiobNao.setText("Não");
 
+        jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
         jPanelConsultaLayout.setHorizontalGroup(
@@ -441,7 +455,7 @@ public class TelaPagamento extends javax.swing.JFrame {
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -456,9 +470,11 @@ public class TelaPagamento extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadiobNao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBtPesquisar)))))
+                                .addComponent(jBtPesquisar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtRelatorio)))))
                 .addContainerGap())
         );
         jPanelConsultaLayout.setVerticalGroup(
@@ -474,7 +490,8 @@ public class TelaPagamento extends javax.swing.JFrame {
                     .addComponent(jBtPesquisar)
                     .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRbSim)
-                    .addComponent(jRadiobNao))
+                    .addComponent(jRadiobNao)
+                    .addComponent(jBtRelatorio))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                 .addContainerGap())
@@ -617,7 +634,6 @@ public class TelaPagamento extends javax.swing.JFrame {
                     pagamento.getParcelas().getContas().setCdConta(conta);
                     carregarTabelaContas();
                 }
-
             }
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
@@ -691,13 +707,18 @@ public class TelaPagamento extends javax.swing.JFrame {
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
                 preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarGeral(jRbSim.isSelected()));
+                editaBotao(preencher.Vazia());
+                report.setConsulta(pagamento.consultarGeral(jRbSim.isSelected()));
                 break;
 
             case 1:
                 try {
                     pagamento.setCdPagamento(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdPagamento(pagamento,jRbSim.isSelected()));
-                } catch (NumberFormatException ex) {
+                    editaBotao(preencher.Vazia());
+                    report.setConsulta(pagamento.consultarCdPagamento(pagamento, jRbSim.isSelected()));
+                } 
+                catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
@@ -708,7 +729,10 @@ public class TelaPagamento extends javax.swing.JFrame {
                 try {
                     pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdConta(pagamento,jRbSim.isSelected()));
-                } catch (NumberFormatException ex) {
+                    editaBotao(preencher.Vazia());
+                    report.setConsulta(pagamento.consultarCdConta(pagamento, jRbSim.isSelected()));
+                } 
+                catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
@@ -718,12 +742,16 @@ public class TelaPagamento extends javax.swing.JFrame {
             case 3:
                 pagamento.getParcelas().getContas().setDsConta(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarDsConta(pagamento,jRbSim.isSelected()));
-            break;
+                editaBotao(preencher.Vazia());
+                report.setConsulta(pagamento.consultarDsConta(pagamento, jRbSim.isSelected()));
+                break;
                 
             default:
                 try{
                     pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdAgencia(pagamento,jRbSim.isSelected()));
+                    editaBotao(preencher.Vazia());
+                    report.setConsulta(pagamento.consultarCdAgencia(pagamento, jRbSim.isSelected()));
                 }
                 catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
@@ -833,6 +861,14 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        if (report.login()) {
+                report.setSubreport(false);
+                report.setTabela("PAGAMENTO");
+                report.gerarRelatorio(report);
+        }
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
+
     public void limparCamposPessoa() {
         jTextFieldCdPessoa.setText("");
         jTextFieldNome.setText("");
@@ -884,6 +920,7 @@ public class TelaPagamento extends javax.swing.JFrame {
     private javax.swing.JButton jBtPesquisaPessoa;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtPesquisarTpPagamento;
+    private javax.swing.JButton jBtRelatorio;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxOperacao;
@@ -1006,12 +1043,14 @@ public class TelaPagamento extends javax.swing.JFrame {
     }
 
     public int parcelasSelecionadas() {
+        parcelas = new ArrayList<>();
         int selecionadas = 0;
         if (jTableParcelas.getRowCount() > 0) {
             for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
                 if ((boolean) jTableParcelas.getValueAt(i, 0)) {
                     // selecionada
                     selecionadas = selecionadas + 1;
+                    parcelas.add(Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()));
                 }
             }
         }
@@ -1118,5 +1157,13 @@ public class TelaPagamento extends javax.swing.JFrame {
             }
         }
         return row;
+    }
+    
+    public void editaBotao(boolean vazia) {
+        if (vazia) {
+            jBtRelatorio.setEnabled(false);
+        } else {
+            jBtRelatorio.setEnabled(true);
+        }
     }
 }

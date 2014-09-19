@@ -1,7 +1,6 @@
 package Servicos;
 
 import Cadastros.CadastroContas;
-import Cadastros.CadastroFornecedor;
 import Classes.AtendimentoMesa;
 import Classes.Contas;
 import Classes.MovEstoque;
@@ -21,15 +20,13 @@ import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import java.awt.Dialog;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.WindowEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -74,6 +71,7 @@ public class TelaVenda extends javax.swing.JFrame {
         jPopupMenuConta = new javax.swing.JPopupMenu();
         jMenuItemExibirParcelas = new javax.swing.JMenuItem();
         buttonGroupSituacao = new javax.swing.ButtonGroup();
+        buttonGroupTicket = new javax.swing.ButtonGroup();
         jTabbedPaneVendaCompra = new javax.swing.JTabbedPane();
         jPanelGravar = new javax.swing.JPanel();
         jTextFieldCdVendaCompra = new javax.swing.JTextField();
@@ -450,11 +448,11 @@ public class TelaVenda extends javax.swing.JFrame {
                         .addGap(82, 82, 82)
                         .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanelGravarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGravarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanelGravarLayout.createSequentialGroup()
+                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelGravarLayout.createSequentialGroup()
                         .addComponent(jBtIncluir)
                         .addGap(18, 18, 18)
                         .addComponent(jBtExcluir)
@@ -544,8 +542,8 @@ public class TelaVenda extends javax.swing.JFrame {
                             .addComponent(jTextFieldTotalProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtIncluir)
                     .addComponent(jBtGravar)
@@ -716,7 +714,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -992,6 +990,11 @@ public class TelaVenda extends javax.swing.JFrame {
             consulta.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
             consulta.setVisible(true);
             consulta.exibirParcelas();
+            consulta.addWindowListener(new java.awt.event.WindowAdapter() {
+               public void windowClosed(WindowEvent evt){
+                   report.emitirTicketVendaCompra(venda.getCdVendaCompra());
+               }
+            });
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -1192,6 +1195,7 @@ public class TelaVenda extends javax.swing.JFrame {
             if (opcao == JOptionPane.YES_OPTION) {
                 try {
                     venda.setCdVendaCompra(Integer.parseInt(jTextFieldCdVendaCompra.getText()));
+                    venda.getOperacao().setCdOperacao(Integer.parseInt(jTextFieldCdOperacao.getText()));
                     if (venda.permiteExclusao(venda)) {
                         venda.excluir(venda);
                         limpar.limparCampos(jPanelGravar);
@@ -1234,14 +1238,9 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         if (report.login()) {
-            try {
-                report.setSubreport(true);
-                report.setTabela("VENDA_COMPRA");
-                report.gerarRelatorio(report);
-                jBtPesquisarActionPerformed(null);
-            } catch (JRException ex) {
-                Logger.getLogger(CadastroFornecedor.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            report.setSubreport(true);
+            report.setTabela("VENDA_COMPRA");
+            report.gerarRelatorio(report);        
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -1282,6 +1281,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSituacao;
+    private javax.swing.ButtonGroup buttonGroupTicket;
     private javax.swing.ButtonGroup buttonGroupTipo;
     private javax.swing.JButton jBtAdicionar;
     private javax.swing.JButton jBtCancelar;

@@ -43,7 +43,7 @@ C.CD_FORMA = F.CD_FORMA ORDER BY C.CD_CONTA;]]>
 		<band height="35" splitType="Stretch">
 			<textField pattern="HH.mm">
 				<reportElement uuid="43a6f776-5663-4183-a4c0-f598f768f511" x="473" y="0" width="82" height="35"/>
-				<textElement verticalAlignment="Top">
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
@@ -64,7 +64,7 @@ C.CD_FORMA = F.CD_FORMA ORDER BY C.CD_CONTA;]]>
 			</staticText>
 			<staticText>
 				<reportElement uuid="486b8bbc-2358-4edc-b59c-79502e792bc7" x="442" y="0" width="31" height="35"/>
-				<textElement verticalAlignment="Top">
+				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<text><![CDATA[Hora:]]></text>

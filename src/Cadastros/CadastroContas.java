@@ -78,7 +78,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextFieldValor = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jBtPesquisar = new javax.swing.JButton();
+        jBtPesquisarFormaPgto = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jFormattedTextFieldDataVencimento = new JFormattedTextField(data);
@@ -96,7 +96,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jComboBoxTpConta = new javax.swing.JComboBox();
-        jButtonPesquisar = new javax.swing.JButton();
+        jButtonPesquisarConsulta = new javax.swing.JButton();
         jTextFieldConsulta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableContas = new javax.swing.JTable();
@@ -198,10 +198,10 @@ public class CadastroContas extends javax.swing.JFrame {
 
         jLabel9.setText("Data Vencimento");
 
-        jBtPesquisar.setText("Pesquisar");
-        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        jBtPesquisarFormaPgto.setText("Pesquisar");
+        jBtPesquisarFormaPgto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisarActionPerformed(evt);
+                jBtPesquisarFormaPgtoActionPerformed(evt);
             }
         });
 
@@ -306,7 +306,7 @@ public class CadastroContas extends javax.swing.JFrame {
                             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                                 .addComponent(jTextFieldCdForma, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBtPesquisar))
+                                .addComponent(jBtPesquisarFormaPgto))
                             .addComponent(jLabel8)
                             .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -346,7 +346,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCdForma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtPesquisar))
+                    .addComponent(jBtPesquisarFormaPgto))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -396,10 +396,10 @@ public class CadastroContas extends javax.swing.JFrame {
 
         jComboBoxTpConta.setEnabled(false);
 
-        jButtonPesquisar.setText("Pesquisar");
-        jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPesquisarConsulta.setText("Pesquisar");
+        jButtonPesquisarConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPesquisarActionPerformed(evt);
+                jButtonPesquisarConsultaActionPerformed(evt);
             }
         });
 
@@ -447,6 +447,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTableParcelas);
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRelatorioActionPerformed(evt);
@@ -469,7 +470,7 @@ public class CadastroContas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldConsulta)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonPesquisar)
+                        .addComponent(jButtonPesquisarConsulta)
                         .addGap(18, 18, 18)
                         .addComponent(jBtRelatorio))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
@@ -485,7 +486,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxTpConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonPesquisar)
+                    .addComponent(jButtonPesquisarConsulta)
                     .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtRelatorio))
                 .addGap(18, 18, 18)
@@ -529,7 +530,7 @@ public class CadastroContas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
-    private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+    private void jButtonPesquisarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarConsultaActionPerformed
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableContas, new int[]{70, 140, 80, 100, 70, 90, 70, 70, 70});
 
@@ -588,7 +589,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 editaBotao(preencher.Vazia());
                 report.setConsulta(contas.consultarSituacao(contas));
         }
-    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+    }//GEN-LAST:event_jButtonPesquisarConsultaActionPerformed
 
     private void jTableContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContasMouseClicked
         Parcelas parcelas = new Parcelas();
@@ -659,7 +660,7 @@ public class CadastroContas extends javax.swing.JFrame {
         campos.validaCamposLimite(evt, jTextFieldDescrição, 30);
     }//GEN-LAST:event_jTextFieldDescriçãoKeyTyped
 
-    private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
+    private void jBtPesquisarFormaPgtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarFormaPgtoActionPerformed
         ConsultaForma csForma = new ConsultaForma(this, true);
         csForma.setVisible(true);
 
@@ -678,7 +679,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 }
             }
         });
-    }//GEN-LAST:event_jBtPesquisarActionPerformed
+    }//GEN-LAST:event_jBtPesquisarFormaPgtoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         rotina = Rotinas.alterar;
@@ -919,14 +920,9 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         if (report.login()) {
-            try {
                 report.setSubreport(true);
                 report.setTabela("CONTAS_PAGAR_RECEBER");
                 report.gerarRelatorio(report);
-                jBtPesquisarActionPerformed(null);
-            } catch (JRException ex) {
-                
-            }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -972,9 +968,9 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
-    private javax.swing.JButton jBtPesquisar;
+    private javax.swing.JButton jBtPesquisarFormaPgto;
     private javax.swing.JButton jBtRelatorio;
-    private javax.swing.JButton jButtonPesquisar;
+    private javax.swing.JButton jButtonPesquisarConsulta;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxSituacao;
     private javax.swing.JComboBox jComboBoxTpConta;

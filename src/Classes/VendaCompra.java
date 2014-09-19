@@ -62,7 +62,15 @@ public class VendaCompra {
 
     public void excluir(VendaCompra vc) {
         vc.getVcProdutos().setCdVendaCompra(vc.getCdVendaCompra());
-        vc.getVcProdutos().retornaAoEstoque(vc.getVcProdutos());
+        boolean venda;
+        if (vc.getOperacao().getCdOperacao() == 1){
+            // se for uma venda
+            venda = true;
+        }
+        else{
+            venda = false;
+        }
+        vc.getVcProdutos().ajustarEstoque(vc.getVcProdutos(), venda);
         // devolve os produtos ao estoque e grava outra mov_estoque
         
         Contas contas = new Contas();

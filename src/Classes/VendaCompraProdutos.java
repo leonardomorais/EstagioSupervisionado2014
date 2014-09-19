@@ -45,13 +45,13 @@ public class VendaCompraProdutos {
         conexao.atualizarSQL(sql);
     }
     
-    public void excluir(VendaCompraProdutos vcProdutos){
-        retornaAoEstoque(vcProdutos);
-        
-        String sql = "DELETE FROM VENDA_COMPRA_PRODUTOS "
-                + "WHERE CD_VENDA_COMPRA = "+vcProdutos.getCdVendaCompra();
-        conexao.deleteSQL(sql);
-    }
+//    public void excluir(VendaCompraProdutos vcProdutos, boolean venda){
+//        ajustarEstoque(vcProdutos, venda);
+//        
+//        String sql = "DELETE FROM VENDA_COMPRA_PRODUTOS "
+//                + "WHERE CD_VENDA_COMPRA = "+vcProdutos.getCdVendaCompra();
+//        conexao.deleteSQL(sql);
+//    }
 
     public ResultSet consultarProdutos(VendaCompraProdutos vcProdutos) {
         String sql = "SELECT VC.CD_PRODUTO, P.DS_PRODUTO, "
@@ -89,7 +89,7 @@ public class VendaCompraProdutos {
         return repetido;
     }
     
-    public void retornaAoEstoque(VendaCompraProdutos vcProdutos){
+    public void ajustarEstoque(VendaCompraProdutos vcProdutos, boolean venda){
         ResultSet retorno = consultarProdutos(vcProdutos);
         try {
             MovEstoque mov = new MovEstoque();
@@ -103,9 +103,14 @@ public class VendaCompraProdutos {
                 int qtAntes = vcProdutos.getProduto().getQtAtual();
                 
                 // altera a quantidade atual
-                vcProdutos.getProduto().setQtAtual(qtAntes + vcProdutos.getQuantidade());
-                vcProdutos.getProduto().alteraQtAtual(vcProdutos.getProduto());
-                
+                if (venda){
+                    vcProdutos.getProduto().setQtAtual(qtAntes + vcProdutos.getQuantidade());
+                    vcProdutos.getProduto().alteraQtAtual(vcProdutos.getProduto());
+                }
+                else{
+                    vcProdutos.getProduto().setQtAtual(qtAntes - vcProdutos.getQuantidade());
+                    vcProdutos.getProduto().alteraQtAtual(vcProdutos.getProduto());
+                }
                 // grava a mov estoque
                 mov.setCdVendaCompra(vcProdutos.getCdVendaCompra());
                 mov.setCdProduto(vcProdutos.getProduto().getCdProduto());

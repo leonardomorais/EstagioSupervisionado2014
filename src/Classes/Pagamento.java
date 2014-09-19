@@ -47,7 +47,7 @@ public class Pagamento {
             clausula = "";
         }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, PAG.NR_PARCELA, P.VL_PAGO, "
-                + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
+                + "A.CD_AGENCIA_CONTA , A.DS_CONTA AS DS "
                 + "FROM PAGAMENTO PAG "
                 + "INNER JOIN PARCELAS P ON PAG.NR_PARCELA = P.NR_PARCELA "
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
@@ -68,7 +68,7 @@ public class Pagamento {
             clausula = "";
         }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
-                + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
+                + "A.CD_AGENCIA_CONTA , A.DS_CONTA AS DS "
                 + "FROM PAGAMENTO PAG "
                 + "INNER JOIN PARCELAS P ON PAG.NR_PARCELA = P.NR_PARCELA "
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
@@ -88,7 +88,7 @@ public class Pagamento {
             clausula = "";
         }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
-                + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
+                + "A.CD_AGENCIA_CONTA , A.DS_CONTA AS DS "
                 + "FROM PAGAMENTO PAG "
                 + "INNER JOIN PARCELAS P ON PAG.NR_PARCELA = P.NR_PARCELA "
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
@@ -109,7 +109,7 @@ public class Pagamento {
             clausula = "";
         }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
-                + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
+                + "A.CD_AGENCIA_CONTA , A.DS_CONTA AS DS "
                 + "FROM PAGAMENTO PAG "
                 + "INNER JOIN PARCELAS P ON PAG.NR_PARCELA = P.NR_PARCELA "
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
@@ -130,7 +130,7 @@ public class Pagamento {
             clausula = "";
         }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
-                + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
+                + "A.CD_AGENCIA_CONTA , A.DS_CONTA AS DS "
                 + "FROM PAGAMENTO PAG "
                 + "INNER JOIN PARCELAS P ON PAG.NR_PARCELA = P.NR_PARCELA "
                 + "AND PAG.CD_CONTA = P.CD_CONTA "
@@ -149,7 +149,7 @@ public class Pagamento {
         }
         else{
             sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, C.DS_CONTA, P.NR_PARCELA, P.VL_PAGO, "
-                + "A.CD_AGENCIA_CONTA , A.DS_CONTA "
+                + "A.CD_AGENCIA_CONTA , A.DS_CONTA AS DS "
                 + "FROM PAGAMENTO PAG "
                 + "INNER JOIN PARCELAS P ON PAG.NR_PARCELA = P.NR_PARCELA "
                 + "AND PAG.CD_CONTA = P.CD_CONTA "

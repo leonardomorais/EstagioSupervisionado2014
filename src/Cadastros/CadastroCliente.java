@@ -977,14 +977,10 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         if (report.login()) {
-            try {
                 report.setSubreport(true);
                 report.setTabela("CLIENTE");
                 report.gerarRelatorio(report);
                 jBtPesquisarActionPerformed(null);
-            } catch (JRException ex) {
-                Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 

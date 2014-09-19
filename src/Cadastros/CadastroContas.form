@@ -125,7 +125,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jTextFieldCdForma" min="-2" pref="70" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jBtPesquisar" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jBtPesquisarFormaPgto" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextFieldValor" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
@@ -177,7 +177,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldCdForma" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldFormaPgto" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtPesquisarFormaPgto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
@@ -301,12 +301,12 @@
                 <Property name="text" type="java.lang.String" value="Data Vencimento"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jBtPesquisar">
+            <Component class="javax.swing.JButton" name="jBtPesquisarFormaPgto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pesquisar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesquisarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesquisarFormaPgtoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
@@ -453,7 +453,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jTextFieldConsulta" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButtonPesquisar" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonPesquisarConsulta" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jBtRelatorio" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -473,7 +473,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jComboBoxConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBoxTpConta" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonPesquisarConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -516,12 +516,12 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonPesquisar">
+            <Component class="javax.swing.JButton" name="jButtonPesquisarConsulta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pesquisar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPesquisarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPesquisarConsultaActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldConsulta">
@@ -587,6 +587,7 @@
             <Component class="javax.swing.JButton" name="jBtRelatorio">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtRelatorioActionPerformed"/>

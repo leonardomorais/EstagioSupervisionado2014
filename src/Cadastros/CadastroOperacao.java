@@ -507,14 +507,9 @@ public class CadastroOperacao extends javax.swing.JFrame {
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         if (report.login()) {
-            try {
                 report.setSubreport(false);
                 report.setTabela("OPERACAO");
                 report.gerarRelatorio(report);
-                jBtPesquisarActionPerformed(null);
-            } catch (JRException ex) {
-                Logger.getLogger(CadastroBanco.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
