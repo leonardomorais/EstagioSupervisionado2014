@@ -25,7 +25,7 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     Pagamento pagamento = new Pagamento();
     Relatorios report = new Relatorios();
-    List<Integer> parcelas; // 
+    List<Integer> parcelas = new ArrayList<Integer>();
     
     RetornaDecimal decimal = new RetornaDecimal();
     RetornaData data = new RetornaData();
@@ -40,10 +40,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         rotina = Rotinas.padrao;
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, "TODOS");
         validaEstadoCampos();
-        parcelas = new ArrayList<>();
-        parcelas.add(1);
-        parcelas.add(2);
-        report.emitirTicketPagamento(parcelas, 5);
     }
 
     /**
@@ -619,6 +615,7 @@ public class TelaPagamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Parcela(s) paga(s)!");
             try{
                 carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
+                report.emitirTicketPagamento(parcelas, Integer.parseInt(jTextFieldCdPessoa.getText()));
             }
             catch(NumberFormatException ex){
                 int conta;
@@ -628,11 +625,13 @@ public class TelaPagamento extends javax.swing.JFrame {
                     conta = Integer.parseInt(jTableContas.getValueAt(linha, 0).toString());
                     pagamento.getParcelas().getContas().setCdConta(conta);
                     carregarTabelaContas();
+                    report.emitirTicketPagamento(parcelas, conta);
                 }
                 catch(Exception e){
                     conta = Integer.parseInt(jTableContas.getValueAt(0, 0).toString());
                     pagamento.getParcelas().getContas().setCdConta(conta);
                     carregarTabelaContas();
+                    report.emitirTicketPagamento(parcelas, conta);
                 }
             }
         }
@@ -1043,7 +1042,6 @@ public class TelaPagamento extends javax.swing.JFrame {
     }
 
     public int parcelasSelecionadas() {
-        parcelas = new ArrayList<>();
         int selecionadas = 0;
         if (jTableParcelas.getRowCount() > 0) {
             for (int i = 0; i < jTableParcelas.getRowCount(); i++) {

@@ -52,6 +52,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         setTitle("Movimentação de Caixa");
         setResizable(false);
 
+        jTableMovCaixa.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jTableMovCaixa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

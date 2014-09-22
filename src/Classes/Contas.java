@@ -72,34 +72,34 @@ public class Contas {
 
     public void alterar(Contas contas) {
         String sql;
-        switch (contas.getDtPagamento()){
+        switch (contas.getDtPagamento()) {
             case "":
                 sql = "UPDATE CONTAS_PAGAR_RECEBER SET CD_FORMA = '" + contas.getForma().getCdForma() + "', "
-                    + "DS_CONTA = '" + contas.getDsConta() + "', TIPO_CONTA = '" + contas.getTpConta() + "', "
-                    + "VL_CONTA = '" + contas.getVlConta() + "', DT_VENCIMENTO = '" + contas.getDtVencimento() + "' "
-                    + "WHERE CD_CONTA = " + contas.getCdConta();
-            break;
-                
+                        + "DS_CONTA = '" + contas.getDsConta() + "', TIPO_CONTA = '" + contas.getTpConta() + "', "
+                        + "VL_CONTA = '" + contas.getVlConta() + "', DT_VENCIMENTO = '" + contas.getDtVencimento() + "' "
+                        + "WHERE CD_CONTA = " + contas.getCdConta();
+                break;
+
             case "NULL":
-                sql = "UPDATE CONTAS_PAGAR_RECEBER SET DT_PAGAMENTO = "+null+", PAGO = 'N' "
-                    + "WHERE CD_CONTA = "+contas.getCdConta();
-            break;
-            
+                sql = "UPDATE CONTAS_PAGAR_RECEBER SET DT_PAGAMENTO = " + null + ", PAGO = 'N' "
+                        + "WHERE CD_CONTA = " + contas.getCdConta();
+                break;
+
             default:
                 sql = "UPDATE CONTAS_PAGAR_RECEBER SET CD_FORMA = '" + contas.getCdConta() + "', "
-                    + "DS_CONTA = '" + contas.getDsConta() + "', TIPO_CONTA = '" + contas.getTpConta() + "', "
-                    + "VL_CONTA = '" + contas.getVlConta() + "', DT_VENCIMENTO = '" + contas.getDtVencimento() + "', "
-                    + "DT_PAGAMENTO = '" + contas.getDtPagamento() + "', PAGO = '" + contas.getPago() + "' "
-                    + "WHERE CD_CONTA = " + contas.getCdConta();
+                        + "DS_CONTA = '" + contas.getDsConta() + "', TIPO_CONTA = '" + contas.getTpConta() + "', "
+                        + "VL_CONTA = '" + contas.getVlConta() + "', DT_VENCIMENTO = '" + contas.getDtVencimento() + "', "
+                        + "DT_PAGAMENTO = '" + contas.getDtPagamento() + "', PAGO = '" + contas.getPago() + "' "
+                        + "WHERE CD_CONTA = " + contas.getCdConta();
         }
         conexao.atualizarSQL(sql);
     }
-    
-    public void excluir(Contas contas){
+
+    public void excluir(Contas contas) {
         Parcelas p = new Parcelas();
         p.setContas(contas);
         p.excluirTodas(p);
-        String sql = "DELETE FROM CONTAS_PAGAR_RECEBER WHERE CD_CONTA = "+contas.getCdConta();
+        String sql = "DELETE FROM CONTAS_PAGAR_RECEBER WHERE CD_CONTA = " + contas.getCdConta();
         conexao.deleteSQL(sql);
     }
 
@@ -111,48 +111,56 @@ public class Contas {
 
     public ResultSet consultarGeral(boolean todas) {
         String sql;
+        String clausula;
         if (todas) {
-            sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
-                    + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
-                    + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
-                    + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
-                    + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
-                    + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                    + "C.CD_FORMA = F.CD_FORMA ORDER BY C.CD_CONTA";
+            clausula = "";
         } else {
-            sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
-                    + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
-                    + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
-                    + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
-                    + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
-                    + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                    + "C.CD_FORMA = F.CD_FORMA WHERE C.PAGO = 'N' "
-                    + "ORDER BY C.CD_CONTA";
+            clausula = "WHERE C.PAGO = 'N' ";
         }
+        sql = "SELECT C.CD_CONTA, PS.NOME, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
+                + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+                + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
+                + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
+                + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
+                + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
+                + "C.CD_FORMA = F.CD_FORMA "
+                + "LEFT JOIN VENDA_COMPRA VC ON "
+                + "C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.SITUACAO = 'A' "
+                + "LEFT JOIN PESSOA PS ON "
+                + "PS.CD_PESSOA = VC.CD_CLIENTE "
+                + "OR PS.CD_PESSOA = VC.CD_FORNECEDOR "
+                + "WHERE C.CD_CONTA IN "
+                + "(SELECT P.CD_CONTA FROM PARCELAS P WHERE P.SITUACAO = 'A') " + clausula
+                + "ORDER BY C.CD_CONTA";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
     public ResultSet consultarCdConta(Contas contas, boolean todas) {
         String sql;
+        String clausula;
         if (todas) {
-            sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
-                    + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
-                    + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
-                    + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
-                    + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
-                    + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                    + "C.CD_FORMA = F.CD_FORMA WHERE C.CD_CONTA = " + contas.getCdConta();
+            clausula = "";
         } else {
-            sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
-                    + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
-                    + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
-                    + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
-                    + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
-                    + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                    + "C.CD_FORMA = F.CD_FORMA WHERE C.CD_CONTA = " + contas.getCdConta() + " AND "
-                    + "C.PAGO = 'N' ";
+            clausula = " AND C.PAGO = 'N'";
         }
+        sql = "SELECT C.CD_CONTA, PS.NOME, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
+                + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+                + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
+                + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
+                + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
+                + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
+                + "C.CD_FORMA = F.CD_FORMA "
+                + "LEFT JOIN VENDA_COMPRA VC ON "
+                + "C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.SITUACAO = 'A' "
+                + "LEFT JOIN PESSOA PS ON "
+                + "PS.CD_PESSOA = VC.CD_CLIENTE "
+                + "OR PS.CD_PESSOA = VC.CD_FORNECEDOR "
+                + "WHERE C.CD_CONTA IN "
+                + "(SELECT P.CD_CONTA FROM PARCELAS P WHERE P.SITUACAO = 'A') "
+                + "AND C.CD_CONTA = " + contas.getCdConta() + clausula;
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
@@ -174,67 +182,85 @@ public class Contas {
 
     public ResultSet consultarDescricao(Contas contas, boolean todas) {
         String sql;
+        String clausula;
         if (todas) {
-            sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
-                    + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
-                    + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
-                    + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
-                    + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
-                    + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                    + "C.CD_FORMA = F.CD_FORMA WHERE C.DS_CONTA LIKE '%" + contas.getDsConta() + "%' "
-                    + "ORDER BY C.CD_CONTA";
+            clausula = "";
         } else {
-            sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
-                    + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
-                    + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
-                    + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
-                    + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
-                    + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                    + "C.CD_FORMA = F.CD_FORMA WHERE C.DS_CONTA LIKE '%" + contas.getDsConta() + "%' "
-                    + "AND C.PAGO = 'N' ORDER BY C.CD_CONTA";
+            clausula = " AND C.PAGO = 'N' ";
         }
+        sql = "SELECT C.CD_CONTA, PS.NOME, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
+                + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+                + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
+                + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
+                + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
+                + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
+                + "C.CD_FORMA = F.CD_FORMA "
+                + "LEFT JOIN VENDA_COMPRA VC ON "
+                + "C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.SITUACAO = 'A' "
+                + "LEFT JOIN PESSOA PS ON "
+                + "PS.CD_PESSOA = VC.CD_CLIENTE "
+                + "OR PS.CD_PESSOA = VC.CD_FORNECEDOR "
+                + "WHERE C.CD_CONTA IN "
+                + "(SELECT P.CD_CONTA FROM PARCELAS P WHERE P.SITUACAO = 'A') "
+                + "AND C.DS_CONTA LIKE '%" + contas.getDsConta() + "%' " + clausula
+                + "ORDER BY C.CD_CONTA";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
     public ResultSet consultarTipo(Contas contas, boolean todas) {
         String sql;
+        String clausula;
         if (todas) {
-            sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
-                    + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
-                    + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
-                    + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
-                    + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
-                    + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                    + "C.CD_FORMA = F.CD_FORMA WHERE C.TIPO_CONTA = '" + contas.getTpConta() + "' "
-                    + "ORDER BY C.CD_CONTA";
+            clausula = "";
         } else {
-            sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
-                    + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
-                    + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
-                    + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
-                    + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
-                    + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                    + "C.CD_FORMA = F.CD_FORMA WHERE C.TIPO_CONTA = '" + contas.getTpConta() + "' "
-                    + "AND C.PAGO = 'N' ORDER BY C.CD_CONTA";
+            clausula = " AND C.PAGO = 'N' ";
         }
-        conexao.executeSQL(sql);
-        return conexao.resultset;
-    }
 
-    public ResultSet consultarSituacao(Contas contas) {
-        String sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
+        sql = "SELECT C.CD_CONTA, PS.NOME, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
                 + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
                 + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
                 + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
                 + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
                 + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
-                + "C.CD_FORMA = F.CD_FORMA WHERE C.PAGO = '" + contas.getPago() + "' "
+                + "C.CD_FORMA = F.CD_FORMA "
+                + "LEFT JOIN VENDA_COMPRA VC ON "
+                + "C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.SITUACAO = 'A' "
+                + "LEFT JOIN PESSOA PS ON "
+                + "PS.CD_PESSOA = VC.CD_CLIENTE "
+                + "OR PS.CD_PESSOA = VC.CD_FORNECEDOR "
+                + "WHERE C.CD_CONTA IN "
+                + "(SELECT P.CD_CONTA FROM PARCELAS P WHERE P.SITUACAO = 'A') "
+                + "AND C.TIPO_CONTA = '" + contas.getTpConta() + "'" + clausula
                 + "ORDER BY C.CD_CONTA";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
+    public ResultSet consultarSituacao(Contas contas) {
+        String sql = "SELECT C.CD_CONTA, PS.NOME, C.DS_CONTA, C.CD_FORMA, F.DS_FORMA, C.VL_CONTA, "
+                + "TO_CHAR(C.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+                + "TO_CHAR(C.DT_PAGAMENTO, 'DD/MM/YYYY') AS DT_PGTO, "
+                + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
+                + "CASE WHEN C.PAGO = 'S' THEN 'PAGA' ELSE 'NÃO PAGA' END AS SIT "
+                + "FROM CONTAS_PAGAR_RECEBER C INNER JOIN FORMA_PGTO F ON "
+                + "C.CD_FORMA = F.CD_FORMA "
+                + "LEFT JOIN VENDA_COMPRA VC ON "
+                + "C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.SITUACAO = 'A' "
+                + "LEFT JOIN PESSOA PS ON "
+                + "PS.CD_PESSOA = VC.CD_CLIENTE "
+                + "OR PS.CD_PESSOA = VC.CD_FORNECEDOR "
+                + "WHERE C.CD_CONTA IN "
+                + "(SELECT P.CD_CONTA FROM PARCELAS P WHERE P.SITUACAO = 'A') "
+                + "AND C.PAGO = '" + contas.getPago() + "' ORDER BY C.CD_CONTA";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+
+    // tela venda compra
     public ResultSet consultarCdVendaCompra(Contas contas) {
         String sql = "SELECT C.CD_CONTA, C.CD_VENDA_COMPRA, F.DS_FORMA, "
                 + "CASE WHEN C.TIPO_CONTA = 'R' THEN 'A RECEBER' ELSE "
@@ -248,6 +274,7 @@ public class Contas {
         return conexao.resultset;
     }
 
+    // tela pagamento
     public ResultSet consultarCdPessoa(Contas contas) {
         String sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_VENDA_COMPRA, "
                 + "C.CD_FORMA, F.DS_FORMA, "
@@ -284,6 +311,58 @@ public class Contas {
         }
     }
 
+    public void calcularContas() {
+        String sql = "SELECT(SELECT SUM(VL_CONTA) FROM "
+                + "CONTAS_PAGAR_RECEBER "
+                + "WHERE CD_CONTA "
+                + "IN (SELECT CD_CONTA FROM PARCELAS) "
+                + "AND TIPO_CONTA = 'R') TOTAL_RECEBER, "
+                + "(SELECT SUM(VL_CONTA) FROM "
+                + "CONTAS_PAGAR_RECEBER "
+                + "WHERE CD_CONTA "
+                + "IN (SELECT CD_CONTA FROM PARCELAS) "
+                + "AND TIPO_CONTA = 'P') TOTAL_PAGAR, "
+                + "(SELECT SUM(P.VL_PAGO) FROM "
+                + "PARCELAS P "
+                + "INNER JOIN CONTAS_PAGAR_RECEBER C "
+                + "ON P.CD_CONTA = C.CD_CONTA "
+                + "AND P.SITUACAO = 'A' "
+                + "AND C.TIPO_CONTA = 'R') TOTAL_RECEBER_PAGO, "
+                + "(SELECT SUM(P.VL_PAGO) FROM "
+                + "PARCELAS P INNER JOIN CONTAS_PAGAR_RECEBER C "
+                + "ON P.CD_CONTA = C.CD_CONTA "
+                + "AND P.SITUACAO = 'A' "
+                + "AND C.TIPO_CONTA = 'P') TOTAL_PAGAR_PAGO "
+                + "FROM USER";
+        conexao.executeSQL(sql);
+        try{
+            conexao.resultset.first();
+            // Total de todas as contas a receber
+            Double todasReceber = conexao.resultset.getDouble("TOTAL_RECEBER");
+            
+            // Total de todas as contas a pagar
+            Double todasPagar = conexao.resultset.getDouble("TOTAL_PAGAR"); 
+            
+            // Total de todas as contas a receber que já foram pagas
+            Double receberPago = conexao.resultset.getDouble("TOTAL_RECEBER_PAGO"); 
+            
+            // Total de todas as contas a pagar que já foram pagas
+            Double pagarPago = conexao.resultset.getDouble("TOTAL_PAGAR_PAGO");
+            
+            // Total ainda a receber
+            Double receber = todasReceber - receberPago;
+            
+            // Total ainda a pagar
+            Double pagar = todasPagar - pagarPago;
+            
+            System.out.println("TODAS RECEBER "+todasReceber+", JÁ PAGAS "+receberPago+", AINDA A RECEBER "+receber);
+            System.out.println("TODAS PAGAR "+todasPagar+", JÁ PAGAS "+pagarPago+", AINDA A PAGAR "+pagar);
+        }
+        catch(SQLException ex){
+            System.err.println("Erro ao consultar os registros de contas!");
+        }
+    }
+
     public int retornaOperacaoVendaCompra(Contas contas) {
         int cd;
         String sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_VENDA_COMPRA, VC.CD_OPERACAO, O.DS_OPERACAO "
@@ -304,30 +383,27 @@ public class Contas {
         }
         return cd;
     }
-    
-    public boolean permiteExclusao(Contas contas){
+
+    public boolean permiteExclusao(Contas contas) {
         boolean permitido = true;
         retornaConta(contas, true);
-        
-        if (contas.getPago().equals("PAGA")){
+
+        if (contas.getPago().equals("PAGA")) {
             permitido = false;
-        }
-        
-        else{
+        } else {
             Parcelas p = new Parcelas();
-        
+
             ResultSet parcelas = p.consultarCdConta(contas, true);
             try {
-                while (parcelas.next()){
+                while (parcelas.next()) {
                     p.setVlPago(parcelas.getDouble("VL_PAGO"));
-                    if (p.getVlPago() > 0){
+                    if (p.getVlPago() > 0) {
                         // se ao menos uma parcela da conta estiver paga, a exclusão não é permitida
                         permitido = false;
                     }
                 }
-            } 
-            catch (SQLException ex) {
-                permitido = true;  
+            } catch (SQLException ex) {
+                permitido = true;
             }
         }
         return permitido;

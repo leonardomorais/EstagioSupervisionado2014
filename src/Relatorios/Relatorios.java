@@ -99,19 +99,18 @@ public class Relatorios {
     }
 
     public void emitirTicketPagamento(List<Integer> list, int cd) {
-
         HashMap parametro = new HashMap();
         String consulta = "";
         for (int nr : list) {
-            consulta = ", " + consulta + nr;
+            consulta = consulta + ", " + nr;
         }
-        consulta = consulta.substring(0, 1); // remove a primeira virgula
-        System.err.println("Consulta " + consulta);
+        consulta = consulta.substring(2, consulta.length()); // remove a primeira virgula
+        //System.err.println("Consulta" + consulta);
 
-        String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, C.DS_CONTA," 
-                + "PAG.NR_PARCELA, PAG.CD_TIPO, T.DS_TIPO "
+        String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, C.DS_CONTA,"
+                + "PAG.NR_PARCELA, PAG.CD_TIPO, T.DS_TIPO, P.VL_PAGO "
                 + "FROM PAGAMENTO PAG "
-                + "INNER JOIN PARCELAS P " 
+                + "INNER JOIN PARCELAS P "
                 + "ON P.CD_CONTA = PAG.CD_CONTA "
                 + "AND P.NR_PARCELA = PAG.NR_PARCELA "
                 + "INNER JOIN CONTAS_PAGAR_RECEBER C "
@@ -119,12 +118,12 @@ public class Relatorios {
                 + "INNER JOIN TIPO_PGTO T "
                 + "ON T.CD_TIPO = PAG.CD_TIPO "
                 + "WHERE PAG.SITUACAO = 'A' "
-                + "AND PAG.CD_CONTA = "+cd+" "
-                + "AND P.NR_PARCELA IN ("+consulta+")";
-        try{
+                + "AND PAG.CD_CONTA = " + cd + " "
+                + "AND P.NR_PARCELA IN (" + consulta + ") AND P.SITUACAO = 'A'";
+        try {
             conexao.conecta();
             conexao.executeSQL(sql);
-             
+
             JRResultSetDataSource jrRs = new JRResultSetDataSource(conexao.resultset);
 
             String report = "relatorios\\TICKET_PAGAMENTO.jasper";
@@ -132,9 +131,75 @@ public class Relatorios {
             JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
 
             JasperViewer.viewReport(print, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao gerar documento!");
+        }
+    }
+
+    public void emitirRelatorioContas(HashMap params) {
+        
+        String sql = "SELECT C.CD_CONTA, PS.NOME ,C.DS_CONTA, F.DS_FORMA, C.VL_CONTA, "
+                + "P.NR_PARCELA, P.VL_PARCELA, P.VL_PAGO, "
+                + "TO_CHAR(P.DT_VENCIMENTO,'DD/MM/YYYY') AS DT_VENC, "
+                + "TO_CHAR(P.DT_PAGO,'DD/MM/YYYY') AS DT_PAGO, "
+                + "C.PAGO, "
+                + "(SELECT SUM(VL_CONTA) FROM CONTAS_PAGAR_RECEBER WHERE TIPO_CONTA = '"+params.get("Tipo")+"') AS TOTAL, "
+                + "(SELECT SUM(P.VL_PAGO) FROM PARCELAS P "
+                + "INNER JOIN CONTAS_PAGAR_RECEBER C "
+                + "ON P.CD_CONTA = C.CD_CONTA "
+                + "WHERE P.SITUACAO = 'A' AND P.VL_PAGO > 0 "
+                + "AND C.TIPO_CONTA = '"+params.get("Tipo")+"') AS TOTAL_PAGO, "
+                + "(SELECT SUM(P.VL_PARCELA) FROM PARCELAS P "
+                + "INNER JOIN CONTAS_PAGAR_RECEBER C "
+                + "ON P.CD_CONTA = C.CD_CONTA "
+                + "WHERE P.SITUACAO = 'A' AND P.VL_PAGO  <=0 "
+                + "AND C.TIPO_CONTA = '"+params.get("Tipo")+"') AS AINDA_A_PAGAR "
+                + "FROM CONTAS_PAGAR_RECEBER C "
+                + "INNER JOIN PARCELAS P ON "
+                + "C.CD_CONTA = P.CD_CONTA "
+                + "AND P.SITUACAO = 'A' "
+                + "LEFT JOIN VENDA_COMPRA VC ON "
+                + "C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.SITUACAO = 'A' "
+                + "LEFT JOIN PESSOA PS ON "
+                + "PS.CD_PESSOA = VC.CD_CLIENTE "
+                + "OR PS.CD_PESSOA = VC.CD_FORNECEDOR "
+                + "INNER JOIN FORMA_PGTO F ON "
+                + "F.CD_FORMA = C.CD_FORMA "
+                + "WHERE TIPO_CONTA = '"+params.get("Tipo")+"' "
+                + "ORDER BY C.CD_CONTA, P.NR_PARCELA";
+//        // 
+//SELECT C.CD_CONTA, PS.NOME ,C.DS_CONTA, F.DS_FORMA, C.VL_CONTA, 
+//P.NR_PARCELA, P.VL_PARCELA, P.VL_PAGO,
+//TO_CHAR(P.DT_VENCIMENTO,'DD/MM/YYYY') AS DT_VENC,
+//TO_CHAR(P.DT_PAGO,'DD/MM/YYYY') AS DT_PAGO,
+//C.PAGO
+//FROM CONTAS_PAGAR_RECEBER C
+//INNER JOIN PARCELAS P ON
+//C.CD_CONTA = P.CD_CONTA
+//AND P.SITUACAO = 'A'
+//LEFT JOIN VENDA_COMPRA VC ON
+//C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA
+//AND VC.SITUACAO = 'A'
+//LEFT JOIN PESSOA PS ON
+//PS.CD_PESSOA = VC.CD_CLIENTE
+//OR PS.CD_PESSOA = VC.CD_FORNECEDOR
+//INNER JOIN FORMA_PGTO F ON
+//F.CD_FORMA = C.CD_FORMA 
+        try{
+            conexao.conecta();
+            conexao.executeSQL(sql);
+            
+            JRResultSetDataSource jrRs = new JRResultSetDataSource(conexao.resultset);
+
+            String report = "relatorios\\CONTAS_RECEBER.jasper";
+
+            JasperPrint print = JasperFillManager.fillReport(report, params, jrRs);
+
+            JasperViewer.viewReport(print, false);
         }
         catch(JRException ex){
-            
+            JOptionPane.showMessageDialog(null, "Erro ao gerar documento!");
         }
     }
 

@@ -18,7 +18,6 @@ import java.awt.Dialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -45,6 +44,7 @@ public class CadastroContas extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+    //    contas.calcularContas();
     }
 
     /**
@@ -403,16 +403,17 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
 
+        jTableContas.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jTableContas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Descrição", "Cd Forma", "Forma Pgto", "Valor", "Data Vencimento", "Data Pgto", "Tipo", "Situação"
+                "Código", "Pessoa", "Descrição", "Cd Forma", "Forma Pgto", "Valor", "Data Vencimento", "Data Pgto", "Tipo", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, true, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -523,7 +524,7 @@ public class CadastroContas extends javax.swing.JFrame {
             jComboBoxTpConta.setEnabled(true);
             jComboBoxTpConta.removeAllItems();
             jComboBoxTpConta.addItem("Paga");
-            jComboBoxTpConta.addItem("A Pagar");
+            jComboBoxTpConta.addItem("Não Paga");
         } else {
             jComboBoxTpConta.removeAllItems();
             jComboBoxTpConta.setEnabled(false);
@@ -532,7 +533,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void jButtonPesquisarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarConsultaActionPerformed
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableContas, new int[]{70, 140, 80, 100, 70, 90, 70, 70, 70});
+        preencher.FormatarJtable(jTableContas, new int[]{40, 140, 140 ,60, 120, 50, 80, 50, 60, 60});
 
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
