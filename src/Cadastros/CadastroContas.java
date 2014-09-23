@@ -539,7 +539,7 @@ public class CadastroContas extends javax.swing.JFrame {
             case 0:
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarGeral(true));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(contas.consultarGeral(true));
+                report.setConsulta(preencher.getResult());
                 break;
 
             case 1:
@@ -547,21 +547,19 @@ public class CadastroContas extends javax.swing.JFrame {
                     contas.setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableContas, contas.consultarCdConta(contas, true));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(contas.consultarCdConta(contas, true));
+                    report.setConsulta(preencher.getResult());
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
                 }
-
                 break;
 
             case 2:
                 contas.setDsConta(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarDescricao(contas, true));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(contas.consultarDescricao(contas, true));
-            
+                report.setConsulta(preencher.getResult());
                 break;
 
             case 3:
@@ -574,7 +572,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 }
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarTipo(contas, true));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(contas.consultarTipo(contas, true));
+                report.setConsulta(preencher.getResult());
                 break;
 
             default:
@@ -588,7 +586,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 }
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarSituacao(contas));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(contas.consultarSituacao(contas));
+                report.setConsulta(preencher.getResult());
         }
     }//GEN-LAST:event_jButtonPesquisarConsultaActionPerformed
 
@@ -1074,7 +1072,8 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void atualizaJtable(int conta) {
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableContas, new int[]{70, 140, 80, 100, 70, 90, 70, 70, 70});
+        preencher.FormatarJtable(jTableContas, new int[]{40, 140, 140 ,60, 120, 50, 80, 50, 60, 60});
+        
         contas.setCdConta(conta);
         preencher.PreencherJtableGenerico(jTableContas, contas.consultarCdConta(contas, true));
 

@@ -349,6 +349,23 @@ public class VendaCompra {
 
         return total;
     }
+    
+    public ResultSet consultarTicket(VendaCompra vc){
+        String sql = "SELECT VC.CD_VENDA_COMPRA, VC.CD_FORMA, F.DS_FORMA, "
+                + "VC.CD_OPERACAO, O.DS_OPERACAO, TO_CHAR(DT_VENDA_COMPRA,'DD/MM/YYYY') AS DATA, "
+                + "VC.VL_TOTAL, "
+                + "VCPROD.CD_PRODUTO, P.DS_PRODUTO, VCPROD.QT_PRODUTO, VCPROD.VL_UNITARIO, "
+                + "VCPROD.QT_PRODUTO * VCPROD.VL_UNITARIO AS TOTAL "
+                + "FROM VENDA_COMPRA VC INNER JOIN "
+                + "VENDA_COMPRA_PRODUTOS VCPROD "
+                + "ON VC.CD_VENDA_COMPRA = VCPROD.CD_VENDA_COMPRA "
+                + "INNER JOIN FORMA_PGTO F ON VC.CD_FORMA = F.CD_FORMA "
+                + "INNER JOIN OPERACAO O ON VC.CD_OPERACAO = O.CD_OPERACAO "
+                + "INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO "
+                + "WHERE VC.CD_VENDA_COMPRA = "+vc.getCdVendaCompra();
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
 
     public void retornaVendaCompra(VendaCompra vc) {
         ResultSet retorno = consultarCdVendaCompra(vc, false);

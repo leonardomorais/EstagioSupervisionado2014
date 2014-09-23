@@ -13,11 +13,12 @@ import javax.swing.table.DefaultTableModel;
 public class PreencherTabela {
     
     private boolean vazia;
+    private ResultSet result;
     
     public void PreencherJtableGenerico(JTable tabela, ResultSet resultado) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-
+        this.setResult(resultado);
         try {
             int colunas = resultado.getMetaData().getColumnCount();
 
@@ -86,5 +87,15 @@ public class PreencherTabela {
 
     public void setVazia(boolean vazia) {
         this.vazia = vazia;
-    }    
+    }   
+
+    public ResultSet getResult() {
+        return result;
+    }
+
+    public void setResult(ResultSet result) {
+        this.result = result;
+    }
+    
+    
 }

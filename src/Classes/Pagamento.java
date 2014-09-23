@@ -3,6 +3,8 @@ package Classes;
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -158,6 +160,31 @@ public class Pagamento {
                 + "WHERE PAG.SITUACAO = '" + pagamento.getSituacao() + "' "
                 + "ORDER BY PAG.CD_PAGAMENTO";
         }
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarTicket(Pagamento pagamento, List<Integer> list){
+        
+        String consulta = "";
+        for (int nr : list) {
+            consulta = consulta + ", " + nr;
+        }
+        consulta = consulta.substring(2, consulta.length()); // remove a primeira virgula
+        
+        String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, C.DS_CONTA,"
+                + "PAG.NR_PARCELA, PAG.CD_TIPO, T.DS_TIPO, P.VL_PAGO "
+                + "FROM PAGAMENTO PAG "
+                + "INNER JOIN PARCELAS P "
+                + "ON P.CD_CONTA = PAG.CD_CONTA "
+                + "AND P.NR_PARCELA = PAG.NR_PARCELA "
+                + "INNER JOIN CONTAS_PAGAR_RECEBER C "
+                + "ON PAG.CD_CONTA = C.CD_CONTA "
+                + "INNER JOIN TIPO_PGTO T "
+                + "ON T.CD_TIPO = PAG.CD_TIPO "
+                + "WHERE PAG.SITUACAO = 'A' "
+                + "AND PAG.CD_CONTA = " +pagamento.getParcelas().getContas().getCdConta()+ " "
+                + "AND P.NR_PARCELA IN (" + consulta + ") AND P.SITUACAO = 'A'";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }

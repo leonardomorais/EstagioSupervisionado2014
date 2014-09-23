@@ -26,7 +26,7 @@ public class TelaPagamento extends javax.swing.JFrame {
     Pagamento pagamento = new Pagamento();
     Relatorios report = new Relatorios();
     List<Integer> parcelas = new ArrayList<Integer>();
-    
+
     RetornaDecimal decimal = new RetornaDecimal();
     RetornaData data = new RetornaData();
     LimparCampos limpar = new LimparCampos();
@@ -609,29 +609,26 @@ public class TelaPagamento extends javax.swing.JFrame {
         } else if (jTextFieldCdTipo.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Selecione um tipo de pagamento!");
             jTextFieldCdTipo.grabFocus();
-        } 
-        else {
+        } else {
             carregarPagamento();
             JOptionPane.showMessageDialog(null, "Parcela(s) paga(s)!");
-            try{
+            try {
                 carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
-                report.emitirTicketPagamento(parcelas, Integer.parseInt(jTextFieldCdPessoa.getText()));
-            }
-            catch(NumberFormatException ex){
+                exibirTicket();
+            } catch (NumberFormatException ex) {
                 int conta;
                 int linha;
-                try{
+                try {
                     linha = jTableContas.getSelectedRow();
                     conta = Integer.parseInt(jTableContas.getValueAt(linha, 0).toString());
                     pagamento.getParcelas().getContas().setCdConta(conta);
                     carregarTabelaContas();
-                    report.emitirTicketPagamento(parcelas, conta);
-                }
-                catch(Exception e){
+                    exibirTicket();
+                } catch (Exception e) {
                     conta = Integer.parseInt(jTableContas.getValueAt(0, 0).toString());
                     pagamento.getParcelas().getContas().setCdConta(conta);
                     carregarTabelaContas();
-                    report.emitirTicketPagamento(parcelas, conta);
+                    exibirTicket();
                 }
             }
         }
@@ -671,8 +668,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Informe um valor válido!");
                     jTableParcelas.setValueAt("0.00", linha, coluna);
                 }
-            }
-            else{
+            } else {
                 ValidaCampos campos = new ValidaCampos();
                 campos.validaCamposReais(evt);
             }
@@ -707,17 +703,16 @@ public class TelaPagamento extends javax.swing.JFrame {
             case 0:
                 preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarGeral(jRbSim.isSelected()));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(pagamento.consultarGeral(jRbSim.isSelected()));
+                report.setConsulta(preencher.getResult());
                 break;
 
             case 1:
                 try {
                     pagamento.setCdPagamento(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdPagamento(pagamento,jRbSim.isSelected()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdPagamento(pagamento, jRbSim.isSelected()));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(pagamento.consultarCdPagamento(pagamento, jRbSim.isSelected()));
-                } 
-                catch (NumberFormatException ex) {
+                    report.setConsulta(preencher.getResult());
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
@@ -727,11 +722,10 @@ public class TelaPagamento extends javax.swing.JFrame {
             case 2:
                 try {
                     pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdConta(pagamento,jRbSim.isSelected()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdConta(pagamento, jRbSim.isSelected()));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(pagamento.consultarCdConta(pagamento, jRbSim.isSelected()));
-                } 
-                catch (NumberFormatException ex) {
+                    report.setConsulta(preencher.getResult());
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
@@ -740,19 +734,18 @@ public class TelaPagamento extends javax.swing.JFrame {
 
             case 3:
                 pagamento.getParcelas().getContas().setDsConta(jTextFieldConsulta.getText().toUpperCase());
-                preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarDsConta(pagamento,jRbSim.isSelected()));
+                preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarDsConta(pagamento, jRbSim.isSelected()));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(pagamento.consultarDsConta(pagamento, jRbSim.isSelected()));
+                report.setConsulta(preencher.getResult());
                 break;
-                
+
             default:
-                try{
+                try {
                     pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
-                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdAgencia(pagamento,jRbSim.isSelected()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdAgencia(pagamento, jRbSim.isSelected()));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(pagamento.consultarCdAgencia(pagamento, jRbSim.isSelected()));
-                }
-                catch(NumberFormatException ex){
+                    report.setConsulta(preencher.getResult());
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();
@@ -837,16 +830,15 @@ public class TelaPagamento extends javax.swing.JFrame {
             int op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
             if (op > 0) {
                 jComboBoxOperacao.setSelectedIndex(pagamento.getParcelas().getContas().getVendaCompra()
-                .getOperacao().getOperacao(op));
-            } else{
+                        .getOperacao().getOperacao(op));
+            } else {
                 String tipo = jTableContas.getValueAt(linha, 8).toString();
-                if (tipo.equals("A RECEBER")){
-                tipo = "E";
-            }
-            else{
-                tipo = "S";  
-            }
-            pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
+                if (tipo.equals("A RECEBER")) {
+                    tipo = "E";
+                } else {
+                    tipo = "S";
+                }
+                pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
             }
             preencheTabela();
         }
@@ -862,9 +854,9 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
         if (report.login()) {
-                report.setSubreport(false);
-                report.setTabela("PAGAMENTO");
-                report.gerarRelatorio(report);
+            report.setSubreport(false);
+            report.setTabela("PAGAMENTO");
+            report.gerarRelatorio(report);
         }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
@@ -978,7 +970,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         int op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
         if (op > 0) {
             jComboBoxOperacao.setSelectedIndex(pagamento.getParcelas().getContas().getVendaCompra()
-                .getOperacao().getOperacao(op));
+                    .getOperacao().getOperacao(op));
             pagamento.getParcelas().getContas().getVendaCompra().retornaVendaCompra(pagamento.getParcelas().getContas().getVendaCompra());
 
             if (pagamento.getParcelas().getContas().getVendaCompra().getCdVendaCompra() > 0) {
@@ -987,18 +979,15 @@ public class TelaPagamento extends javax.swing.JFrame {
                 jTextFieldNome.setText(pagamento.getParcelas().getContas().getVendaCompra()
                         .getCliente().getPessoa().getNome());
             }
-        }
-        else{
+        } else {
             String tipo = jTableContas.getValueAt(0, 8).toString();
-            if (tipo.equals("A RECEBER")){
+            if (tipo.equals("A RECEBER")) {
                 tipo = "E";
-            }
-            else{
+            } else {
                 tipo = "S";
             }
             pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
-            retornaComboOperacao(jComboBoxOperacao, tipo);
-        
+                    retornaComboOperacao(jComboBoxOperacao, tipo);
         }
         jTextFieldCdAgencia.grabFocus();
     }
@@ -1008,7 +997,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableParcelas, new int[]{105, 110, 110, 110, 110, 110});
 
         preencher.PreencherJtableGenericoSel(jTableParcelas,
-                pagamento.getParcelas().consultarCdConta(pagamento.getParcelas().getContas(),true));
+                pagamento.getParcelas().consultarCdConta(pagamento.getParcelas().getContas(), true));
     }
 
     public void carregaTabelaContas(int cd) {
@@ -1020,12 +1009,11 @@ public class TelaPagamento extends javax.swing.JFrame {
 
         preencher.PreencherJtableGenerico(jTableContas, pagamento.getParcelas().getContas().
                 consultarCdPessoa(pagamento.getParcelas().getContas()));
-        if (jTableContas.getRowCount() == 1){
+        if (jTableContas.getRowCount() == 1) {
             String tipo = jTableContas.getValueAt(0, 8).toString();
-            if (tipo.equals("A RECEBER")){
+            if (tipo.equals("A RECEBER")) {
                 tipo = "E";
-            }
-            else{
+            } else {
                 tipo = "S";
             }
             pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
@@ -1059,7 +1047,7 @@ public class TelaPagamento extends javax.swing.JFrame {
 
         int linhas = jTableParcelas.getRowCount();
         int row = jTableContas.getSelectedRow();
-        if (row < 0){
+        if (row < 0) {
             row = 0;
         }
         // preenche as informações do pagamento 
@@ -1068,10 +1056,10 @@ public class TelaPagamento extends javax.swing.JFrame {
         pagamento.getTipo().setCdTipo(Integer.parseInt(jTextFieldCdTipo.getText()));
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
                 setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getOperacao(
-                jComboBoxOperacao.getSelectedIndex()));
-        
+                                jComboBoxOperacao.getSelectedIndex()));
+
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaOperacao(
-        pagamento.getParcelas().getContas().getVendaCompra().getOperacao());
+                pagamento.getParcelas().getContas().getVendaCompra().getOperacao());
 
         // percorre as parcelas
         for (int i = 0; i < linhas; i++) {
@@ -1098,10 +1086,10 @@ public class TelaPagamento extends javax.swing.JFrame {
                 pagamento.getParcelas().setVlPago(vlPago);
                 pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()));
                 pagamento.getParcelas().pagarParcela(pagamento.getParcelas());
-                
+
                 // grava o pagamento
                 pagamento.incluir(pagamento);
-                
+
                 // grava movimentação de caixa
                 if (pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getMovFinanceiro().equals("SIM")) {
                     pagamento.gravarMovCaixa(pagamento);
@@ -1126,7 +1114,7 @@ public class TelaPagamento extends javax.swing.JFrame {
             limparCamposPessoa();
         } else {
             limparCamposPessoa();
-            jTextFieldCdPessoa.setText(""+cd);
+            jTextFieldCdPessoa.setText("" + cd);
             jTextFieldNome.setText(pagamento.getParcelas().getContas().getVendaCompra().getFornecedor().getPessoa().getNome());
             carregaTabelaContas(cd);
         }
@@ -1141,27 +1129,34 @@ public class TelaPagamento extends javax.swing.JFrame {
             limparCamposPessoa();
         } else {
             limparCamposPessoa();
-            jTextFieldCdPessoa.setText(""+cd);
+            jTextFieldCdPessoa.setText("" + cd);
             jTextFieldNome.setText(pagamento.getParcelas().getContas().getVendaCompra().getCliente().getPessoa().getNome());
             carregaTabelaContas(cd);
         }
     }
-    
-    public int retornaLinha(int parcela){
+
+    public int retornaLinha(int parcela) {
         int row = 0;
-        for (int i = 0; i < jTableParcelas.getRowCount(); i++){
-            if (Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()) == parcela){
+        for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
+            if (Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()) == parcela) {
                 row = i;
             }
         }
         return row;
     }
-    
+
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
         } else {
             jBtRelatorio.setEnabled(true);
         }
+    }
+
+    private void exibirTicket() {
+        report.setConsulta(pagamento.consultarTicket(pagamento, parcelas));
+        report.setTabela("TICKET_PAGAMENTO");
+        report.setSubreport(false);
+        report.gerarRelatorio(report);
     }
 }

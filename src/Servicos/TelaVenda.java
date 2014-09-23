@@ -992,7 +992,10 @@ public class TelaVenda extends javax.swing.JFrame {
             consulta.exibirParcelas();
             consulta.addWindowListener(new java.awt.event.WindowAdapter() {
                public void windowClosed(WindowEvent evt){
-                   report.emitirTicketVendaCompra(venda.getCdVendaCompra());
+                   report.setConsulta(venda.consultarTicket(venda));
+                   report.setSubreport(false);
+                   report.setTabela("TICKET_VENDA_COMPRA");
+                   report.gerarRelatorio(report);
                }
             });
         }
@@ -1068,7 +1071,7 @@ public class TelaVenda extends javax.swing.JFrame {
             case 0:
                 preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarGeral(jRadioBtSim.isSelected()));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(venda.consultarGeral(jRadioBtSim.isSelected()));
+                report.setConsulta(preencher.getResult());
                 break;
 
             case 1:
@@ -1076,7 +1079,7 @@ public class TelaVenda extends javax.swing.JFrame {
                     venda.setCdVendaCompra(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCdVendaCompra(venda, jRadioBtSim.isSelected()));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(venda.consultarCdVendaCompra(venda, jRadioBtSim.isSelected()));
+                    report.setConsulta(preencher.getResult());
                 } 
                 catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
@@ -1089,14 +1092,14 @@ public class TelaVenda extends javax.swing.JFrame {
                 venda.getCliente().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarCliente(venda, jRadioBtSim.isSelected()));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(venda.consultarCliente(venda, jRadioBtSim.isSelected()));
+                report.setConsulta(preencher.getResult());
                 break;
 
             case 3:
                 venda.getFornecedor().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarFornecedor(venda, jRadioBtSim.isSelected()));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(venda.consultarFornecedor(venda, jRadioBtSim.isSelected()));
+                report.setConsulta(preencher.getResult());
                 break;
 
             default:
@@ -1104,7 +1107,7 @@ public class TelaVenda extends javax.swing.JFrame {
                 venda.getOperacao().setDsOperacao(operacao);
                 preencher.PreencherJtableGenerico(jTableVendaCompra, venda.consultarPorTipo(venda, jRadioBtSim.isSelected()));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(venda.consultarPorTipo(venda, jRadioBtSim.isSelected()));
+                report.setConsulta(preencher.getResult());
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 

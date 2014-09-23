@@ -46,7 +46,16 @@ public class MovCaixa {
         conexao.incluirSQL(sql);
     }
 
-    public ResultSet consultarGeral() {
+    public ResultSet consultarGeral(MovCaixa mov, String dataFinal) {
+        String clausula;
+        if (mov.getDataMov().equals("")){
+            // pesquisa todos os periodos
+            clausula = "";
+        }
+        else{
+            // pesquisa entre as datas  
+            clausula = "WHERE MOV.DATA_MOV BETWEEN '"+mov.getDataMov()+"' AND '"+dataFinal+"' ";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
                 + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
                 + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
@@ -55,13 +64,20 @@ public class MovCaixa {
                 + "ON MOV.CD_AGENCIA_CONTA = A.CD_AGENCIA_CONTA INNER JOIN OPERACAO O "
                 + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
                 + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
-                + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
+                + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "+clausula
                 + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarCdMov(MovCaixa mov) {
+    public ResultSet consultarCdMov(MovCaixa mov, String dataFinal) {
+        String clausula;
+        if (mov.getDataMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = " AND MOV.DATA_MOV BETWEEN '"+mov.getDataMov()+"' AND '"+dataFinal+"'";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
                 + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
                 + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
@@ -90,7 +106,15 @@ public class MovCaixa {
 //        conexao.executeSQL(sql);
 //        return conexao.resultset;
 //    }
-    public ResultSet consultarAgenciaConta(MovCaixa mov) {
+    
+    public ResultSet consultarAgenciaConta(MovCaixa mov, String dataFinal) {
+        String clausula;
+        if (mov.getDataMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "AND MOV.DATA_MOV BETWEEN '"+mov.getDataMov()+"' AND '"+dataFinal+"' ";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
                 + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
                 + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
@@ -100,7 +124,8 @@ public class MovCaixa {
                 + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
                 + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
                 + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE A.DS_CONTA = '" + mov.getAgc().getDsConta() + "' ORDER BY MOV.CD_MOV";
+                + "WHERE A.DS_CONTA = '" + mov.getAgc().getDsConta() + "' "+clausula
+                + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
@@ -119,7 +144,14 @@ public class MovCaixa {
 //        conexao.executeSQL(sql);
 //        return conexao.resultset;
 //    }
-    public ResultSet consultarOperacao(MovCaixa mov) {
+    public ResultSet consultarOperacao(MovCaixa mov, String dataFinal) {
+        String clausula;
+        if (mov.getDataMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "AND MOV.DATA_MOV BETWEEN '"+mov.getDataMov()+"' AND '"+dataFinal+"' ";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
                 + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
                 + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
@@ -129,12 +161,20 @@ public class MovCaixa {
                 + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
                 + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
                 + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE O.DS_OPERACAO = '" + mov.getOperacao().getDsOperacao() + "' ORDER BY MOV.CD_MOV";
+                + "WHERE O.DS_OPERACAO = '" + mov.getOperacao().getDsOperacao() + "' "+clausula
+                + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarCdConta(MovCaixa mov) {
+    public ResultSet consultarCdConta(MovCaixa mov, String dataFinal) {
+        String clausula;
+        if (mov.getDataMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "AND MOV.DATA_MOV BETWEEN '"+mov.getDataMov()+"' AND '"+dataFinal+"' ";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
                 + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
                 + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
@@ -144,12 +184,20 @@ public class MovCaixa {
                 + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
                 + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
                 + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE MOV.CD_CONTA = " + mov.getParcelas().getContas().getCdConta() + " ORDER BY MOV.CD_MOV";
+                + "WHERE MOV.CD_CONTA = " + mov.getParcelas().getContas().getCdConta() + " "+clausula
+                + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarConta(MovCaixa mov) {
+    public ResultSet consultarConta(MovCaixa mov, String dataFinal) {
+        String clausula;
+        if (mov.getDataMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "AND MOV.DATA_MOV BETWEEN '"+mov.getDataMov()+"' AND '"+dataFinal+"' ";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
                 + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
                 + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
@@ -159,56 +207,73 @@ public class MovCaixa {
                 + "ON MOV.CD_OPERACAO = O.CD_OPERACAO INNER JOIN PARCELAS P "
                 + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
                 + "INNER JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE C.DS_CONTA LIKE '%" + mov.getParcelas().getContas().getDsConta() + "%' ORDER BY MOV.CD_MOV";
-        conexao.executeSQL(sql);
-        return conexao.resultset;
-    }
-
-    public ResultSet consultarTipo(MovCaixa mov) {
-        String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
-                + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
-                + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
-                + "CASE WHEN O.TIPO = 'S' THEN 'SAÍDA' ELSE 'ENTRADA' END AS TIPO "
-                + "FROM MOV_CAIXA MOV INNER JOIN AGENCIA_CONTA A "
-                + "ON MOV.CD_AGENCIA_CONTA = A.CD_AGENCIA_CONTA INNER JOIN OPERACAO O "
-                + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
-                + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
-                + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE O.TIPO = '" + mov.getOperacao().getTipo() + "' ORDER BY MOV.CD_MOV";
-        conexao.executeSQL(sql);
-        return conexao.resultset;
-    }
-
-    public ResultSet consultarObservacao(MovCaixa mov) {
-        String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
-                + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
-                + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
-                + "CASE WHEN O.TIPO = 'S' THEN 'SAÍDA' ELSE 'ENTRADA' END AS TIPO "
-                + "FROM MOV_CAIXA MOV INNER JOIN AGENCIA_CONTA A "
-                + "ON MOV.CD_AGENCIA_CONTA = A.CD_AGENCIA_CONTA INNER JOIN OPERACAO O "
-                + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
-                + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
-                + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE MOV.OBSERVACAO LIKE '%" + mov.getObservacao() + "%' ORDER BY MOV.CD_MOV";
-        conexao.executeSQL(sql);
-        return conexao.resultset;
-    }
-    
-    public ResultSet consultarPeriodo(String dtInicial, String dtFinal){
-         String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
-                + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
-                + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
-                + "CASE WHEN O.TIPO = 'S' THEN 'SAÍDA' ELSE 'ENTRADA' END AS TIPO "
-                + "FROM MOV_CAIXA MOV INNER JOIN AGENCIA_CONTA A "
-                + "ON MOV.CD_AGENCIA_CONTA = A.CD_AGENCIA_CONTA INNER JOIN OPERACAO O "
-                + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
-                + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
-                + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE DATA_MOV BETWEEN '"+dtInicial+"' AND '"+dtFinal+"' "
+                + "WHERE C.DS_CONTA LIKE '%" + mov.getParcelas().getContas().getDsConta() + "%' "+clausula
                 + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
+
+    public ResultSet consultarTipo(MovCaixa mov, String dataFinal) {
+        String clausula;
+        if (mov.getDataMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "AND MOV.DATA_MOV BETWEEN '"+mov.getDataMov()+"' AND '"+dataFinal+"' ";
+        }
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
+                + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
+                + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
+                + "CASE WHEN O.TIPO = 'S' THEN 'SAÍDA' ELSE 'ENTRADA' END AS TIPO "
+                + "FROM MOV_CAIXA MOV INNER JOIN AGENCIA_CONTA A "
+                + "ON MOV.CD_AGENCIA_CONTA = A.CD_AGENCIA_CONTA INNER JOIN OPERACAO O "
+                + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
+                + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
+                + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
+                + "WHERE O.TIPO = '" + mov.getOperacao().getTipo() + "' "+clausula
+                + "ORDER BY MOV.CD_MOV";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+
+    public ResultSet consultarObservacao(MovCaixa mov, String dataFinal) {
+        String clausula;
+        if (mov.getDataMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "AND MOV.DATA_MOV BETWEEN '"+mov.getDataMov()+"' AND '"+dataFinal+"' ";
+        }
+        String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
+                + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
+                + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
+                + "CASE WHEN O.TIPO = 'S' THEN 'SAÍDA' ELSE 'ENTRADA' END AS TIPO "
+                + "FROM MOV_CAIXA MOV INNER JOIN AGENCIA_CONTA A "
+                + "ON MOV.CD_AGENCIA_CONTA = A.CD_AGENCIA_CONTA INNER JOIN OPERACAO O "
+                + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
+                + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
+                + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
+                + "WHERE MOV.OBSERVACAO LIKE '%" + mov.getObservacao() + "%' "+clausula
+                + "ORDER BY MOV.CD_MOV";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+//    
+//    public ResultSet consultarPeriodo(String dtInicial, String dtFinal){
+//         String sql = "SELECT MOV.CD_MOV, MOV.CD_AGENCIA_CONTA, A.DS_CONTA, MOV.CD_OPERACAO, O.DS_OPERACAO, "
+//                + "MOV.CD_CONTA, C.DS_CONTA, MOV.NR_PARCELA, MOV.SALDO_ANTERIOR, MOV.SALDO_FINAL, "
+//                + "TO_CHAR(MOV.DATA_MOV,'DD/MM/YYYY') AS DATA, MOV.VALOR_MOV, MOV.OBSERVACAO , "
+//                + "CASE WHEN O.TIPO = 'S' THEN 'SAÍDA' ELSE 'ENTRADA' END AS TIPO "
+//                + "FROM MOV_CAIXA MOV INNER JOIN AGENCIA_CONTA A "
+//                + "ON MOV.CD_AGENCIA_CONTA = A.CD_AGENCIA_CONTA INNER JOIN OPERACAO O "
+//                + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
+//                + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
+//                + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
+//                + "WHERE DATA_MOV BETWEEN '"+dtInicial+"' AND '"+dtFinal+"' "
+//                + "ORDER BY MOV.CD_MOV";
+//        conexao.executeSQL(sql);
+//        return conexao.resultset;
+//    }
     
     public void retornaMov(MovCaixa mov){
         String sql = "SELECT * FROM MOV_CAIXA WHERE "

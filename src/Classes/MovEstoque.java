@@ -76,7 +76,14 @@ public class MovEstoque {
         conexao.atualizarSQL(sql);
     }
     
-    public ResultSet consultarGeral(){
+    public ResultSet consultarGeral(MovEstoque estoque, String dataFinal){
+        String clausula;
+        if (estoque.getDtMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "WHERE MOV.DT_MOVIMENTO BETWEEN '"+estoque.getDtMov()+"' AND '"+dataFinal+"' ";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
                 + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
                 + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
@@ -85,13 +92,20 @@ public class MovEstoque {
                 + "'SAÍDA' END AS TIPO "
                 + "FROM MOV_ESTOQUE MOV "
                 + "INNER JOIN PRODUTOS P "
-                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
+                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "+clausula
                 + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
     } 
     
-    public ResultSet consultarCdMov(MovEstoque estoque){
+    public ResultSet consultarCdMov(MovEstoque estoque, String dataFinal){
+        String clausula;
+        if (estoque.getDtMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = " AND MOV.DT_MOVIMENTO BETWEEN '"+estoque.getDtMov()+"' AND '"+dataFinal+"'";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
                 + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
                 + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
@@ -101,12 +115,19 @@ public class MovEstoque {
                 + "FROM MOV_ESTOQUE MOV "
                 + "INNER JOIN PRODUTOS P "
                 + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
-                + "WHERE MOV.CD_MOV = "+estoque.getCdMov();
+                + "WHERE MOV.CD_MOV = "+estoque.getCdMov()+clausula;
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
     
-    public ResultSet consultarCdVendaCompra(MovEstoque estoque){
+    public ResultSet consultarCdVendaCompra(MovEstoque estoque, String dataFinal){
+        String clausula;
+        if (estoque.getDtMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = " AND MOV.DT_MOVIMENTO BETWEEN '"+estoque.getDtMov()+"' AND '"+dataFinal+"'";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
                 + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
                 + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
@@ -116,13 +137,22 @@ public class MovEstoque {
                 + "FROM MOV_ESTOQUE MOV "
                 + "INNER JOIN PRODUTOS P "
                 + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
-                + "WHERE MOV.CD_VENDA_COMPRA = "+estoque.getCdVendaCompra() 
+                + "WHERE MOV.CD_VENDA_COMPRA = "+estoque.getCdVendaCompra()+clausula 
                 + " ORDER BY MOV.CD_MOV";
+        System.err.println("SQL "+sql);
         conexao.executeSQL(sql);
+        
         return conexao.resultset;
     }
     
-    public ResultSet consultarCdProduto(MovEstoque estoque){
+    public ResultSet consultarCdProduto(MovEstoque estoque, String dataFinal){
+        String clausula;
+        if (estoque.getDtMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = " AND MOV.DT_MOVIMENTO BETWEEN '"+estoque.getDtMov()+"' AND '"+dataFinal+"'";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
                 + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
                 + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
@@ -132,13 +162,20 @@ public class MovEstoque {
                 + "FROM MOV_ESTOQUE MOV "
                 + "INNER JOIN PRODUTOS P "
                 + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
-                + "WHERE MOV.CD_PRODUTO = "+estoque.getCdProduto()
+                + "WHERE MOV.CD_PRODUTO = "+estoque.getCdProduto()+clausula
                 + " ORDER BY MOV.CD_PRODUTO";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
     
-    public ResultSet consultarProduto(String nome){
+    public ResultSet consultarProduto(String nome, MovEstoque estoque ,String dataFinal){
+        String clausula;
+        if (estoque.getDtMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "AND MOV.DT_MOVIMENTO BETWEEN '"+estoque.getDtMov()+"' AND '"+dataFinal+"' ";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
                 + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
                 + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
@@ -148,13 +185,20 @@ public class MovEstoque {
                 + "FROM MOV_ESTOQUE MOV "
                 + "INNER JOIN PRODUTOS P "
                 + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
-                + "WHERE P.DS_PRODUTO LIKE '%"+nome+"%' "
+                + "WHERE P.DS_PRODUTO LIKE '%"+nome+"%' "+clausula
                 + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
     
-    public ResultSet consultarTipo(MovEstoque estoque){
+    public ResultSet consultarTipo(MovEstoque estoque, String dataFinal){
+        String clausula;
+        if (estoque.getDtMov().equals("")){
+            clausula = "";
+        }
+        else{
+            clausula = "AND MOV.DT_MOVIMENTO BETWEEN '"+estoque.getDtMov()+"' AND '"+dataFinal+"' ";
+        }
         String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
                 + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
                 + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
@@ -164,23 +208,7 @@ public class MovEstoque {
                 + "FROM MOV_ESTOQUE MOV "
                 + "INNER JOIN PRODUTOS P "
                 + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
-                + "WHERE  MOV.ENTRADA = '"+estoque.getEntrada()+"' "
-                + "ORDER BY MOV.CD_MOV";
-        conexao.executeSQL(sql);
-        return conexao.resultset;
-    }
-    
-    public ResultSet consultarPeriodo(String dataInicial, String dataFinal){
-        String sql = "SELECT MOV.CD_MOV, MOV.CD_VENDA_COMPRA, MOV.CD_PRODUTO, "
-                + "P.DS_PRODUTO, MOV.QT_ANTERIOR, MOV.QT_ATUAL, "
-                + "MOV.VL_PRODUTO, MOV.VL_CUSTO, "
-                + "TO_CHAR(MOV.DT_MOVIMENTO, 'DD/MM/YYYY') AS DATA, "
-                + "CASE WHEN ENTRADA = 'E' THEN 'ENTRADA' ELSE "
-                + "'SAÍDA' END AS TIPO "
-                + "FROM MOV_ESTOQUE MOV "
-                + "INNER JOIN PRODUTOS P "
-                + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
-                + "WHERE MOV.DT_MOVIMENTO BETWEEN '"+dataInicial+"' AND '"+dataFinal+"' "
+                + "WHERE  MOV.ENTRADA = '"+estoque.getEntrada()+"' "+clausula
                 + "ORDER BY MOV.CD_MOV";
         conexao.executeSQL(sql);
         return conexao.resultset;
