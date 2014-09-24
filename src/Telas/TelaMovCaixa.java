@@ -4,6 +4,7 @@ import Classes.MovCaixa;
 import Relatorios.Relatorios;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
+import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -187,15 +188,12 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                                 .addComponent(jFormattedTextFieldDtInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jFormattedTextFieldDtFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBtPesquisar)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(16, 16, 16)
+                                .addComponent(jBtPesquisar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtRelatorio)))
                 .addContainerGap())
         );
@@ -212,6 +210,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                             .addComponent(jComboBoxAux, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
+                        .addGap(0, 0, 0)
                         .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -302,7 +301,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                 case 0:
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarGeral(mov, data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(mov.consultarGeral(mov, data));
                 break;
 
                 case 1:
@@ -310,7 +309,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                         mov.setCdMov(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarCdMov(mov, data));
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(preencher.getResult());
+                        report.setConsulta(mov.consultarCdMov(mov, data));
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                         jTextFieldConsulta.setText("");
@@ -322,14 +321,14 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                     mov.getAgc().setDsConta(jComboBoxAux.getSelectedItem().toString());
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarAgenciaConta(mov, data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(mov.consultarAgenciaConta(mov, data));
                     break;
 
                 case 3:
                     mov.getOperacao().setDsOperacao(jComboBoxAux.getSelectedItem().toString());
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarOperacao(mov, data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(mov.consultarOperacao(mov, data));
                     break;
 
                 case 4:
@@ -337,7 +336,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                         mov.getParcelas().getContas().setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarCdConta(mov, data));
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(preencher.getResult());
+                        report.setConsulta(mov.consultarCdConta(mov, data));
                     } 
                     catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
@@ -350,14 +349,14 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                     mov.getParcelas().getContas().setDsConta(jTextFieldConsulta.getText().toUpperCase());
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarConta(mov, data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(mov.consultarConta(mov, data));
                     break;
 
                 case 6:
                     mov.setObservacao(jTextFieldConsulta.getText().toUpperCase());
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarObservacao(mov, data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(mov.consultarObservacao(mov, data));
                     break;
                 default:
                     switch (jComboBoxAux.getSelectedIndex()) {
@@ -369,7 +368,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                     }
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarTipo(mov, data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(mov.consultarTipo(mov, data));
                     break;
             }
         }
@@ -402,11 +401,44 @@ public class TelaMovCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jRBtSimActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
-            report.setSubreport(false);
-            report.setTabela("MOV_CAIXA");
-            report.gerarRelatorio(report);        
+        HashMap params = new HashMap();
+        report.setSubreport(false);
+        report.setTabela("MOV_CAIXA");
+        
+        if (jRBtSim.isSelected()){
+            params.put("PERIODO", "DE "+jFormattedTextFieldDtInicial.getText()+" A "
+            +jFormattedTextFieldDtFinal.getText());
         }
+        else{
+            params.put("PERIODO", "TODOS");
+        }
+        if (jComboBoxConsulta.getSelectedIndex() == 2){
+            params.put("AGENCIA_CONTA",jComboBoxAux.getSelectedItem().toString());
+        }
+        else{
+            params.put("AGENCIA_CONTA","TODAS");
+        }
+        if (jComboBoxConsulta.getSelectedIndex() == 3){
+            params.put("OPERACAO", jComboBoxAux.getSelectedItem().toString());
+        }
+        else{
+            params.put("OPERACAO", "TODAS");
+        }
+        if (jComboBoxConsulta.getSelectedIndex() == 4){
+            params.put("CONTA", jTextFieldConsulta.getText());
+        }
+        else{
+            params.put("CONTA", "TODAS");
+        }
+        if (jComboBoxConsulta.getSelectedIndex() == 7){
+            params.put("TIPO"," "+jComboBoxAux.getSelectedItem().toString());
+        }
+        else{
+            params.put("TIPO", "ENTRADA E SAÍDA");
+        }
+        
+        report.gerarRelatorio(report, params);        
+            
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

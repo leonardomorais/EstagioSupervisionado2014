@@ -18,7 +18,6 @@ public class PreencherTabela {
     public void PreencherJtableGenerico(JTable tabela, ResultSet resultado) {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        this.setResult(resultado);
         try {
             int colunas = resultado.getMetaData().getColumnCount();
 
@@ -89,13 +88,13 @@ public class PreencherTabela {
         this.vazia = vazia;
     }   
 
-    public ResultSet getResult() {
-        return result;
-    }
-
-    public void setResult(ResultSet result) {
-        this.result = result;
-    }
+//    public ResultSet getResult() {
+//        return result;
+//    }
+//
+//    public void setResult(ResultSet result) {
+//        this.result = result;
+//    }
     
     
 }

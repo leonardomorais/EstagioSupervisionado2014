@@ -4,6 +4,7 @@ import Classes.MovEstoque;
 import Relatorios.Relatorios;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
+import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -127,6 +128,11 @@ public class TelaMovEstoque extends javax.swing.JFrame {
 
         jBtRelatorio.setText("Relatório");
         jBtRelatorio.setEnabled(false);
+        jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,7 +232,7 @@ public class TelaMovEstoque extends javax.swing.JFrame {
                 case 0:
                     preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarGeral(estoque, data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(estoque.consultarGeral(estoque, data));
                     break;
 
                 case 1:
@@ -234,7 +240,7 @@ public class TelaMovEstoque extends javax.swing.JFrame {
                         estoque.setCdMov(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarCdMov(estoque,data));
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(preencher.getResult());
+                        report.setConsulta(estoque.consultarCdMov(estoque,data));
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                         jTextFieldConsulta.setText("");
@@ -247,7 +253,7 @@ public class TelaMovEstoque extends javax.swing.JFrame {
                         estoque.setCdVendaCompra(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarCdVendaCompra(estoque,data));
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(preencher.getResult());
+                        report.setConsulta(estoque.consultarCdVendaCompra(estoque,data));
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                         jTextFieldConsulta.setText("");
@@ -260,7 +266,7 @@ public class TelaMovEstoque extends javax.swing.JFrame {
                         estoque.setCdProduto(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarCdProduto(estoque,data));
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(preencher.getResult());
+                        report.setConsulta(estoque.consultarCdProduto(estoque,data));
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
                         jTextFieldConsulta.setText("");
@@ -272,14 +278,14 @@ public class TelaMovEstoque extends javax.swing.JFrame {
                     preencher.PreencherJtableGenerico(jTableConsulta,
                             estoque.consultarProduto(jTextFieldConsulta.getText().toUpperCase(),estoque, data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(estoque.consultarProduto(jTextFieldConsulta.getText().toUpperCase(),estoque, data));
                     break;
 
                 default:
                     estoque.setEntrada(jComboBoxAux.getSelectedItem().toString().toUpperCase().substring(0, 1));
                     preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarTipo(estoque,data));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(estoque.consultarTipo(estoque,data));
             }
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -325,6 +331,39 @@ public class TelaMovEstoque extends javax.swing.JFrame {
         jFormattedTextFieldDataFinal.setText("");
         jFormattedTextFieldDataInicial.grabFocus();
     }//GEN-LAST:event_jRBtSimActionPerformed
+
+    private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        HashMap params = new HashMap();
+        report.setTabela("MOV_ESTOQUE");
+        report.setSubreport(false);
+        if (jRBtSim.isSelected()){
+            params.put("PERIODO", "DE "+jFormattedTextFieldDataInicial.getText()+" A "
+            +jFormattedTextFieldDataFinal.getText());
+        }
+        else{
+            params.put("PERIODO", "TODOS");
+        }
+        if (jComboBoxConsulta.getSelectedIndex() == 2){
+            params.put("VENDA_COMPRA", jTextFieldConsulta.getText());
+        }
+        else{
+            params.put("VENDA_COMPRA", "TODAS");
+        }
+        if (jComboBoxConsulta.getSelectedIndex() == 3){
+            params.put("PRODUTO", jTextFieldConsulta.getText());
+        }
+        else{
+            params.put("PRODUTO", "TODOS");
+        }
+        if (jComboBoxConsulta.getSelectedIndex() == 5){
+            params.put("TIPO", jComboBoxAux.getSelectedItem().toString());
+        }
+        else{
+            params.put("TIPO","ENTRADA E SAÍDA");
+        }
+        
+        report.gerarRelatorio(report, params);
+    }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**
      * @param args the command line arguments

@@ -703,7 +703,7 @@ public class TelaPagamento extends javax.swing.JFrame {
             case 0:
                 preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarGeral(jRbSim.isSelected()));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(preencher.getResult());
+                report.setConsulta(pagamento.consultarGeral(jRbSim.isSelected()));
                 break;
 
             case 1:
@@ -711,7 +711,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                     pagamento.setCdPagamento(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdPagamento(pagamento, jRbSim.isSelected()));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(pagamento.consultarCdPagamento(pagamento, jRbSim.isSelected()));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
@@ -724,7 +724,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                     pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdConta(pagamento, jRbSim.isSelected()));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(pagamento.consultarCdConta(pagamento, jRbSim.isSelected()));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
@@ -736,7 +736,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                 pagamento.getParcelas().getContas().setDsConta(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarDsConta(pagamento, jRbSim.isSelected()));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(preencher.getResult());
+                report.setConsulta(pagamento.consultarDsConta(pagamento, jRbSim.isSelected()));
                 break;
 
             default:
@@ -744,7 +744,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                     pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdAgencia(pagamento, jRbSim.isSelected()));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(preencher.getResult());
+                    report.setConsulta(pagamento.consultarCdAgencia(pagamento, jRbSim.isSelected()));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");

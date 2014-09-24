@@ -53,6 +53,28 @@ public class Relatorios {
             System.err.println("Erro ao gerar Relatório!");
         }
     }
+    
+    public void gerarRelatorio(Relatorios r, HashMap parametros){
+        try{
+            conexao.conecta();
+            if (r.isSubreport()){
+                parametros.put("SUBREPORT_DIR", "relatorios\\");
+                parametros.put("REPORT_CONNECTION", conexao.conecta());
+            }
+            JRResultSetDataSource jrRs = new JRResultSetDataSource(r.getConsulta());
+            
+            String report = "relatorios\\"+r.getTabela()+".jasper";
+            
+            JasperPrint print = JasperFillManager.fillReport(report, parametros, jrRs);
+            
+            JasperViewer relatorio = new JasperViewer(print, false);
+            relatorio.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
+            relatorio.setVisible(true);
+        }
+        catch(JRException ex){
+            System.err.println("Erro ao gerar Relatório");
+        }
+    }
 
 //    public void gerarRelatorio(Relatorios r, HashMap params) {
 //        try {
@@ -168,4 +190,5 @@ public class Relatorios {
     public void setConsulta(ResultSet consulta) {
         this.consulta = consulta;
     }
+    
 }

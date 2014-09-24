@@ -139,7 +139,6 @@ public class MovEstoque {
                 + "ON MOV.CD_PRODUTO = P.CD_PRODUTO "
                 + "WHERE MOV.CD_VENDA_COMPRA = "+estoque.getCdVendaCompra()+clausula 
                 + " ORDER BY MOV.CD_MOV";
-        System.err.println("SQL "+sql);
         conexao.executeSQL(sql);
         
         return conexao.resultset;
