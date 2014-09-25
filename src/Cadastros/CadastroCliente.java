@@ -976,12 +976,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemParcelasActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
                 report.setSubreport(true);
                 report.setTabela("CLIENTE");
                 report.gerarRelatorio(report);
                 jBtPesquisarActionPerformed(null);
-        }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTextFieldRGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRGKeyTyped

@@ -425,11 +425,9 @@ public class CadastroOrigem extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
                 report.setSubreport(false);
                 report.setTabela("ORIGEM");
                 report.gerarRelatorio(report);
-        }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

@@ -446,12 +446,10 @@ public class CadastroMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
                 report.setSubreport(false);
                 report.setTabela("MESA");
                 report.gerarRelatorio(report);
                 jBtPesquisarActionPerformed(null);
-        }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

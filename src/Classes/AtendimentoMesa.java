@@ -81,82 +81,38 @@ public class AtendimentoMesa {
         return total;
     }
 
-    public ResultSet consultarGeral(boolean fechados) {
-        String sql;
-        if (fechados) {
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
-                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
-                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
-                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
-                    + "ELSE 'FECHADO' END AS SITUACAO, "
-                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
-                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
-                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE A.ABERTO_FECHADO = 'F' ORDER BY A.NR_ATENDIMENTO";
-        } else {
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
-                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
-                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
-                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
-                    + "ELSE 'FECHADO' END AS SITUACAO, "
-                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
-                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
-                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "ORDER BY A.NR_ATENDIMENTO";
+    public ResultSet consultarGeral(AtendimentoMesa atd) {
+        String condicao;
+        if (atd.getAbertoFechado().equals("AMBOS")){
+            condicao = "";
         }
+        else{
+            condicao = "WHERE A.ABERTO_FECHADO = '"+atd.getAbertoFechado()+"' ";
+        }
+        String sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
+                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
+                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
+                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
+                    + "ELSE 'FECHADO' END AS SITUACAO, "
+                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
+                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
+                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
+                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "+condicao
+                    + "ORDER BY A.NR_ATENDIMENTO";
+        
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
 
-    public ResultSet consultarNrAtendimento(AtendimentoMesa atd, boolean fechados) {
-        String sql;
-        if (fechados) {
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
-                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
-                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
-                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
-                    + "ELSE 'FECHADO' END AS SITUACAO, "
-                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
-                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
-                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE A.ABERTO_FECHADO = 'F' AND A.NR_ATENDIMENTO = "
-                    + atd.getNrAtendimento();
-        } else {
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
-                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
-                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
-                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
-                    + "ELSE 'FECHADO' END AS SITUACAO, "
-                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
-                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
-                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE A.NR_ATENDIMENTO = "+atd.getNrAtendimento();
-        }
-        conexao.executeSQL(sql);
-        return conexao.resultset;
-    }
-    
-    public ResultSet consultarNrMesa(AtendimentoMesa atd, boolean fechados){
-        String sql;
-        if (fechados){
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
-                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
-                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
-                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
-                    + "ELSE 'FECHADO' END AS SITUACAO, "
-                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
-                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
-                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE A.ABERTO_FECHADO = 'F' AND A.NR_MESA = "
-                    + atd.getMesa().getNrMesa()+" ORDER BY A.NR_ATENDIMENTO";
+    public ResultSet consultarNrAtendimento(AtendimentoMesa atd) {
+        String condicao;
+        if (atd.getAbertoFechado().equals("AMBOS")){
+            condicao = "WHERE ";
         }
         else{
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
+            condicao = "WHERE A.ABERTO_FECHADO = '"+atd.getAbertoFechado()+"' AND ";
+        }
+        String sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
                     + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
                     + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
                     + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
@@ -164,18 +120,21 @@ public class AtendimentoMesa {
                     + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
                     + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
                     + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE A.NR_MESA = "
-                    + atd.getMesa().getNrMesa()+" ORDER BY A.NR_ATENDIMENTO";
-        }
+                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "+condicao
+                    + "A.NR_ATENDIMENTO = "+ atd.getNrAtendimento();
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
     
-    public ResultSet consultarNomeFuncionario(AtendimentoMesa atd, boolean fechados){
-        String sql;
-        if (fechados){
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
+    public ResultSet consultarNrMesa(AtendimentoMesa atd){
+        String condicao;
+        if (atd.getAbertoFechado().equals("AMBOS")){
+            condicao = "WHERE ";
+        }
+        else{
+            condicao = "WHERE A.ABERTO_FECHADO = '"+atd.getAbertoFechado()+"' AND ";
+        }
+       String sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
                     + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
                     + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
                     + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
@@ -183,46 +142,47 @@ public class AtendimentoMesa {
                     + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
                     + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
                     + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE A.ABERTO_FECHADO = 'F' AND P.NOME LIKE '%"
+                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "+condicao
+                    + "A.NR_MESA = "+ atd.getMesa().getNrMesa()+" ORDER BY A.NR_ATENDIMENTO";
+        
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarNomeFuncionario(AtendimentoMesa atd){
+        String condicao;
+        if (atd.getAbertoFechado().equals("AMBOS")){
+            condicao = "WHERE ";
+        }
+        else{
+            condicao = "WHERE A.ABERTO_FECHADO = '"+atd.getAbertoFechado()+"' AND ";
+        }
+        String sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
+                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
+                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
+                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
+                    + "ELSE 'FECHADO' END AS SITUACAO, "
+                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
+                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
+                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
+                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "+condicao
+                    + "P.NOME LIKE '%"
                     + atd.getFuncionario().getPessoa().getNome()+"%' "
                     + "ORDER BY A.NR_ATENDIMENTO";
-        }
-        else{
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
-                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
-                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
-                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
-                    + "ELSE 'FECHADO' END AS SITUACAO, "
-                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
-                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
-                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE P.NOME LIKE '%"+atd.getFuncionario().getPessoa().getNome()+"%' "
-                    + "ORDER BY A.NR_ATENDIMENTO";
-        }
+        
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
     
-    public ResultSet consultarPorData(AtendimentoMesa atd, boolean fechados){
-        String sql;
-        
-        if (fechados){
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
-                    + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
-                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
-                    + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
-                    + "ELSE 'FECHADO' END AS SITUACAO, "
-                    + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
-                    + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
-                    + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE A.ABERTO_FECHADO = 'F' AND TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') "
-                    + "= '"+atd.getDtAtendimento()+"' ORDER BY A.NR_ATENDIMENTO";
+    public ResultSet consultarPorData(AtendimentoMesa atd){
+        String condicao;
+        if (atd.getAbertoFechado().equals("AMBOS")){
+            condicao = "WHERE ";
         }
         else{
-            sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
+            condicao = "WHERE A.ABERTO_FECHADO = '"+atd.getAbertoFechado()+"' AND ";
+        }
+        String sql = "SELECT A.NR_ATENDIMENTO, A.NR_MESA, A.CD_FUNCIONARIO, P.NOME, "
                     + "A.HORA_ABERTURA, A.HORA_FECHAMENTO, "
                     + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') AS DATA, "
                     + "CASE WHEN A.ABERTO_FECHADO = 'A' THEN 'ABERTO' "
@@ -230,10 +190,10 @@ public class AtendimentoMesa {
                     + "COALESCE(A.VL_TOTAL,0.00) AS TOTAL FROM ATENDIMENTO_MESA A "
                     + "LEFT JOIN FUNCIONARIO F ON F.CD_PESSOA = A.CD_FUNCIONARIO "
                     + "LEFT JOIN PESSOA_FISICA PF ON PF.CD_PESSOA = F.CD_PESSOA "
-                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') = '"+atd.getDtAtendimento()+"' "
-                    + "ORDER BY A.NR_ATENDIMENTO";
-        }
+                    + "LEFT JOIN PESSOA P ON P.CD_PESSOA = PF.CD_PESSOA "+condicao
+                    + "TO_CHAR(A.DT_ATENDIMENTO,'DD/MM/YYYY') "
+                    + "= '"+atd.getDtAtendimento()+"' ORDER BY A.NR_ATENDIMENTO";
+        
         conexao.executeSQL(sql);
         return conexao.resultset;
     }

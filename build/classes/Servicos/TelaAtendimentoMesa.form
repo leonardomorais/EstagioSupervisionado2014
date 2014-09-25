@@ -533,12 +533,14 @@
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jRadioButtonSim" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonAbertos" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonFechados" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonAmbos" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jRadioButtonNao" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldConsulta" min="-2" pref="295" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="32767" attributes="0"/>
+                                      <Component id="jTextFieldConsulta" min="-2" pref="219" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jBtPesquisar" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jBtRelatorio" min="-2" max="-2" attributes="0"/>
@@ -563,10 +565,11 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jComboBoxConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonSim" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButtonNao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonAbertos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonFechados" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonAmbos" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="167" max="-2" attributes="0"/>
@@ -659,27 +662,30 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mostrar somente atendimentos fechados ?"/>
+                <Property name="text" type="java.lang.String" value="Mostrar os Atendimentos"/>
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Mostrar somente \u005cnatendimentos fechados ?" containsInvalidXMLChars="true"/>
               </AccessibilityProperties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonSim">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonAbertos">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroupSituacao"/>
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Sim"/>
+                <Property name="text" type="java.lang.String" value="Abertos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonAbertosActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButtonNao">
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonFechados">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroupSituacao"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="N&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="Fechados"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldConsulta">
@@ -692,6 +698,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtRelatorioActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonAmbos">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="buttonGroupSituacao"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ambos"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

@@ -1240,11 +1240,9 @@ public class TelaVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemExibirParcelasActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
             report.setSubreport(true);
             report.setTabela("VENDA_COMPRA");
             report.gerarRelatorio(report);        
-        }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

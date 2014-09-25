@@ -831,12 +831,10 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemEnderecoActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
                 report.setSubreport(true);
                 report.setTabela("FUNCIONARIO");
                 report.gerarRelatorio(report);
                 jBtPesquisarActionPerformed(null);
-        }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

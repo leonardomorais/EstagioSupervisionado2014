@@ -118,10 +118,11 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAtendimentoProdutos = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
-        jRadioButtonSim = new javax.swing.JRadioButton();
-        jRadioButtonNao = new javax.swing.JRadioButton();
+        jRadioButtonAbertos = new javax.swing.JRadioButton();
+        jRadioButtonFechados = new javax.swing.JRadioButton();
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtRelatorio = new javax.swing.JButton();
+        jRadioButtonAmbos = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Atendimento");
@@ -507,14 +508,19 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTableAtendimentoProdutos);
 
-        jLabel13.setText("Mostrar somente atendimentos fechados ?");
+        jLabel13.setText("Mostrar os Atendimentos");
 
-        buttonGroupSituacao.add(jRadioButtonSim);
-        jRadioButtonSim.setSelected(true);
-        jRadioButtonSim.setText("Sim");
+        buttonGroupSituacao.add(jRadioButtonAbertos);
+        jRadioButtonAbertos.setSelected(true);
+        jRadioButtonAbertos.setText("Abertos");
+        jRadioButtonAbertos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonAbertosActionPerformed(evt);
+            }
+        });
 
-        buttonGroupSituacao.add(jRadioButtonNao);
-        jRadioButtonNao.setText("Não");
+        buttonGroupSituacao.add(jRadioButtonFechados);
+        jRadioButtonFechados.setText("Fechados");
 
         jBtRelatorio.setText("Relatório");
         jBtRelatorio.setEnabled(false);
@@ -523,6 +529,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 jBtRelatorioActionPerformed(evt);
             }
         });
+
+        buttonGroupSituacao.add(jRadioButtonAmbos);
+        jRadioButtonAmbos.setText("Ambos");
 
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
@@ -542,12 +551,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                                 .addComponent(jLabel13)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanelConsultaLayout.createSequentialGroup()
-                                .addComponent(jRadioButtonSim)
+                                .addComponent(jRadioButtonAbertos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonFechados)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonAmbos)
                                 .addGap(18, 18, 18)
-                                .addComponent(jRadioButtonNao)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBtPesquisar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtRelatorio))))
@@ -565,10 +576,11 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtPesquisar)
-                    .addComponent(jRadioButtonSim)
-                    .addComponent(jRadioButtonNao)
+                    .addComponent(jRadioButtonAbertos)
+                    .addComponent(jRadioButtonFechados)
                     .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtRelatorio))
+                    .addComponent(jBtRelatorio)
+                    .addComponent(jRadioButtonAmbos))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -850,22 +862,31 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableAtendimento, new int[]{70, 50, 70, 195, 70, 70, 70, 60, 70});
         report = new Relatorios();
+        if (jRadioButtonAbertos.isSelected()){
+            atd.setAbertoFechado("A");
+        }
+        else if (jRadioButtonFechados.isSelected()){
+            atd.setAbertoFechado("F");
+        }
+        else{
+            atd.setAbertoFechado("AMBOS");
+        }
+        
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
                 // Consultar Geral
-                preencher.PreencherJtableGenerico(jTableAtendimento,
-                        atd.consultarGeral(jRadioButtonSim.isSelected()));
+                preencher.PreencherJtableGenerico(jTableAtendimento, atd.consultarGeral(atd));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(atd.consultarGeral(jRadioButtonSim.isSelected()));
+                report.setConsulta(atd.consultarGeral(atd));
                 break;
             case 1:
                 // Consultar por Nr de Atendimento
                 try {
                     atd.setNrAtendimento(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableAtendimento,
-                            atd.consultarNrAtendimento(atd, jRadioButtonSim.isSelected()));
+                            atd.consultarNrAtendimento(atd));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(atd.consultarNrAtendimento(atd, jRadioButtonSim.isSelected()));
+                    report.setConsulta(atd.consultarNrAtendimento(atd));
                 } catch (NumberFormatException ex) {
                     limpar.limparJtable(jTableAtendimentoProdutos);
                     JOptionPane.showMessageDialog(null, "Informe um número de atendimento para pesquisar");
@@ -878,9 +899,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 try {
                     atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableAtendimento,
-                            atd.consultarNrMesa(atd, jRadioButtonSim.isSelected()));
+                            atd.consultarNrMesa(atd));
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(atd.consultarNrMesa(atd, jRadioButtonSim.isSelected()));
+                    report.setConsulta(atd.consultarNrMesa(atd));
                 } catch (NumberFormatException ex) {
                     limpar.limparJtable(jTableAtendimentoProdutos);
                     JOptionPane.showMessageDialog(null, "Informe um número de mesa para pesquisar");
@@ -894,9 +915,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 // Consultar por nome do funcionário
                 atd.getFuncionario().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableAtendimento,
-                        atd.consultarNomeFuncionario(atd, jRadioButtonSim.isSelected()));
+                        atd.consultarNomeFuncionario(atd));
                 editaBotao(preencher.Vazia());
-                report.setConsulta(atd.consultarNomeFuncionario(atd, jRadioButtonSim.isSelected()));
+                report.setConsulta(atd.consultarNomeFuncionario(atd));
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -929,12 +950,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
                 report.setSubreport(true);
                 report.setTabela("ATENDIMENTO_MESA");
                 report.gerarRelatorio(report);
-        }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jRadioButtonAbertosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonAbertosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonAbertosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1001,8 +1024,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelAtendimento;
     private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelConsulta;
-    private javax.swing.JRadioButton jRadioButtonNao;
-    private javax.swing.JRadioButton jRadioButtonSim;
+    private javax.swing.JRadioButton jRadioButtonAbertos;
+    private javax.swing.JRadioButton jRadioButtonAmbos;
+    private javax.swing.JRadioButton jRadioButtonFechados;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

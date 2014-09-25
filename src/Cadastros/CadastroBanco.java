@@ -450,11 +450,9 @@ public class CadastroBanco extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldConsultaKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
                 report.setSubreport(false);
                 report.setTabela("BANCO");
                 report.gerarRelatorio(report);
-        }
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

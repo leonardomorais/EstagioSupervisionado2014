@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PARCELAS" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2bb49b8-715b-4e13-b361-9eda1f34ed86">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PARCELAS" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2bb49b8-715b-4e13-b361-9eda1f34ed86">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -39,45 +39,45 @@ ORDER BY nr_parcela]]>
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="555" height="20" backcolor="#006666"/>
+				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="802" height="20" backcolor="#006666"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="d752f38f-6515-4902-ba00-ed7b36918609" x="-19" y="0" width="63" height="20" forecolor="#FFFFFF"/>
+				<reportElement uuid="d752f38f-6515-4902-ba00-ed7b36918609" x="-19" y="0" width="104" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[Conta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9104d29c-627e-43ab-81c1-266eb591aebf" x="44" y="0" width="63" height="20" forecolor="#FFFFFF"/>
+				<reportElement uuid="9104d29c-627e-43ab-81c1-266eb591aebf" x="85" y="0" width="122" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[Nr Parcela]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5c65c2ab-fee1-4fd1-9b7a-2dd41f4c7413" x="107" y="0" width="96" height="20" forecolor="#FFFFFF"/>
+				<reportElement uuid="5c65c2ab-fee1-4fd1-9b7a-2dd41f4c7413" x="207" y="0" width="153" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="68982fe3-94b9-45be-b699-68b298a60e67" x="203" y="0" width="114" height="20" forecolor="#FFFFFF"/>
+				<reportElement uuid="68982fe3-94b9-45be-b699-68b298a60e67" x="360" y="0" width="145" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[Data Vencimento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bb053b35-0a25-4aef-9cd7-c9507bfb6f98" x="317" y="0" width="88" height="20" forecolor="#FFFFFF"/>
+				<reportElement uuid="bb053b35-0a25-4aef-9cd7-c9507bfb6f98" x="505" y="0" width="137" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<text><![CDATA[Valor Pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="48fe26b5-b803-43f1-85dd-3d6d353b8a77" x="405" y="0" width="130" height="20" forecolor="#FFFFFF"/>
+				<reportElement uuid="48fe26b5-b803-43f1-85dd-3d6d353b8a77" x="642" y="0" width="140" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
@@ -88,45 +88,45 @@ ORDER BY nr_parcela]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="555" height="20"/>
+				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="802" height="20"/>
 			</rectangle>
 			<textField>
-				<reportElement uuid="f5d25e7a-c316-4b47-87ef-75b09c374e2c" x="-19" y="0" width="63" height="20"/>
+				<reportElement uuid="f5d25e7a-c316-4b47-87ef-75b09c374e2c" x="-19" y="0" width="104" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_cd_conta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="cf572053-bb04-4730-9e4b-bef1ebb5f3fb" x="44" y="0" width="63" height="20"/>
+				<reportElement uuid="cf572053-bb04-4730-9e4b-bef1ebb5f3fb" x="85" y="0" width="122" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_nr_parcela}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="aa3ad4f9-ae26-4c5f-b4a2-fd7f7806a8f8" x="107" y="0" width="96" height="20"/>
+				<reportElement uuid="aa3ad4f9-ae26-4c5f-b4a2-fd7f7806a8f8" x="207" y="0" width="153" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_vl_parcela}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="88a31287-0019-4194-81ad-5ff7427143c3" x="317" y="0" width="88" height="20"/>
+				<reportElement uuid="88a31287-0019-4194-81ad-5ff7427143c3" x="505" y="0" width="137" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_vl_pago}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="4ecce711-1ae7-47aa-83a3-e00338158abf" x="405" y="0" width="130" height="20"/>
+				<reportElement uuid="4ecce711-1ae7-47aa-83a3-e00338158abf" x="642" y="0" width="140" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{parcelas_dt_pago} != null ? $F{parcelas_dt_pago} : "A PAGAR"]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="f03b5ecd-323b-41b7-aa5a-db98f0a0cafe" x="203" y="0" width="114" height="20"/>
+				<reportElement uuid="f03b5ecd-323b-41b7-aa5a-db98f0a0cafe" x="360" y="0" width="145" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="9"/>
 				</textElement>

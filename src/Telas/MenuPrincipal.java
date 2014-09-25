@@ -16,7 +16,6 @@ import Cadastros.CadastroMesa;
 import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
-import Consultas.ConsultaParcelas;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
 import java.util.Random;
@@ -80,6 +79,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemPagamento = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItemMovCaixa = new javax.swing.JMenuItem();
+        jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemFaturamento = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Al Tálio Sistema");
@@ -284,6 +285,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuFinanceiro.add(jMenuItemMovCaixa);
+        jMenuFinanceiro.add(jSeparator8);
+
+        jMenuItemFaturamento.setText("Consultar Faturamento");
+        jMenuItemFaturamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFaturamentoActionPerformed(evt);
+            }
+        });
+        jMenuFinanceiro.add(jMenuItemFaturamento);
 
         jMenuBarPrincipal.add(jMenuFinanceiro);
 
@@ -412,6 +422,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         movEstoque.setVisible(true);
     }//GEN-LAST:event_jMenuItemExibirMovEstoqueActionPerformed
 
+    private void jMenuItemFaturamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFaturamentoActionPerformed
+        Faturamento faturamento = new Faturamento();
+        faturamento.setVisible(true);
+    }//GEN-LAST:event_jMenuItemFaturamentoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -470,6 +485,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemContas;
     private javax.swing.JMenuItem jMenuItemExibirAtendimentos;
     private javax.swing.JMenuItem jMenuItemExibirMovEstoque;
+    private javax.swing.JMenuItem jMenuItemFaturamento;
     private javax.swing.JMenuItem jMenuItemMovCaixa;
     private javax.swing.JMenuItem jMenuItemPagamento;
     private javax.swing.JMenuItem jMenuItemVenda;
@@ -482,6 +498,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
+    private javax.swing.JPopupMenu.Separator jSeparator8;
     // End of variables declaration//GEN-END:variables
 
     public void carregaImagem() {
