@@ -9,10 +9,7 @@ import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -662,7 +659,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVlProduto;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarProduto() {
+    private void carregarProduto() {
         Integer qt_atual = Integer.parseInt(jSpnQtAtual.getValue().toString());
         Integer qt_min = Integer.parseInt(jSpnQtMin.getValue().toString());
 
@@ -681,7 +678,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         }
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldCdProduto.setText(produto.getCdProduto().toString());
         jTextFieldDescricao.setText(produto.getDsProduto());
         jTextFieldVlCusto.setText(produto.getVlCusto().toString());
@@ -706,17 +703,22 @@ public class CadastroProduto extends javax.swing.JFrame {
         jComboBoxSituação.setSelectedItem(produto.getAtivo());
     }
 
-    public void limparCampos() {
+    private void limparCampos() {
         jSpnQtMin.setValue(1);
         jSpnQtAtual.setValue(0);
         limpar.limparCampos(jPanelCadastro);
     }
     
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
         } else {
             jBtRelatorio.setEnabled(true);
         }
+    }
+    
+    public void retornaProduto(int cd){
+        jTextFieldCdProduto.setText(cd+"");
+        jTextFieldCdProdutoFocusLost(null);
     }
 }

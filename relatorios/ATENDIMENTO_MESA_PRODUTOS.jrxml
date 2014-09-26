@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ATENDIMENTO_MESA_PRODUTOS" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2bb49b8-715b-4e13-b361-9eda1f34ed86">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nrAtendimento" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     atendimento_mesa_produtos."nr_atendimento" AS atendimento_mesa_produtos_nr_atendimento,
+     atendimento_mesa_produtos."cd_produto" AS atendimento_mesa_produtos_cd_produto,
+     atendimento_mesa_produtos."qt_produto" AS atendimento_mesa_produtos_qt_produto,
+     atendimento_mesa_produtos."vl_unitario" AS atendimento_mesa_produtos_vl_unitario,
+     produtos."ds_produto" AS produtos_ds_produto,
+atendimento_mesa_produtos."qt_produto" * atendimento_mesa_produtos."vl_unitario" AS TOTAL
+
+FROM
+     "public"."produtos" produtos INNER JOIN "public"."atendimento_mesa_produtos" atendimento_mesa_produtos ON produtos."cd_produto" = atendimento_mesa_produtos."cd_produto"
+WHERE nr_atendimento = $P{nrAtendimento}]]>
+	</queryString>
+	<field name="atendimento_mesa_produtos_nr_atendimento" class="java.lang.Integer"/>
+	<field name="atendimento_mesa_produtos_cd_produto" class="java.lang.Integer"/>
+	<field name="atendimento_mesa_produtos_qt_produto" class="java.lang.Integer"/>
+	<field name="atendimento_mesa_produtos_vl_unitario" class="java.math.BigDecimal"/>
+	<field name="produtos_ds_produto" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="555" height="20" backcolor="#006666"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d752f38f-6515-4902-ba00-ed7b36918609" x="-19" y="0" width="73" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Nr Atendimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9104d29c-627e-43ab-81c1-266eb591aebf" x="54" y="0" width="58" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Cd Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5c65c2ab-fee1-4fd1-9b7a-2dd41f4c7413" x="112" y="0" width="215" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="68982fe3-94b9-45be-b699-68b298a60e67" x="327" y="0" width="63" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb053b35-0a25-4aef-9cd7-c9507bfb6f98" x="390" y="0" width="66" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c50f872d-5579-47fc-afcd-aad49c1a5fb0" x="456" y="0" width="80" height="20" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="4ce2f7ea-0eef-4c23-b562-05cffc9443a6" x="-20" y="0" width="555" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="8caf641c-076f-43f5-be8c-2083c1032112" x="-20" y="0" width="74" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{atendimento_mesa_produtos_nr_atendimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6b0a0263-cd9a-4384-8072-c8093bb578dd" x="54" y="0" width="58" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{atendimento_mesa_produtos_cd_produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c0b24f48-192e-4729-802e-869cb7003c8c" x="327" y="0" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{atendimento_mesa_produtos_qt_produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cc8e7613-55b2-4bf4-a89e-54ab2b7471d5" x="112" y="0" width="215" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produtos_ds_produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a08fd410-ca17-4c54-9dc5-040fb616d209" x="390" y="0" width="66" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{atendimento_mesa_produtos_vl_unitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="167b7b62-f575-420d-bdd8-d460127727da" x="456" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

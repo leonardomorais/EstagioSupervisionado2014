@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TICKET_CONTAS" language="groovy" pageWidth="297" pageHeight="421" whenNoDataType="AllSectionsNoDetail" columnWidth="297" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="a21dbd9b-f46e-4f5f-b763-fb4183625760">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CD_VENDA_COMPRA" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, C.DS_CONTA,
+PAG.NR_PARCELA, PAG.CD_TIPO, T.DS_TIPO, P.VL_PAGO
+FROM PAGAMENTO PAG
+INNER JOIN PARCELAS P
+ON P.CD_CONTA = PAG.CD_CONTA
+AND P.NR_PARCELA = PAG.NR_PARCELA
+INNER JOIN CONTAS_PAGAR_RECEBER C
+ON PAG.CD_CONTA = C.CD_CONTA
+INNER JOIN TIPO_PGTO T
+ON T.CD_TIPO = PAG.CD_TIPO]]>
+	</queryString>
+	<field name="cd_pagamento" class="java.lang.Integer"/>
+	<field name="cd_conta" class="java.lang.Integer"/>
+	<field name="nr_parcela" class="java.lang.Integer"/>
+	<field name="ds_conta" class="java.lang.String"/>
+	<field name="cd_tipo" class="java.lang.Integer"/>
+	<field name="ds_tipo" class="java.lang.String"/>
+	<field name="vl_pago" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="9dc6a464-f616-412f-9e6b-ee1c3b309b1f" mode="Opaque" x="0" y="0" width="297" height="100" backcolor="#FFFF99"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#FFFF99"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="5414fd4a-7fd6-4855-a9ee-28bfa9bc7f52" mode="Transparent" x="0" y="0" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[AMANDA FAVORETTO DE ALBUQUERQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c2f248f-e0db-4f34-bd29-ec047e92f181" mode="Transparent" x="0" y="20" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[PIZZA AL TÁLIO E CONFEITARIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c2f248f-e0db-4f34-bd29-ec047e92f181" mode="Transparent" x="0" y="40" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[RUA ARARUNA, 805  CENTRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c2f248f-e0db-4f34-bd29-ec047e92f181" mode="Transparent" x="0" y="60" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[   CEP 87302-210  Fone (44) 3525-4983 Campo Mourão - PR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c2f248f-e0db-4f34-bd29-ec047e92f181" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="80" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[   CNPJ 16.922.235/0001-47]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="68" splitType="Stretch">
+			<line>
+				<reportElement uuid="901ee82d-66a5-40ae-b409-b219505ed236" x="0" y="0" width="297" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement uuid="a773e640-8826-45a2-ae58-445a72bc4aae" x="0" y="1" width="297" height="67" backcolor="#FFFF99"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="364806eb-36fe-402c-bb67-8f45ffd913c5" x="0" y="1" width="297" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROVANTE DE PAGAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb64c4dd-6278-4701-adb8-2e581ded6e0b" x="0" y="47" width="64" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a992a13a-8f5a-4c0b-8720-4f03c542de65" x="0" y="19" width="93" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[   Código da Conta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eaccfdae-3275-4155-8dea-88f985530ab3" x="64" y="47" width="57" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parcela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7fab7dd7-a04e-4b0d-8216-18525b4dd5b5" x="121" y="19" width="52" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7051162a-5127-4d28-ae97-52a54c12ef2a" x="191" y="47" width="106" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pago com]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2b937843-80a8-4c83-bdee-50c1fd2743b6" x="93" y="19" width="28" height="21"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cd_conta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5b3c9b44-ec04-4eb8-be76-8daf62a4d98c" x="173" y="19" width="124" height="21"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ds_conta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e4d97459-4d01-45a0-b35e-55dc3daad477" x="121" y="47" width="70" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="09fa7eb7-2db3-4cfa-9132-f9deffb60c17" x="0" y="0" width="297" height="26" backcolor="#FFFF99"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="74ad6d2e-a34f-4548-8d44-8f50befb5ef2" x="0" y="0" width="64" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cd_pagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="abc4f2de-fb2d-449a-a6ab-473896964b0a" x="64" y="0" width="57" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nr_parcela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a4f03494-98b5-4e9c-9905-102946508d12" x="191" y="0" width="106" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ds_tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4e1f119f-deb1-48f3-a0fc-8bc20c9032c7" x="121" y="0" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vl_pago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="053d6535-66c3-4d3e-b2af-6834c61ded1e" x="0" y="1" width="297" height="49" backcolor="#FFFF99"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="27d2efbd-816c-4cb1-a23f-3abe0191a29b" x="0" y="1" width="52" height="49"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Usuário]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="fa192b67-51e9-45e2-8bb9-2ff5bcedf29a" x="0" y="0" width="297" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="414800c8-219b-4ff6-81f2-76eae4417f12" x="245" y="1" width="52" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9b822197-6b62-49a2-8161-c905893db411" x="221" y="1" width="24" height="49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
