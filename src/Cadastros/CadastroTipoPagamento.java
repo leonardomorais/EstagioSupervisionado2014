@@ -93,6 +93,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Descrição");
 
         jLabel4.setText("Situação");

@@ -97,6 +97,7 @@ public class CadastroContato extends javax.swing.JFrame {
         setTitle("Cadastro de Contatos");
         setResizable(false);
 
+        jLabel1.setForeground(new java.awt.Color(0, 102, 204));
         jLabel1.setText("Código Pessoa");
 
         jTextFieldCdPessoa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -113,6 +114,7 @@ public class CadastroContato extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Nome do Contato");
 
         jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +198,7 @@ public class CadastroContato extends javax.swing.JFrame {
                 .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtCancelar)
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotoesLayout.setVerticalGroup(
             jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +247,7 @@ public class CadastroContato extends javax.swing.JFrame {
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jTextFieldNomePessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 101, Short.MAX_VALUE))
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelCadastroLayout.createSequentialGroup()
@@ -427,7 +429,13 @@ public class CadastroContato extends javax.swing.JFrame {
         if (jTextFieldCdPessoa.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O código da pessoa é obrigatório!");
             jTextFieldCdPessoa.grabFocus();
-        } else {
+        }
+        else if (jTextFieldNome.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "O nome do contato é obrigatório!");
+            jTextFieldNome.grabFocus();
+        }
+        
+        else {
             carregarContato();
 
             if (rotina == Rotinas.incluir) {

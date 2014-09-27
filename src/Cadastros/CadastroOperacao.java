@@ -98,6 +98,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(0, 102, 204));
         jLabel2.setText("Descrição");
 
         jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {

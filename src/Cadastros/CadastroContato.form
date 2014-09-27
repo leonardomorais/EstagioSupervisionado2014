@@ -87,7 +87,7 @@
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextFieldNomePessoa" min="-2" pref="529" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="101" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -193,6 +193,9 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="66" red="0" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="C&#xf3;digo Pessoa"/>
               </Properties>
             </Component>
@@ -213,6 +216,9 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="66" red="0" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Nome do Contato"/>
               </Properties>
             </Component>
@@ -290,7 +296,7 @@
                           <Component id="jBtGravar" min="-2" pref="80" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jBtCancelar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="348" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

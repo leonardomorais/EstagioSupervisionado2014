@@ -178,6 +178,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Nome");
 
         jTextFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -205,6 +206,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("CPF/CNPJ");
 
         jLabel6.setText("RG");

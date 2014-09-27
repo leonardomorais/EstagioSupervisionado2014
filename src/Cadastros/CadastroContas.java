@@ -158,6 +158,7 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Forma de Pagamento");
 
         jTextFieldCdForma.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -168,6 +169,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
         jTextFieldFormaPgto.setEnabled(false);
 
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("Descrição");
 
         jTextFieldDescrição.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -185,6 +187,7 @@ public class CadastroContas extends javax.swing.JFrame {
         buttonGroupTipo.add(jRadioButtonAReceber);
         jRadioButtonAReceber.setText("Receber");
 
+        jLabel8.setForeground(new java.awt.Color(0, 102, 204));
         jLabel8.setText("Valor");
 
         jTextFieldValor.setDocument(new FormataMoeda()
@@ -196,6 +199,7 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setForeground(new java.awt.Color(0, 102, 204));
         jLabel9.setText("Data Vencimento");
 
         jBtPesquisarFormaPgto.setText("Pesquisar");

@@ -160,6 +160,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(0, 102, 204));
         jLabel2.setText("Nome");
 
         jTextFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -168,6 +169,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("CPF");
 
         jLabel4.setText("RG");

@@ -103,6 +103,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Descrição");
 
         jTextFieldDescricao.setToolTipText("");
@@ -118,6 +119,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         jComboBoxFamilia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jComboBoxFamilia.setName("ATIVOS"); // NOI18N
 
+        jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Valor do Produto");
 
         jTextFieldVlProduto.setDocument(new FormataMoeda());
@@ -129,6 +131,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("Valor de Custo");
 
         jTextFieldVlCusto.setDocument(new FormataMoeda());

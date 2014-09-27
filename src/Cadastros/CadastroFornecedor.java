@@ -169,6 +169,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Nome");
 
         jTextFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -177,6 +178,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("CPF/CNPJ");
 
         jLabel5.setText("Tipo de Pessoa");

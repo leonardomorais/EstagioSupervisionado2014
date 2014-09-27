@@ -103,6 +103,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         setTitle("Cadastro de Endereços");
         setResizable(false);
 
+        jLabel1.setForeground(new java.awt.Color(0, 102, 204));
         jLabel1.setText("Código Pessoa");
 
         jTextFieldCdPessoa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -121,6 +122,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
         jLabel3.setText("Cidade");
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Rua Avenida");
 
         jTextFieldBairro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -129,6 +131,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Nr Endereço");
 
         jTextFieldNrEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -148,8 +151,10 @@ public class CadastroEndereco extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("Bairro");
 
+        jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("CEP");
 
         jLabel8.setText("Complemento");

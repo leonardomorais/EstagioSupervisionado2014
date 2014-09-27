@@ -82,7 +82,6 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextFieldDsConta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -120,18 +119,16 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Agência");
 
-        jTextFieldNrAgencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204)));
-
+        jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Conta");
 
-        jTextFieldNrConta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204)));
-
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("Valor da Conta (R$)");
 
         jTextFieldVlConta.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextFieldVlConta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204)));
         jTextFieldVlConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldVlContaActionPerformed(evt);
@@ -206,9 +203,9 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                     .addComponent(jBtCancelar)))
         );
 
+        jLabel8.setForeground(new java.awt.Color(0, 102, 204));
         jLabel8.setText("Descrição da Conta");
 
-        jTextFieldDsConta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 204)));
         jTextFieldDsConta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldDsContaKeyTyped(evt);
@@ -221,9 +218,6 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel9.setForeground(new java.awt.Color(0, 102, 204));
-        jLabel9.setText("Campos Obrigatórios");
 
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
@@ -254,21 +248,19 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel9)
-                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBoxBanco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jTextFieldVlConta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(31, 31, 31)
-                                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(24, 24, 24)
+                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jComboBoxBanco, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jTextFieldVlConta, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(81, 81, 81))
+                .addGap(99, 99, 99))
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -279,9 +271,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel9))
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldCdAgcConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -653,7 +643,6 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItemAgcConta;
     private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelCadastro;
