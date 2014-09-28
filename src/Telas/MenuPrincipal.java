@@ -16,12 +16,11 @@ import Cadastros.CadastroMesa;
 import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
-import Classes.Produto;
+import Mensagens.Avisos;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
+import Servicos.TelaVenda;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -36,7 +35,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        //carregaImagem();   
+        procuraAvisos();
+        
+        //carregaImagem();  
     }
 
     /**
@@ -224,6 +225,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jMenuItemAtendimento);
 
         jMenuItemVenda.setText("Realizar Venda/Compra");
+        jMenuItemVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemVendaActionPerformed(evt);
+            }
+        });
         jMenuServicos.add(jMenuItemVenda);
         jMenuServicos.add(jSeparator5);
 
@@ -430,6 +436,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         faturamento.setVisible(true);
     }//GEN-LAST:event_jMenuItemFaturamentoActionPerformed
 
+    private void jMenuItemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendaActionPerformed
+        TelaVenda venda = new TelaVenda();
+        venda.setVisible(true);
+    }//GEN-LAST:event_jMenuItemVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -520,5 +531,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         labelimg.setSize(largura, altura);
         
         jPanelImagem.add(labelimg, RIGHT_ALIGNMENT);
+    }
+    
+    public void procuraAvisos(){
+        Avisos aviso = new Avisos();
+        if (aviso.existemAvisos()){
+            aviso.adicionarAviso();
+        }
     }
 }

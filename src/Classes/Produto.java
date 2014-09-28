@@ -1,6 +1,8 @@
 package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
+import Consultas.ProdutosEstoqueInvalido;
+import Mensagens.Avisos;
 import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
@@ -175,6 +177,8 @@ public class Produto {
             estoque.setEntrada("S");
         }
         estoque.incluir(estoque, false);
+        //
+        //verificaEstoqueProdutos();
     }
 
     public void alteraQtAtual(Produto produto) {
@@ -182,19 +186,28 @@ public class Produto {
                 + "WHERE CD_PRODUTO = " + produto.getCdProduto());
     }
 
-    public void verificaEstoqueProdutos() {
+    public boolean possuiEstoqueInvalido() {
+        boolean possui = false;
+        ResultSet retorno = produtosEstoqueInvalido();
+        try{
+           retorno.first();
+           int cd = retorno.getInt("CD_PRODUTO");
+           possui = true;
+        }
+        catch(SQLException ex){
+            
+        }
+        return possui;
+    }
+    
+    public ResultSet produtosEstoqueInvalido(){
         String sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, "
                 + "P.QT_ATUAL, P.QT_MIN FROM PRODUTOS P INNER JOIN FAMILIA F "
                 + "ON P.CD_FAMILIA = F.CD_FAMILIA "
                 + "WHERE P.ATIVO = 'A' AND P.QT_ATUAL <= P.QT_MIN "
                 + "ORDER BY P.CD_PRODUTO";
         conexao.executeSQL(sql);
-        try{
-            conexao.resultset.beforeFirst();
-        }
-        catch(SQLException ex){
-            
-        }
+        return conexao.resultset;
     }
 
 // getter e setter

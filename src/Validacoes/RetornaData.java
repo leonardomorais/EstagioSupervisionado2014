@@ -2,10 +2,10 @@ package Validacoes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-//import java.time.DayOfWeek;
-//import java.time.LocalDate;
-//import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,78 +17,30 @@ import java.util.logging.Logger;
 public class RetornaData {
 
     public String retornaDataAtual() {
-//        LocalDate hoje = LocalDate.now();
-//        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        return hoje.format(formato);
-        String dataAtual = "";
-        Date data = new Date();
-        String dia = "" + data.getDate();
-        String mes = "" + String.valueOf(data.getMonth() + 1);
-        String ano = "" + (1900 + data.getYear());
-
-        if (Integer.parseInt(mes) <= 9) {
-            mes = "0" + mes;
-        }
-        if (Integer.parseInt(dia) <= 9) {
-            dia = "0" + dia;
-        }
-        dataAtual = dia +"/"+ mes +"/"+ ano;
-
-        return dataAtual;
-
+        LocalDate hoje = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return hoje.format(formato);
     }
 
     public String retornaSomaData(String data, int dias) {
-//        LocalDate dt;
-//        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        if (data.equals("")) {
-//            dt = LocalDate.parse(retornaDataAtual(), formato);
-//        } else {
-//            dt = LocalDate.parse(data, formato);
-//        }
-//        dt = dt.plusDays(dias);
-//        if (dt.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
-//            dt = dt.plusDays(1);
-//        }
-//        return dt.format(formato);
-        
-        SimpleDateFormat sDate = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar calendar = Calendar.getInstance();
-
+        LocalDate dt;
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         if (data.equals("")) {
-            Date date = new Date();
-            calendar.setTime(date);
+            dt = LocalDate.parse(retornaDataAtual(), formato);
         } else {
-            Date xy = new Date(data);
-            calendar.setTime(xy);
+            dt = LocalDate.parse(data, formato);
         }
-        calendar.add(Calendar.DATE, dias);
-        if (calendar.getTime().getDay() == 0) {
-            // domingo
-            calendar.add(calendar.DATE, 1);
+        dt = dt.plusDays(dias);
+        if (dt.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+            dt = dt.plusDays(1);
         }
-        return (sDate.format(calendar.getTime()));
+        return dt.format(formato);
     }
 
     public String retornaHoraAtual() {
-        String horaAtual = "";
-        Date data = new Date();
-        String hora = "" + data.getHours();
-        String min = "" + data.getMinutes();
-        String seg = "" + data.getSeconds();
-
-        if (Integer.parseInt(hora) < 10) {
-            hora = "0" + hora;
-        }
-        if (Integer.parseInt(min) < 10) {
-            min = "0" + hora;
-        }
-        if (Integer.parseInt(seg) < 10) {
-            seg = "0" + hora;
-        }
-
-        horaAtual = hora + min + seg;
-        return horaAtual;
+        LocalDateTime hora = LocalDateTime.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return hora.format(formato);
     }
 
     public boolean dataValida(String data) {
@@ -156,47 +108,4 @@ public class RetornaData {
         }
         return dtParam.compareTo(dtAtual);
     }
-
-//    public String somaPeriodo(String periodo, int quantidade){
-//        LocalDate data = LocalDate.now();
-//        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        switch(periodo){
-//            case "DIAS":
-//                data = data.plusDays(quantidade);
-//            break;
-//            
-//            case "MESES":
-//                data = data.plusMonths(quantidade);
-//            break;
-//            
-//            case "ANOS":
-//                data = data.plusYears(quantidade);
-//            break;
-//            
-//            default :
-//                data = data.plusWeeks(quantidade);
-//        }
-//        return data.format(formato);
-//    }
-//    public String periodoAnterior(String periodo, int quantidade){
-//        LocalDate data = LocalDate.now();
-//        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        switch(periodo){
-//            case "DIAS":
-//                data = data.minusDays(quantidade);
-//            break;
-//            
-//            case "MESES":
-//                data = data.minusMonths(quantidade);
-//            break;
-//            
-//            case "ANOS":
-//                data = data.minusYears(quantidade);
-//            break;
-//            
-//            default :
-//                data = data.minusWeeks(quantidade);
-//        }
-//        return data.format(formato);
-//    }
 }

@@ -1,6 +1,7 @@
 package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
+import Mensagens.Avisos;
 import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
@@ -394,17 +395,37 @@ public class Parcelas {
         return todasPagas;
     }
 
-    public void verificaParcelasVencidas() {
-        String sql = "SELECT * FROM PARCELAS WHERE SITUACAO = 'A' "
-                + "AND DT_VENCIMENTO < CURRENT_DATE "
-                + "AND DT_PAGO = NULL";
-        conexao.executeSQL(sql);
-        try{
-            conexao.resultset.beforeFirst();
-        }
-        catch(SQLException ex){
+    public boolean possuemParcelasVencidas() {
+        boolean possui = false;
+        ResultSet retorno = parcelasEmAtraso();
+        try {
+            retorno.first();
+            int cd = retorno.getInt("CD_PESSOA");
+            possui = true;
             
+        } 
+        catch (SQLException ex) {
+
         }
+        return possui;
+    }
+    
+    public ResultSet parcelasEmAtraso(){
+        String sql = "SELECT PS.CD_PESSOA, PS.NOME, P.CD_CONTA, P.NR_PARCELA, P.VL_PARCELA, "
+                + "TO_CHAR(P.DT_VENCIMENTO, 'DD/MM/YYYY') "
+                + "FROM PARCELAS P "
+                + "INNER JOIN CONTAS_PAGAR_RECEBER C "
+                + "ON P.CD_CONTA = C.CD_CONTA "
+                + "INNER JOIN VENDA_COMPRA VC "
+                + "ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.SITUACAO = 'A' "
+                + "INNER JOIN PESSOA PS "
+                + "ON VC.CD_CLIENTE = PS.CD_PESSOA "
+                + "WHERE P.SITUACAO = 'A' "
+                + "AND P.DT_VENCIMENTO >= CURRENT_DATE "
+                + "AND P.VL_PAGO = 0.00";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
     }
 
 //    public boolean permiteExclusao(Parcelas parcelas) {

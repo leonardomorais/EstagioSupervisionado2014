@@ -4,10 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Classes/Produto.java</file>
-            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Cadastros/CadastroProduto.java</file>
-            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Cadastros/CadastroContas.java</file>
-            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Classes/Operacao.java</file>
-            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Telas/TelaPagamento.java</file>
+            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Consultas/ParcelasAtrasadas.java</file>
+            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Mensagens/Notificacoes.java</file>
+            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Mensagens/Avisos.java</file>
+            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Telas/MenuPrincipal.java</file>
+            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Consultas/ProdutosEstoqueInvalido.java</file>
+            <file>file:/C:/Users/Leonardo/Documents/NetBeansProjects/EstagioSupervisionado/src/Classes/Parcelas.java</file>
         </group>
     </open-files>
 </project-private>
