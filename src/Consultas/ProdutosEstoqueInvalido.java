@@ -33,8 +33,14 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
+
+        jMenuItem1.setBackground(new java.awt.Color(117, 133, 149));
+        jMenuItem1.setText("jMenuItem1");
+        jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos Inválidos no Estoque");
@@ -57,6 +63,7 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableProdutos.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setViewportView(jTableProdutos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -116,6 +123,8 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProdutos;
     // End of variables declaration//GEN-END:variables
@@ -125,7 +134,7 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         Produto produto = new Produto();
         preencher.FormatarJtable(jTableProdutos, new int [] {50,120,110,70,70,70,70});
-        preencher.PreencherJtableGenerico(jTableProdutos, produto.consultarGeral(false));
+        preencher.PreencherJtableGenerico(jTableProdutos, produto.produtosEstoqueInvalido());
     }
 
 }

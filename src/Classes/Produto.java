@@ -178,7 +178,13 @@ public class Produto {
         }
         estoque.incluir(estoque, false);
         //
-        //verificaEstoqueProdutos();
+        Avisos aviso = new Avisos();
+        if (aviso.existemAvisos()){
+            aviso.adicionarAvisos();
+        }
+        else{
+            aviso.removerAviso();
+        }
     }
 
     public void alteraQtAtual(Produto produto) {

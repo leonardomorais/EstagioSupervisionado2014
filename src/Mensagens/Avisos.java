@@ -5,16 +5,17 @@ import Classes.Produto;
 import Consultas.ParcelasAtrasadas;
 import Consultas.ProdutosEstoqueInvalido;
 import java.awt.AWTException;
-import java.awt.Color;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
+import java.awt.Font;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 
@@ -24,69 +25,91 @@ import javax.swing.JPopupMenu.Separator;
  */
 public class Avisos {
 
-    
     private SystemTray tray;
     private TrayIcon trayIcon;
-    String destino;
     private static TrayIcon atual;
-    public static final String AVISO_PRODUTOS = "PRODUTOS";
-    public static final String AVISO_PARCELAS = "PARCELAS";
     int nr = 0;
-    
-    public boolean existemAvisos(){
+
+    public boolean existemAvisos() {
         boolean avisos = false;
-        
-        if(new Parcelas().possuemParcelasVencidas()){
+
+        if (new Parcelas().possuemParcelasVencidas()) {
             nr = nr + 1;
             avisos = true;
         }
-        if(new Produto().possuiEstoqueInvalido()){
+        if (new Produto().possuiEstoqueInvalido()) {
             nr = nr + 1;
             avisos = true;
         }
-        
         return avisos;
-    }
-    
-    public void adicionarAviso() {
-        tray = SystemTray.getSystemTray();
         
+    }
+
+    public void adicionarAvisos() {
+        tray = SystemTray.getSystemTray();
+
         if (SystemTray.isSupported()) {
             tray.remove(atual); // deixa um único aviso
-            
+
             ImageIcon img = new ImageIcon("C:\\Users\\Leonardo\\Documents\\NetBeansProjects\\EstagioSupervisionado\\"
                     + "src\\Extras\\Imagens\\aviso.png");
 
-            
-            trayIcon = new TrayIcon(img.getImage(), "Avisos", criaMenu());
+            trayIcon = new TrayIcon(img.getImage(), "Avisos", null);
             trayIcon.setImageAutoSize(true);
 
             try {
                 tray.add(trayIcon);
-                trayIcon.displayMessage("Avisos do Sistema", null, TrayIcon.MessageType.INFO);
+                String message;
+                if (nr == 1) {
+                    message = "1 notificação";
+                } else {
+                    message = "2 notificações";
+                }
 
-                trayIcon.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        
-
+                
+                trayIcon.displayMessage("Avisos do Sistema", "O sistema requer sua atenção para " + message, TrayIcon.MessageType.INFO);
+                
+                trayIcon.addMouseListener(new MouseAdapter() {
+                    public void mouseReleased(MouseEvent evt) {
+                        JPopupMenu menu = criaMenu();
+                        menu.setLocation(evt.getX(), evt.getY());
+                        //System.err.println("X "+evt.getX()+" Y "+evt.getY());
+                        menu.setInvoker(menu);
+                        menu.setVisible(true);
                     }
                 });
+
+                trayIcon.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JPopupMenu menu = criaMenu();
+                        menu.setLocation(1000, 600);
+                        menu.setInvoker(menu);
+                        menu.setVisible(true);
+                    }
+                });
+
                 atual = trayIcon;
 
             } catch (AWTException ex) {
                 Logger.getLogger(Avisos.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
-
     }
 
-    public PopupMenu criaMenu(){
-        PopupMenu menu = new PopupMenu();
+    public JPopupMenu criaMenu() {
+        JPopupMenu menu = new JPopupMenu();
+        String titulo;
+        if (nr == 1) {
+            titulo = "Al Tálio Sistema : 1 Notificação";
+        } else {
+            titulo = "Al Tálio Sistema : 2 Notificações";
+        }
+        JMenuItem itemTopo = new JMenuItem(titulo);
+        itemTopo.setFont(new Font("Tahoma", Font.BOLD, 11));
+        JMenuItem itemSair = new JMenuItem("Sair");
 
-        MenuItem itemTopo = new MenuItem("Al Tálio Sistema: "+nr+" Notificações");
-        MenuItem itemSair = new MenuItem("Sair");
         itemSair.addActionListener(new ActionListener() {
 
             @Override
@@ -94,115 +117,45 @@ public class Avisos {
                 tray.remove(atual);
             }
         });
-        
-        Parcelas parcelas = new Parcelas();
-        MenuItem itemParcelas = new MenuItem();
-        
-        itemParcelas.setLabel("Existem parcelas com pagamento em atraso");
+
+        JMenuItem itemParcelas = new JMenuItem("Parcelas com pagamento em atraso");
+
         itemParcelas.addActionListener(new ActionListener() {
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ParcelasAtrasadas parc = new ParcelasAtrasadas();
-                    parc.setVisible(true);
-                }
-            });
-            
-        
-        
-        Produto produto = new Produto();
-        MenuItem itemProdutos = new MenuItem();
-        
-        itemProdutos.setLabel("Existem produtos com o estoque inválido");
-        itemProdutos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ParcelasAtrasadas().setVisible(true);
+            }
+        });
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ProdutosEstoqueInvalido prod = new ProdutosEstoqueInvalido();
-                    prod.setVisible(true);
-                }
-            });
-        
+        JMenuItem itemProduto = new JMenuItem("Produtos com estoque inválido");
+
+        itemProduto.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ProdutosEstoqueInvalido().setVisible(true);
+            }
+        });
+
         menu.add(itemTopo);
-        menu.add(itemProdutos);
+        menu.add(new Separator());
+        menu.add(itemProduto);
         menu.add(itemParcelas);
+        menu.add(new Separator());
         menu.add(itemSair);
-        if (!produto.possuiEstoqueInvalido()){
-            menu.remove(itemProdutos);
+        if (!new Produto().possuiEstoqueInvalido()) {
+            menu.remove(itemProduto);
         }
-        if (!parcelas.possuemParcelasVencidas()){
+        if (!new Parcelas().possuemParcelasVencidas()) {
             menu.remove(itemParcelas);
         }
-        
+
         return menu;
     }
     
-    public void criarAviso(String tipo) {
+    public void removerAviso(){
         tray = SystemTray.getSystemTray();
-        String mensagem;
-
-        if (SystemTray.isSupported()) {
-            tray.remove(atual); // deixa somente um aviso
-
-            PopupMenu menu = new PopupMenu();
-
-            MenuItem sair = new MenuItem("Fechar");
-            sair.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    tray.remove(trayIcon);
-                }
-            });
-
-            menu.add(sair);
-
-            destino = tipo;
-            if (destino.equals(AVISO_PRODUTOS)) {
-                mensagem = "Produtos com estoque inválido!";
-            } else {
-                mensagem = "Parcelas com pagamento em atraso!";
-            }
-//
-//            MenuItem opcao = new MenuItem("Opção");
-//
-//            opcao.addActionListener(new ActionListener() {
-//
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    System.err.println("OPCAO");
-//                }
-//            });
-//
-//            menu.add(opcao);
-            ImageIcon img = new ImageIcon("C:\\Users\\Leonardo\\Documents\\NetBeansProjects\\EstagioSupervisionado\\"
-                    + "src\\Extras\\Imagens\\aviso.png");
-
-            trayIcon = new TrayIcon(img.getImage(), "Avisos", menu);
-            trayIcon.setImageAutoSize(true);
-            try {
-                tray.add(trayIcon);
-
-                trayIcon.displayMessage("Avisos do Sistema", mensagem, TrayIcon.MessageType.INFO);
-
-                trayIcon.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (destino.equals(AVISO_PRODUTOS)) {
-                            ProdutosEstoqueInvalido prod = new ProdutosEstoqueInvalido();
-                            prod.setVisible(true);
-                        } else {
-                            ParcelasAtrasadas parc = new ParcelasAtrasadas();
-                            parc.setVisible(true);
-                        }
-                    }
-                });
-                atual = trayIcon;
-            } catch (AWTException ex) {
-                Logger.getLogger(Avisos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
+        tray.remove(atual);
     }
-
 }

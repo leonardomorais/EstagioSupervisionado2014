@@ -38,6 +38,7 @@ public class Parcelas {
                 + "VALUES ('" + parcelas.getContas().getCdConta() + "','" + parcelas.getNrParcela() + "','" + parcelas.getVlParcela() + "','"
                 + parcelas.getDtVencimento() + "','" + parcelas.getVlPago() + "', " + null + ",'A')";
         conexao.incluirSQL(sql);
+        verificaAvisos();
     }
 
     public void geraParcelas(Parcelas parcelas) {
@@ -83,6 +84,7 @@ public class Parcelas {
             conexao.incluirSQL(sql);
             dias = dias + intervalo;
         }
+        verificaAvisos();
     }
 
 //    public void gerarParcelas(Parcelas parcelas) {
@@ -161,6 +163,7 @@ public class Parcelas {
                 + "WHERE CD_CONTA = " + parcelas.getContas().getCdConta() + " AND "
                 + "NR_PARCELA = " + parcelas.getNrParcela();
         conexao.atualizarSQL(sql);
+        verificaAvisos();
     }
 
     public void excluir(Parcelas parcelas) {
@@ -179,6 +182,7 @@ public class Parcelas {
         String sql = "DELETE FROM PARCELAS WHERE CD_CONTA = " + parcelas.getContas().getCdConta();
         //String sql = "UPDATE PARCELAS SET SITUACAO = 'I' WHERE C_CONTA = "+parcelas.getContas().getCdConta();
         conexao.atualizarSQL(sql);
+        verificaAvisos();
     }
 
     public void pagarParcela(Parcelas parcelas) {
@@ -190,6 +194,7 @@ public class Parcelas {
             parcelas.getContas().setDtPagamento(parcelas.getDtPago());
             parcelas.getContas().pagarConta(parcelas.getContas());
         }
+        verificaAvisos();
     }
 
     public void estornarParcela(Parcelas parcelas) {
@@ -301,6 +306,7 @@ public class Parcelas {
         }
         parcelas.getContas().setDtPagamento("");
         parcelas.getContas().alterar(parcelas.getContas());
+        verificaAvisos();
     }
 
     public ResultSet consutarGeral() {
@@ -422,10 +428,20 @@ public class Parcelas {
                 + "INNER JOIN PESSOA PS "
                 + "ON VC.CD_CLIENTE = PS.CD_PESSOA "
                 + "WHERE P.SITUACAO = 'A' "
-                + "AND P.DT_VENCIMENTO >= CURRENT_DATE "
+                + "AND P.DT_VENCIMENTO <= CURRENT_DATE "
                 + "AND P.VL_PAGO = 0.00";
         conexao.executeSQL(sql);
         return conexao.resultset;
+    }
+    
+    public void verificaAvisos(){
+        Avisos aviso = new Avisos();
+        if (aviso.existemAvisos()){
+            aviso.adicionarAvisos();
+        }
+        else{
+            aviso.removerAviso();
+        }
     }
 
 //    public boolean permiteExclusao(Parcelas parcelas) {
