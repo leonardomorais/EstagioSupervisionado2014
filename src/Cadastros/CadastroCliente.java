@@ -51,7 +51,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
 //        System.err.println("Válido ?"+doc.validaCPFCNPJ("097.089.169-51"));
         jRadioButtonFisicaActionPerformed(null);
-        
+
         cliente.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
     }
 
@@ -236,6 +236,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         jLabel10.setText("CEP");
+
+        jComboBoxCidade.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         jLabel11.setText("Cidade");
 
@@ -432,7 +434,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                                                     .addComponent(jBtContatos)
                                                     .addGap(18, 18, 18)
                                                     .addComponent(jBtEndereco)))
-                                            .addGap(0, 0, Short.MAX_VALUE))))
+                                            .addGap(0, 1, Short.MAX_VALUE))))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCadastroLayout.createSequentialGroup()
                                     .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
@@ -468,21 +470,20 @@ public class CadastroCliente extends javax.swing.JFrame {
                                                 .addComponent(jLabel8)
                                                 .addComponent(jFormattedTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addComponent(jTextFieldRazao)
+                                        .addComponent(jLabel7)
                                         .addGroup(jPanelCadastroLayout.createSequentialGroup()
                                             .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel7)
                                                 .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                                                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel11)
-                                                        .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                                                            .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addGap(18, 18, 18)
-                                                            .addComponent(jBtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                    .addComponent(jLabel11)
+                                                    .addGap(127, 127, 127))
+                                                .addGroup(jPanelCadastroLayout.createSequentialGroup()
+                                                    .addComponent(jComboBoxCidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addGap(18, 18, 18)
-                                                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel10)
-                                                        .addComponent(jTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                            .addGap(0, 0, Short.MAX_VALUE))))))))
+                                                    .addComponent(jBtCidade)
+                                                    .addGap(18, 18, 18)))
+                                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel10)
+                                                .addComponent(jTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanelCadastroLayout.setVerticalGroup(
@@ -584,6 +585,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jTabbedPaneCliente.addTab("Cadastro", jPanelCadastro);
 
+        jTableConsulta.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jTableConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -606,6 +608,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel1.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -728,26 +739,22 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (jTextFieldNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O nome do cliente é obrigatório!");
             jTextFieldNome.grabFocus();
-        } else if (jFormattedTextFieldCpfCNPJ.getText().equals("   .   .   -  ")||
-                jFormattedTextFieldCpfCNPJ.getText().equals("  .   .   /    -  ")) {
+        } else if (jFormattedTextFieldCpfCNPJ.getText().equals("   .   .   -  ")
+                || jFormattedTextFieldCpfCNPJ.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do cliente é obrigatório!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        } else if (rotina == Rotinas.incluir && !doc.validaCPFCNPJ(jFormattedTextFieldCpfCNPJ.getText())){
+        } else if (rotina == Rotinas.incluir && !doc.validaCPFCNPJ(jFormattedTextFieldCpfCNPJ.getText())) {
             JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        }
-        else if (rotina == Rotinas.alterar && jRadioButtonFisica.isSelected() 
-                && !doc.validaCPF(doc.removeMascara(jFormattedTextFieldCpfCNPJ.getText()))){
+        } else if (rotina == Rotinas.alterar && jRadioButtonFisica.isSelected()
+                && !doc.validaCPF(doc.removeMascara(jFormattedTextFieldCpfCNPJ.getText()))) {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        }
-        else if (rotina == Rotinas.alterar && jRadioButtonJuridica.isSelected()
-                && !doc.validaCNPJ(doc.removeMascara(jFormattedTextFieldCpfCNPJ.getText()))){
+        } else if (rotina == Rotinas.alterar && jRadioButtonJuridica.isSelected()
+                && !doc.validaCNPJ(doc.removeMascara(jFormattedTextFieldCpfCNPJ.getText()))) {
             JOptionPane.showMessageDialog(null, "CNPJ inválido!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        }
-        
-        else {
+        } else {
             carregarCliente();
             carregarEndereco();
             carregarContato();
@@ -778,27 +785,32 @@ public class CadastroCliente extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 180, 45, 100, 120, 180, 60, 40});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarGeral(true));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(cliente.consultarGeral(true));
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                cliente.setCdCliente(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarCdCliente(cliente, true));
+        switch (jComboBoxConsulta.getSelectedIndex()) {
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarGeral(true));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(cliente.consultarCdCliente(cliente, true));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-                jBtRelatorio.setEnabled(false);
-            }
-        } else {
-            cliente.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarNomeCliente(cliente, true));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(cliente.consultarNomeCliente(cliente, true));
+            break;
+
+            case 1:
+                try {
+                    cliente.setCdCliente(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarCdCliente(cliente, true));
+                    report.setConsulta(preencher.getConsulta());
+                    editaBotao(preencher.Vazia());
+                } 
+                catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
+                    editaBotao(true);
+                }
+            break;
+
+            default:
+                cliente.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, cliente.consultarNomeCliente(cliente, true));
+                report.setConsulta(preencher.getConsulta());
+                editaBotao(preencher.Vazia());
+            break;
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -850,7 +862,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void jBtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCidadeActionPerformed
         CadastroCidade cadCidade = new CadastroCidade();
         cadCidade.setVisible(true);
-        
+
         cadCidade.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent evento) {
                 cliente.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
@@ -978,15 +990,30 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemParcelasActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-                report.setSubreport(true);
-                report.setTabela("CLIENTE");
-                report.gerarRelatorio(report);
-                jBtPesquisarActionPerformed(null);
+        report.setSubreport(true);
+        report.setTabela("CLIENTE");
+        report.gerarRelatorio(report);
+        jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTextFieldRGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRGKeyTyped
         campos.validaCamposLimite(evt, jTextFieldRG, 12);
     }//GEN-LAST:event_jTextFieldRGKeyTyped
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()) {
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+                break;
+
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+                break;
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -1199,9 +1226,11 @@ public class CadastroCliente extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }
     }
-    
+
 }

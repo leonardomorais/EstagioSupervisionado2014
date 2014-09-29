@@ -2,6 +2,8 @@ package Validacoes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,9 +15,10 @@ import javax.swing.table.DefaultTableModel;
 public class PreencherTabela {
     
     private boolean vazia;
-    private ResultSet result;
+    private ResultSet consulta;
     
     public void PreencherJtableGenerico(JTable tabela, ResultSet resultado) {
+        setConsulta(resultado);
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         try {
@@ -30,7 +33,7 @@ public class PreencherTabela {
                 setVazia(false);
             }
             if (!resultado.first()) {
-                //JOptionPane.showMessageDialog(null, "Registros não localizados !");
+                JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
                 setVazia(true);
             }
         } catch (SQLException erro) {
@@ -88,13 +91,19 @@ public class PreencherTabela {
         this.vazia = vazia;
     }   
 
-//    public ResultSet getResult() {
-//        return result;
-//    }
-//
-//    public void setResult(ResultSet result) {
-//        this.result = result;
-//    }
+    public ResultSet getConsulta() {
+        try {
+            consulta.beforeFirst();
+        } catch (SQLException ex) {
+            consulta = null;
+            setVazia(true);
+        }
+        return consulta;
+    }
+
+    public void setConsulta(ResultSet consulta) {
+        this.consulta = consulta;
+    }
     
     
 }

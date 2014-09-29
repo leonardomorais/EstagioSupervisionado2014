@@ -244,6 +244,15 @@ public class CadastroFamilia extends javax.swing.JFrame {
         jLabel1.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -397,27 +406,32 @@ public class CadastroFamilia extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{60, 170, 60, 170});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarGeral());
-            editaBotao(preencher.Vazia());
-            report.setConsulta(familia.consultarGeral());
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                familia.setCdFamilia(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarCdFamilia(familia));
+        switch(jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarGeral());
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(familia.consultarCdFamilia(familia));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-                jBtRelatorio.setEnabled(false);
-            }
-        } else {
-            familia.setDsFamilia(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarDsFamilia(familia));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(familia.consultarDsFamilia(familia));
+            break;
+                
+            case 1:
+                try{
+                    familia.setCdFamilia(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarCdFamilia(familia));
+                    report.setConsulta(preencher.getConsulta());
+                    editaBotao(preencher.Vazia());
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
+                    editaBotao(true);
+                }
+            break;
+                
+            default:
+                familia.setDsFamilia(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, familia.consultarDsFamilia(familia));
+                report.setConsulta(preencher.getConsulta());
+                editaBotao(preencher.Vazia());
+            break;    
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -482,6 +496,21 @@ public class CadastroFamilia extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jBtExibirCadastroActionPerformed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+                
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+            break;    
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -560,6 +589,8 @@ public class CadastroFamilia extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

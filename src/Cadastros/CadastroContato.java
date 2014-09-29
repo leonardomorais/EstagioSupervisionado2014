@@ -347,6 +347,15 @@ public class CadastroContato extends javax.swing.JFrame {
         jLabel9.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -580,20 +589,27 @@ public class CadastroContato extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 140, 40, 140, 180, 80, 80, 80});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, contato.consultarGeral());
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                contato.setCdPessoa(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, contato.consultarCdContato(contato));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-            }
-        } else {
-            pessoa.setNome(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, contato.consultarNome(pessoa));
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, contato.consultarGeral());
+            break;    
+                
+            case 1:
+                try {
+                   contato.setCdPessoa(Integer.parseInt(jTextFieldConsulta.getText()));
+                   preencher.PreencherJtableGenerico(jTableConsulta, contato.consultarCdContato(contato));
+                } 
+                catch (NumberFormatException ex) {
+                   JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                   jTextFieldConsulta.setText("");
+                   jTextFieldConsulta.grabFocus();
+                }
+            break;
+                
+            default:
+                pessoa.setNome(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, contato.consultarNome(pessoa));
+            break;       
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -633,6 +649,21 @@ public class CadastroContato extends javax.swing.JFrame {
     private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+                
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+            break;    
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments

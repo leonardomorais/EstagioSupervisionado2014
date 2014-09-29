@@ -278,6 +278,15 @@ public class CadastroOperacao extends javax.swing.JFrame {
         jLabel5.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -466,8 +475,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             preencher.PreencherJtableGenerico(jTableOperacao, operacao.consultarDescricao(operacao));
             editaBotao(preencher.Vazia());
             report.setConsulta(operacao.consultarDescricao(operacao));
-        }
-        
+        }   
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jTextFieldCdOperacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdOperacaoFocusLost
@@ -511,6 +519,21 @@ public class CadastroOperacao extends javax.swing.JFrame {
                 report.setTabela("OPERACAO");
                 report.gerarRelatorio(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+                
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+            break;    
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -635,6 +658,8 @@ public class CadastroOperacao extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

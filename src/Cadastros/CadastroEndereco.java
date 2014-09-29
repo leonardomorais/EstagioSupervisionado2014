@@ -354,6 +354,15 @@ public class CadastroEndereco extends javax.swing.JFrame {
         jLabel9.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jTableConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -564,20 +573,27 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 40, 200, 100, 120, 40, 80, 60, 55});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarGeral());
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                endereco.setCdPessoa(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarCodigo(endereco));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-            }
-        } else {
-            pessoa.setNome(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarNome(pessoa));
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarGeral());
+            break;
+            
+            case 1:
+                try {
+                    endereco.setCdPessoa(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarCodigo(endereco));
+                } 
+                catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                }
+            break;
+                
+            default:
+                pessoa.setNome(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarNome(pessoa));
+            break;    
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -668,6 +684,21 @@ public class CadastroEndereco extends javax.swing.JFrame {
     private void jTextFieldComplementoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldComplementoKeyTyped
         campos.validaCamposLimite(evt, jTextFieldComplemento, 50);
     }//GEN-LAST:event_jTextFieldComplementoKeyTyped
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+                
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+            break;    
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments

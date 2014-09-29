@@ -520,6 +520,15 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jLabel18.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -697,26 +706,32 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 200, 100, 100, 140, 60, 40});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarGeral(true));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(funcionario.consultarGeral(true));
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                funcionario.setCd_funcionario(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarCdFuncionario(funcionario, true));
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarGeral(true));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(funcionario.consultarCdFuncionario(funcionario, true));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
-                jBtCancelarActionPerformed(null);
-                jBtRelatorio.setEnabled(false);
-            }
-        } else {
-            funcionario.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarNomeFuncionario(funcionario, true));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(funcionario.consultarNomeFuncionario(funcionario, true));
+            break;
+                
+            case 1:
+                try{
+                    funcionario.setCd_funcionario(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarCdFuncionario(funcionario, true));
+                    report.setConsulta(preencher.getConsulta());
+                    editaBotao(preencher.Vazia());
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                    editaBotao(true);
+                }
+            break;
+                
+            default:
+                funcionario.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarNomeFuncionario(funcionario, true));
+                report.setConsulta(preencher.getConsulta());
+                editaBotao(preencher.Vazia());
+            break;    
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -838,6 +853,21 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 report.gerarRelatorio(report);
                 jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+                
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+            break;    
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -1016,6 +1046,8 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

@@ -7,10 +7,7 @@ import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -84,6 +81,7 @@ public class CadastroBanco extends javax.swing.JFrame {
 
         jLabel2.setText("Código do Banco");
 
+        jTextFieldCdBanco.setToolTipText("");
         jTextFieldCdBanco.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldCdBancoFocusLost(evt);
@@ -93,6 +91,7 @@ public class CadastroBanco extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Nome do Banco");
 
+        jTextFieldNome.setToolTipText("");
         jTextFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldNomeKeyTyped(evt);
@@ -102,6 +101,7 @@ public class CadastroBanco extends javax.swing.JFrame {
         jLabel4.setText("Situação");
 
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "INATIVO" }));
+        jComboBoxSituacao.setToolTipText("");
 
         jBtIncluir.setText("Incluir");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -178,9 +178,8 @@ public class CadastroBanco extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanelBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -222,12 +221,22 @@ public class CadastroBanco extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableConsulta.setToolTipText("");
         jTableConsulta.setComponentPopupMenu(jPopupMenuBanco);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel1.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -292,15 +301,11 @@ public class CadastroBanco extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPaneBanco, javax.swing.GroupLayout.Alignment.TRAILING))
+            .addComponent(jTabbedPaneBanco, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 286, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPaneBanco))
+            .addComponent(jTabbedPaneBanco, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -384,28 +389,34 @@ public class CadastroBanco extends javax.swing.JFrame {
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{75, 300, 100});
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarGeral());
-            editaBotao(preencher.Vazia());
-            report.setConsulta(banco.consultarGeral());
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                banco.setCdBanco(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarCdBanco(banco));
+
+        switch (jComboBoxConsulta.getSelectedIndex()) {
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarGeral());
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(banco.consultarCdBanco(banco));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-                jBtRelatorio.setEnabled(false);
-            }
-        } else {
-            banco.setNmBanco(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarDsBanco(banco));
-            report.setConsulta(banco.consultarDsBanco(banco));
-            editaBotao(preencher.Vazia());
-        }
+            break;
+
+            case 1:
+                try {
+                    banco.setCdBanco(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarCdBanco(banco));
+                    report.setConsulta(preencher.getConsulta());
+                    editaBotao(preencher.Vazia());
+                } 
+                catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
+                    editaBotao(true);
+                }
+            break;
+                
+            default:
+                banco.setNmBanco(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, banco.consultarDsBanco(banco));
+                report.setConsulta(preencher.getConsulta());
+                editaBotao(preencher.Vazia());
+            break;    
+        } 
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jTextFieldCdBancoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdBancoFocusLost
@@ -452,10 +463,25 @@ public class CadastroBanco extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldConsultaKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-                report.setSubreport(false);
-                report.setTabela("BANCO");
-                report.gerarRelatorio(report);
+        report.setSubreport(false);
+        report.setTabela("BANCO");
+        report.gerarRelatorio(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()) {
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+                break;
+
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+                break;
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -537,6 +563,8 @@ public class CadastroBanco extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

@@ -253,6 +253,15 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         jLabel1.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jTableConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -438,29 +447,33 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{50, 200, 100, 60, 70});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarGeral());
-            editaBotao(preencher.Vazia());
-            report.setConsulta(forma.consultarGeral());
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                forma.setCdForma(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarCodigo(forma));
+        switch(jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarGeral());
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(forma.consultarCodigo(forma));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-                jBtRelatorio.setEnabled(false);
-            }
-        } else {
-            forma.setDsForma(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarDsForma(forma));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(forma.consultarDsForma(forma));
+            break;
+                
+            case 1:
+                try{
+                    forma.setCdForma(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarCodigo(forma));
+                    report.setConsulta(preencher.getConsulta());
+                    editaBotao(preencher.Vazia());
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
+                    editaBotao(true);
+                }
+            break;
+                
+            default:
+                forma.setDsForma(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, forma.consultarDsForma(forma));
+                report.setConsulta(preencher.getConsulta());
+                editaBotao(preencher.Vazia());
+            break;    
         }
-
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jMenuItemFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFormaActionPerformed
@@ -489,6 +502,21 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
                 report.setTabela("FORMA_PGTO");
                 report.gerarRelatorio(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+                
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+            break;    
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -591,6 +619,8 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

@@ -342,6 +342,15 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel1.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -499,27 +508,32 @@ public class CadastroProduto extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{45, 140, 100, 50, 70, 70, 60, 50, 60});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarGeral(true));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(produto.consultarGeral(true));
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                produto.setCdProduto(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarCdProduto(produto, true));
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarGeral(true));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(produto.consultarCdProduto(produto, true));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-                jBtRelatorio.setEnabled(false);
-            }
-        } else {
-            produto.setDsProduto(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarDsProduto(produto, true));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(produto.consultarDsProduto(produto, true));
+            break;
+                
+            case 1:
+                try{
+                    produto.setCdProduto(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarCdProduto(produto, true));
+                    report.setConsulta(preencher.getConsulta());
+                    editaBotao(preencher.Vazia());
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
+                    editaBotao(true);
+                }
+            break;
+                
+            default:
+                produto.setDsProduto(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, produto.consultarDsProduto(produto, true));
+                report.setConsulta(preencher.getConsulta());
+                editaBotao(preencher.Vazia());
+            break;    
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -588,6 +602,21 @@ public class CadastroProduto extends javax.swing.JFrame {
             } 
         });
     }//GEN-LAST:event_jBtExibirCadastroActionPerformed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+                
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+            break;    
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -715,6 +744,8 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

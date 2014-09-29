@@ -519,19 +519,39 @@ public class CadastroContas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
-        if (jComboBoxConsulta.getSelectedIndex() == 3) {
-            jComboBoxTpConta.setEnabled(true);
-            jComboBoxTpConta.removeAllItems();
-            jComboBoxTpConta.addItem("Receber");
-            jComboBoxTpConta.addItem("Pagar");
-        } else if (jComboBoxConsulta.getSelectedIndex() == 4) {
-            jComboBoxTpConta.setEnabled(true);
-            jComboBoxTpConta.removeAllItems();
-            jComboBoxTpConta.addItem("Paga");
-            jComboBoxTpConta.addItem("Não Paga");
-        } else {
-            jComboBoxTpConta.removeAllItems();
-            jComboBoxTpConta.setEnabled(false);
+        switch(jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jComboBoxTpConta.removeAllItems();
+                jComboBoxTpConta.setEnabled(false);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+            
+            case 3:
+                jComboBoxTpConta.setEnabled(true);
+                jComboBoxTpConta.removeAllItems();
+                jComboBoxTpConta.addItem("Receber");
+                jComboBoxTpConta.addItem("Pagar"); 
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;
+                
+            case 4:
+                jComboBoxTpConta.setEnabled(true);
+                jComboBoxTpConta.removeAllItems();
+                jComboBoxTpConta.addItem("Paga");
+                jComboBoxTpConta.addItem("Não Paga");
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;
+                
+            default:
+                jComboBoxTpConta.removeAllItems();
+                jComboBoxTpConta.setEnabled(false);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.grabFocus();
+            break;    
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
@@ -542,28 +562,27 @@ public class CadastroContas extends javax.swing.JFrame {
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarGeral(true));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(contas.consultarGeral(true));
                 break;
 
             case 1:
                 try {
                     contas.setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableContas, contas.consultarCdConta(contas, true));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(contas.consultarCdConta(contas, true));
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                    jTextFieldConsulta.setText("");
-                    jTextFieldConsulta.grabFocus();
+                    editaBotao(true);
                 }
                 break;
 
             case 2:
                 contas.setDsConta(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarDescricao(contas, true));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(contas.consultarDescricao(contas, true));
                 break;
 
             case 3:
@@ -575,8 +594,8 @@ public class CadastroContas extends javax.swing.JFrame {
                         contas.setTpConta("P");
                 }
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarTipo(contas, true));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(contas.consultarTipo(contas, true));
                 break;
 
             default:
@@ -589,8 +608,8 @@ public class CadastroContas extends javax.swing.JFrame {
                         contas.setPago("N");
                 }
                 preencher.PreencherJtableGenerico(jTableContas, contas.consultarSituacao(contas));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(contas.consultarTipo(contas, true));
         }
     }//GEN-LAST:event_jButtonPesquisarConsultaActionPerformed
 
@@ -1093,6 +1112,8 @@ public class CadastroContas extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

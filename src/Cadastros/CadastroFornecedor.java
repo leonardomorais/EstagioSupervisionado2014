@@ -566,6 +566,15 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel1.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -777,28 +786,33 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 180, 45, 100, 120, 180, 60, 40});
-
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarGeral(true));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(fornecedor.consultarGeral(true));
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                fornecedor.setCdFornecedor(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarCdFornecedor(fornecedor, true));
+        
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarGeral(true));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(fornecedor.consultarCdFornecedor(fornecedor, true));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-                jBtRelatorio.setEnabled(false);
-            }
-        } else {
-            fornecedor.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarNomeFornecedor(fornecedor, true));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(fornecedor.consultarNomeFornecedor(fornecedor, true));
+            break;
+                
+            case 1:
+                try{
+                    fornecedor.setCdFornecedor(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarCdFornecedor(fornecedor, true));
+                    report.setConsulta(preencher.getConsulta());
+                    editaBotao(preencher.Vazia());
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
+                    editaBotao(true);
+                }
+            break;
+                
+            default:
+                fornecedor.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, fornecedor.consultarNomeFornecedor(fornecedor, true));
+                report.setConsulta(preencher.getConsulta());
+                editaBotao(preencher.Vazia());
+            break;    
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -938,6 +952,21 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private void jTextFieldRGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRGKeyTyped
         campos.validaCamposLimite(evt, jTextFieldRG, 12);
     }//GEN-LAST:event_jTextFieldRGKeyTyped
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+            break;    
+                
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+            break;    
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -1150,6 +1179,8 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

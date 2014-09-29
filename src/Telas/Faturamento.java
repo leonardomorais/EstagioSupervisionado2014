@@ -212,7 +212,7 @@ public class Faturamento extends javax.swing.JFrame {
             }
             
             PreencherTabela preencher = new PreencherTabela();
-            preencher.FormatarJtable(jTableConsulta, new int [] {100, 100, 100, 100, 100, 100, 100, 100});
+            preencher.FormatarJtable(jTableConsulta, new int [] {80, 80, 80, 80, 80, 80, 80, 300});
             
             switch (jComboBoxConsulta.getSelectedIndex()){
                 case 0:

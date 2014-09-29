@@ -258,9 +258,9 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel7)
                                     .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(99, 99, 99))
+                .addGap(87, 87, 87))
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -331,6 +331,15 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jLabel1.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição Conta" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -455,7 +464,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         } else if (jTextFieldNrConta.getText().equals(nrConta.getMask().replace("#", " "))) {
             JOptionPane.showMessageDialog(null, "O número da conta é obrigatório!");
             jTextFieldNrConta.grabFocus();
-        } else if (jTextFieldVlConta.getText().length()< 3) {
+        } else if (jTextFieldVlConta.getText().length() < 3) {
             JOptionPane.showMessageDialog(null, "Informe um valor válido na conta");
             jTextFieldVlConta.grabFocus();
         } else {
@@ -494,28 +503,34 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableConsulta, new int[]{50, 140, 70, 55, 140, 55, 60});
 
-        if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarGeral());
-            editaBotao(preencher.Vazia());
-            report.setConsulta(agc.consultarGeral());
-        } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
-            try {
-                agc.setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarCdAgc(agc));
+        switch (jComboBoxConsulta.getSelectedIndex()) {
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarGeral());
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(agc.consultarCdAgc(agc));
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                jTextFieldConsulta.setText("");
-                jTextFieldConsulta.grabFocus();
-                jBtRelatorio.setEnabled(false);
-            }
-        } else {
-            agc.setDsConta(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarDsConta(agc));
-            editaBotao(preencher.Vazia());
-            report.setConsulta(agc.consultarDsConta(agc));
+            break;
+
+            case 1:
+                try {
+                    agc.setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarCdAgc(agc));
+                    report.setConsulta(preencher.getConsulta());
+                    editaBotao(preencher.Vazia());
+                } 
+                catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
+                    editaBotao(true);
+                }
+            break;
+                
+            default:
+                agc.setDsConta(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, agc.consultarDsConta(agc));
+                report.setConsulta(preencher.getConsulta());
+                editaBotao(preencher.Vazia());
+            break;    
         }
+        
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jTextFieldCdAgcContaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdAgcContaFocusLost
@@ -563,9 +578,9 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldConsultaActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-                report.setTabela("AGENCIA_CONTA");
-                report.setSubreport(false);
-                report.gerarRelatorio(report);
+        report.setTabela("AGENCIA_CONTA");
+        report.setSubreport(false);
+        report.gerarRelatorio(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTextFieldVlContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldVlContaActionPerformed
@@ -575,10 +590,9 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CadastroBanco cadBanco = new CadastroBanco();
         cadBanco.setVisible(true);
-        
-        
+
         cadBanco.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt){
+            public void windowClosed(java.awt.event.WindowEvent evt) {
                 agc.retornaComboBanco(jComboBoxBanco);
             }
         });
@@ -587,6 +601,21 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     private void jComboBoxBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBancoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxBancoActionPerformed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()) {
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+                break;
+
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+                break;
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     /**
      * @param args the command line arguments
@@ -678,14 +707,13 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jTextFieldDsConta.setText(agc.getDsConta());
         jTextFieldNrAgencia.setText(agc.getNrAgencia());
         jTextFieldNrConta.setText(agc.getNrConta());
-        
-        if(agc.getVlConta()>0){
+
+        if (agc.getVlConta() > 0) {
             jTextFieldVlConta.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
-        }
-        else{
+        } else {
             jTextFieldVlConta.setText("000");
         }
-        
+
         jComboBoxBanco.setSelectedItem(agc.getBanco().getNmBanco());
         jComboBoxSituacao.setSelectedItem(agc.getInAtivo());
     }
@@ -693,9 +721,11 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }
     }
-    
+
 }
