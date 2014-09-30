@@ -3,9 +3,6 @@ package Validacoes;
 import java.awt.Component;
 import java.awt.Container;
 import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 /**
  *

@@ -7,14 +7,13 @@ import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -44,6 +43,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         agc.retornaComboBanco(jComboBoxBanco);
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        new TeclasdeAtalho().carregarAtalhos(jPanelBotoes);
     }
 
     /**
@@ -140,6 +140,8 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVA", "INATIVA" }));
 
         jBtIncluir.setText("Incluir");
+        jBtIncluir.setToolTipText("Incluir (Ctrl + i)");
+        jBtIncluir.setName("73+Ctrl"); // NOI18N
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
@@ -147,6 +149,8 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("(Ctrl + A)");
+        jBtAlterar.setName("65+Ctrl"); // NOI18N
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
