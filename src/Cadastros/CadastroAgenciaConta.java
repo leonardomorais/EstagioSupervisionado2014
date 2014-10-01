@@ -61,7 +61,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jPopupMenuAgcConta = new javax.swing.JPopupMenu();
         jMenuItemAgcConta = new javax.swing.JMenuItem();
         jTabbedPaneAgcConta = new javax.swing.JTabbedPane();
-        atalho.adicionarAtalhoAbas(jTabbedPaneAgcConta);
+        atalho.adicionarAtalho(jTabbedPaneAgcConta);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCdAgcConta = new javax.swing.JTextField();
@@ -84,8 +84,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
 
         jBtExcluir = new javax.swing.JButton();
-        atalho.
-        adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);
+        atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);
 
         jBtGravar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER,0);

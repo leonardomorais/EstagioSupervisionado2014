@@ -119,10 +119,14 @@
     <Component class="javax.swing.JButton" name="jBtPesquisar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pesquisar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Pesquisar (F5)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesquisarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);  "/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldConsulta">
     </Component>
@@ -137,10 +141,14 @@
     <Component class="javax.swing.JButton" name="jBtCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Cancelar (Esc)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jBtCadastrarNovo">
       <Properties>

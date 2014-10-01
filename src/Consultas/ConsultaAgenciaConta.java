@@ -3,7 +3,8 @@ package Consultas;
 import Cadastros.CadastroAgenciaConta;
 import Classes.AgenciaConta;
 import Validacoes.PreencherTabela;
-import java.awt.Dialog;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 public class ConsultaAgenciaConta extends javax.swing.JDialog {
 
     AgenciaConta agcConta = new AgenciaConta();
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form ConsultaAgenciaConta
@@ -36,11 +38,15 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
         jBtCadastrar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCadastrar, KeyEvent.VK_F4, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtSelecionar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -52,6 +58,7 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -79,9 +86,15 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
                 jTableConsultaMouseClicked(evt);
             }
         });
+        jTableConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableConsultaKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableConsulta);
 
         jBtCadastrar.setText("Exibir Cadastro");
+        jBtCadastrar.setToolTipText("Exibir Cadastro (F4)");
         jBtCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarActionPerformed(evt);
@@ -89,6 +102,7 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -96,6 +110,7 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         });
 
         jBtSelecionar.setText("Selecionar");
+        jBtSelecionar.setToolTipText("Selecionar (Enter)");
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarActionPerformed(evt);
@@ -213,6 +228,16 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_jBtSelecionarActionPerformed
+
+    private void jTableConsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableConsultaKeyPressed
+            int linha = jTableConsulta.getSelectedRow();
+            if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                jBtSelecionarActionPerformed(null);
+            }
+            else{
+                evt.consume();
+            }
+    }//GEN-LAST:event_jTableConsultaKeyPressed
 //
 //    /**
 //     * @param args the command line arguments

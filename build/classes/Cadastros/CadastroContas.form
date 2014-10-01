@@ -91,6 +91,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPaneConta">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jTabbedPaneConta);&#xd;&#xa;"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -276,7 +279,11 @@
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Pagar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Pagar (Ctrl + P)"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jRadioButtonAPagar,&#xd;&#xa;KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonAReceber">
               <Properties>
@@ -284,7 +291,11 @@
                   <ComponentRef name="buttonGroupTipo"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Receber"/>
+                <Property name="toolTipText" type="java.lang.String" value="Receber (Ctrl + R)"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jRadioButtonAReceber,&#xd;&#xa;KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -316,10 +327,14 @@
             <Component class="javax.swing.JButton" name="jBtPesquisarFormaPgto">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pesquisar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Pesquisar (F4)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesquisarFormaPgtoActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtPesquisarFormaPgto, &#xd;&#xa; KeyEvent.VK_F4, 0);&#xd;&#xa; "/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -399,18 +414,26 @@
                 <Component class="javax.swing.JButton" name="jBtCancelar">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cancelar"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Cancelar (Esc)"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value=" atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);  "/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtGravar">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Gravar"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Gravar (Enter)"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtGravarActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);  "/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtExcluir">
                   <Properties>
@@ -445,7 +468,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtIncluirActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);  "/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value=" atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);  "/>
                   </AuxValues>
                 </Component>
               </SubComponents>
@@ -543,10 +566,14 @@
             <Component class="javax.swing.JButton" name="jButtonPesquisarConsulta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pesquisar"/>
+                <Property name="toolTipText" type="java.lang.String" value="Pesquisar (F5)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPesquisarConsultaActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jButtonPesquisarConsulta, KeyEvent.VK_F5, 0);  "/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldConsulta">
             </Component>
@@ -615,11 +642,15 @@
             <Component class="javax.swing.JButton" name="jBtRelatorio">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
+                <Property name="toolTipText" type="java.lang.String" value="Relat&#xf3;rio (F6)"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtRelatorioActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);  "/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

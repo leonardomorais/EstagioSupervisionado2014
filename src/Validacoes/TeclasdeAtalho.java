@@ -1,7 +1,5 @@
 package Validacoes;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -11,6 +9,7 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
@@ -20,7 +19,7 @@ import javax.swing.KeyStroke;
  */
 public class TeclasdeAtalho {
 
-    public void adicionarAtalhoAbas(final JTabbedPane pane){
+    public void adicionarAtalho(final JTabbedPane pane){
         Action actAba1 = new AbstractAction("ABA_1") {
             
             @Override
@@ -64,6 +63,22 @@ public class TeclasdeAtalho {
         map.put(keyStroke, "ACT_"+botao.getText());
         ActionMap actionMap = botao.getActionMap();
         actionMap.put("ACT_"+botao.getText(), acao);
+    }
+    
+    public void adicionarAtalho(final JRadioButton radio, int atalho, int input){
+        Action acao = new AbstractAction(radio.getText()) {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                radio.setSelected(true);
+            }
+        };
+        
+        KeyStroke keyStroke = KeyStroke.getKeyStroke(atalho, input);
+        InputMap map = radio.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        map.put(keyStroke, "ACT_"+radio.getText());
+        ActionMap actionMap = radio.getActionMap();
+        actionMap.put("ACT_"+radio.getText(), acao);
     }
 
 }

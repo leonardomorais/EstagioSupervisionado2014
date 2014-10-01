@@ -5,14 +5,13 @@ import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -29,6 +28,8 @@ public class CadastroEstado extends javax.swing.JFrame {
     ValidaBotoes botoes = new ValidaBotoes();
     int rotina;
 
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
+    
     /**
      * Creates new form CadastroEstado
      */
@@ -51,6 +52,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         jPopupMenuConsulta = new javax.swing.JPopupMenu();
         jMenuItemCarregar = new javax.swing.JMenuItem();
         jTabbedPaneEstado = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneEstado);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCdEstado = new javax.swing.JTextField();
@@ -61,18 +63,25 @@ public class CadastroEstado extends javax.swing.JFrame {
         jTextFieldSigla = new JFormattedTextField(uf);
         jPanelBotoes = new javax.swing.JPanel();
         jBtAlterar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
         jBtExcluir = new javax.swing.JButton();
-        jBtcancelar = new javax.swing.JButton();
+        atalho. adicionarAtalho(jBtExcluir, KeyEvent.VK_F3, 0);
+        jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtIncluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jPanelConsulta = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
         jMenuItemCarregar.setText("Carregar Dados");
         jMenuItemCarregar.addActionListener(new java.awt.event.ActionListener() {
@@ -109,6 +118,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         jLabel3.setText("Sigla");
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar (F2)");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
@@ -116,21 +126,24 @@ public class CadastroEstado extends javax.swing.JFrame {
         });
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir (F3)");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
             }
         });
 
-        jBtcancelar.setText("Cancelar");
-        jBtcancelar.setPreferredSize(new java.awt.Dimension(80, 23));
-        jBtcancelar.addActionListener(new java.awt.event.ActionListener() {
+        jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
+        jBtCancelar.setPreferredSize(new java.awt.Dimension(80, 23));
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtcancelarActionPerformed(evt);
+                jBtCancelarActionPerformed(evt);
             }
         });
 
         jBtIncluir.setText("Incluir");
+        jBtIncluir.setToolTipText("Incluir (F1)");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
@@ -138,6 +151,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.setMinimumSize(new java.awt.Dimension(80, 23));
         jBtGravar.setPreferredSize(new java.awt.Dimension(80, 23));
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +174,7 @@ public class CadastroEstado extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtcancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanelBotoesLayout.setVerticalGroup(
@@ -170,7 +184,7 @@ public class CadastroEstado extends javax.swing.JFrame {
                 .addGroup(jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtAlterar)
                     .addComponent(jBtExcluir)
-                    .addComponent(jBtcancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtIncluir)
                     .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -235,6 +249,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -266,6 +281,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableConsulta);
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -400,12 +416,12 @@ public class CadastroEstado extends javax.swing.JFrame {
         botoes.validaBotoes(jPanelBotoes, rotina);
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
-    private void jBtcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtcancelarActionPerformed
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
         limpar.limparCampos(jPanelCadastro);
         jTextFieldCdEstado.grabFocus();
-    }//GEN-LAST:event_jBtcancelarActionPerformed
+    }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jTextFieldCdEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdEstadoFocusLost
         if (!jTextFieldCdEstado.getText().equals("")) {
@@ -414,14 +430,15 @@ public class CadastroEstado extends javax.swing.JFrame {
                 estado.retornaEstado(estado);
 
                 if (estado.getDsUf().equals("")) {
-                    jBtcancelarActionPerformed(null);
+                    jBtCancelarActionPerformed(null);
                 } else {
                     preencherCampos();
                 }
 
-            } catch (NumberFormatException ex) {
+            } 
+            catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
-                jBtcancelarActionPerformed(null);
+                jBtCancelarActionPerformed(null);
             }
 
         }
@@ -548,12 +565,12 @@ public class CadastroEstado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAlterar;
+    private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtRelatorio;
-    private javax.swing.JButton jBtcancelar;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

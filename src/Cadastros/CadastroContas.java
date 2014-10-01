@@ -16,6 +16,7 @@ import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import java.awt.Dialog;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -67,6 +68,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jPopupMenuContas = new javax.swing.JPopupMenu();
         jMenuItemCarregarDados = new javax.swing.JMenuItem();
         jTabbedPaneConta = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneConta);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCdConta = new javax.swing.JTextField();
@@ -77,11 +79,18 @@ public class CadastroContas extends javax.swing.JFrame {
         jTextFieldDescrição = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jRadioButtonAPagar = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonAPagar,
+            KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK);
         jRadioButtonAReceber = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonAReceber,
+            KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK);
         jLabel8 = new javax.swing.JLabel();
         jTextFieldValor = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jBtPesquisarFormaPgto = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisarFormaPgto, 
+            KeyEvent.VK_F4, 0);
+
         jLabel2 = new javax.swing.JLabel();
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jFormattedTextFieldDataVencimento = new JFormattedTextField(data);
@@ -91,7 +100,9 @@ public class CadastroContas extends javax.swing.JFrame {
         jComboBoxSituacao = new javax.swing.JComboBox();
         jPanelBotoes = new javax.swing.JPanel();
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jBtExcluir = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);
         jBtAlterar = new javax.swing.JButton();
@@ -103,12 +114,14 @@ public class CadastroContas extends javax.swing.JFrame {
         jComboBoxConsulta = new javax.swing.JComboBox();
         jComboBoxTpConta = new javax.swing.JComboBox();
         jButtonPesquisarConsulta = new javax.swing.JButton();
+        atalho.adicionarAtalho(jButtonPesquisarConsulta, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableContas = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
         jPopupMenuPagarParcela.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -189,9 +202,11 @@ public class CadastroContas extends javax.swing.JFrame {
         buttonGroupTipo.add(jRadioButtonAPagar);
         jRadioButtonAPagar.setSelected(true);
         jRadioButtonAPagar.setText("Pagar");
+        jRadioButtonAPagar.setToolTipText("Pagar (Ctrl + P)");
 
         buttonGroupTipo.add(jRadioButtonAReceber);
         jRadioButtonAReceber.setText("Receber");
+        jRadioButtonAReceber.setToolTipText("Receber (Ctrl + R)");
 
         jLabel8.setForeground(new java.awt.Color(0, 102, 204));
         jLabel8.setText("Valor");
@@ -209,6 +224,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jLabel9.setText("Data Vencimento");
 
         jBtPesquisarFormaPgto.setText("Pesquisar");
+        jBtPesquisarFormaPgto.setToolTipText("Pesquisar (F4)");
         jBtPesquisarFormaPgto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarFormaPgtoActionPerformed(evt);
@@ -231,6 +247,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jComboBoxSituacao.setEnabled(false);
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -238,6 +255,7 @@ public class CadastroContas extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -410,6 +428,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jComboBoxTpConta.setEnabled(false);
 
         jButtonPesquisarConsulta.setText("Pesquisar");
+        jButtonPesquisarConsulta.setToolTipText("Pesquisar (F5)");
         jButtonPesquisarConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarConsultaActionPerformed(evt);
@@ -461,6 +480,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTableParcelas);
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

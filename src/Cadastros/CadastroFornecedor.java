@@ -6,9 +6,12 @@ import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import Validacoes.ValidaDocumentos;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
@@ -18,7 +21,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -40,6 +42,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     MaskFormatter cep;
     MaskFormatter fone;
     MaskFormatter cpfCnpj;
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form CadastroFornecedor
@@ -70,6 +73,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jMenuItemContatos = new javax.swing.JMenuItem();
         jMenuItemEndereco = new javax.swing.JMenuItem();
         jTabbedPaneFornecedor = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneFornecedor);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCdFornecedor = new javax.swing.JTextField();
@@ -78,7 +82,11 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jRadioButtonPfisica = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonPfisica, 
+            KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK);
         jRadioButtonPJuridica = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonPJuridica,
+            KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK);
         jLabel6 = new javax.swing.JLabel();
         jComboBoxSexo = new javax.swing.JComboBox();
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
@@ -91,6 +99,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jComboBoxCidade = new javax.swing.JComboBox();
         jBtCidades = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCidades, KeyEvent.VK_F4, 0);
         try{       cep = new MaskFormatter("#####-###");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jTextFieldCEP = new JFormattedTextField(cep);
         jLabel11 = new javax.swing.JLabel();
@@ -117,11 +126,17 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jPanelBotoes = new javax.swing.JPanel();
         jBtIncluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtExcluir = new javax.swing.JButton();
+        atalho. adicionarAtalho(jBtExcluir, KeyEvent.VK_F3, 0);
         jBtAlterar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtContatos = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtContatos, KeyEvent.VK_F7, 0);
         jBtEndereco = new javax.swing.JButton();
         jFormattedTextFieldCpfCnpj = new javax.swing.JFormattedTextField();
         jPanelConsulta = new javax.swing.JPanel();
@@ -130,8 +145,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
         jMenuItemCarregaDados.setText("CarregarDados");
         jMenuItemCarregaDados.addActionListener(new java.awt.event.ActionListener() {
@@ -186,6 +203,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         buttonGroupTipoPessoa.add(jRadioButtonPfisica);
         jRadioButtonPfisica.setSelected(true);
         jRadioButtonPfisica.setText("Pessoa Física");
+        jRadioButtonPfisica.setToolTipText("Física (Ctrl + F)");
         jRadioButtonPfisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonPfisicaActionPerformed(evt);
@@ -194,6 +212,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         buttonGroupTipoPessoa.add(jRadioButtonPJuridica);
         jRadioButtonPJuridica.setText("Pessoa Jurídica");
+        jRadioButtonPJuridica.setToolTipText("Jurídica (Ctrl + J)");
         jRadioButtonPJuridica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonPJuridicaActionPerformed(evt);
@@ -225,6 +244,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel10.setText("Cidade");
 
         jBtCidades.setText("Cidades...");
+        jBtCidades.setToolTipText("Cidades (F4)");
         jBtCidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCidadesActionPerformed(evt);
@@ -284,6 +304,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel20.setText("Situação");
 
         jBtIncluir.setText("Incluir");
+        jBtIncluir.setToolTipText("Incluir (F1)");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
@@ -291,6 +312,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         });
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir (F3)");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -298,6 +320,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         });
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar (F2)");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
@@ -305,6 +328,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -312,6 +336,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -333,7 +358,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                 .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(363, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelBotoesLayout.setVerticalGroup(
             jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,13 +373,15 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         );
 
         jBtContatos.setText("Contatos...");
+        jBtContatos.setToolTipText("Contatos (F7)");
         jBtContatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtContatosActionPerformed(evt);
             }
         });
 
-        jBtEndereco.setText("Endereço...");
+        jBtEndereco.setText("Endereços...");
+        jBtEndereco.setToolTipText("Endereços (F8)");
         jBtEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEnderecoActionPerformed(evt);
@@ -428,11 +455,11 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroLayout.createSequentialGroup()
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                                .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, Short.MAX_VALUE)
                                 .addComponent(jBtContatos)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBtEndereco))
+                                .addComponent(jBtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldBairro, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldRazao, javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,7 +467,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jFormattedTextFieldDataCadastro)))
@@ -577,6 +604,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -584,6 +612,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -64,7 +64,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalhoAbas(jTabbedPaneAgcConta);&#xd;&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jTabbedPaneAgcConta);&#xd;&#xa;"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
@@ -348,7 +348,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirActionPerformed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.&#xd;&#xa; adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);&#xd;&#xa;&#xd;&#xa; "/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);&#xd;&#xa;&#xd;&#xa; "/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtGravar">

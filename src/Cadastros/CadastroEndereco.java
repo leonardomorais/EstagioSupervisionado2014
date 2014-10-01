@@ -6,8 +6,10 @@ import Consultas.ConsultaPessoa;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFormattedTextField;
@@ -29,6 +31,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
     int rotina;
 
     MaskFormatter cep;
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form CadastroEndereco
@@ -75,14 +78,22 @@ public class CadastroEndereco extends javax.swing.JFrame {
         jTextFieldComplemento = new javax.swing.JTextField();
         jPanelBotoes = new javax.swing.JPanel();
         jBtIncluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtAlterar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
         jBtExcluir = new javax.swing.JButton();
+        atalho. adicionarAtalho(jBtExcluir, KeyEvent.VK_F3, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtCidades = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCidades, KeyEvent.VK_F6, 0);
         jLabel10 = new javax.swing.JLabel();
         jTextFieldNomePessoa = new javax.swing.JTextField();
         jBtPesquisaPessoa = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisaPessoa, 
+            KeyEvent.VK_F4, 0);
         jPanelConsulta = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jTextFieldConsulta = new javax.swing.JTextField();
@@ -90,6 +101,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
 
         jMenuItemCarrega.setText("Carregar Dados");
         jMenuItemCarrega.addActionListener(new java.awt.event.ActionListener() {
@@ -166,6 +178,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         });
 
         jBtIncluir.setText("Incluir");
+        jBtIncluir.setToolTipText("Incluir (F1)");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
@@ -173,6 +186,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         });
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar (F2)");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
@@ -180,6 +194,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         });
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir (F3)");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -187,6 +202,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -194,6 +210,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -230,6 +247,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         );
 
         jBtCidades.setText("Cidades");
+        jBtCidades.setToolTipText("Cidades (F6)");
         jBtCidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCidadesActionPerformed(evt);
@@ -246,6 +264,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         });
 
         jBtPesquisaPessoa.setText("Pesquisar");
+        jBtPesquisaPessoa.setToolTipText("Pesquisar (F4)");
         jBtPesquisaPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisaPessoaActionPerformed(evt);
@@ -376,6 +395,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableConsulta);
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);

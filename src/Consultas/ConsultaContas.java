@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Consultas;
 
 import Cadastros.CadastroContas;
 import Classes.Contas;
 import Validacoes.PreencherTabela;
+import Validacoes.TeclasdeAtalho;
 import java.awt.Dialog;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -21,6 +17,8 @@ import javax.swing.JOptionPane;
 public class ConsultaContas extends javax.swing.JDialog {
     
     Contas contas = new Contas();
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form ConsultaContas
@@ -45,10 +43,14 @@ public class ConsultaContas extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtSelecionar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtCadastro = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCadastro, KeyEvent.VK_F4, 0);
         jComboBoxTipo = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -76,6 +78,11 @@ public class ConsultaContas extends javax.swing.JDialog {
                 jTableContaMouseClicked(evt);
             }
         });
+        jTableConta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableContaKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableConta);
 
         jLabel1.setText("Filtro da Consulta");
@@ -92,6 +99,7 @@ public class ConsultaContas extends javax.swing.JDialog {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -99,6 +107,7 @@ public class ConsultaContas extends javax.swing.JDialog {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -106,6 +115,7 @@ public class ConsultaContas extends javax.swing.JDialog {
         });
 
         jBtSelecionar.setText("Selecionar");
+        jBtSelecionar.setToolTipText("Selecionar (Enter)");
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarActionPerformed(evt);
@@ -259,6 +269,16 @@ public class ConsultaContas extends javax.swing.JDialog {
             }
         });
     }//GEN-LAST:event_jBtCadastroActionPerformed
+
+    private void jTableContaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableContaKeyPressed
+        int linha = jTableConta.getSelectedRow();
+            if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                jBtSelecionarActionPerformed(null);
+            }
+            else{
+                evt.consume();
+            }
+    }//GEN-LAST:event_jTableContaKeyPressed
 //
 //    /**
 //     * @param args the command line arguments

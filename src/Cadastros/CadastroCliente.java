@@ -137,8 +137,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar,
+            KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio, KeyEvent.VK_F6, 0);
 
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
@@ -630,6 +633,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -643,6 +647,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

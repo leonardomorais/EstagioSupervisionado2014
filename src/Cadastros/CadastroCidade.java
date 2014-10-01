@@ -46,6 +46,7 @@ public class CadastroCidade extends javax.swing.JFrame {
         jPopupMenuCidade = new javax.swing.JPopupMenu();
         jMenuItemCidade = new javax.swing.JMenuItem();
         jTabbedPaneCidade = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneCidade);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCodigo = new javax.swing.JTextField();

@@ -50,6 +50,7 @@ public class CadastroBanco extends javax.swing.JFrame {
         jPopupMenuBanco = new javax.swing.JPopupMenu();
         jMenuItemBanco = new javax.swing.JMenuItem();
         jTabbedPaneBanco = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneBanco);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCdBanco = new javax.swing.JTextField();

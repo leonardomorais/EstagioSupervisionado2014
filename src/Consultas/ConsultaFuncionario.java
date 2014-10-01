@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Consultas;
 
 import Cadastros.CadastroFuncionario;
 import Classes.AtendimentoMesa;
 import Validacoes.PreencherTabela;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -19,6 +17,8 @@ import javax.swing.JOptionPane;
 public class ConsultaFuncionario extends javax.swing.JDialog {
 
     AtendimentoMesa atd = new AtendimentoMesa();
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form ConsultaFuncionario
@@ -42,9 +42,11 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtSelecionar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtCadastrarNovo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -79,6 +81,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome" }));
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -93,6 +96,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);

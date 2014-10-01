@@ -5,12 +5,11 @@ import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
 
 
 /**
@@ -26,6 +25,8 @@ public class CadastroOperacao extends javax.swing.JFrame {
     ValidaBotoes botoes = new ValidaBotoes();
 
     int rotina;
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form CadastroOperacao
@@ -50,6 +51,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         jPopupMenuOperacao = new javax.swing.JPopupMenu();
         jMenuItemCarregarDados = new javax.swing.JMenuItem();
         jTabbedPaneOperacao = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneOperacao);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCdOperacao = new javax.swing.JTextField();
@@ -57,25 +59,40 @@ public class CadastroOperacao extends javax.swing.JFrame {
         jTextFieldDescricao = new javax.swing.JTextField();
         jPanelBotoes = new javax.swing.JPanel();
         jBtIncluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtAlterar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
         jBtExcluir = new javax.swing.JButton();
+        atalho. adicionarAtalho(jBtExcluir, KeyEvent.VK_F3, 0);
         jLabel6 = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox();
         jRadioButtonFinanceiroSim = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonFinanceiroSim, 
+            KeyEvent.VK_F9, 0);
         jLabel3 = new javax.swing.JLabel();
         jRadioButtonFinanceiroNao = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonFinanceiroNao, 
+            KeyEvent.VK_F10, 0);
         jLabel4 = new javax.swing.JLabel();
         jRadioButtonEstoqueSim = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonEstoqueSim, 
+            KeyEvent.VK_F7, 0);
         jRadioButtonEstoqueNao = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonEstoqueNao, 
+            KeyEvent.VK_F8, 0);
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOperacao = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
 
         jMenuItemCarregarDados.setText("Carregar Dados");
@@ -108,6 +125,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         });
 
         jBtIncluir.setText("Incluir");
+        jBtIncluir.setToolTipText("Incluir (F1)");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
@@ -115,6 +133,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -122,6 +141,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -129,6 +149,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         });
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar (F2)");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
@@ -136,6 +157,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         });
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir (F3)");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -178,20 +200,24 @@ public class CadastroOperacao extends javax.swing.JFrame {
         buttonGroupMovCaixa.add(jRadioButtonFinanceiroSim);
         jRadioButtonFinanceiroSim.setSelected(true);
         jRadioButtonFinanceiroSim.setText("Sim");
+        jRadioButtonFinanceiroSim.setToolTipText("Sim (F9)");
 
         jLabel3.setText("Movimenta Financeiro");
 
         buttonGroupMovCaixa.add(jRadioButtonFinanceiroNao);
         jRadioButtonFinanceiroNao.setText("Não");
+        jRadioButtonFinanceiroNao.setToolTipText("Não (F10)");
 
         jLabel4.setText("Movimenta Estoque");
 
         buttonGroupMovEstoque.add(jRadioButtonEstoqueSim);
         jRadioButtonEstoqueSim.setSelected(true);
         jRadioButtonEstoqueSim.setText("Sim");
+        jRadioButtonEstoqueSim.setToolTipText("Sim (F7)");
 
         buttonGroupMovEstoque.add(jRadioButtonEstoqueNao);
         jRadioButtonEstoqueNao.setText("Não");
+        jRadioButtonEstoqueNao.setToolTipText("Não (F8)");
 
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
@@ -289,6 +315,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -296,6 +323,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
