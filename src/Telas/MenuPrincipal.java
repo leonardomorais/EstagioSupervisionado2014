@@ -19,7 +19,7 @@ import Cadastros.CadastroTipoPagamento;
 import Mensagens.Avisos;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
-import Servicos.TelaVenda;
+import Servicos.TelaVendaCompra;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -36,6 +36,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         procuraAvisos();
+        
         
         //carregaImagem();  
     }
@@ -104,6 +105,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuCadastros.setText("Cadastros");
 
+        jMenuItemCadMesa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadMesa.setText("Cadastrar Mesa");
         jMenuItemCadMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,10 +318,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(102, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(61, 61, 61)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pack();
@@ -437,7 +439,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemFaturamentoActionPerformed
 
     private void jMenuItemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendaActionPerformed
-        TelaVenda venda = new TelaVenda();
+        TelaVendaCompra venda = new TelaVendaCompra();
         venda.setVisible(true);
     }//GEN-LAST:event_jMenuItemVendaActionPerformed
 

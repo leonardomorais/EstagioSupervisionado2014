@@ -231,33 +231,33 @@ public class TelaMovEstoque extends javax.swing.JFrame {
             switch (jComboBoxConsulta.getSelectedIndex()) {
                 case 0:
                     preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarGeral(estoque, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(estoque.consultarGeral(estoque, data));
-                    break;
+                break;
 
                 case 1:
                     try {
                         estoque.setCdMov(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarCdMov(estoque,data));
+                        report.setConsulta(preencher.getConsulta());
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(estoque.consultarCdMov(estoque,data));
-                    } catch (NumberFormatException ex) {
+                    } 
+                    catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                        jTextFieldConsulta.setText("");
-                        jTextFieldConsulta.grabFocus();
+                        editaBotao(true);
                     }
-                    break;
+                break;
 
                 case 2:
                     try {
                         estoque.setCdVendaCompra(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarCdVendaCompra(estoque,data));
+                        report.setConsulta(preencher.getConsulta());
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(estoque.consultarCdVendaCompra(estoque,data));
-                    } catch (NumberFormatException ex) {
+                    } 
+                    catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                        jTextFieldConsulta.setText("");
-                        jTextFieldConsulta.grabFocus();
+                        editaBotao(true);
                     }
                     break;
 
@@ -265,27 +265,28 @@ public class TelaMovEstoque extends javax.swing.JFrame {
                     try {
                         estoque.setCdProduto(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarCdProduto(estoque,data));
+                        report.setConsulta(preencher.getConsulta());
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(estoque.consultarCdProduto(estoque,data));
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                        jTextFieldConsulta.setText("");
-                        jTextFieldConsulta.grabFocus();
+                        editaBotao(true);
                     }
                     break;
 
                 case 4:
                     preencher.PreencherJtableGenerico(jTableConsulta,
                             estoque.consultarProduto(jTextFieldConsulta.getText().toUpperCase(),estoque, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(estoque.consultarProduto(jTextFieldConsulta.getText().toUpperCase(),estoque, data));
-                    break;
+                    
+                break;
 
                 default:
                     estoque.setEntrada(jComboBoxAux.getSelectedItem().toString().toUpperCase().substring(0, 1));
                     preencher.PreencherJtableGenerico(jTableConsulta, estoque.consultarTipo(estoque,data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(estoque.consultarTipo(estoque,data));
+                    
             }
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -442,6 +443,8 @@ public class TelaMovEstoque extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

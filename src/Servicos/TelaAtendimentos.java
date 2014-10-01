@@ -209,7 +209,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
             consultarAtendimentos();
             JOptionPane.showMessageDialog(null, "Atendimento Encerrado");
             //
-            TelaVenda tela = new TelaVenda();
+            TelaVendaCompra tela = new TelaVendaCompra();
             tela.setVisible(true);
             tela.CarregarAtendimento(atendimento);
             

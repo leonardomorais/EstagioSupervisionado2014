@@ -300,64 +300,63 @@ public class TelaMovCaixa extends javax.swing.JFrame {
             switch (jComboBoxConsulta.getSelectedIndex()) {
                 case 0:
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarGeral(mov, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(mov.consultarGeral(mov, data));
                 break;
 
                 case 1:
                     try {
                         mov.setCdMov(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarCdMov(mov, data));
+                        report.setConsulta(preencher.getConsulta());
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(mov.consultarCdMov(mov, data));
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                        jTextFieldConsulta.setText("");
-                        jTextFieldConsulta.grabFocus();
+                        editaBotao(true);
                     }
-                    break;
+                break;
 
                 case 2:
                     mov.getAgc().setDsConta(jComboBoxAux.getSelectedItem().toString());
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarAgenciaConta(mov, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(mov.consultarAgenciaConta(mov, data));
-                    break;
+                break;
 
                 case 3:
                     mov.getOperacao().setDsOperacao(jComboBoxAux.getSelectedItem().toString());
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarOperacao(mov, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(mov.consultarOperacao(mov, data));
-                    break;
+                break;
 
                 case 4:
                     try {
                         mov.getParcelas().getContas().setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarCdConta(mov, data));
+                        report.setConsulta(preencher.getConsulta());
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(mov.consultarCdConta(mov, data));
                     } 
                     catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Informe um código para pesquisar!");
-                        jTextFieldConsulta.setText("");
-                        jTextFieldConsulta.grabFocus();
+                        editaBotao(preencher.Vazia());
                     }
-                    break;
+                break;
 
                 case 5:
                     mov.getParcelas().getContas().setDsConta(jTextFieldConsulta.getText().toUpperCase());
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarConta(mov, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(mov.consultarConta(mov, data));
-                    break;
+                break;
 
                 case 6:
                     mov.setObservacao(jTextFieldConsulta.getText().toUpperCase());
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarObservacao(mov, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(mov.consultarObservacao(mov, data));
-                    break;
+                break;
+                    
                 default:
                     switch (jComboBoxAux.getSelectedIndex()) {
                         case 0:
@@ -367,9 +366,9 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                             mov.getOperacao().setTipo("S");
                     }
                     preencher.PreencherJtableGenerico(jTableMovCaixa, mov.consultarTipo(mov, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(mov.consultarTipo(mov, data));
-                    break;
+                break;
             }
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -518,6 +517,8 @@ public class TelaMovCaixa extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

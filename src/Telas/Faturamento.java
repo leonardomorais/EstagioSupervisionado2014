@@ -217,21 +217,20 @@ public class Faturamento extends javax.swing.JFrame {
             switch (jComboBoxConsulta.getSelectedIndex()){
                 case 0:
                     preencher.PreencherJtableGenerico(jTableConsulta, venda.consultarGeral(venda, data));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(venda.consultarGeral(venda, data));
                 break;    
                     
                 case 1:
                     try{
                         venda.setCdVendaCompra(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, venda.consultarCdVenda(venda, data));
+                        report.setConsulta(preencher.getConsulta());
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(venda.consultarCdVenda(venda, data));
                     }
                     catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                        jTextFieldConsulta.setText("");
-                        jTextFieldConsulta.grabFocus();
+                        editaBotao(true);
                     }
                 break;    
                     
@@ -239,13 +238,12 @@ public class Faturamento extends javax.swing.JFrame {
                     try{
                         venda.getCliente().setCdCliente(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, venda.consultarCdCliente(venda, data));
+                        report.setConsulta(preencher.getConsulta());
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(venda.consultarCdVenda(venda, data));
                     }
                     catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                        jTextFieldConsulta.setText("");
-                        jTextFieldConsulta.grabFocus();
+                        editaBotao(true);
                     }
                 break;
                     
@@ -253,13 +251,12 @@ public class Faturamento extends javax.swing.JFrame {
                     try{
                         venda.getVcProdutos().getProduto().setCdProduto(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, venda.consultarCdProduto(venda, data));
+                        report.setConsulta(preencher.getConsulta());
                         editaBotao(preencher.Vazia());
-                        report.setConsulta(venda.consultarCdProduto(venda, data));
                     }
                     catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                        jTextFieldConsulta.setText("");
-                        jTextFieldConsulta.grabFocus();
+                        editaBotao(true);
                     }
             }
         }
@@ -378,6 +375,8 @@ public class Faturamento extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

@@ -885,39 +885,42 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     atd.setNrAtendimento(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableAtendimento,
                             atd.consultarNrAtendimento(atd));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(atd.consultarNrAtendimento(atd));
+         
                 } catch (NumberFormatException ex) {
                     limpar.limparJtable(jTableAtendimentoProdutos);
                     JOptionPane.showMessageDialog(null, "Informe um número de atendimento para pesquisar");
-                    jTextFieldConsulta.setText("");
-                    jTextFieldConsulta.grabFocus();
+                    editaBotao(true);
                 }
-                break;
+            break;
+                
             case 2:
                 // Consultar por Nr da Mesa
                 try {
                     atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableAtendimento,
                             atd.consultarNrMesa(atd));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(atd.consultarNrMesa(atd));
-                } catch (NumberFormatException ex) {
+                } 
+                catch (NumberFormatException ex) {
                     limpar.limparJtable(jTableAtendimentoProdutos);
                     JOptionPane.showMessageDialog(null, "Informe um número de mesa para pesquisar");
-                    jTextFieldConsulta.setText("");
-                    jTextFieldConsulta.grabFocus();
+                    editaBotao(true);
                 }
 
-                break;
+            break;
 
             default:
                 // Consultar por nome do funcionário
                 atd.getFuncionario().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableAtendimento,
                         atd.consultarNomeFuncionario(atd));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(atd.consultarNomeFuncionario(atd));
+                
+            break;    
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
@@ -1154,7 +1157,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         atd.alterar(atd);
 
-        TelaVenda tela = new TelaVenda();
+        TelaVendaCompra tela = new TelaVendaCompra();
         tela.setVisible(true);
         tela.CarregarAtendimento(jTableProdutos, atd);
         this.dispose();
@@ -1235,6 +1238,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

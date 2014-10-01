@@ -415,26 +415,38 @@
                 <Component class="javax.swing.JButton" name="jBtExcluir">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Excluir"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Excluir (F3)"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);     "/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtAlterar">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Alterar"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Alterar (F2)"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAlterarActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);   "/>
+                  </AuxValues>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtIncluir">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Incluir"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Incluir (F1)"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtIncluirActionPerformed"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);  "/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

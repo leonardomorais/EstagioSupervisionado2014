@@ -10,6 +10,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -32,6 +33,8 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
 
     MaskFormatter nrConta;
     MaskFormatter nrAgc;
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form CadastroAgenciaConta
@@ -43,7 +46,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         agc.retornaComboBanco(jComboBoxBanco);
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        new TeclasdeAtalho().carregarAtalhos(jPanelBotoes);
+        //new TeclasdeAtalho().carregarAtalhosBotoes(jPanelBotoes);
     }
 
     /**
@@ -58,6 +61,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jPopupMenuAgcConta = new javax.swing.JPopupMenu();
         jMenuItemAgcConta = new javax.swing.JMenuItem();
         jTabbedPaneAgcConta = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalhoAbas(jTabbedPaneAgcConta);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCdAgcConta = new javax.swing.JTextField();
@@ -75,10 +79,18 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jComboBoxSituacao = new javax.swing.JComboBox();
         jPanelBotoes = new javax.swing.JPanel();
         jBtIncluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1,0);
         jBtAlterar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
+
         jBtExcluir = new javax.swing.JButton();
+        atalho.
+        adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);
+
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER,0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jLabel8 = new javax.swing.JLabel();
         jTextFieldDsConta = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -88,8 +100,11 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio, 
+            KeyEvent.VK_F6, 0);
 
         jMenuItemAgcConta.setText("Carregar Dados");
         jMenuItemAgcConta.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +117,8 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Agência Contas");
         setResizable(false);
+
+        jTabbedPaneAgcConta.setToolTipText("");
 
         jLabel2.setText("Código da Agência Conta");
 
@@ -140,8 +157,8 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVA", "INATIVA" }));
 
         jBtIncluir.setText("Incluir");
-        jBtIncluir.setToolTipText("Incluir (Ctrl + i)");
-        jBtIncluir.setName("73+Ctrl"); // NOI18N
+        jBtIncluir.setToolTipText("Incluir (F1)");
+        jBtIncluir.setName(""); // NOI18N
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
@@ -149,7 +166,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtAlterar.setText("Alterar");
-        jBtAlterar.setToolTipText("(Ctrl + A)");
+        jBtAlterar.setToolTipText("Alterar (F2)");
         jBtAlterar.setName("65+Ctrl"); // NOI18N
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +175,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir (F3)");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -165,6 +183,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -172,6 +191,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -346,6 +366,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -359,6 +380,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,13 +444,6 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
-        limpar.limparCampos(jPanelCadastro);
-        jTextFieldDsConta.grabFocus();
-        rotina = Rotinas.incluir;
-        botoes.validaBotoes(jPanelBotoes, rotina);
-    }//GEN-LAST:event_jBtIncluirActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         rotina = Rotinas.alterar;
@@ -620,6 +635,13 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+
+    private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
+        limpar.limparCampos(jPanelCadastro);
+        jTextFieldDsConta.grabFocus();
+        rotina = Rotinas.incluir;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+    }//GEN-LAST:event_jBtIncluirActionPerformed
 
     /**
      * @param args the command line arguments

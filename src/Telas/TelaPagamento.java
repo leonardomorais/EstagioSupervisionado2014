@@ -702,60 +702,61 @@ public class TelaPagamento extends javax.swing.JFrame {
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
                 preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarGeral(jRbSim.isSelected()));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(pagamento.consultarGeral(jRbSim.isSelected()));
-                break;
+            break;
 
             case 1:
                 try {
                     pagamento.setCdPagamento(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdPagamento(pagamento, jRbSim.isSelected()));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(pagamento.consultarCdPagamento(pagamento, jRbSim.isSelected()));
-                } catch (NumberFormatException ex) {
+                } 
+                catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                    jTextFieldConsulta.setText("");
-                    jTextFieldConsulta.grabFocus();
+                    editaBotao(true);
                 }
-                break;
+            break;
 
             case 2:
                 try {
                     pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdConta(pagamento, jRbSim.isSelected()));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(pagamento.consultarCdConta(pagamento, jRbSim.isSelected()));
-                } catch (NumberFormatException ex) {
+                } 
+                catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                    jTextFieldConsulta.setText("");
-                    jTextFieldConsulta.grabFocus();
+                    editaBotao(true);
                 }
-                break;
+            break;
 
             case 3:
                 pagamento.getParcelas().getContas().setDsConta(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarDsConta(pagamento, jRbSim.isSelected()));
+                report.setConsulta(preencher.getConsulta());
                 editaBotao(preencher.Vazia());
-                report.setConsulta(pagamento.consultarDsConta(pagamento, jRbSim.isSelected()));
-                break;
+            break;
 
             default:
                 try {
                     pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarCdAgencia(pagamento, jRbSim.isSelected()));
+                    report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
-                    report.setConsulta(pagamento.consultarCdAgencia(pagamento, jRbSim.isSelected()));
-                } catch (NumberFormatException ex) {
+                } 
+                catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                    jTextFieldConsulta.setText("");
-                    jTextFieldConsulta.grabFocus();
+                    editaBotao(true);
                 }
+            break;
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         if (parcelasSelecionadas() > 0) {
-            int opcao = JOptionPane.showConfirmDialog(null, "Deseja cancelar o pagamento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja cancelar o pagamento ?", "Cancelar Pagamento", JOptionPane.YES_NO_OPTION);
             if (opcao == JOptionPane.YES_OPTION) {
                 limpar.limparCampos(jPanelPagamento);
                 limpar.limparJtable(jTableParcelas);
@@ -1148,6 +1149,8 @@ public class TelaPagamento extends javax.swing.JFrame {
     public void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
         }

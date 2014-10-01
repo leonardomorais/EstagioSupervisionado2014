@@ -11,7 +11,7 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -20,47 +20,50 @@ import javax.swing.KeyStroke;
  */
 public class TeclasdeAtalho {
 
-    public void carregarAtalhos(Container tela) {
-
-        Component components[] = tela.getComponents();
-
-        for (Component c : components) {
-            if (c instanceof JButton) {
-                final JButton botao = (JButton) c;
-                String nome = botao.getText().toUpperCase();
-                int valor;
-
-                Action acao = new AbstractAction(nome) {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        botao.doClick();
-                    }
-                };
-
-                KeyStroke keyStroke;
-
-                try {
-                    // se houver apenas o código int da tecla
-                    valor = Integer.parseInt(botao.getName());
-                    keyStroke = KeyStroke.getKeyStroke(valor, 0);
-                } 
-                catch (NumberFormatException ex) {
-                    // se houver caracteres informando Ctrl
-
-                    valor = Integer.parseInt(nome.substring(0, nome.indexOf("+")));
-                    // recebe o número presente antes do +
-                    keyStroke = KeyStroke.getKeyStroke(valor, InputEvent.CTRL_DOWN_MASK);
-                }
-
-                InputMap map = botao.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-                map.put(keyStroke, "ACT_" + nome);
-                ActionMap actionMap = botao.getActionMap();
-                actionMap.put("ACT_" + nome, acao);
-
+    public void adicionarAtalhoAbas(final JTabbedPane pane){
+        Action actAba1 = new AbstractAction("ABA_1") {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pane.setSelectedIndex(0);
             }
-        }
+        };
+        
+        
+        Action actAba2 = new AbstractAction("ABA_2") {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pane.setSelectedIndex(1);
+            }
+        };
+        KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK);
+        KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_DOWN_MASK);
+        
+        InputMap map = pane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = pane.getActionMap();
+        
+        map.put(keyStroke, "ABA_1");
+        map.put(ks, "ABA_2");
+        actionMap.put("ABA_1", actAba1);
+        actionMap.put("ABA_2", actAba2);
+        
+    }
+    
+    public void adicionarAtalho(final JButton botao, int atalho, int input){
+        Action acao = new AbstractAction(botao.getText()) {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                botao.doClick();
+            }
+        };
+        
+        KeyStroke keyStroke = KeyStroke.getKeyStroke(atalho, input);
+        InputMap map = botao.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        map.put(keyStroke, "ACT_"+botao.getText());
+        ActionMap actionMap = botao.getActionMap();
+        actionMap.put("ACT_"+botao.getText(), acao);
     }
 
 }

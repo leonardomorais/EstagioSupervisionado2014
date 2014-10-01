@@ -12,9 +12,11 @@ import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import java.awt.Dialog;
+import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
@@ -37,6 +39,7 @@ public class CadastroContas extends javax.swing.JFrame {
     double valor = 0;
     MaskFormatter data;
 
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
     /**
      * Creates new form CadastroContas
      */
@@ -90,8 +93,11 @@ public class CadastroContas extends javax.swing.JFrame {
         jBtCancelar = new javax.swing.JButton();
         jBtGravar = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);
         jBtAlterar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
         jBtIncluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jPanelConsulta = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
@@ -239,6 +245,7 @@ public class CadastroContas extends javax.swing.JFrame {
         });
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir (F3)");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -246,6 +253,7 @@ public class CadastroContas extends javax.swing.JFrame {
         });
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar (F2)");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
@@ -253,6 +261,7 @@ public class CadastroContas extends javax.swing.JFrame {
         });
 
         jBtIncluir.setText("Incluir");
+        jBtIncluir.setToolTipText("Incluir (F1)");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
