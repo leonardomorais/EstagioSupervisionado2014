@@ -30,7 +30,7 @@ public class Avisos {
     private static TrayIcon atual;
     int nr = 0;
 
-    public boolean existemAvisos() {
+    public void verificaAvisos() {
         boolean avisos = false;
 
         if (new Parcelas().possuemParcelasVencidas()) {
@@ -41,18 +41,21 @@ public class Avisos {
             nr = nr + 1;
             avisos = true;
         }
-        return avisos;
-        
+        if (avisos){
+            adicionarAvisos();
+        }
+        else{
+            removerAviso();
+        } 
     }
 
-    public void adicionarAvisos() {
+    private void adicionarAvisos() {
         tray = SystemTray.getSystemTray();
 
         if (SystemTray.isSupported()) {
-            tray.remove(atual); // deixa um único aviso
+            
 
-            ImageIcon img = new ImageIcon("C:\\Users\\Leonardo\\Documents\\NetBeansProjects\\EstagioSupervisionado\\"
-                    + "src\\Extras\\Imagens\\aviso.png");
+            ImageIcon img = new ImageIcon("src\\Extras\\Imagens\\aviso.png");
 
             trayIcon = new TrayIcon(img.getImage(), "Avisos", null);
             trayIcon.setImageAutoSize(true);
@@ -66,14 +69,18 @@ public class Avisos {
                     message = "2 notificações";
                 }
 
+                if (atual == null){
+                    trayIcon.displayMessage("Avisos do Sistema", "O sistema requer sua atenção para "
+                            + message, TrayIcon.MessageType.INFO);
+                }
                 
-                trayIcon.displayMessage("Avisos do Sistema", "O sistema requer sua atenção para " + message, TrayIcon.MessageType.INFO);
+                tray.remove(atual);
+                atual = trayIcon;
                 
                 trayIcon.addMouseListener(new MouseAdapter() {
                     public void mouseReleased(MouseEvent evt) {
                         JPopupMenu menu = criaMenu();
                         menu.setLocation(evt.getX(), evt.getY());
-                        //System.err.println("X "+evt.getX()+" Y "+evt.getY());
                         menu.setInvoker(menu);
                         menu.setVisible(true);
                     }
@@ -90,15 +97,14 @@ public class Avisos {
                     }
                 });
 
-                atual = trayIcon;
-
-            } catch (AWTException ex) {
+            } 
+            catch (AWTException ex) {
                 Logger.getLogger(Avisos.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public JPopupMenu criaMenu() {
+    private JPopupMenu criaMenu() {
         JPopupMenu menu = new JPopupMenu();
         String titulo;
         if (nr == 1) {

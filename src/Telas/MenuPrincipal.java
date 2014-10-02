@@ -91,6 +91,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setTitle("Al Tálio Sistema");
         setIconImages(null);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelImagemLayout = new javax.swing.GroupLayout(jPanelImagem);
         jPanelImagem.setLayout(jPanelImagemLayout);
@@ -443,6 +448,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         venda.setVisible(true);
     }//GEN-LAST:event_jMenuItemVendaActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        new Avisos().removerAviso();
+    }//GEN-LAST:event_formWindowClosing
+
     /**
      * @param args the command line arguments
      */
@@ -536,9 +545,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
     
     public void procuraAvisos(){
-        Avisos aviso = new Avisos();
-        if (aviso.existemAvisos()){
-            aviso.adicionarAvisos();
-        }
+        new Avisos().verificaAvisos();
     }
 }

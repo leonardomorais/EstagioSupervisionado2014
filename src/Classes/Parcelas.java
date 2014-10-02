@@ -435,13 +435,7 @@ public class Parcelas {
     }
     
     public void verificaAvisos(){
-        Avisos aviso = new Avisos();
-        if (aviso.existemAvisos()){
-            aviso.adicionarAvisos();
-        }
-        else{
-            aviso.removerAviso();
-        }
+        new Avisos().verificaAvisos();
     }
 
 //    public boolean permiteExclusao(Parcelas parcelas) {

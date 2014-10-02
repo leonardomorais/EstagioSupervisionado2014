@@ -1030,7 +1030,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             consulta.setVisible(true);
             consulta.exibirParcelas();
             consulta.addWindowListener(new java.awt.event.WindowAdapter() {
-               public void windowClosed(WindowEvent evt){
+            public void windowClosed(WindowEvent evt){
                    limparCampos();
                    report.setConsulta(venda.consultarTicket(venda));
                    report.setSubreport(false);

@@ -2,7 +2,11 @@
 package Consultas;
 
 import Classes.Parcelas;
+import Mensagens.Avisos;
+import Telas.TelaPagamento;
 import Validacoes.PreencherTabela;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 /**
@@ -28,11 +32,26 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenuParcelas = new javax.swing.JPopupMenu();
+        jMenuItemPagar = new javax.swing.JMenuItem();
+        jMenuItemExcluir = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
 
+        jMenuItemPagar.setText("Pagar Parcela");
+        jMenuItemPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPagarActionPerformed(evt);
+            }
+        });
+        jPopupMenuParcelas.add(jMenuItemPagar);
+
+        jMenuItemExcluir.setText("Excluir Parcela");
+        jPopupMenuParcelas.add(jMenuItemExcluir);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Parcelas em Atraso");
+        setResizable(false);
 
         jTableParcelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -50,6 +69,7 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableParcelas.setComponentPopupMenu(jPopupMenuParcelas);
         jScrollPane1.setViewportView(jTableParcelas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -70,7 +90,27 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItemPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagarActionPerformed
+        int linha = jTableParcelas.getSelectedRow();
+        if (linha >= 0){
+            int conta = Integer.parseInt(jTableParcelas.getValueAt(linha, 2).toString());
+            int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 3).toString());
+            
+            TelaPagamento pag = new TelaPagamento();
+            pag.setVisible(true);
+            pag.carregarConta(conta, parcela);
+            
+            pag.addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent evt){
+                    preencherTabela();
+                    new Avisos().verificaAvisos();
+                }
+            });
+        }
+    }//GEN-LAST:event_jMenuItemPagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,6 +148,9 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItemExcluir;
+    private javax.swing.JMenuItem jMenuItemPagar;
+    private javax.swing.JPopupMenu jPopupMenuParcelas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableParcelas;
     // End of variables declaration//GEN-END:variables
@@ -116,7 +159,7 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
     public void preencherTabela(){
         PreencherTabela preencher = new PreencherTabela();
         Parcelas parcelas = new Parcelas();
-        preencher.FormatarJtable(jTableParcelas, new int [] {80, 100, 100, 100, 100, 100});
+        preencher.FormatarJtable(jTableParcelas, new int [] {80, 180, 80, 80, 80, 80});
         preencher.PreencherJtableGenerico(jTableParcelas, parcelas.parcelasEmAtraso());
     }
 

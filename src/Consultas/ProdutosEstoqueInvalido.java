@@ -6,8 +6,12 @@
 
 package Consultas;
 
+import Cadastros.CadastroProduto;
 import Classes.Produto;
+import Mensagens.Avisos;
 import Validacoes.PreencherTabela;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 /**
@@ -34,13 +38,18 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemExibirCadastro = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
 
-        jMenuItem1.setBackground(new java.awt.Color(117, 133, 149));
-        jMenuItem1.setText("jMenuItem1");
-        jPopupMenu1.add(jMenuItem1);
+        jMenuItemExibirCadastro.setBackground(new java.awt.Color(117, 133, 149));
+        jMenuItemExibirCadastro.setText("Exibir Cadastro");
+        jMenuItemExibirCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExibirCadastroActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItemExibirCadastro);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos Inválidos no Estoque");
@@ -87,6 +96,23 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItemExibirCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirCadastroActionPerformed
+        int linha = jTableProdutos.getSelectedRow();
+        if (linha >= 0){
+            int cd = Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString());
+            CadastroProduto cad = new CadastroProduto();
+            cad.setVisible(true);
+            cad.retornaProduto(cd);
+            cad.addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent evt){
+                    preencherTabela();
+                    new Avisos().verificaAvisos();
+                }
+            
+            });
+        }
+    }//GEN-LAST:event_jMenuItemExibirCadastroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -123,7 +149,7 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemExibirCadastro;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProdutos;
