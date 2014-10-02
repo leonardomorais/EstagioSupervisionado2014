@@ -12,17 +12,17 @@ import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
-import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -44,6 +44,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     MaskFormatter hora;
 
     int rotina;
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form AtendimentoMesa
@@ -70,12 +72,15 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         buttonGroupSituacao = new javax.swing.ButtonGroup();
         jTabbedPaneAtendimentos = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneAtendimentos);
         jPanelAtendimento = new javax.swing.JPanel();
         jTextFieldNomeProduto = new javax.swing.JTextField();
         jBtAdicionar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAdicionar, KeyEvent.VK_F2, 0);
         jLabel4 = new javax.swing.JLabel();
         jTextFieldCdProduto = new javax.swing.JTextField();
         jButtonPesquisa = new javax.swing.JButton();
+        atalho.adicionarAtalho(jButtonPesquisa, KeyEvent.VK_F8, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -86,9 +91,12 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldNomeFunc = new javax.swing.JTextField();
         jTextFieldNrMesa = new javax.swing.JTextField();
         jButtonPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jButtonPesquisar, KeyEvent.VK_F7, 0);
+
         jTextFieldNrAtendimento = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jBtMesa = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtMesa, KeyEvent.VK_F4, 0);
         jLabel6 = new javax.swing.JLabel();
         jTextFieldTotal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -104,17 +112,22 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         try{       hora = new MaskFormatter("##:##:##");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jTextFieldHoraFecha = new JFormattedTextField(hora);
         jBtRemover = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRemover, KeyEvent.VK_F3, 0);
         jTextFieldVlUnitario = new javax.swing.JTextField();
         jPanelBotoes = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
         jBtFechaAtendimento = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtFechaAtendimento, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jPanelConsulta = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableAtendimento = new javax.swing.JTable();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAtendimentoProdutos = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
@@ -122,6 +135,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jRadioButtonFechados = new javax.swing.JRadioButton();
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
         jRadioButtonAmbos = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -136,6 +150,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldNomeProduto.setEnabled(false);
 
         jBtAdicionar.setText("Adicionar");
+        jBtAdicionar.setToolTipText("Adicionar (F2)");
         jBtAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAdicionarActionPerformed(evt);
@@ -151,6 +166,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
 
         jButtonPesquisa.setText("Pesquisar");
+        jButtonPesquisa.setToolTipText("Pesquisar (F8)");
         jButtonPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisaActionPerformed(evt);
@@ -197,6 +213,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
 
         jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.setToolTipText("Pesquisar (F7)");
         jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarActionPerformed(evt);
@@ -208,6 +225,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jLabel2.setText("Nr Mesa");
 
         jBtMesa.setText("Mesa...");
+        jBtMesa.setToolTipText("Mesa (F4)");
         jBtMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtMesaActionPerformed(evt);
@@ -250,6 +268,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldHoraFecha.setEnabled(false);
 
         jBtRemover.setText("Remover");
+        jBtRemover.setToolTipText("Remover (F3)");
         jBtRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRemoverActionPerformed(evt);
@@ -270,6 +289,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         );
 
         jBtNovo.setText("Iniciar Atendimento");
+        jBtNovo.setToolTipText("Iniciar Atendimento (F1)");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovoActionPerformed(evt);
@@ -277,6 +297,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
 
         jBtFechaAtendimento.setText("Fechar Atendimento");
+        jBtFechaAtendimento.setToolTipText("Fechar Atendimento (Enter)");
         jBtFechaAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtFechaAtendimentoActionPerformed(evt);
@@ -284,6 +305,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar Atendimento");
+        jBtCancelar.setToolTipText("Cancelar Atendimento (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -484,6 +506,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -523,6 +546,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jRadioButtonFechados.setText("Fechados");
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

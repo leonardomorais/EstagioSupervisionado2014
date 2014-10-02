@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package Consultas;
 
-import Cadastros.CadastroMesa;
 import Cadastros.CadastroProduto;
 import Classes.Produto;
 import Validacoes.PreencherTabela;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -22,6 +18,8 @@ public class ConsultaProduto extends javax.swing.JDialog {
     
     boolean todos;
     Produto produto = new Produto();
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form ConsultaProduto
@@ -44,12 +42,16 @@ public class ConsultaProduto extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
         jBtSelecionar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtNovo = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F4, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Consultar Produtos");
@@ -60,6 +62,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -87,9 +90,15 @@ public class ConsultaProduto extends javax.swing.JDialog {
                 jTableProdutosMouseClicked(evt);
             }
         });
+        jTableProdutos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableProdutosKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableProdutos);
 
         jBtSelecionar.setText("Selecionar");
+        jBtSelecionar.setToolTipText("Selecionar (Enter)");
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarActionPerformed(evt);
@@ -97,6 +106,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -104,6 +114,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
         });
 
         jBtNovo.setText("Exibir Cadastro");
+        jBtNovo.setToolTipText("Exibir Cadastro (F4)");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovoActionPerformed(evt);
@@ -208,6 +219,16 @@ public class ConsultaProduto extends javax.swing.JDialog {
           }
         });
     }//GEN-LAST:event_jBtNovoActionPerformed
+
+    private void jTableProdutosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableProdutosKeyPressed
+        int linha = jTableProdutos.getSelectedRow();
+            if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                jBtSelecionarActionPerformed(null);
+            }
+            else{
+                evt.consume();
+            }
+    }//GEN-LAST:event_jTableProdutosKeyPressed
 
     /**
      * @param args the command line arguments

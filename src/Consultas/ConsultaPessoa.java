@@ -7,6 +7,8 @@ package Consultas;
 
 import Classes.Pessoa;
 import Validacoes.PreencherTabela;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,8 @@ import javax.swing.JOptionPane;
 public class ConsultaPessoa extends javax.swing.JDialog {
 
     Pessoa pessoa = new Pessoa();
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form ConsultaPessoa
@@ -39,9 +43,11 @@ public class ConsultaPessoa extends javax.swing.JDialog {
         jTablePessoa = new javax.swing.JTable();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtCancelar = new javax.swing.JButton();
         jBtSelecionar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Consultar Pessoa");
@@ -70,11 +76,17 @@ public class ConsultaPessoa extends javax.swing.JDialog {
                 jTablePessoaMouseClicked(evt);
             }
         });
+        jTablePessoa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTablePessoaKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablePessoa);
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Nome" }));
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -82,6 +94,8 @@ public class ConsultaPessoa extends javax.swing.JDialog {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -89,6 +103,7 @@ public class ConsultaPessoa extends javax.swing.JDialog {
         });
 
         jBtSelecionar.setText("Selecionar");
+        jBtSelecionar.setToolTipText("Selecionar (Enter)");
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarActionPerformed(evt);
@@ -181,6 +196,16 @@ public class ConsultaPessoa extends javax.swing.JDialog {
         pessoa.setCdPessoa(0);
         dispose();
     }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jTablePessoaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTablePessoaKeyPressed
+        int linha = jTablePessoa.getSelectedRow();
+            if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                jBtSelecionarActionPerformed(null);
+            }
+            else{
+                evt.consume();
+            }
+    }//GEN-LAST:event_jTablePessoaKeyPressed
 
     /**
      * @param args the command line arguments

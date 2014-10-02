@@ -1,10 +1,12 @@
 package Consultas;
 
-import Dialogos.DialogoData;
 import Classes.Parcelas;
+import Dialogos.DialogoData;
 import Telas.TelaPagamento;
 import Validacoes.EditarJtable;
 import Validacoes.PreencherTabela;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -36,7 +38,9 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         jLabelTopo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jBtFechar = new javax.swing.JButton();
+        TeclasdeAtalho atalho = new TeclasdeAtalho();
+        atalho.adicionarAtalho(jBtFechar, KeyEvent.VK_ESCAPE, 0);
         jLabel1 = new javax.swing.JLabel();
 
         jPopupMenuPagaParcela.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
@@ -49,7 +53,9 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             }
         });
 
+        jMenuItemPagarParcela.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
         jMenuItemPagarParcela.setText("Pagar Parcela");
+        jMenuItemPagarParcela.setToolTipText("Pagar Parcela (Enter)");
         jMenuItemPagarParcela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemPagarParcelaActionPerformed(evt);
@@ -87,10 +93,11 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableParcelas);
 
-        jButton1.setText("Fechar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtFechar.setText("Fechar");
+        jBtFechar.setToolTipText("Fechar (Esc)");
+        jBtFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtFecharActionPerformed(evt);
             }
         });
 
@@ -107,7 +114,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jBtFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabelTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -125,7 +132,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(jBtFechar)
                 .addContainerGap())
         );
 
@@ -200,9 +207,9 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jPopupMenuPagaParcelaPopupMenuWillBecomeVisible
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBtFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFecharActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtFecharActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,7 +247,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtFechar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTopo;
     private javax.swing.JMenuItem jMenuItemPagarParcela;

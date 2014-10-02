@@ -10,6 +10,7 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
@@ -18,7 +19,7 @@ import javax.swing.KeyStroke;
  * @author Leonardo
  */
 public class TeclasdeAtalho {
-
+    
     public void adicionarAtalho(final JTabbedPane pane){
         Action actAba1 = new AbstractAction("ABA_1") {
             
@@ -80,5 +81,4 @@ public class TeclasdeAtalho {
         ActionMap actionMap = radio.getActionMap();
         actionMap.put("ACT_"+radio.getText(), acao);
     }
-
 }

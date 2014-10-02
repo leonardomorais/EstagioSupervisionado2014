@@ -96,6 +96,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableFuncionariosMouseClicked"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTableFuncionariosKeyPressed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -133,10 +134,14 @@
     <Component class="javax.swing.JButton" name="jBtSelecionar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Selecionar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Selecionar (Enter)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSelecionarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);&#xd;&#xa; "/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jBtCancelar">
       <Properties>
@@ -153,10 +158,14 @@
     <Component class="javax.swing.JButton" name="jBtCadastrarNovo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Exibir Cadastro"/>
+        <Property name="toolTipText" type="java.lang.String" value="Exibir Cadastro (F4)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCadastrarNovoActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtCadastrarNovo, KeyEvent.VK_F4, 0);&#xd;&#xa; "/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

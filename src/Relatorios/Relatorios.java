@@ -2,10 +2,8 @@ package Relatorios;
 
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.MostrarDialogo;
-import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.util.HashMap;
-import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;

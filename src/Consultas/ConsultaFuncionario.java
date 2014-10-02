@@ -45,9 +45,12 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtSelecionar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);
+
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtCadastrarNovo = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCadastrarNovo, KeyEvent.VK_F4, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Consultar Funcionário");
@@ -74,6 +77,11 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
                 jTableFuncionariosMouseClicked(evt);
             }
         });
+        jTableFuncionarios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableFuncionariosKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableFuncionarios);
 
         jLabel1.setText("Filtro da Consulta");
@@ -89,6 +97,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         });
 
         jBtSelecionar.setText("Selecionar");
+        jBtSelecionar.setToolTipText("Selecionar (Enter)");
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarActionPerformed(evt);
@@ -104,6 +113,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         });
 
         jBtCadastrarNovo.setText("Exibir Cadastro");
+        jBtCadastrarNovo.setToolTipText("Exibir Cadastro (F4)");
         jBtCadastrarNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarNovoActionPerformed(evt);
@@ -211,6 +221,16 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
            }
         });
     }//GEN-LAST:event_jBtCadastrarNovoActionPerformed
+
+    private void jTableFuncionariosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableFuncionariosKeyPressed
+        int linha = jTableFuncionarios.getSelectedRow();
+            if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                jBtSelecionarActionPerformed(null);
+            }
+            else{
+                evt.consume();
+            }
+    }//GEN-LAST:event_jTableFuncionariosKeyPressed
 
     /**
      * @param args the command line arguments

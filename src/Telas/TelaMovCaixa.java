@@ -4,6 +4,9 @@ import Classes.MovCaixa;
 import Relatorios.Relatorios;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -21,6 +24,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
     RetornaData rdata = new RetornaData();
     MaskFormatter data;
 
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
     /**
      * Creates new form TelaMovCaixa
      */
@@ -44,6 +48,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         jComboBoxConsulta = new javax.swing.JComboBox();
         jComboBoxAux = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
@@ -54,8 +59,11 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jRBtSim = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRBtSim, KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
         jRBtNao = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRBtNao, KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK);
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio, KeyEvent.VK_F6, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Movimentação de Caixa");
@@ -105,6 +113,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -131,6 +140,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         buttonGroupPeriodo.add(jRBtSim);
         jRBtSim.setSelected(true);
         jRBtSim.setText("Sim");
+        jRBtSim.setToolTipText("Sim (Ctrl + S)");
         jRBtSim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBtSimActionPerformed(evt);
@@ -139,6 +149,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
 
         buttonGroupPeriodo.add(jRBtNao);
         jRBtNao.setText("Não");
+        jRBtNao.setToolTipText("Não (Ctrl + N)");
         jRBtNao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRBtNaoActionPerformed(evt);
@@ -146,6 +157,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         });
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

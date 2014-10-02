@@ -10,8 +10,10 @@ import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,8 @@ public class TelaPagamento extends javax.swing.JFrame {
     RetornaData data = new RetornaData();
     LimparCampos limpar = new LimparCampos();
     int rotina;
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form TelaPagamento
@@ -54,6 +58,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         btGroupTipo = new javax.swing.ButtonGroup();
         buttonGroupSituacao = new javax.swing.ButtonGroup();
         jTabbedPanePagamentos = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPanePagamentos);
         jPanelPagamento = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -67,33 +72,43 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTextFieldCdTipo = new javax.swing.JTextField();
         jTextFieldPagamento = new javax.swing.JTextField();
         jBtNovo = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldCdPessoa = new javax.swing.JTextField();
         jBtPesquisaPessoa = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisaPessoa, KeyEvent.VK_F2, 0);
         jTextFieldNome = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableContas = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jRadioButtonCliente = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonCliente, KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK);
         jRadioButtonFornecedor = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonFornecedor, KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK);
         jComboBoxOperacao = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jPanelConsulta = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         jRbSim = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRbSim, KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
         jRadiobNao = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadiobNao, KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK);
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio, KeyEvent.VK_F6, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Pagamento");
@@ -144,6 +159,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTextFieldPagamento.setEnabled(false);
 
         jBtNovo.setText("Novo Pagamento");
+        jBtNovo.setToolTipText("Novo Pagamento (F1)");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovoActionPerformed(evt);
@@ -151,6 +167,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -158,6 +175,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -215,6 +233,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         });
 
         jBtPesquisaPessoa.setText("Pesquisar");
+        jBtPesquisaPessoa.setToolTipText("Pesquisar (F2)");
         jBtPesquisaPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisaPessoaActionPerformed(evt);
@@ -251,9 +270,11 @@ public class TelaPagamento extends javax.swing.JFrame {
         btGroupTipo.add(jRadioButtonCliente);
         jRadioButtonCliente.setSelected(true);
         jRadioButtonCliente.setText("Cliente");
+        jRadioButtonCliente.setToolTipText("Cliente (Ctrl + C)");
 
         btGroupTipo.add(jRadioButtonFornecedor);
         jRadioButtonFornecedor.setText("Fornecedor");
+        jRadioButtonFornecedor.setToolTipText("Fornecedor (Ctrl + F)");
         jRadioButtonFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonFornecedorActionPerformed(evt);
@@ -403,6 +424,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -432,11 +454,14 @@ public class TelaPagamento extends javax.swing.JFrame {
         buttonGroupSituacao.add(jRbSim);
         jRbSim.setSelected(true);
         jRbSim.setText("Sim");
+        jRbSim.setToolTipText("Sim (Ctrl + S)");
 
         buttonGroupSituacao.add(jRadiobNao);
         jRadiobNao.setText("Não");
+        jRadiobNao.setToolTipText("Não (Ctrl + N)");
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -854,11 +879,9 @@ public class TelaPagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        if (report.login()) {
-            report.setSubreport(false);
-            report.setTabela("PAGAMENTO");
-            report.gerarRelatorio(report);
-        }
+        report.setSubreport(false);
+        report.setTabela("PAGAMENTO");
+        report.gerarRelatorio(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     public void limparCamposPessoa() {

@@ -1,7 +1,9 @@
 package Dialogos;
 
 import Validacoes.RetornaData;
+import Validacoes.TeclasdeAtalho;
 import static java.awt.Component.RIGHT_ALIGNMENT;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ import javax.swing.text.MaskFormatter;
 public class DialogoData extends javax.swing.JDialog {
 
     RetornaData rdata = new RetornaData();
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
     MaskFormatter data;
     String dataRetorno = "";
     /**
@@ -40,7 +43,9 @@ public class DialogoData extends javax.swing.JDialog {
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jFormattedTextFieldData = new JFormattedTextField(data);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtOk = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtOk, KeyEvent.VK_ENTER, 0);
         jPanelImg = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -52,6 +57,7 @@ public class DialogoData extends javax.swing.JDialog {
         jFormattedTextFieldData.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -59,6 +65,7 @@ public class DialogoData extends javax.swing.JDialog {
         });
 
         jBtOk.setText("Ok");
+        jBtOk.setToolTipText("Ok (Enter)");
         jBtOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtOkActionPerformed(evt);

@@ -18,8 +18,11 @@ import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import java.awt.Dialog;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -45,6 +48,8 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     LimparCampos limpar = new LimparCampos();
     EditarJtable edit = new EditarJtable();
     MaskFormatter data;
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form TelaVenda
@@ -73,6 +78,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         buttonGroupSituacao = new javax.swing.ButtonGroup();
         buttonGroupTicket = new javax.swing.ButtonGroup();
         jTabbedPaneVendaCompra = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneVendaCompra);
         jPanelGravar = new javax.swing.JPanel();
         jTextFieldCdVendaCompra = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -80,21 +86,27 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jTextFieldNrAtendimento = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jRadioButtonVenda = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonVenda, 
+            KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK);
         jRadioButtonCompra = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonCompra, KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK);
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jTextFieldData = new JFormattedTextField(data);
         jLabel4 = new javax.swing.JLabel();
         jTextFieldCdCliente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButtonPesquisarCliente = new javax.swing.JButton();
+        atalho.adicionarAtalho(jButtonPesquisarCliente, KeyEvent.VK_F4, 0);
         jTextFieldNomeCliente = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldCdForma = new javax.swing.JTextField();
         jButtonPesquisarForma = new javax.swing.JButton();
+        atalho.adicionarAtalho(jButtonPesquisarForma, KeyEvent.VK_F7, 0);
         jTextFieldForma = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextFieldCdProduto = new javax.swing.JTextField();
         jButtonPesquisarProduto = new javax.swing.JButton();
+        atalho.adicionarAtalho(jButtonPesquisarProduto, KeyEvent.VK_F9, 0);
         jTextFieldProduto = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jSpnQuantidade = new javax.swing.JSpinner();
@@ -102,7 +114,9 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jTextFieldTotalProduto = new javax.swing.JTextField();
         jBtAdicionar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAdicionar, KeyEvent.VK_F2, 0);
         jBtRemover = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRemover, KeyEvent.VK_F3, 0);
         jLabel12 = new javax.swing.JLabel();
         jTextFieldTotal = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -110,13 +124,17 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTextFieldCdOperacao = new javax.swing.JTextField();
         jBtPesquisaOperacao = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisaOperacao, KeyEvent.VK_F8, 0);
         jTextFieldDsOperacao = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jTextFieldVlAtendimento = new javax.swing.JTextField();
         jTextFieldVlUnitario = new javax.swing.JTextField();
         jBtIncluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtExcluir = new javax.swing.JButton();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -128,13 +146,17 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableProdutosVenda = new javax.swing.JTable();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jLabel14 = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox();
         jTextFieldConsulta = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jRadioBtSim = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioBtSim, KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
         jRadioButtonNao = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonNao, KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK);
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +202,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         buttonGroupTipo.add(jRadioButtonVenda);
         jRadioButtonVenda.setSelected(true);
         jRadioButtonVenda.setText("Venda");
+        jRadioButtonVenda.setToolTipText("Venda (Ctrl + V)");
         jRadioButtonVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonVendaActionPerformed(evt);
@@ -188,6 +211,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
         buttonGroupTipo.add(jRadioButtonCompra);
         jRadioButtonCompra.setText("Compra");
+        jRadioButtonCompra.setToolTipText("Compra (Ctrl + C)");
         jRadioButtonCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonCompraActionPerformed(evt);
@@ -205,6 +229,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jLabel5.setText("Cliente/Fornecedor");
 
         jButtonPesquisarCliente.setText("Pesquisar");
+        jButtonPesquisarCliente.setToolTipText("Pesquisar (F4)");
         jButtonPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarClienteActionPerformed(evt);
@@ -222,6 +247,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         });
 
         jButtonPesquisarForma.setText("Pesquisar");
+        jButtonPesquisarForma.setToolTipText("Pesquisar (F7)");
         jButtonPesquisarForma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarFormaActionPerformed(evt);
@@ -239,6 +265,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         });
 
         jButtonPesquisarProduto.setText("Pesquisar");
+        jButtonPesquisarProduto.setToolTipText("Pesquisar (F9)");
         jButtonPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarProdutoActionPerformed(evt);
@@ -270,6 +297,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jTextFieldTotalProduto.setEnabled(false);
 
         jBtAdicionar.setText("Adicionar");
+        jBtAdicionar.setToolTipText("Adicionar (F2)");
         jBtAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAdicionarActionPerformed(evt);
@@ -277,6 +305,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         });
 
         jBtRemover.setText("Remover");
+        jBtRemover.setToolTipText("Remover (F3)");
         jBtRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRemoverActionPerformed(evt);
@@ -320,6 +349,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         });
 
         jBtPesquisaOperacao.setText("Pesquisar");
+        jBtPesquisaOperacao.setToolTipText("Pesquisar (F8)");
         jBtPesquisaOperacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisaOperacaoActionPerformed(evt);
@@ -343,6 +373,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jTextFieldVlUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jBtIncluir.setText("Incluir Venda/Compra");
+        jBtIncluir.setToolTipText("Incluir Venda/Compra (F1)");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
@@ -350,6 +381,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -357,6 +389,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -364,6 +397,8 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         });
 
         jBtExcluir.setText("Excluir Venda/Compra");
+        jBtExcluir.setToolTipText("Excluir Venda/Compra (Delete)");
+        atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_DELETE, 0);
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -629,6 +664,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jScrollPane4.setViewportView(jTableProdutosVenda);
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -645,11 +681,14 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         buttonGroupSituacao.add(jRadioBtSim);
         jRadioBtSim.setSelected(true);
         jRadioBtSim.setText("Sim");
+        jRadioBtSim.setToolTipText("Sim (Ctrl + S)");
 
         buttonGroupSituacao.add(jRadioButtonNao);
         jRadioButtonNao.setText("Não");
+        jRadioButtonNao.setToolTipText("Não (Ctrl + N)");
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -992,6 +1031,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             consulta.exibirParcelas();
             consulta.addWindowListener(new java.awt.event.WindowAdapter() {
                public void windowClosed(WindowEvent evt){
+                   limparCampos();
                    report.setConsulta(venda.consultarTicket(venda));
                    report.setSubreport(false);
                    report.setTabela("TICKET_VENDA_COMPRA");

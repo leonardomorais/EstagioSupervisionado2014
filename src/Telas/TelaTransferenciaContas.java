@@ -1,7 +1,6 @@
 package Telas;
 
 import Cadastros.CadastroAgenciaConta;
-import Cadastros.CadastroOperacao;
 import Classes.AgenciaConta;
 import Classes.MovCaixa;
 import Validacoes.FormataMoeda;
@@ -9,8 +8,10 @@ import Validacoes.LimparCampos;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +25,8 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     LimparCampos limpar = new LimparCampos();
     MovCaixa mov = new MovCaixa();
     int rotina;
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form TelaTransferenciaContas
@@ -49,13 +52,17 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jComboBoxContaDestino = new javax.swing.JComboBox();
         jBtNovaTransferencia = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtNovaTransferencia, KeyEvent.VK_F1, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jLabel6 = new javax.swing.JLabel();
         jTextFieldVlContaOrigem = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldVlContaDestino = new javax.swing.JTextField();
         jBtCadAgenciaConta = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCadAgenciaConta, KeyEvent.VK_F4, 0);
         jLabel8 = new javax.swing.JLabel();
         jTextFieldVlTransferência = new javax.swing.JTextField();
         jLabelNrAgenciaOrigem = new javax.swing.JLabel();
@@ -94,6 +101,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         });
 
         jBtNovaTransferencia.setText("Nova Tranferência");
+        jBtNovaTransferencia.setToolTipText("Nova Transferência (F1)");
         jBtNovaTransferencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovaTransferenciaActionPerformed(evt);
@@ -101,6 +109,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -108,6 +117,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -127,6 +137,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jTextFieldVlContaDestino.setEnabled(false);
 
         jBtCadAgenciaConta.setText("Exibir Cadastro");
+        jBtCadAgenciaConta.setToolTipText("Exibir Cadastro (F4)");
         jBtCadAgenciaConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadAgenciaContaActionPerformed(evt);
@@ -158,38 +169,6 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jComboBoxContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jBtCadAgenciaConta))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelNrAgenciaOrigem)
-                                        .addComponent(jLabelNrContaOrigem))
-                                    .addGap(51, 51, 51)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextFieldVlContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jLabel5)
-                                .addComponent(jComboBoxContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNrAgenciaDestino)
-                            .addComponent(jLabelNrContaDestino))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldVlContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator3)
@@ -200,7 +179,40 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel3)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(jComboBoxContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jBtCadAgenciaConta))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabelNrAgenciaOrigem)
+                                                .addComponent(jLabelNrContaOrigem))
+                                            .addGap(51, 51, 51)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextFieldVlContaOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel5)
+                                        .addComponent(jComboBoxContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jTextFieldVlTransferência, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelNrAgenciaDestino)
+                                    .addComponent(jLabelNrContaDestino))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldVlContaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

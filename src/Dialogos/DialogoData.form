@@ -89,18 +89,26 @@
     <Component class="javax.swing.JButton" name="jBtCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Cancelar (Esc)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);  "/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jBtOk">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ok"/>
+        <Property name="toolTipText" type="java.lang.String" value="Ok (Enter)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtOkActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtOk, KeyEvent.VK_ENTER, 0); "/>
+      </AuxValues>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanelImg">
       <Properties>

@@ -8,7 +8,6 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -33,7 +32,7 @@ public class CadastroBanco extends javax.swing.JFrame {
      */
     public CadastroBanco() {
         initComponents();
-
+        
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
     }

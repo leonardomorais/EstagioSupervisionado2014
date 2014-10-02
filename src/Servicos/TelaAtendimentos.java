@@ -3,6 +3,8 @@ package Servicos;
 import Classes.AtendimentoMesa;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +14,8 @@ import javax.swing.JOptionPane;
 public class TelaAtendimentos extends javax.swing.JFrame {
 
     AtendimentoMesa atendimento = new AtendimentoMesa();
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form Atendimento
@@ -35,9 +39,12 @@ public class TelaAtendimentos extends javax.swing.JFrame {
         jMenuItemEncerrar = new javax.swing.JMenuItem();
         jMenuItemCancelar = new javax.swing.JMenuItem();
         jBtNovo = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMesas = new javax.swing.JTable();
         jBtAtualizar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAtualizar, KeyEvent.VK_F5, 0);
+
         jLabel1 = new javax.swing.JLabel();
 
         jPopupMenuAtendimentos.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
@@ -80,6 +87,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
         setResizable(false);
 
         jBtNovo.setText("Novo Atendimento");
+        jBtNovo.setToolTipText("Novo Atendimento (F1)");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovoActionPerformed(evt);
@@ -103,9 +111,15 @@ public class TelaAtendimentos extends javax.swing.JFrame {
             }
         });
         jTableMesas.setComponentPopupMenu(jPopupMenuAtendimentos);
+        jTableMesas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableMesasKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableMesas);
 
         jBtAtualizar.setText("Atualizar");
+        jBtAtualizar.setToolTipText("Atualizar (F5)");
         jBtAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAtualizarActionPerformed(evt);
@@ -241,6 +255,28 @@ public class TelaAtendimentos extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jPopupMenuAtendimentosPopupMenuWillBecomeVisible
+
+    private void jTableMesasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableMesasKeyPressed
+        int linha = jTableMesas.getSelectedRow();
+        if (linha >=0){
+            switch (evt.getKeyCode()){
+                
+                case KeyEvent.VK_F2:
+                    jMenuItemExibirDetalhesActionPerformed(null);
+                break;    
+                
+                case KeyEvent.VK_ENTER:
+                    evt.consume();
+                    jMenuItemEncerrarActionPerformed(null);
+                break;
+                    
+                case KeyEvent.VK_DELETE:
+                    jMenuItemCancelarActionPerformed(null);
+                break;    
+                
+            }
+        }
+    }//GEN-LAST:event_jTableMesasKeyPressed
 
     /**
      * @param args the command line arguments

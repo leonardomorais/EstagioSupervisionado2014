@@ -4,6 +4,8 @@ package Consultas;
 import Cadastros.CadastroMesa;
 import Classes.AtendimentoMesa;
 import Validacoes.PreencherTabela;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -15,6 +17,8 @@ import javax.swing.JOptionPane;
 public class ConsultaMesa extends javax.swing.JDialog {
 
     AtendimentoMesa atd = new AtendimentoMesa();
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form ConsultaMesa
@@ -40,10 +44,14 @@ public class ConsultaMesa extends javax.swing.JDialog {
         jTableMesa = new javax.swing.JTable();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtSelecionar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtCadastrarNova = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCadastrarNova, KeyEvent.VK_F4, 0);
 
         jPopupMenuCsMesa.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -90,11 +98,17 @@ public class ConsultaMesa extends javax.swing.JDialog {
                 jTableMesaMouseClicked(evt);
             }
         });
+        jTableMesa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableMesaKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableMesa);
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Número", "Descrição" }));
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -102,6 +116,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         });
 
         jBtSelecionar.setText("Selecionar");
+        jBtSelecionar.setToolTipText("Selecionar (Enter)");
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarActionPerformed(evt);
@@ -109,6 +124,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -116,6 +132,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         });
 
         jBtCadastrarNova.setText("Exibir Cadastro");
+        jBtCadastrarNova.setToolTipText("Exibir Cadastro (F4)");
         jBtCadastrarNova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarNovaActionPerformed(evt);
@@ -259,6 +276,16 @@ public class ConsultaMesa extends javax.swing.JDialog {
             }
         });
     }//GEN-LAST:event_jBtCadastrarNovaActionPerformed
+
+    private void jTableMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableMesaKeyPressed
+        int linha = jTableMesa.getSelectedRow();
+            if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                jBtSelecionarActionPerformed(null);
+            }
+            else{
+                evt.consume();
+            }
+    }//GEN-LAST:event_jTableMesaKeyPressed
 
     /**
      * @param args the command line arguments

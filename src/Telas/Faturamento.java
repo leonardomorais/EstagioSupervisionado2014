@@ -4,6 +4,9 @@ import Classes.VendaCompra;
 import Relatorios.Relatorios;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -18,6 +21,8 @@ public class Faturamento extends javax.swing.JFrame {
     MaskFormatter data;
     VendaCompra venda = new VendaCompra();
     Relatorios report = new Relatorios();
+    
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
     /**
      * Creates new form Faturamento
      */
@@ -40,12 +45,16 @@ public class Faturamento extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtRelatorio = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jRbtSIm = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRbtSIm, KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
         jrbtNao = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jrbtNao, KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK);
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jFormattedTextFieldDataFinal = new JFormattedTextField(data);
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
@@ -79,6 +88,7 @@ public class Faturamento extends javax.swing.JFrame {
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Venda", "Cliente", "Produto" }));
 
         jBtRelatorio.setText("Relatório");
+        jBtRelatorio.setToolTipText("Relatório (F6)");
         jBtRelatorio.setEnabled(false);
         jBtRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +97,7 @@ public class Faturamento extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -100,6 +111,7 @@ public class Faturamento extends javax.swing.JFrame {
         buttonGroupPeriodo.add(jRbtSIm);
         jRbtSIm.setSelected(true);
         jRbtSIm.setText("Sim");
+        jRbtSIm.setToolTipText("Sim (Ctrl + S)");
         jRbtSIm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRbtSImActionPerformed(evt);
@@ -108,6 +120,7 @@ public class Faturamento extends javax.swing.JFrame {
 
         buttonGroupPeriodo.add(jrbtNao);
         jrbtNao.setText("Não");
+        jrbtNao.setToolTipText("Não (Ctrl + N)");
         jrbtNao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrbtNaoActionPerformed(evt);

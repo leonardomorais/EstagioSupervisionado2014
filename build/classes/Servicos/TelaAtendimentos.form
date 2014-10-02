@@ -104,10 +104,14 @@
     <Component class="javax.swing.JButton" name="jBtNovo">
       <Properties>
         <Property name="text" type="java.lang.String" value="Novo Atendimento"/>
+        <Property name="toolTipText" type="java.lang.String" value="Novo Atendimento (F1)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNovoActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);&#xd;&#xa;"/>
+      </AuxValues>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -132,16 +136,23 @@
               <ComponentRef name="jPopupMenuAtendimentos"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTableMesasKeyPressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="jBtAtualizar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Atualizar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Atualizar (F5)"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAtualizarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtAtualizar, KeyEvent.VK_F5, 0);&#xd;&#xa; "/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
