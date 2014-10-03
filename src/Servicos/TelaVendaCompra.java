@@ -20,6 +20,7 @@ import Validacoes.RetornaDecimal;
 import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
+import Validacoes.ValidaCampos;
 import java.awt.Dialog;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -371,6 +372,11 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
         jTextFieldVlUnitario.setDocument(new FormataMoeda());
         jTextFieldVlUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldVlUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldVlUnitarioKeyTyped(evt);
+            }
+        });
 
         jBtIncluir.setText("Incluir Venda/Compra");
         jBtIncluir.setToolTipText("Incluir Venda/Compra (F1)");
@@ -1284,6 +1290,10 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         report.gerarRelatorio(report);     
         jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jTextFieldVlUnitarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlUnitarioKeyTyped
+        new ValidaCampos().validaCamposApenasNumeros(evt);
+    }//GEN-LAST:event_jTextFieldVlUnitarioKeyTyped
 
     /**
      * @param args the command line arguments

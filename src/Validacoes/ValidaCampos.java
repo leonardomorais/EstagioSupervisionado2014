@@ -2,6 +2,8 @@ package Validacoes;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
+import java.awt.event.KeyListener;
+import javax.swing.JSpinner;
 
 /**
  *
@@ -29,4 +31,28 @@ public class ValidaCampos {
             evt.consume();
         }
     }
+    
+    public void validaSpinner(JSpinner spn){
+       
+       ((JSpinner.DefaultEditor) spn.getEditor()).getTextField().addKeyListener(new KeyListener() {  
+
+           @Override
+           public void keyTyped(KeyEvent e) {
+               validaCamposApenasNumeros(e);
+           }
+
+           @Override
+           public void keyPressed(KeyEvent e) {
+               
+           }
+
+           @Override
+           public void keyReleased(KeyEvent e) {
+               
+           }
+    
+        });
+       
+    }
+    
 }

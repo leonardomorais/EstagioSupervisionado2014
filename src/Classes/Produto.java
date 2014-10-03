@@ -1,7 +1,6 @@
 package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
-import Consultas.ProdutosEstoqueInvalido;
 import Mensagens.Avisos;
 import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;

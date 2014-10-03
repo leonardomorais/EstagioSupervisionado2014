@@ -1,5 +1,7 @@
 package Validacoes;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -10,7 +12,6 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 

@@ -333,15 +333,15 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
                     validaEstadoCampos();
                 }
             }
-        } catch (NumberFormatException ex) {
+        } 
+        catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Informe um valor válido!");
             jTextFieldVlTransferência.grabFocus();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
     private void jTextFieldVlTransferênciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlTransferênciaKeyTyped
-        ValidaCampos campos = new ValidaCampos();
-        campos.validaCamposApenasNumeros(evt);
+        new ValidaCampos().validaCamposApenasNumeros(evt);
     }//GEN-LAST:event_jTextFieldVlTransferênciaKeyTyped
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed

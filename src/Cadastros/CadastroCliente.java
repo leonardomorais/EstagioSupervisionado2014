@@ -10,6 +10,7 @@ import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import Validacoes.ValidaDocumentos;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -80,7 +81,9 @@ public class CadastroCliente extends javax.swing.JFrame {
         jTextFieldNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jRadioButtonFisica = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonFisica, KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK);
         jRadioButtonJuridica = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonJuridica, KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK);
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextFieldRG = new javax.swing.JTextField();
@@ -129,8 +132,11 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox();
         jBtCidade = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCidade, KeyEvent.VK_F4, 0);
         jBtContatos = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtContatos, KeyEvent.VK_F7, 0);
         jBtEndereco = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtEndereco, KeyEvent.VK_F8, 0);
         jFormattedTextFieldCpfCNPJ = new javax.swing.JFormattedTextField();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -202,6 +208,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         buttonGroupTipoPessoa.add(jRadioButtonFisica);
         jRadioButtonFisica.setSelected(true);
         jRadioButtonFisica.setText("Pessoa Física");
+        jRadioButtonFisica.setToolTipText("Pessoa Física (Ctrl + F)");
         jRadioButtonFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonFisicaActionPerformed(evt);
@@ -210,6 +217,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         buttonGroupTipoPessoa.add(jRadioButtonJuridica);
         jRadioButtonJuridica.setText("Pessoa Jurídica");
+        jRadioButtonJuridica.setToolTipText("Pessoa Jurídica (Ctrl + J)");
         jRadioButtonJuridica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonJuridicaActionPerformed(evt);
@@ -372,6 +380,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "INATIVO" }));
 
         jBtCidade.setText("Cidades...");
+        jBtCidade.setToolTipText("Cidades (F4)");
         jBtCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCidadeActionPerformed(evt);
@@ -379,6 +388,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         jBtContatos.setText("Contatos...");
+        jBtContatos.setToolTipText("Contatos (F7)");
         jBtContatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtContatosActionPerformed(evt);
@@ -386,6 +396,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         jBtEndereco.setText("Endereço...");
+        jBtEndereco.setToolTipText("Endereço (F8)");
         jBtEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEnderecoActionPerformed(evt);

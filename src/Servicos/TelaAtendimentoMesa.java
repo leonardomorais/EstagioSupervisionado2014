@@ -51,10 +51,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
      * Creates new form AtendimentoMesa
      */
     public TelaAtendimentoMesa() {
-        initComponents();
-        jTextFieldVlUnitario.setDocument(new FormataMoeda());
-        jTextFieldTotalProduto.setDocument(new FormataMoeda());
-        jTextFieldTotal.setDocument(new FormataMoeda());
+        initComponents();  
         formatarTabela();
         rotina = Rotinas.padrao;
         validaEstadoCampos();
@@ -234,6 +231,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         jLabel6.setText("Valor Unitário (R$)");
 
+        jTextFieldTotal.setDocument(new FormataMoeda());
         jTextFieldTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldTotal.setEnabled(false);
 
@@ -248,6 +246,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
 
         jSpnQuantidade.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        campos.validaSpinner(jSpnQuantidade);
         jSpnQuantidade.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSpnQuantidadeStateChanged(evt);
@@ -262,6 +261,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         jLabel10.setText("Valor Total");
 
+        jTextFieldTotalProduto.setDocument(new FormataMoeda());
         jTextFieldTotalProduto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldTotalProduto.setEnabled(false);
 
@@ -275,7 +275,13 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldVlUnitario.setDocument(new FormataMoeda());
         jTextFieldVlUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextFieldVlUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldVlUnitarioKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
         jPanelBotoes.setLayout(jPanelBotoesLayout);
@@ -651,7 +657,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     jTextFieldCdFunc.setText(atd.getFuncionario().getCd_funcionario().toString());
                     atd.getFuncionario().retornaFuncionario(atd.getFuncionario(), false);
                     jTextFieldNomeFunc.setText(atd.getFuncionario().getPessoa().getNome());
-                    atualizarAtendimento();
+                    atd.alterar(atd, "CD_FUNCIONARIO");
                 }
             }
         });
@@ -692,7 +698,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 }
                 else {
                     jTextFieldNrMesa.setText(atd.getMesa().getNrMesa().toString());
-                    atualizarAtendimento();
+                    atd.alterar(atd, "NR_MESA");
+                    //atualizarAtendimento("NR_MESA");
                 }
             }
         });
@@ -709,6 +716,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     jTextFieldCdFunc.grabFocus();
                 } else {
                     jTextFieldNomeFunc.setText(atd.getFuncionario().getPessoa().getNome());
+                    atd.alterar(atd, "CD_FUNCIONARIO");
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
@@ -738,7 +746,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 tabela.removeRow(linha);
                 jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos), 6));
 
-                atualizarAtendimento();
+                try{
+                    atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
+                }
+                catch (NumberFormatException ex){
+                    atd.setVlTotal(0.00);
+                }
+                
+                atd.alterar(atd, "VL_TOTAL");
             }
         }
     }//GEN-LAST:event_jBtRemoverActionPerformed
@@ -752,7 +767,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos), 6));
             produto.setQtAtual(produto.getQtAtual() - Integer.parseInt(jSpnQuantidade.getValue().toString()));
             produto.alteraQtAtual(produto);
-            atualizarAtendimento();
+            
+            atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
+            
+            atd.alterar(atd, "VL_TOTAL");
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
@@ -762,7 +780,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
                 if (atd.VerificaMesaDisponivel(atd)) {
                     atd.getMesa().retornaMesa(atd.getMesa(), false);
-                    atualizarAtendimento();
+                    atd.alterar(atd, "NR_MESA");
 
                     if (atd.getMesa().getDsMesa().equals("")) {
                         jTextFieldNrMesa.setText("");
@@ -794,7 +812,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jSpnQuantidadeStateChanged
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null, "Os atendimentos cancelados não serão salvos no sistema.\n"
+        int linhas = jTableProdutos.getRowCount();
+        if (linhas > 0){
+            int opcao = JOptionPane.showConfirmDialog(null, "Os atendimentos cancelados não serão salvos no sistema.\n"
                 + "Deseja cancelar este atendimento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
         
         if (opcao == JOptionPane.YES_OPTION) {
@@ -802,30 +822,27 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             if (!jTextFieldNrAtendimento.getText().isEmpty()) {
                 atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
                 atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
-                // devolve os produtos da jtable para o estoque
-                int linhas = jTableProdutos.getRowCount();
-
-                if (linhas > 0) {
-                    atd.getAtdProdutos().excluirTodos(atd.getAtdProdutos());
-                    for (int i = 0; i < linhas; i++) {
-
-                        int cd = Integer.parseInt(jTableProdutos.getValueAt(i, 0).toString());
-                        int qt = Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
-
-                        produto.setCdProduto(cd);
-                        produto.retornaProduto(produto, true);
-                        produto.setQtAtual(produto.getQtAtual() + qt);
-                        produto.alteraQtAtual(produto);
-                    }
-                }
+                
+                //exclui os produtos e devolve a quantidade ao estoque
+                atd.getAtdProdutos().excluirTodos(atd.getAtdProdutos());
+                 
                 atd.excluir(atd);
+                
+                rotina = Rotinas.padrao;
+                validaEstadoCampos();
+                limpar.limparCampos(jPanelAtendimento);
+                limpar.limparJtable(jTableProdutos);
+                jSpnQuantidade.setValue(1);
+                }
             }
+        }
+        else{
             rotina = Rotinas.padrao;
             validaEstadoCampos();
             limpar.limparCampos(jPanelAtendimento);
             limpar.limparJtable(jTableProdutos);
             jSpnQuantidade.setValue(1);
-        }
+        } 
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jTextFieldCdProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdProdutoFocusLost
@@ -987,6 +1004,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonAbertosActionPerformed
 
+    private void jTextFieldVlUnitarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlUnitarioKeyTyped
+        campos.validaCamposApenasNumeros(evt);
+    }//GEN-LAST:event_jTextFieldVlUnitarioKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -1084,6 +1105,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jSpnQuantidade.setModel(model);
         jTextFieldVlUnitario.setText(decimal.retornaDecimal(produto.getVlProduto(), 6));
         preencherTotalProduto();
+        campos.validaSpinner(jSpnQuantidade);
     }
 
     public void preencherTotalProduto() {
@@ -1188,31 +1210,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         this.dispose();
     }
 
-    public void atualizarAtendimento() {
-        atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-
-        Map<String, Object> campos = new HashMap<String, Object>();
-
-        if (!jTextFieldNrMesa.getText().equals("")) {
-            atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
-            campos.put("NR_MESA", atd.getMesa().getNrMesa());
-        }
-        if (!jTextFieldCdFunc.getText().equals("")) {
-            atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTextFieldCdFunc.getText()));
-            campos.put("CD_FUNCIONARIO", atd.getFuncionario().getCd_funcionario());
-        }
-        if (!jTextFieldTotal.getText().equals("")) {
-            atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
-            campos.put("VL_TOTAL", atd.getVlTotal());
-        }
-        atd.alterar(atd, (HashMap<String, Object>) campos);
-
-//        atd.setAbertoFechado("A");
-//        atd.setDtAtendimento(jFormattedTextFieldData.getText());
-//        atd.setHoraAbertura(jTextFieldHoraAbre.getText());
-//        atd.setHoraFechamento("");
-//        atd.alterar(atd);
-    }
 
     public void limparCampos() {
         jSpnQuantidade.setValue(1);

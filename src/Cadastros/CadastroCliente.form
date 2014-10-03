@@ -408,10 +408,14 @@
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Pessoa F&#xed;sica"/>
+                <Property name="toolTipText" type="java.lang.String" value="Pessoa F&#xed;sica (Ctrl + F)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonFisicaActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jRadioButtonFisica, KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonJuridica">
               <Properties>
@@ -419,10 +423,14 @@
                   <ComponentRef name="buttonGroupTipoPessoa"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pessoa Jur&#xed;dica"/>
+                <Property name="toolTipText" type="java.lang.String" value="Pessoa Jur&#xed;dica (Ctrl + J)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonJuridicaActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jRadioButtonJuridica, KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -704,26 +712,38 @@
             <Component class="javax.swing.JButton" name="jBtCidade">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cidades..."/>
+                <Property name="toolTipText" type="java.lang.String" value="Cidades (F4)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCidadeActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtCidade, KeyEvent.VK_F4, 0);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="jBtContatos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Contatos..."/>
+                <Property name="toolTipText" type="java.lang.String" value="Contatos (F7)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtContatosActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtContatos, KeyEvent.VK_F7, 0);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="jBtEndereco">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Endere&#xe7;o..."/>
+                <Property name="toolTipText" type="java.lang.String" value="Endere&#xe7;o (F8)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtEnderecoActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtEndereco, KeyEvent.VK_F8, 0);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldCpfCNPJ">
             </Component>

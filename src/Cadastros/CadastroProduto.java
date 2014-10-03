@@ -159,13 +159,30 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         jLabel7.setText("Quantidade Atual");
 
-        jSpnQtAtual.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        jSpnQtAtual.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
         jSpnQtAtual.setName("ATIVOS"); // NOI18N
+        campos.validaSpinner(jSpnQtAtual);
+        jSpnQtAtual.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jSpnQtAtualFocusLost(evt);
+            }
+        });
+        jSpnQtAtual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jSpnQtAtualKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("Quantidade Mínima");
 
-        jSpnQtMin.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        jSpnQtMin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10000, 1));
         jSpnQtMin.setName("ATIVOS"); // NOI18N
+        campos.validaSpinner(jSpnQtMin);
+        jSpnQtMin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jSpnQtMinFocusLost(evt);
+            }
+        });
 
         jLabel9.setText("Situação");
 
@@ -640,6 +657,18 @@ public class CadastroProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
+    private void jSpnQtAtualFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSpnQtAtualFocusLost
+        
+    }//GEN-LAST:event_jSpnQtAtualFocusLost
+
+    private void jSpnQtMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jSpnQtMinFocusLost
+        
+    }//GEN-LAST:event_jSpnQtMinFocusLost
+
+    private void jSpnQtAtualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSpnQtAtualKeyTyped
+        campos.validaCamposApenasNumeros(evt);
+    }//GEN-LAST:event_jSpnQtAtualKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -772,7 +801,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             jBtRelatorio.setEnabled(true);
         }
     }
-    
+       
     public void retornaProduto(int cd){
         jTextFieldCdProduto.setText(cd+"");
         jTextFieldCdProdutoFocusLost(null);

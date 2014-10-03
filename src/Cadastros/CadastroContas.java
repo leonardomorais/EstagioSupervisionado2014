@@ -219,6 +219,11 @@ public class CadastroContas extends javax.swing.JFrame {
                 jTextFieldValorFocusLost(evt);
             }
         });
+        jTextFieldValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldValorKeyTyped(evt);
+            }
+        });
 
         jLabel9.setForeground(new java.awt.Color(0, 102, 204));
         jLabel9.setText("Data Vencimento");
@@ -970,11 +975,15 @@ public class CadastroContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemExcluirParcelaActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-                report.setSubreport(true);
-                report.setTabela("CONTAS_PAGAR_RECEBER");
-                report.gerarRelatorio(report);
-                jButtonPesquisarConsultaActionPerformed(null);
+        report.setSubreport(true);
+        report.setTabela("CONTAS_PAGAR_RECEBER");
+        report.gerarRelatorio(report);
+        jButtonPesquisarConsultaActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped
+        new ValidaCampos().validaCamposApenasNumeros(evt);
+    }//GEN-LAST:event_jTextFieldValorKeyTyped
 
     /**
      * @param args the command line arguments

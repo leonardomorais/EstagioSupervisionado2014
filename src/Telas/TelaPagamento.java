@@ -694,8 +694,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                     jTableParcelas.setValueAt("0.00", linha, coluna);
                 }
             } else {
-                ValidaCampos campos = new ValidaCampos();
-                campos.validaCamposReais(evt);
+                new ValidaCampos().validaCamposReais(evt);
             }
         }
     }//GEN-LAST:event_jTableParcelasKeyTyped

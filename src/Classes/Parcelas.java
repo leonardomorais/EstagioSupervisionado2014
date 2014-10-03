@@ -87,76 +87,6 @@ public class Parcelas {
         verificaAvisos();
     }
 
-//    public void gerarParcelas(Parcelas parcelas) {
-//        parcelas.getContas().getForma().retornaForma(parcelas.getContas().getForma());
-//
-//        double total = parcelas.getContas().getVlConta();
-//        int quantidade = parcelas.getContas().getForma().getQtParcelas();
-//        int intervalo = parcelas.getContas().getForma().getIntervalo();
-//
-//        double parcela = (total / quantidade);
-//        int parcelainteiro = (int) parcela;
-//        int parteinteiro = ((int) parcela * quantidade);
-//        double diferenca = (total - parteinteiro);
-//
-//        parcelas.setVlParcela((double) parcelainteiro);
-//
-//        parcelas.setDtVencimento(data.retornaSomaData("", intervalo));
-//        int dias = intervalo;
-//        String sql;
-//
-//        for (int nr = 1; nr <= quantidade; nr++) {
-//            parcelas.setNrParcela(nr);
-//
-//            if (parcelas.getContas().getForma().getEntrada().equals("SIM")) {
-//
-//                if (nr == 1) {
-//                    parcelas.setDtVencimento(data.retornaDataAtual());
-//                    parcelas.setDtPago(parcelas.getDtVencimento());
-//                    parcelas.setVlParcela(parcelas.getVlParcela() + diferenca);
-//                    parcelas.setVlPago(parcelas.getVlParcela());
-//
-//                    sql = "INSERT INTO PARCELAS (CD_CONTA, NR_PARCELA, VL_PARCELA, "
-//                            + "DT_VENCIMENTO, VL_PAGO, DT_PAGO) VALUES ('" + parcelas.getContas().getCdConta() + "','"
-//                            + parcelas.getNrParcela() + "','" + parcelas.getVlParcela() + "','" + parcelas.getDtVencimento() + "','"
-//                            + parcelas.getVlPago() + "','" + parcelas.getDtPago() + "')";
-//                } else {
-//                    parcelas.setDtVencimento(data.retornaSomaData("", dias));
-//                    parcelas.setVlPago(0.0);
-//                    parcelas.setVlParcela((double) parcelainteiro);
-//
-//                    sql = "INSERT INTO PARCELAS (CD_CONTA, NR_PARCELA, VL_PARCELA, "
-//                            + "DT_VENCIMENTO, VL_PAGO, DT_PAGO) VALUES ('" + parcelas.getContas().getCdConta() + "','"
-//                            + parcelas.getNrParcela() + "','" + parcelas.getVlParcela() + "','" + parcelas.getDtVencimento() + "','"
-//                            + parcelas.getVlPago() + "', " + null + ")";
-//                }
-//            } else {
-//                parcelas.setDtVencimento(data.retornaSomaData("", dias));
-//                parcelas.setVlPago(0.0);
-//                parcelas.setVlParcela((double) parcelainteiro);
-//
-//                sql = "INSERT INTO PARCELAS (CD_CONTA, NR_PARCELA, VL_PARCELA, "
-//                        + "DT_VENCIMENTO, VL_PAGO, DT_PAGO) VALUES ('" + parcelas.getContas().getCdConta() + "','"
-//                        + parcelas.getNrParcela() + "','" + parcelas.getVlParcela() + "','" + parcelas.getDtVencimento() + "','"
-//                        + parcelas.getVlPago() + "', " + null + ")";
-//
-//                if (nr == 1) {
-//                    parcelas.setVlParcela(parcelas.getVlParcela() + diferenca);
-//
-//                    sql = "INSERT INTO PARCELAS (CD_CONTA, NR_PARCELA, VL_PARCELA, "
-//                            + "DT_VENCIMENTO, VL_PAGO, DT_PAGO) VALUES ('" + parcelas.getContas().getCdConta() + "','"
-//                            + parcelas.getNrParcela() + "','" + parcelas.getVlParcela() + "','" + parcelas.getDtVencimento() + "','"
-//                            + parcelas.getVlPago() + "'," + null + ")";
-//                }
-//            }
-//
-//            conexao.incluirSQL(sql);
-//
-//            dias = dias + intervalo;
-//        }
-//        conexao.atualizarSQL("UPDATE CONTAS_PAGAR_RECEBER SET DT_VENCIMENTO = '" + parcelas.getDtVencimento() + "' "
-//                + "WHERE CD_CONTA = " + parcelas.getContas().getCdConta());
-//    }
     public void alterar(Parcelas parcelas) {
         String sql = "UPDATE PARCELAS SET VL_PARCELA = '" + parcelas.getVlParcela() + "', "
                 + "DT_VENCIMENTO = '" + parcelas.getDtVencimento() + "' "
@@ -167,15 +97,10 @@ public class Parcelas {
     }
 
     public void excluir(Parcelas parcelas) {
-        //try {
         String sql = "UPDATE PARCELAS SET SITUACAO = 'I' WHERE CD_CONTA = " + parcelas.getContas().getCdConta()
                 + " AND NR_PARCELA = " + parcelas.getNrParcela();
         conexao.atualizarSQL(sql);
         ajustaParcelas(parcelas);
-        //} 
-        //catch (Exception ex) {
-        //  JOptionPane.showMessageDialog(null, "Esta parcela não pode ser excluída!");
-        //}
     }
 
     public void excluirTodas(Parcelas parcelas) {

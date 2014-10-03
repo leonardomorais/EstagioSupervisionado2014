@@ -284,10 +284,17 @@
             <Component class="javax.swing.JSpinner" name="jSpnQtAtual">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                  <SpinnerModel initial="0" maximum="10000" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="ATIVOS" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jSpnQtAtualFocusLost"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jSpnQtAtualKeyTyped"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="campos.validaSpinner(jSpnQtAtual);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -297,10 +304,16 @@
             <Component class="javax.swing.JSpinner" name="jSpnQtMin">
               <Properties>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                  <SpinnerModel initial="1" maximum="10000" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="ATIVOS" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jSpnQtMinFocusLost"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="campos.validaSpinner(jSpnQtMin);&#xd;&#xa;"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>

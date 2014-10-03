@@ -4,7 +4,6 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -48,18 +47,42 @@ public class AtendimentoMesa {
                 + "WHERE NR_ATENDIMENTO = " + atd.getNrAtendimento();
         conexao.atualizarSQL(sql);
     }
-    public void alterar (AtendimentoMesa atd, HashMap<String, Object> campos){
-        String sql = "UPDATE ATENDIMENTO_MESA SET ";
-        
-         for (String key : campos.keySet()) {
-                      
-                      Object valor = campos.get(key);
-                      
-                      sql = sql + key+" = '"+valor+"', ";
-         }
+    public void alterar (AtendimentoMesa atd, String campo){
+        String valor;
+        String sql;
+        switch (campo){
+            case "NR_MESA":
+                valor = atd.getMesa().getNrMesa().toString();
+            break;
+                
+            case "HORA_ABERTURA":
+                valor = atd.getHoraAbertura();
+            break; 
+                
+            case "HORA_FECHAMENTO":
+                valor = atd.getHoraFechamento();
+            break;
+                
+            case "ABERTO_FECHADO":
+                valor = atd.getAbertoFechado();
+            break;
+                
+            case "VL_TOTAL":
+                valor = atd.getVlTotal().toString();
+            break;    
+                
+            case "DT_ATENDIMENTO":
+                valor = atd.getDtAtendimento();
+            break;    
+                
+            default:
+                valor = atd.getFuncionario().getCd_funcionario().toString();
+            break;    
+            
+        }
+        sql = "UPDATE ATENDIMENTO_MESA SET "+campo+" = '"+valor+"' WHERE NR_ATENDIMENTO = "
+                +atd.getNrAtendimento();
          
-         sql = sql.subSequence(0, sql.length()-2).toString();
-         sql = sql + " WHERE NR_ATENDIMENTO = "+atd.getNrAtendimento();
         conexao.atualizarSQL(sql);
     }
 

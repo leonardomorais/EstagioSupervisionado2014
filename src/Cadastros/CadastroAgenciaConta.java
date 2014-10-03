@@ -150,6 +150,11 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
                 jTextFieldVlContaActionPerformed(evt);
             }
         });
+        jTextFieldVlConta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldVlContaKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Situação");
 
@@ -642,6 +647,10 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
     }//GEN-LAST:event_jBtIncluirActionPerformed
+
+    private void jTextFieldVlContaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlContaKeyTyped
+        new ValidaCampos().validaCamposApenasNumeros(evt);
+    }//GEN-LAST:event_jTextFieldVlContaKeyTyped
 
     /**
      * @param args the command line arguments
