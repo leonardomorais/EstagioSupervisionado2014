@@ -882,6 +882,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         report.setSubreport(false);
         report.setTabela("PAGAMENTO");
         report.gerarRelatorio(report);
+        jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     public void limparCamposPessoa() {

@@ -897,7 +897,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 int conta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
                 Parcelas p = new Parcelas();
                 p.getContas().setCdConta(conta);
-                p.getContas().setTpConta(jTableContas.getValueAt(linhaConta, 7).toString());
+                p.getContas().setTpConta(jTableContas.getValueAt(linhaConta, 8).toString());
                 p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
                 p.estornarParcela(p);
 
@@ -973,6 +973,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 report.setSubreport(true);
                 report.setTabela("CONTAS_PAGAR_RECEBER");
                 report.gerarRelatorio(report);
+                jButtonPesquisarConsultaActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

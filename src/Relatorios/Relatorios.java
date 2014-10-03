@@ -40,7 +40,7 @@ public class Relatorios {
             JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
 
             //viewReport(JasperPrint jasperPrint, boolean isExitOnClose) 
-            JasperViewer relatorio = new JasperViewer(print, false);
+            JasperViewer relatorio = new JasperViewer(print, false); // erro aqui
             relatorio.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
             relatorio.setVisible(true);
             

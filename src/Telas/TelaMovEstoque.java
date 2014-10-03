@@ -350,6 +350,8 @@ public class TelaMovEstoque extends javax.swing.JFrame {
         HashMap params = new HashMap();
         report.setTabela("MOV_ESTOQUE");
         report.setSubreport(false);
+        jBtPesquisarActionPerformed(null);
+        
         if (jRBtSim.isSelected()){
             params.put("PERIODO", "DE "+jFormattedTextFieldDataInicial.getText()+" A "
             +jFormattedTextFieldDataFinal.getText());

@@ -72,6 +72,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         jMenuItemEndereco = new javax.swing.JMenuItem();
         jMenuItemParcelas = new javax.swing.JMenuItem();
         jTabbedPaneCliente = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneCliente);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCdCliente = new javax.swing.JTextField();

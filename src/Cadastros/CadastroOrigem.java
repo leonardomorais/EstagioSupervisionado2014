@@ -459,6 +459,7 @@ public class CadastroOrigem extends javax.swing.JFrame {
         report.setSubreport(false);
         report.setTabela("ORIGEM");
         report.gerarRelatorio(report);
+        jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible

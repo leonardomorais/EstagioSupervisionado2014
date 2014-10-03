@@ -461,6 +461,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
         report.setSubreport(false);
         report.setTabela("TIPO_PGTO");
         report.gerarRelatorio(report);
+        jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible

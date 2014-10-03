@@ -1279,9 +1279,10 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemExibirParcelasActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-            report.setSubreport(true);
-            report.setTabela("VENDA_COMPRA");
-            report.gerarRelatorio(report);        
+        report.setSubreport(true);
+        report.setTabela("VENDA_COMPRA");
+        report.gerarRelatorio(report);     
+        jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

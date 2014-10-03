@@ -521,9 +521,10 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-                report.setSubreport(false);
-                report.setTabela("FORMA_PGTO");
-                report.gerarRelatorio(report);
+            report.setSubreport(false);
+            report.setTabela("FORMA_PGTO");
+            report.gerarRelatorio(report);
+            jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible

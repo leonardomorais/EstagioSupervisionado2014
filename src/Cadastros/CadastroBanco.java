@@ -360,7 +360,9 @@ public class CadastroBanco extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Banco inativado com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
-            } catch (NumberFormatException ex) {
+            } 
+            catch (NumberFormatException ex) {
+            
             }
         }
 
@@ -387,16 +389,19 @@ public class CadastroBanco extends javax.swing.JFrame {
                 banco.incluir(banco);
                 JOptionPane.showMessageDialog(null, "Banco gravado com sucesso!");
                 jTextFieldCdBanco.setText(banco.getCdBanco().toString());
-            } else if (rotina == Rotinas.alterar) {
+            } 
+            else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdBanco.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "É preciso informar o código do banco que deseja alterar!");
                     jTextFieldCdBanco.grabFocus();
-                } else {
+                } 
+                else {
                     try {
                         banco.setCdBanco(Integer.parseInt(jTextFieldCdBanco.getText()));
                         banco.alterar(banco);
                         JOptionPane.showMessageDialog(null, "Banco alterado com sucesso!");
-                    } catch (NumberFormatException ex) {
+                    } 
+                    catch (NumberFormatException ex) {
                         jBtCancelarActionPerformed(null);
                     }
                 }
@@ -450,7 +455,8 @@ public class CadastroBanco extends javax.swing.JFrame {
                 } else {
                     preencherCampos();
                 }
-            } catch (NumberFormatException ex) {
+            } 
+            catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
                 jBtCancelarActionPerformed(null);
             }
@@ -486,6 +492,7 @@ public class CadastroBanco extends javax.swing.JFrame {
         report.setSubreport(false);
         report.setTabela("BANCO");
         report.gerarRelatorio(report);
+        jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
@@ -493,13 +500,13 @@ public class CadastroBanco extends javax.swing.JFrame {
             case 0:
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.setEnabled(false);
-                break;
+            break;
 
             default:
                 jTextFieldConsulta.setEnabled(true);
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
-                break;
+            break;
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
@@ -569,7 +576,8 @@ public class CadastroBanco extends javax.swing.JFrame {
         banco.setNmBanco(jTextFieldNome.getText().toUpperCase());
         if (jComboBoxSituacao.getSelectedIndex() == 0) {
             banco.setInAtivo("A");
-        } else {
+        } 
+        else {
             banco.setInAtivo("I");
         }
     }
@@ -585,7 +593,8 @@ public class CadastroBanco extends javax.swing.JFrame {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
-        } else {
+        } 
+        else {
             jBtRelatorio.setEnabled(true);
         }
     }

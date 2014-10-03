@@ -279,7 +279,8 @@ public class Faturamento extends javax.swing.JFrame {
         HashMap params = new HashMap();
         report.setTabela("FATURAMENTO");
         report.setSubreport(false);
-      
+        jBtPesquisarActionPerformed(null);
+        
         if (jRbtSIm.isSelected()){
             params.put("PERIODO", "DE "+jFormattedTextFieldDataInicial.getText()+" A "
             +jFormattedTextFieldDataFinal.getText());

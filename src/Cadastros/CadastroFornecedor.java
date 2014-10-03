@@ -973,9 +973,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemContatosActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-                report.setSubreport(true);
-                report.setTabela("FORNECEDOR");
-                report.gerarRelatorio(report);
+            report.setSubreport(true);
+            report.setTabela("FORNECEDOR");
+            report.gerarRelatorio(report);
+            jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTextFieldRGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRGKeyTyped

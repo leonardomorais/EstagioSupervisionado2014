@@ -415,6 +415,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         HashMap params = new HashMap();
         report.setSubreport(false);
         report.setTabela("MOV_CAIXA");
+        jBtPesquisarActionPerformed(null);
         
         if (jRBtSim.isSelected()){
             params.put("PERIODO", "DE "+jFormattedTextFieldDtInicial.getText()+" A "
