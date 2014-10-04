@@ -852,11 +852,8 @@ public class TelaPagamento extends javax.swing.JFrame {
         if (linha >= 0) {
             pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableContas.getValueAt(linha, 0).toString()));
             pagamento.getParcelas().getContas().retornaConta(pagamento.getParcelas().getContas(), true);
-            int op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
-            if (op > 0) {
-                jComboBoxOperacao.setSelectedIndex(pagamento.getParcelas().getContas().getVendaCompra()
-                        .getOperacao().getOperacao(op));
-            } else {
+            String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+            if (op.equals("")){
                 String tipo = jTableContas.getValueAt(linha, 8).toString();
                 if (tipo.equals("A RECEBER")) {
                     tipo = "E";
@@ -864,6 +861,9 @@ public class TelaPagamento extends javax.swing.JFrame {
                     tipo = "S";
                 }
                 pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
+            }
+            else{
+                jComboBoxOperacao.setSelectedItem(op);
             }
             preencheTabela();
         }
@@ -983,19 +983,25 @@ public class TelaPagamento extends javax.swing.JFrame {
         pagamento.getParcelas().getContas().setCdConta(conta);
         carregarTabelaContas();
         preencheTabela();
-        //pagamento.getParcelas().getContas().retornaConta(pagamento.getParcelas().getContas(), false);
-//        pagamento.getParcelas().setNrParcela(parcela);
-//        pagamento.getParcelas().retornaParcela(pagamento.getParcelas());
 
         jBtNovoActionPerformed(null);
         int linha = retornaLinha(parcela);
 
         jTableParcelas.setValueAt(true, linha, 0);
-        int op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
-        if (op > 0) {
-            jComboBoxOperacao.setSelectedIndex(pagamento.getParcelas().getContas().getVendaCompra()
-                    .getOperacao().getOperacao(op));
-            pagamento.getParcelas().getContas().getVendaCompra().retornaVendaCompra(pagamento.getParcelas().getContas().getVendaCompra());
+        String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+            if (op.equals("")){
+                String tipo = jTableContas.getValueAt(linha, 8).toString();
+                if (tipo.equals("A RECEBER")) {
+                    tipo = "E";
+                } else {
+                    tipo = "S";
+                }
+                pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
+            }
+            else{
+                jComboBoxOperacao.setSelectedItem(op);
+                
+                pagamento.getParcelas().getContas().getVendaCompra().retornaVendaCompra(pagamento.getParcelas().getContas().getVendaCompra());
 
             if (pagamento.getParcelas().getContas().getVendaCompra().getCdVendaCompra() > 0) {
                 jTextFieldCdPessoa.setText(pagamento.getParcelas().getContas().getVendaCompra()
@@ -1003,15 +1009,6 @@ public class TelaPagamento extends javax.swing.JFrame {
                 jTextFieldNome.setText(pagamento.getParcelas().getContas().getVendaCompra()
                         .getCliente().getPessoa().getNome());
             }
-        } else {
-            String tipo = jTableContas.getValueAt(0, 8).toString();
-            if (tipo.equals("A RECEBER")) {
-                tipo = "E";
-            } else {
-                tipo = "S";
-            }
-            pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
-                    retornaComboOperacao(jComboBoxOperacao, tipo);
         }
         jTextFieldCdAgencia.grabFocus();
     }

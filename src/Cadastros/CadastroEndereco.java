@@ -57,6 +57,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         jPopupMenuEndereco = new javax.swing.JPopupMenu();
         jMenuItemCarrega = new javax.swing.JMenuItem();
         jTabbedPaneEndereco = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneEndereco);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCdPessoa = new javax.swing.JTextField();
@@ -383,6 +384,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
             }
         });
 
+        jTableConsulta.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jTableConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

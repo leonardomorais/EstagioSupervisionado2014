@@ -48,7 +48,6 @@ public class CadastroContas extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-    //    contas.calcularContas();
     }
 
     /**
@@ -211,8 +210,7 @@ public class CadastroContas extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 102, 204));
         jLabel8.setText("Valor");
 
-        jTextFieldValor.setDocument(new FormataMoeda()
-        );
+        jTextFieldValor.setDocument(new FormataMoeda());
         jTextFieldValor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldValor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {

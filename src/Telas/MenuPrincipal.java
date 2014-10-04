@@ -37,7 +37,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         procuraAvisos();
-        
         //carregaImagem();  
     }
 
@@ -105,7 +104,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         jPanelImagemLayout.setVerticalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
 
         jMenuCadastros.setMnemonic(KeyEvent.VK_C);
@@ -349,9 +348,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(56, 56, 56)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -569,7 +568,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelImagem.add(labelimg, RIGHT_ALIGNMENT);
     }
     
-    public void procuraAvisos(){
+    private void procuraAvisos(){
         new Avisos().verificaAvisos();
     }
 }

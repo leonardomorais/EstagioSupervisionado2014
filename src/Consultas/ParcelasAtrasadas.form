@@ -8,6 +8,14 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExibirDetalhes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exibir Detalhes"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExibirDetalhesActionPerformed"/>
+          </Events>
+        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPagar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pagar Parcela"/>
@@ -15,11 +23,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPagarActionPerformed"/>
           </Events>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExcluir">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Excluir Parcela"/>
-          </Properties>
         </MenuItem>
       </SubComponents>
     </Container>

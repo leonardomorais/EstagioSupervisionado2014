@@ -169,6 +169,7 @@ public class Parcelas {
                 + " PARCELA " + mov.getParcelas().getNrParcela());
         // grava uma nova movimentação para o extorno da parcela
         mov.incluir(mov, true);
+        verificaAvisos();
     }
 
     public void ajustaParcelas(Parcelas parcelas) {
@@ -331,7 +332,7 @@ public class Parcelas {
         ResultSet retorno = parcelasEmAtraso();
         try {
             retorno.first();
-            int cd = retorno.getInt("CD_PESSOA");
+            int cd = retorno.getInt("CD_CONTA");
             possui = true;
             
         } 
@@ -347,10 +348,10 @@ public class Parcelas {
                 + "FROM PARCELAS P "
                 + "INNER JOIN CONTAS_PAGAR_RECEBER C "
                 + "ON P.CD_CONTA = C.CD_CONTA "
-                + "INNER JOIN VENDA_COMPRA VC "
+                + "LEFT JOIN VENDA_COMPRA VC "
                 + "ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
                 + "AND VC.SITUACAO = 'A' "
-                + "INNER JOIN PESSOA PS "
+                + "LEFT JOIN PESSOA PS "
                 + "ON VC.CD_CLIENTE = PS.CD_PESSOA "
                 + "WHERE P.SITUACAO = 'A' "
                 + "AND P.DT_VENCIMENTO <= CURRENT_DATE "

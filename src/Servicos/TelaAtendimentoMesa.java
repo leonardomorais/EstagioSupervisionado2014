@@ -16,8 +16,6 @@ import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;

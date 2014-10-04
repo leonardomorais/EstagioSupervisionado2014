@@ -10,7 +10,6 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -42,11 +41,9 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     public CadastroAgenciaConta() {
         initComponents();
 
-        jTextFieldVlConta.setDocument(new FormataMoeda());
         agc.retornaComboBanco(jComboBoxBanco);
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        //new TeclasdeAtalho().carregarAtalhosBotoes(jPanelBotoes);
     }
 
     /**
@@ -144,6 +141,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("Valor da Conta (R$)");
 
+        jTextFieldVlConta.setDocument(new FormataMoeda());
         jTextFieldVlConta.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldVlConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

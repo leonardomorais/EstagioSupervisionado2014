@@ -73,6 +73,7 @@ public class TeclasdeAtalho {
             @Override
             public void actionPerformed(ActionEvent e) {
                 radio.setSelected(true);
+                radio.doClick();
             }
         };
         

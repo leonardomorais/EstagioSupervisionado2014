@@ -22,7 +22,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
     Relatorios report = new Relatorios();
 
     LimparCampos limpar = new LimparCampos();
-
+    ValidaCampos campos = new ValidaCampos();
     ValidaBotoes botoes = new ValidaBotoes();
     int rotina;
     
@@ -132,11 +132,13 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         jLabel5.setText("Intervalo");
 
         jSpinnerIntervalo.setModel(new javax.swing.SpinnerNumberModel(0, 0, 200, 1));
+        campos.validaSpinner(jSpinnerIntervalo);
 
         jLabel6.setText("Quantidade de Parcelas");
 
         jSpinnerQtParcelas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
         jSpinnerQtParcelas.setToolTipText("");
+        campos.validaSpinner(jSpinnerQtParcelas);
 
         jBtIncluir.setText("Incluir");
         jBtIncluir.setToolTipText("Incluir (F1)");
@@ -516,7 +518,6 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemFormaActionPerformed
 
     private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
-        ValidaCampos campos = new ValidaCampos();
         campos.validaCamposLimite(evt, jTextFieldDescricao, 50);
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
