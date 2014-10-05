@@ -20,6 +20,7 @@ import Mensagens.Avisos;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
 import Servicos.TelaVendaCompra;
+import Validacoes.EditarComponentes;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -37,6 +38,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         procuraAvisos();
+        new EditarComponentes().editaBotoes(jPanelBotoes);
         //carregaImagem();  
     }
 
@@ -50,6 +52,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelImagem = new javax.swing.JPanel();
+        jPanelBotoes = new javax.swing.JPanel();
+        jBtAtendimentos = new javax.swing.JButton();
+        jBtClientes = new javax.swing.JButton();
+        jBtFornecedor = new javax.swing.JButton();
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         jMenuItemCadMesa = new javax.swing.JMenuItem();
@@ -104,7 +110,60 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
         jPanelImagemLayout.setVerticalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 349, Short.MAX_VALUE)
+        );
+
+        jBtAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/lanche.png"))); // NOI18N
+        jBtAtendimentos.setText("Atendimento");
+        jBtAtendimentos.setBorder(null);
+        jBtAtendimentos.setContentAreaFilled(false);
+        jBtAtendimentos.setDefaultCapable(false);
+        jBtAtendimentos.setDisabledIcon(null);
+        jBtAtendimentos.setFocusPainted(false);
+        jBtAtendimentos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtAtendimentos.setOpaque(true);
+        jBtAtendimentos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtAtendimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtendimentosActionPerformed(evt);
+            }
+        });
+
+        jBtClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/cliente.png"))); // NOI18N
+        jBtClientes.setText("Clientes");
+        jBtClientes.setBorder(null);
+        jBtClientes.setContentAreaFilled(false);
+        jBtClientes.setFocusPainted(false);
+        jBtClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtClientes.setOpaque(true);
+        jBtClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        jBtFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/fornecedor.png"))); // NOI18N
+        jBtFornecedor.setText("Fornecedores");
+        jBtFornecedor.setBorder(null);
+        jBtFornecedor.setContentAreaFilled(false);
+        jBtFornecedor.setFocusPainted(false);
+        jBtFornecedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtFornecedor.setOpaque(true);
+        jBtFornecedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
+        jPanelBotoes.setLayout(jPanelBotoesLayout);
+        jPanelBotoesLayout.setHorizontalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotoesLayout.createSequentialGroup()
+                .addComponent(jBtAtendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96)
+                .addComponent(jBtClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanelBotoesLayout.setVerticalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jBtAtendimentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
         jMenuCadastros.setMnemonic(KeyEvent.VK_C);
@@ -344,13 +403,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap()
+                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         pack();
@@ -476,6 +538,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         cadEndereco.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadEnderecoActionPerformed
 
+    private void jBtAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtendimentosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAtendimentosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -512,6 +578,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtAtendimentos;
+    private javax.swing.JButton jBtClientes;
+    private javax.swing.JButton jBtFornecedor;
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenu jMenuFinanceiro;
@@ -539,6 +608,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemPagamento;
     private javax.swing.JMenuItem jMenuItemVenda;
     private javax.swing.JMenu jMenuServicos;
+    private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelImagem;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;

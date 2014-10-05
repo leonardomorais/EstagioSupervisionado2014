@@ -3,7 +3,7 @@ package Consultas;
 import Classes.Parcelas;
 import Dialogos.DialogoData;
 import Telas.TelaPagamento;
-import Validacoes.EditarJtable;
+import Validacoes.EditarComponentes;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
 import java.awt.event.KeyEvent;
@@ -16,7 +16,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
 
     Parcelas parcelas = new Parcelas();
 
-    EditarJtable edit = new EditarJtable();
+    EditarComponentes edit = new EditarComponentes();
     /**
      * Creates new form ConsultaParcelas
      */

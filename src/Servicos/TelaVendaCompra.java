@@ -11,7 +11,7 @@ import Consultas.ConsultaOperacao;
 import Consultas.ConsultaParcelas;
 import Consultas.ConsultaProduto;
 import Relatorios.Relatorios;
-import Validacoes.EditarJtable;
+import Validacoes.EditarComponentes;
 import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
@@ -47,7 +47,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     RetornaData rdata = new RetornaData();
     RetornaDecimal decimal = new RetornaDecimal();
     LimparCampos limpar = new LimparCampos();
-    EditarJtable edit = new EditarJtable();
+    EditarComponentes edit = new EditarComponentes();
     MaskFormatter data;
     
     TeclasdeAtalho atalho = new TeclasdeAtalho();
