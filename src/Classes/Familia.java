@@ -88,10 +88,6 @@ public class Familia {
         }
     }
 
-    public void retoraComboOrigem(JComboBox combo) {
-        origem.retornaComboOrigens(combo);
-    }
-
     public void retornaComboFamilia(JComboBox combo) {
         String sql = "SELECT * FROM FAMILIA ORDER BY CD_FAMILIA";
         conexao.executeSQL(sql);

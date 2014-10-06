@@ -1,7 +1,7 @@
 package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
-import Mensagens.Avisos;
+import Validacoes.Avisos;
 import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;

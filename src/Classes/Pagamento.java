@@ -3,7 +3,6 @@ package Classes;
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
-import java.util.HashMap;
 import java.util.List;
 
 /**

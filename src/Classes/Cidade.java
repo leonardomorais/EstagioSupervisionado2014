@@ -86,11 +86,6 @@ public class Cidade {
 
     }
 
-    public void retornaComboEstado(JComboBox combo) {
-        estado.retornaComboEstados(combo);
-
-    }
-
     public void retornaComboCidades(JComboBox combo) {
         String sql = "SELECT * FROM CIDADE ORDER BY CD_CIDADE";
         conexao.executeSQL(sql);

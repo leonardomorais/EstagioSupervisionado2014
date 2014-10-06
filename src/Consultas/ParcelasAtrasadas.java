@@ -3,7 +3,7 @@ package Consultas;
 
 import Cadastros.CadastroContas;
 import Classes.Parcelas;
-import Mensagens.Avisos;
+import Validacoes.Avisos;
 import Telas.TelaPagamento;
 import Validacoes.PreencherTabela;
 import java.awt.event.WindowAdapter;

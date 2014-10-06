@@ -1,4 +1,4 @@
-package Mensagens;
+package Validacoes;
 
 import Classes.Parcelas;
 import Classes.Produto;
@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -115,7 +116,7 @@ public class Avisos {
         JMenuItem itemTopo = new JMenuItem(titulo);
         itemTopo.setFont(new Font("Tahoma", Font.BOLD, 11));
         JMenuItem itemSair = new JMenuItem("Sair");
-
+        
         itemSair.addActionListener(new ActionListener() {
 
             @Override
@@ -125,7 +126,8 @@ public class Avisos {
         });
 
         JMenuItem itemParcelas = new JMenuItem("Parcelas com pagamento em atraso");
-
+        itemParcelas.setIcon(new ImageIcon("src\\Extras\\Imagens\\iconeaviso.png"));
+        
         itemParcelas.addActionListener(new ActionListener() {
 
             @Override
@@ -135,7 +137,8 @@ public class Avisos {
         });
 
         JMenuItem itemProduto = new JMenuItem("Produtos com estoque inválido");
-
+        itemProduto.setIcon(new ImageIcon("src\\Extras\\Imagens\\iconeaviso.png")); 
+        
         itemProduto.addActionListener(new ActionListener() {
 
             @Override

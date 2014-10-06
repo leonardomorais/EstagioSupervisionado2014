@@ -41,7 +41,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     public CadastroAgenciaConta() {
         initComponents();
 
-        agc.retornaComboBanco(jComboBoxBanco);
+        agc.getBanco().retornaComboBanco(jComboBoxBanco);
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
     }
@@ -615,7 +615,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
 
         cadBanco.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                agc.retornaComboBanco(jComboBoxBanco);
+                agc.getBanco().retornaComboBanco(jComboBoxBanco);
             }
         });
     }//GEN-LAST:event_jButton1ActionPerformed

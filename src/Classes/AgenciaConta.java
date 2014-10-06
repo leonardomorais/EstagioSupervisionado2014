@@ -136,10 +136,6 @@ public class AgenciaConta {
         }
     }
 
-    public void retornaComboBanco(JComboBox combo) {
-        banco.retornaComboBanco(combo);
-    }
-
     public void atualizarValorConta(AgenciaConta agc) {
         String sql = "UPDATE AGENCIA_CONTA SET VALOR_CONTA = '" + agc.getVlConta() + "' WHERE "
                 + "CD_AGENCIA_CONTA = " + agc.getCdAgcConta();

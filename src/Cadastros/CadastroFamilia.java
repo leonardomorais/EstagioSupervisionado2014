@@ -34,7 +34,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
 
-        familia.retoraComboOrigem(jComboBoxOrigem);
+        familia.getOrigem().retornaComboOrigens(jComboBoxOrigem);
     }
 
     /**
@@ -510,7 +510,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
         
         cadOrigem.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt){
-                familia.retoraComboOrigem(jComboBoxOrigem);
+                familia.getOrigem().retornaComboOrigens(jComboBoxOrigem);
             }
         });
     }//GEN-LAST:event_jBtExibirCadastroActionPerformed

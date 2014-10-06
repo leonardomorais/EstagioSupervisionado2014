@@ -8,6 +8,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.Dialog;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -31,7 +32,7 @@ public class CadastroCidade extends javax.swing.JFrame {
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
 
-        cidade.retornaComboEstado(jComboBoxEstado);
+        cidade.getEstado().retornaComboEstados(jComboBoxEstado);
     }
 
     /**
@@ -492,10 +493,11 @@ public class CadastroCidade extends javax.swing.JFrame {
     private void jbtCadEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCadEstadoActionPerformed
         CadastroEstado cadEstado = new CadastroEstado();
         cadEstado.setVisible(true);
-
+        this.disable();
         cadEstado.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                cidade.retornaComboEstado(jComboBoxEstado);
+                habilitaJframe();
+                cidade.getEstado().retornaComboEstados(jComboBoxEstado);
             }
         });
     }//GEN-LAST:event_jbtCadEstadoActionPerformed
@@ -599,5 +601,8 @@ public class CadastroCidade extends javax.swing.JFrame {
             jBtRelatorio.setEnabled(true);
         }
     }
-
+    
+    private void habilitaJframe(){
+        this.enable();
+    }
 }

@@ -8,7 +8,7 @@ package Consultas;
 
 import Cadastros.CadastroProduto;
 import Classes.Produto;
-import Mensagens.Avisos;
+import Validacoes.Avisos;
 import Validacoes.PreencherTabela;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

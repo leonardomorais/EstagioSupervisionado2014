@@ -16,11 +16,10 @@ import Cadastros.CadastroMesa;
 import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
-import Mensagens.Avisos;
+import Validacoes.Avisos;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
 import Servicos.TelaVendaCompra;
-import Validacoes.EditarComponentes;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -38,7 +37,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         procuraAvisos();
-        new EditarComponentes().editaBotoes(jPanelBotoes);
         //carregaImagem();  
     }
 
@@ -52,10 +50,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelImagem = new javax.swing.JPanel();
-        jPanelBotoes = new javax.swing.JPanel();
-        jBtAtendimentos = new javax.swing.JButton();
-        jBtClientes = new javax.swing.JButton();
-        jBtFornecedor = new javax.swing.JButton();
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         jMenuItemCadMesa = new javax.swing.JMenuItem();
@@ -106,68 +100,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelImagem.setLayout(jPanelImagemLayout);
         jPanelImagemLayout.setHorizontalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1300, Short.MAX_VALUE)
+            .addGap(0, 1280, Short.MAX_VALUE)
         );
         jPanelImagemLayout.setVerticalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
-        );
-
-        jBtAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/lanche.png"))); // NOI18N
-        jBtAtendimentos.setText("Atendimento");
-        jBtAtendimentos.setBorder(null);
-        jBtAtendimentos.setContentAreaFilled(false);
-        jBtAtendimentos.setDefaultCapable(false);
-        jBtAtendimentos.setDisabledIcon(null);
-        jBtAtendimentos.setFocusPainted(false);
-        jBtAtendimentos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtAtendimentos.setOpaque(true);
-        jBtAtendimentos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtAtendimentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAtendimentosActionPerformed(evt);
-            }
-        });
-
-        jBtClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/cliente.png"))); // NOI18N
-        jBtClientes.setText("Clientes");
-        jBtClientes.setBorder(null);
-        jBtClientes.setContentAreaFilled(false);
-        jBtClientes.setFocusPainted(false);
-        jBtClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtClientes.setOpaque(true);
-        jBtClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        jBtFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/fornecedor.png"))); // NOI18N
-        jBtFornecedor.setText("Fornecedores");
-        jBtFornecedor.setBorder(null);
-        jBtFornecedor.setContentAreaFilled(false);
-        jBtFornecedor.setFocusPainted(false);
-        jBtFornecedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtFornecedor.setOpaque(true);
-        jBtFornecedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
-        jPanelBotoes.setLayout(jPanelBotoesLayout);
-        jPanelBotoesLayout.setHorizontalGroup(
-            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBotoesLayout.createSequentialGroup()
-                .addComponent(jBtAtendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
-                .addComponent(jBtClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanelBotoesLayout.setVerticalGroup(
-            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBtAtendimentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBtClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBtFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
 
         jMenuCadastros.setMnemonic(KeyEvent.VK_C);
         jMenuCadastros.setText("Cadastros");
+        jMenuCadastros.setMargin(new java.awt.Insets(0, 0, 0, 20));
 
         jMenuItemCadMesa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadMesa.setText("Cadastrar Mesa");
@@ -294,6 +236,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuServicos.setMnemonic(KeyEvent.VK_S);
         jMenuServicos.setText("Serviços");
+        jMenuServicos.setMargin(new java.awt.Insets(0, 0, 0, 20));
 
         jMenuItemAtendimento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAtendimento.setText("Realizar Atendimento");
@@ -337,6 +280,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuFinanceiro.setMnemonic(KeyEvent.VK_F);
         jMenuFinanceiro.setText("Financeiro");
+        jMenuFinanceiro.setMargin(new java.awt.Insets(0, 0, 0, 20));
 
         jMenuItemBancos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBancos.setText("Bancos");
@@ -402,17 +346,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -420,113 +364,91 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemCadMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadMesaActionPerformed
-        CadastroMesa cadMesa = new CadastroMesa();
-        cadMesa.setVisible(true);
+        new CadastroMesa().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadMesaActionPerformed
 
     private void jMenuItemCadFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadFamiliaActionPerformed
-        CadastroFamilia cadFamilia = new CadastroFamilia();
-        cadFamilia.setVisible(true);
+        new CadastroFamilia().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadFamiliaActionPerformed
 
     private void jMenuItemBancosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBancosActionPerformed
-        CadastroBanco cadBanco = new CadastroBanco();
-        cadBanco.setVisible(true);
+        new CadastroBanco().setVisible(true);
     }//GEN-LAST:event_jMenuItemBancosActionPerformed
 
     private void jMenuItemAgenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAgenciaActionPerformed
-        CadastroAgenciaConta cadAgc = new CadastroAgenciaConta();
-        cadAgc.setVisible(true);
+        new CadastroAgenciaConta().setVisible(true);
     }//GEN-LAST:event_jMenuItemAgenciaActionPerformed
 
     private void jMenuItemCadClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadClienteActionPerformed
-        CadastroCliente cadCliente = new CadastroCliente();
-        cadCliente.setVisible(true);
+        new CadastroCliente().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadClienteActionPerformed
 
     private void jMenuItemCadOrigemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadOrigemActionPerformed
-        CadastroOrigem cadOrigem = new CadastroOrigem();
-        cadOrigem.setVisible(true);
+        new CadastroOrigem().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadOrigemActionPerformed
 
     private void jMenuItemCadProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadProdutoActionPerformed
-        CadastroProduto cadProduto = new CadastroProduto();
-        cadProduto.setVisible(true);
+        new CadastroProduto().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadProdutoActionPerformed
 
     private void jMenuItemCadContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadContatoActionPerformed
-        CadastroContato cadContato = new CadastroContato();
-        cadContato.setVisible(true);
+        new CadastroContato().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadContatoActionPerformed
 
     private void jMenuItemCadEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadEstadoActionPerformed
-        CadastroEstado cadEstado = new CadastroEstado();
-        cadEstado.setVisible(true);
+        new CadastroEstado().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadEstadoActionPerformed
 
     private void jMenuItemCadCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadCidadeActionPerformed
-        CadastroCidade cadCidade = new CadastroCidade();
-        cadCidade.setVisible(true);
+        new CadastroCidade().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadCidadeActionPerformed
 
     private void jMenuItemCadFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadFormaActionPerformed
-        CadastroFormadePagamento cadForma = new CadastroFormadePagamento();
-        cadForma.setVisible(true);
+        new CadastroFormadePagamento().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadFormaActionPerformed
 
     private void jMenuItemCadTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadTipoActionPerformed
-        CadastroTipoPagamento cadTipo = new CadastroTipoPagamento();
-        cadTipo.setVisible(true);
+        new CadastroTipoPagamento().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadTipoActionPerformed
 
     private void jMenuItemCadFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadFornecedorActionPerformed
-        CadastroFornecedor cadForn = new CadastroFornecedor();
-        cadForn.setVisible(true);
+        new CadastroFornecedor().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadFornecedorActionPerformed
 
     private void jMenuItemCadFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadFuncionarioActionPerformed
-        CadastroFuncionario cadFunc = new CadastroFuncionario();
-        cadFunc.setVisible(true);
+        new CadastroFuncionario().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadFuncionarioActionPerformed
 
     private void jMenuItemAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAtendimentoActionPerformed
-    TelaAtendimentoMesa atdMesa = new TelaAtendimentoMesa();
-        atdMesa.setVisible(true);
+        new TelaAtendimentoMesa().setVisible(true);
     }//GEN-LAST:event_jMenuItemAtendimentoActionPerformed
 
     private void jMenuItemContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemContasActionPerformed
-        CadastroContas cadContas = new CadastroContas();
-        cadContas.setVisible(true);
+        new CadastroContas().setVisible(true);
     }//GEN-LAST:event_jMenuItemContasActionPerformed
 
     private void jMenuItemExibirAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirAtendimentosActionPerformed
-        TelaAtendimentos tela = new TelaAtendimentos();
-        tela.setVisible(true);
+        new TelaAtendimentos().setVisible(true);
     }//GEN-LAST:event_jMenuItemExibirAtendimentosActionPerformed
 
     private void jMenuItemPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagamentoActionPerformed
-        TelaPagamento pag = new TelaPagamento();
-        pag.setVisible(true);
+        new TelaPagamento().setVisible(true);
     }//GEN-LAST:event_jMenuItemPagamentoActionPerformed
 
     private void jMenuItemMovCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMovCaixaActionPerformed
-       TelaMovCaixa mov = new TelaMovCaixa();
-       mov.setVisible(true);
+       new TelaMovCaixa().setVisible(true);
     }//GEN-LAST:event_jMenuItemMovCaixaActionPerformed
 
     private void jMenuItemExibirMovEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirMovEstoqueActionPerformed
-        TelaMovEstoque movEstoque = new TelaMovEstoque();
-        movEstoque.setVisible(true);
+        new TelaMovEstoque().setVisible(true);
     }//GEN-LAST:event_jMenuItemExibirMovEstoqueActionPerformed
 
     private void jMenuItemFaturamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFaturamentoActionPerformed
-        Faturamento faturamento = new Faturamento();
-        faturamento.setVisible(true);
+        new Faturamento().setVisible(true);
     }//GEN-LAST:event_jMenuItemFaturamentoActionPerformed
 
     private void jMenuItemVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVendaActionPerformed
-        TelaVendaCompra venda = new TelaVendaCompra();
-        venda.setVisible(true);
+        new TelaVendaCompra().setVisible(true);
     }//GEN-LAST:event_jMenuItemVendaActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -534,13 +456,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jMenuItemCadEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadEnderecoActionPerformed
-        CadastroEndereco cadEndereco = new CadastroEndereco();
-        cadEndereco.setVisible(true);
+        new CadastroEndereco().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadEnderecoActionPerformed
-
-    private void jBtAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtendimentosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtAtendimentosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -578,9 +495,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtAtendimentos;
-    private javax.swing.JButton jBtClientes;
-    private javax.swing.JButton jBtFornecedor;
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenu jMenuFinanceiro;
@@ -608,7 +522,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemPagamento;
     private javax.swing.JMenuItem jMenuItemVenda;
     private javax.swing.JMenu jMenuServicos;
-    private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelImagem;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -620,7 +533,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator8;
     // End of variables declaration//GEN-END:variables
 
-    public void carregaImagem() {
+    private void carregaImagem() {
         Random aleatorio = new Random();
 
         String caminho = "src\\Extras\\Imagens\\";

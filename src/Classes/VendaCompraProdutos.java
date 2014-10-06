@@ -123,9 +123,7 @@ public class VendaCompraProdutos {
             }
         } catch (SQLException ex) {
             
-        }
-        
-        
+        }        
     }
 
     // getter e setter

@@ -76,13 +76,11 @@ public class Relatorios {
         }
     }
 
-
     public boolean login() {
         boolean aceito;
         MostrarDialogo dialogo = new MostrarDialogo();
         aceito = dialogo.dialogoPassword("ADMIN");
         return aceito;
-
     }
     
     // getter e setter
