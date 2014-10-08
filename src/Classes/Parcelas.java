@@ -275,6 +275,27 @@ public class Parcelas {
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
+    
+    public ResultSet consultarCdPessoa(int cd, boolean ativas) {
+        String condicao;
+        if (ativas){
+            condicao = "WHERE P.SITUACAO = 'A' ";
+        }
+        else{
+            condicao = "";
+        }
+        String sql = "SELECT P.CD_CONTA, P.NR_PARCELA, P.VL_PARCELA, "
+                + "TO_CHAR(P.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+                + "P.VL_PAGO, TO_CHAR(P.DT_PAGO, 'DD/MM/YYYY') AS DT_PAGO "
+                + "FROM PARCELAS P INNER JOIN CONTAS_PAGAR_RECEBER C "
+                + "ON P.CD_CONTA = C.CD_CONTA "
+                + "INNER JOIN VENDA_COMPRA VC "
+                + "ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.CD_CLIENTE = "+cd+" OR VC.CD_FORNECEDOR = "+cd+" "
+                + condicao+ "ORDER BY P.NR_PARCELA";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
 
     public void retornaParcela(Parcelas parcelas, boolean ativas) {
         ResultSet retorno = consultarNrParcela(parcelas, ativas);

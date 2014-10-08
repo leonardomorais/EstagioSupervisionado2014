@@ -16,10 +16,12 @@ import Cadastros.CadastroMesa;
 import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
-import Validacoes.Avisos;
+import Classes.Fornecedor;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
 import Servicos.TelaVendaCompra;
+import Validacoes.Avisos;
+import Validacoes.EditarComponentes;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -36,8 +38,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+        new EditarComponentes().editaBotoes(jPanelBotoes);
         procuraAvisos();
-        //carregaImagem();  
+    //    carregaImagem();  
     }
 
     /**
@@ -50,6 +53,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelImagem = new javax.swing.JPanel();
+        jPanelBotoes = new javax.swing.JPanel();
+        jBtNovoAtendimento = new javax.swing.JButton();
+        jBtAtendimentos = new javax.swing.JButton();
+        jBtVendaCompra = new javax.swing.JButton();
+        jBtClientes = new javax.swing.JButton();
+        jBtProdutos = new javax.swing.JButton();
+        jBtFornecedores = new javax.swing.JButton();
+        jBtFuncionários = new javax.swing.JButton();
+        jBtPagamentos = new javax.swing.JButton();
+        jBtContas = new javax.swing.JButton();
+        jBtMovCaixa = new javax.swing.JButton();
+        jBtMovEstoque = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         jMenuItemCadMesa = new javax.swing.JMenuItem();
@@ -100,11 +116,233 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelImagem.setLayout(jPanelImagemLayout);
         jPanelImagemLayout.setHorizontalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
+            .addGap(0, 960, Short.MAX_VALUE)
         );
         jPanelImagemLayout.setVerticalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGap(0, 509, Short.MAX_VALUE)
+        );
+
+        jBtNovoAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/atendimento1.png"))); // NOI18N
+        jBtNovoAtendimento.setText("Atendimento");
+        jBtNovoAtendimento.setToolTipText("Abrir novo atendimento");
+        jBtNovoAtendimento.setBorder(null);
+        jBtNovoAtendimento.setContentAreaFilled(false);
+        jBtNovoAtendimento.setFocusPainted(false);
+        jBtNovoAtendimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtNovoAtendimento.setOpaque(true);
+        jBtNovoAtendimento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoAtendimentoActionPerformed(evt);
+            }
+        });
+
+        jBtAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/exibirAtendimentos.png"))); // NOI18N
+        jBtAtendimentos.setText("Exibir Atuais");
+        jBtAtendimentos.setToolTipText("Exibir os atendimentos atuais");
+        jBtAtendimentos.setBorder(null);
+        jBtAtendimentos.setContentAreaFilled(false);
+        jBtAtendimentos.setFocusPainted(false);
+        jBtAtendimentos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtAtendimentos.setOpaque(true);
+        jBtAtendimentos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtAtendimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAtendimentosActionPerformed(evt);
+            }
+        });
+
+        jBtVendaCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/vendaCompra.png"))); // NOI18N
+        jBtVendaCompra.setText("Venda/Compra");
+        jBtVendaCompra.setToolTipText("Realizar Venda/Compra");
+        jBtVendaCompra.setBorder(null);
+        jBtVendaCompra.setContentAreaFilled(false);
+        jBtVendaCompra.setFocusPainted(false);
+        jBtVendaCompra.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtVendaCompra.setOpaque(true);
+        jBtVendaCompra.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtVendaCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtVendaCompraActionPerformed(evt);
+            }
+        });
+
+        jBtClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/cliente1.png"))); // NOI18N
+        jBtClientes.setText("Clientes");
+        jBtClientes.setToolTipText("Cadastro de Clientes");
+        jBtClientes.setBorder(null);
+        jBtClientes.setContentAreaFilled(false);
+        jBtClientes.setFocusPainted(false);
+        jBtClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtClientes.setOpaque(true);
+        jBtClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtClientesActionPerformed(evt);
+            }
+        });
+
+        jBtProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/prod.png"))); // NOI18N
+        jBtProdutos.setText("Produtos");
+        jBtProdutos.setToolTipText("Cadastro de Produtos");
+        jBtProdutos.setBorder(null);
+        jBtProdutos.setContentAreaFilled(false);
+        jBtProdutos.setFocusPainted(false);
+        jBtProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtProdutos.setOpaque(true);
+        jBtProdutos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtProdutosActionPerformed(evt);
+            }
+        });
+
+        jBtFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/fornecedor1.png"))); // NOI18N
+        jBtFornecedores.setText("Fornecedores");
+        jBtFornecedores.setToolTipText("Cadastro de Fornecedores");
+        jBtFornecedores.setBorder(null);
+        jBtFornecedores.setContentAreaFilled(false);
+        jBtFornecedores.setFocusPainted(false);
+        jBtFornecedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtFornecedores.setOpaque(true);
+        jBtFornecedores.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFornecedoresActionPerformed(evt);
+            }
+        });
+
+        jBtFuncionários.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/funcionário1.png"))); // NOI18N
+        jBtFuncionários.setText("Funcionários");
+        jBtFuncionários.setToolTipText("Cadastro de Funcionários");
+        jBtFuncionários.setBorder(null);
+        jBtFuncionários.setContentAreaFilled(false);
+        jBtFuncionários.setFocusPainted(false);
+        jBtFuncionários.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtFuncionários.setOpaque(true);
+        jBtFuncionários.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtFuncionários.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtFuncionáriosActionPerformed(evt);
+            }
+        });
+
+        jBtPagamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/pgtos.png"))); // NOI18N
+        jBtPagamentos.setText("Pagamentos");
+        jBtPagamentos.setToolTipText("Realizar Pagamentos");
+        jBtPagamentos.setBorder(null);
+        jBtPagamentos.setContentAreaFilled(false);
+        jBtPagamentos.setFocusPainted(false);
+        jBtPagamentos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtPagamentos.setOpaque(true);
+        jBtPagamentos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtPagamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPagamentosActionPerformed(evt);
+            }
+        });
+
+        jBtContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/contas.png"))); // NOI18N
+        jBtContas.setText("Contas");
+        jBtContas.setToolTipText("Gerenciar Contas");
+        jBtContas.setBorder(null);
+        jBtContas.setContentAreaFilled(false);
+        jBtContas.setFocusPainted(false);
+        jBtContas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtContas.setOpaque(true);
+        jBtContas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtContas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtContasActionPerformed(evt);
+            }
+        });
+
+        jBtMovCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/caixa.png"))); // NOI18N
+        jBtMovCaixa.setText("Mov Caixa");
+        jBtMovCaixa.setToolTipText("Exibir Movimentação de Caixa");
+        jBtMovCaixa.setBorder(null);
+        jBtMovCaixa.setContentAreaFilled(false);
+        jBtMovCaixa.setFocusPainted(false);
+        jBtMovCaixa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtMovCaixa.setOpaque(true);
+        jBtMovCaixa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtMovCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtMovCaixaActionPerformed(evt);
+            }
+        });
+
+        jBtMovEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/estoque1.png"))); // NOI18N
+        jBtMovEstoque.setText("Mov Estoque");
+        jBtMovEstoque.setToolTipText("Exibir Movimentação de Estoque");
+        jBtMovEstoque.setBorder(null);
+        jBtMovEstoque.setContentAreaFilled(false);
+        jBtMovEstoque.setFocusPainted(false);
+        jBtMovEstoque.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtMovEstoque.setOpaque(true);
+        jBtMovEstoque.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtMovEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtMovEstoqueActionPerformed(evt);
+            }
+        });
+
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/usuário.png"))); // NOI18N
+        jButton10.setText("Usuários");
+        jButton10.setToolTipText("Gerenciar Usuários");
+        jButton10.setBorder(null);
+        jButton10.setContentAreaFilled(false);
+        jButton10.setFocusPainted(false);
+        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton10.setOpaque(true);
+        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
+        jPanelBotoes.setLayout(jPanelBotoesLayout);
+        jPanelBotoesLayout.setHorizontalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtAtendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtVendaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtFuncionários, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtContas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtMovCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtMovEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelBotoesLayout.setVerticalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jBtVendaCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtAtendimentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtNovoAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jBtFornecedores, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jBtFuncionários, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtPagamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jBtContas, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jBtMovCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jBtMovEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
         jMenuCadastros.setMnemonic(KeyEvent.VK_C);
@@ -347,14 +585,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -459,6 +702,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
         new CadastroEndereco().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadEnderecoActionPerformed
 
+    private void jBtProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutosActionPerformed
+        new CadastroProduto().setVisible(true);
+    }//GEN-LAST:event_jBtProdutosActionPerformed
+
+    private void jBtClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtClientesActionPerformed
+       new CadastroCliente().setVisible(true);
+    }//GEN-LAST:event_jBtClientesActionPerformed
+
+    private void jBtNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAtendimentoActionPerformed
+        new TelaAtendimentoMesa().setVisible(true);
+    }//GEN-LAST:event_jBtNovoAtendimentoActionPerformed
+
+    private void jBtAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtendimentosActionPerformed
+        new TelaAtendimentos().setVisible(true);
+    }//GEN-LAST:event_jBtAtendimentosActionPerformed
+
+    private void jBtVendaCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVendaCompraActionPerformed
+        new TelaVendaCompra().setVisible(true);
+    }//GEN-LAST:event_jBtVendaCompraActionPerformed
+
+    private void jBtFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFornecedoresActionPerformed
+        new CadastroFornecedor().setVisible(true);
+    }//GEN-LAST:event_jBtFornecedoresActionPerformed
+
+    private void jBtFuncionáriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFuncionáriosActionPerformed
+        new CadastroFuncionario().setVisible(true);
+    }//GEN-LAST:event_jBtFuncionáriosActionPerformed
+
+    private void jBtContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtContasActionPerformed
+        new CadastroContas().setVisible(true);
+    }//GEN-LAST:event_jBtContasActionPerformed
+
+    private void jBtPagamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPagamentosActionPerformed
+        new TelaPagamento().setVisible(true);
+    }//GEN-LAST:event_jBtPagamentosActionPerformed
+
+    private void jBtMovCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMovCaixaActionPerformed
+        new TelaMovCaixa().setVisible(true);
+    }//GEN-LAST:event_jBtMovCaixaActionPerformed
+
+    private void jBtMovEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMovEstoqueActionPerformed
+        new TelaMovEstoque().setVisible(true);
+    }//GEN-LAST:event_jBtMovEstoqueActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -495,6 +782,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtAtendimentos;
+    private javax.swing.JButton jBtClientes;
+    private javax.swing.JButton jBtContas;
+    private javax.swing.JButton jBtFornecedores;
+    private javax.swing.JButton jBtFuncionários;
+    private javax.swing.JButton jBtMovCaixa;
+    private javax.swing.JButton jBtMovEstoque;
+    private javax.swing.JButton jBtNovoAtendimento;
+    private javax.swing.JButton jBtPagamentos;
+    private javax.swing.JButton jBtProdutos;
+    private javax.swing.JButton jBtVendaCompra;
+    private javax.swing.JButton jButton10;
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenu jMenuFinanceiro;
@@ -522,6 +821,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemPagamento;
     private javax.swing.JMenuItem jMenuItemVenda;
     private javax.swing.JMenu jMenuServicos;
+    private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelImagem;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;

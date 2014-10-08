@@ -98,7 +98,7 @@ INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO]]>
 				<textFieldExpression><![CDATA[$F{cd_venda_compra}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="0e3fb74f-9316-4f51-85e4-d49c11247ea8" x="236" y="0" width="61" height="20"/>
+				<reportElement uuid="0e3fb74f-9316-4f51-85e4-d49c11247ea8" x="236" y="1" width="61" height="19"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>

@@ -21,7 +21,6 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.awt.Dialog;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -74,6 +73,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         buttonGroupTipo = new javax.swing.ButtonGroup();
         jPopupMenuVendaCompra = new javax.swing.JPopupMenu();
         jMenuItemCarregarDados = new javax.swing.JMenuItem();
+        jMenuItemExcluir = new javax.swing.JMenuItem();
         jPopupMenuConta = new javax.swing.JPopupMenu();
         jMenuItemExibirParcelas = new javax.swing.JMenuItem();
         buttonGroupSituacao = new javax.swing.ButtonGroup();
@@ -159,6 +159,16 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jBtRelatorio = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
+        jPopupMenuVendaCompra.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuVendaCompraPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +176,14 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             }
         });
         jPopupMenuVendaCompra.add(jMenuItemCarregarDados);
+
+        jMenuItemExcluir.setText("Excluir");
+        jMenuItemExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExcluirActionPerformed(evt);
+            }
+        });
+        jPopupMenuVendaCompra.add(jMenuItemExcluir);
 
         jMenuItemExibirParcelas.setText("Exibir Parcelas");
         jMenuItemExibirParcelas.addActionListener(new java.awt.event.ActionListener() {
@@ -1032,7 +1050,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
             // mostra as parcelas
             ConsultaParcelas consulta = new ConsultaParcelas();
-            consulta.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
             consulta.setVisible(true);
             consulta.exibirParcelas();
             consulta.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1253,7 +1270,8 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Esta " + tipo + " possui parcelas pagas e não pode ser excluída!");
                     }
-                } catch (NumberFormatException ex) {
+                } 
+                catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Informe um código válido!");
                     jTextFieldCdVendaCompra.setText("");
                     jTextFieldCdVendaCompra.grabFocus();
@@ -1294,6 +1312,28 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private void jTextFieldVlUnitarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlUnitarioKeyTyped
         new ValidaCampos().validaCamposApenasNumeros(evt);
     }//GEN-LAST:event_jTextFieldVlUnitarioKeyTyped
+
+    private void jPopupMenuVendaCompraPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuVendaCompraPopupMenuWillBecomeVisible
+        int linha = jTableVendaCompra.getSelectedRow();
+        if (linha >= 0){
+            venda.setCdVendaCompra(Integer.parseInt(jTableVendaCompra.getValueAt(linha, 0).toString()));
+            jMenuItemExcluir.setEnabled(venda.permiteExclusao(venda));
+        }
+    }//GEN-LAST:event_jPopupMenuVendaCompraPopupMenuWillBecomeVisible
+
+    private void jMenuItemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExcluirActionPerformed
+        int linha = jTableVendaCompra.getSelectedRow();
+        if (linha >=0){
+            tipo = jTableVendaCompra.getValueAt(linha, 7).toString();
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta " + tipo + " ?",
+                    "Excluir " + tipo, JOptionPane.YES_NO_OPTION);
+            if (opcao == JOptionPane.YES_OPTION){
+                venda.setCdVendaCompra(Integer.parseInt(jTableVendaCompra.getValueAt(linha, 0).toString()));
+                venda.excluir(venda);
+                jBtPesquisarActionPerformed(null);
+            }
+        }
+    }//GEN-LAST:event_jMenuItemExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1365,6 +1405,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItemCarregarDados;
+    private javax.swing.JMenuItem jMenuItemExcluir;
     private javax.swing.JMenuItem jMenuItemExibirParcelas;
     private javax.swing.JPanel jPanelConsulta;
     private javax.swing.JPanel jPanelGravar;

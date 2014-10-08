@@ -1,6 +1,7 @@
 package Cadastros;
 
 import Classes.Fornecedor;
+import Consultas.ConsultaParcelas;
 import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
@@ -72,6 +73,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jMenuItemCarregaDados = new javax.swing.JMenuItem();
         jMenuItemContatos = new javax.swing.JMenuItem();
         jMenuItemEndereco = new javax.swing.JMenuItem();
+        jMenuItemParcelas = new javax.swing.JMenuItem();
         jTabbedPaneFornecedor = new javax.swing.JTabbedPane();
         atalho.adicionarAtalho(jTabbedPaneFornecedor);
         jPanelCadastro = new javax.swing.JPanel();
@@ -173,6 +175,14 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         });
         jPopupMenuFornecedor.add(jMenuItemEndereco);
+
+        jMenuItemParcelas.setText("Verificar Parcelas");
+        jMenuItemParcelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemParcelasActionPerformed(evt);
+            }
+        });
+        jPopupMenuFornecedor.add(jMenuItemParcelas);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Fornecedores");
@@ -998,6 +1008,17 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
+    private void jMenuItemParcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemParcelasActionPerformed
+        int linha = jTableConsulta.getSelectedRow();
+        if (linha >= 0){
+            int cd = Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString());
+            String nome = jTableConsulta.getValueAt(linha, 1).toString();
+            ConsultaParcelas consulta = new ConsultaParcelas();
+            consulta.setVisible(true);
+            consulta.exibirParcelasPessoa(cd, nome);
+        }
+    }//GEN-LAST:event_jMenuItemParcelasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1074,6 +1095,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCarregaDados;
     private javax.swing.JMenuItem jMenuItemContatos;
     private javax.swing.JMenuItem jMenuItemEndereco;
+    private javax.swing.JMenuItem jMenuItemParcelas;
     private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelCadastro;
     private javax.swing.JPanel jPanelConsulta;

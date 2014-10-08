@@ -1,6 +1,7 @@
 package Cadastros;
 
 import Classes.Cliente;
+import Consultas.ConsultaParcelas;
 import Relatorios.Relatorios;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
@@ -1014,7 +1015,14 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemEnderecoActionPerformed
 
     private void jMenuItemParcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemParcelasActionPerformed
-        // TODO add your handling code here:
+        int linha = jTableConsulta.getSelectedRow();
+        if (linha >= 0){
+            int cd = Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString());
+            String nome = jTableConsulta.getValueAt(linha, 1).toString();
+            ConsultaParcelas consulta = new ConsultaParcelas();
+            consulta.setVisible(true);
+            consulta.exibirParcelasPessoa(cd, nome);
+        }
     }//GEN-LAST:event_jMenuItemParcelasActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
@@ -1033,13 +1041,13 @@ public class CadastroCliente extends javax.swing.JFrame {
             case 0:
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.setEnabled(false);
-                break;
+            break;
 
             default:
                 jTextFieldConsulta.setEnabled(true);
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
-                break;
+            break;
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 

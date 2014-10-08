@@ -102,7 +102,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("* Parcelas em vermelho devem ser pagas hoje");
+        jLabel1.setText("* Parcelas em vermelho estão em atraso");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,7 +146,8 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         if (coluna == 3) {
             try {
                 String dataPago = jTableParcelas.getValueAt(linha, 5).toString();
-            } catch (NullPointerException ex) {
+            } 
+            catch (NullPointerException ex) {
                 final String data = jTableParcelas.getValueAt(linha, coluna).toString();
                 final DialogoData dialogo = new DialogoData(this, true, data);
                 dialogo.setVisible(true);
@@ -262,9 +263,28 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(parcelas.getContas(),true));
         parcelas.getContas().retornaConta(parcelas.getContas(), true);
         jLabelTopo.setText("Parcelas da Conta " + parcelas.getContas().getCdConta() + " : " + parcelas.getContas().getDsConta());
+        if (!preencher.Vazia()){
+            edit.setTipo("PARCELAS");
+            edit.editarTabela(jTableParcelas);
+        }
         
-        edit.editarTabela(jTableParcelas);
-        edit.setTipo("PARCELAS");
     }
 
+    public void exibirParcelasPessoa(int cd, String nome){
+        PreencherTabela preencher = new PreencherTabela();
+        preencher.FormatarJtable(jTableParcelas, new int [] {90, 90, 90, 90, 90, 90});
+        preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdPessoa(cd, true));
+        if (preencher.Vazia()){
+           jLabelTopo.setText("Nenhuma parcela encontrada de "+nome);
+        }
+        else{
+            jLabelTopo.setText("Parcelas de "+nome);
+            edit.setTipo("PARCELAS");
+            edit.editarTabela(jTableParcelas);
+        }
+//        edit.setTipo("PARCELAS");
+//        edit.editarTabela(jTableParcelas);
+        
+        
+    }
 }
