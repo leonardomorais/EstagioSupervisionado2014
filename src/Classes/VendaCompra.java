@@ -415,11 +415,9 @@ public class VendaCompra {
             condicao = "AND V.DT_VENDA_COMPRA BETWEEN '"+v.getDtVenda()+"' AND '"+dataFinal+"' ";
         }
 
-        String sql = "SELECT V.CD_VENDA_COMPRA, VP.CD_PRODUTO, VP.QT_PRODUTO, VP.VL_UNITARIO, "
-                +"V.VL_TOTAL, TO_CHAR(V.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
-                + "V.CD_CLIENTE, P.NOME "
-                + "FROM VENDA_COMPRA V INNER JOIN "
-                + "VENDA_COMPRA_PRODUTOS VP ON V.CD_VENDA_COMPRA = VP.CD_VENDA_COMPRA "
+        String sql = "SELECT V.CD_VENDA_COMPRA, V.CD_CLIENTE, P.NOME, "
+                + "V.VL_TOTAL, TO_CHAR(V.DT_VENDA_COMPRA,'DD/MM/YYYY') "
+                + "FROM VENDA_COMPRA V "
                 + "INNER JOIN "
                 + "CLIENTE C ON V.CD_CLIENTE = C.CD_PESSOA "
                 + "INNER JOIN "
@@ -439,13 +437,10 @@ public class VendaCompra {
         else{
             condicao = "AND V.DT_VENDA_COMPRA BETWEEN '"+v.getDtVenda()+"' AND '"+dataFinal+"' ";
         }
-
-        String sql = "SELECT V.CD_VENDA_COMPRA, VP.CD_PRODUTO, VP.QT_PRODUTO, VP.VL_UNITARIO, "
-                +"V.VL_TOTAL, TO_CHAR(V.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
-                + "V.CD_CLIENTE, P.NOME "
+       
+        String sql = "SELECT V.CD_VENDA_COMPRA, V.CD_CLIENTE, P.NOME, "
+                + "V.VL_TOTAL, TO_CHAR(V.DT_VENDA_COMPRA,'DD/MM/YYYY') "
                 + "FROM VENDA_COMPRA V INNER JOIN "
-                + "VENDA_COMPRA_PRODUTOS VP ON V.CD_VENDA_COMPRA = VP.CD_VENDA_COMPRA "
-                + "INNER JOIN "
                 + "CLIENTE C ON V.CD_CLIENTE = C.CD_PESSOA "
                 + "INNER JOIN "
                 + "PESSOA P ON P.CD_PESSOA = C.CD_PESSOA "
@@ -465,44 +460,15 @@ public class VendaCompra {
             condicao = "AND V.DT_VENDA_COMPRA BETWEEN '"+v.getDtVenda()+"' AND '"+dataFinal+"' ";
         }
 
-        String sql = "SELECT V.CD_VENDA_COMPRA, VP.CD_PRODUTO, VP.QT_PRODUTO, VP.VL_UNITARIO, "
-                +"V.VL_TOTAL, TO_CHAR(V.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
-                + "V.CD_CLIENTE, P.NOME "
+        String sql = "SELECT V.CD_VENDA_COMPRA, V.CD_CLIENTE, P.NOME, "
+                + "V.VL_TOTAL, TO_CHAR(V.DT_VENDA_COMPRA,'DD/MM/YYYY') "
                 + "FROM VENDA_COMPRA V INNER JOIN "
-                + "VENDA_COMPRA_PRODUTOS VP ON V.CD_VENDA_COMPRA = VP.CD_VENDA_COMPRA "
-                + "INNER JOIN "
                 + "CLIENTE C ON V.CD_CLIENTE = C.CD_PESSOA "
                 + "INNER JOIN "
                 + "PESSOA P ON P.CD_PESSOA = C.CD_PESSOA "
                 + "WHERE "
                 + "V.SITUACAO = 'A' AND V.CD_OPERACAO = 1 "
                 + "AND V.CD_CLIENTE = "+v.getCliente().getCdCliente()+" "+condicao
-                + "ORDER BY V.CD_VENDA_COMPRA";
-        conexao.executeSQL(sql);
-        return conexao.resultset;
-    }
-    
-    public ResultSet consultarCdProduto(VendaCompra v, String dataFinal) {
-        String condicao;
-        if (v.getDtVenda().equals("")){
-            condicao = "";
-        }
-        else{
-            condicao = "AND V.DT_VENDA_COMPRA BETWEEN '"+v.getDtVenda()+"' AND '"+dataFinal+"' ";
-        }
-
-        String sql = "SELECT V.CD_VENDA_COMPRA, VP.CD_PRODUTO, VP.QT_PRODUTO, VP.VL_UNITARIO, "
-                +"V.VL_TOTAL, TO_CHAR(V.DT_VENDA_COMPRA,'DD/MM/YYYY'), "
-                + "V.CD_CLIENTE, P.NOME "
-                + "FROM VENDA_COMPRA V INNER JOIN "
-                + "VENDA_COMPRA_PRODUTOS VP ON V.CD_VENDA_COMPRA = VP.CD_VENDA_COMPRA "
-                + "INNER JOIN "
-                + "CLIENTE C ON V.CD_CLIENTE = C.CD_PESSOA "
-                + "INNER JOIN "
-                + "PESSOA P ON P.CD_PESSOA = C.CD_PESSOA "
-                + "WHERE "
-                + "V.SITUACAO = 'A' AND V.CD_OPERACAO = 1 "
-                + "AND VP.CD_PRODUTO = "+v.getVcProdutos().getProduto().getCdProduto()+" "+condicao
                 + "ORDER BY V.CD_VENDA_COMPRA";
         conexao.executeSQL(sql);
         return conexao.resultset;

@@ -70,11 +70,11 @@ public class Faturamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Venda", "Produto", "Quantidade", "Valor Unitário", "Total Venda", "Data Venda", "Cd Cliente", "Cliente"
+                "Código da Venda", "Código do Cliente", "Cliente", "Total Venda", "Data Venda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -85,7 +85,7 @@ public class Faturamento extends javax.swing.JFrame {
 
         jLabel1.setText("Filtro da Consulta");
 
-        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Venda", "Cliente", "Produto" }));
+        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Venda", "Cliente" }));
 
         jBtRelatorio.setText("Relatório");
         jBtRelatorio.setToolTipText("Relatório (F6)");
@@ -154,7 +154,7 @@ public class Faturamento extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jrbtNao))
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jFormattedTextFieldDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -225,7 +225,7 @@ public class Faturamento extends javax.swing.JFrame {
             }
             
             PreencherTabela preencher = new PreencherTabela();
-            preencher.FormatarJtable(jTableConsulta, new int [] {80, 80, 80, 80, 80, 80, 80, 300});
+            preencher.FormatarJtable(jTableConsulta, new int [] {100, 100, 400, 100, 100});
             
             switch (jComboBoxConsulta.getSelectedIndex()){
                 case 0:
@@ -247,7 +247,7 @@ public class Faturamento extends javax.swing.JFrame {
                     }
                 break;    
                     
-                case 2:
+                default:
                     try{
                         venda.getCliente().setCdCliente(Integer.parseInt(jTextFieldConsulta.getText()));
                         preencher.PreencherJtableGenerico(jTableConsulta, venda.consultarCdCliente(venda, data));
@@ -259,18 +259,6 @@ public class Faturamento extends javax.swing.JFrame {
                         editaBotao(true);
                     }
                 break;
-                    
-                default:
-                    try{
-                        venda.getVcProdutos().getProduto().setCdProduto(Integer.parseInt(jTextFieldConsulta.getText()));
-                        preencher.PreencherJtableGenerico(jTableConsulta, venda.consultarCdProduto(venda, data));
-                        report.setConsulta(preencher.getConsulta());
-                        editaBotao(preencher.Vazia());
-                    }
-                    catch(NumberFormatException ex){
-                        JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                        editaBotao(true);
-                    }
             }
         }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
@@ -300,13 +288,6 @@ public class Faturamento extends javax.swing.JFrame {
         }
         else{
             params.put("CLIENTE", "TODOS");
-        }
-        
-        if (jComboBoxConsulta.getSelectedIndex() == 3){
-            params.put("PRODUTO", jTextFieldConsulta.getText());
-        }
-        else{
-            params.put("PRODUTO", "TODOS");
         }
         report.gerarRelatorio(report, params);
         

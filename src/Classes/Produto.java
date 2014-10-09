@@ -131,7 +131,34 @@ public class Produto {
         }
         conexao.executeSQL(sql);
         return conexao.resultset;
+    }
 
+    public ResultSet consultarSaldo(Produto produto, int consulta) {
+        // consulta é a posição da combo na tela de pesquisa
+        // 0 - GERAL, 1 - CÓDIGO, 2 - DESCRIÇÃO
+        String condicao;
+
+        switch (consulta) {
+            case 0:
+                condicao = "";
+
+            break;
+
+            case 1:
+                condicao = "AND CD_PRODUTO = "+produto.getCdProduto();
+            break;
+
+            default:
+                condicao = "AND DS_PRODUTO LIKE '%"+produto.getDsProduto()+"%'";
+            break;
+
+        }
+
+        String sql = "SELECT CD_PRODUTO, DS_PRODUTO, QT_ATUAL "
+                + "FROM PRODUTOS WHERE ATIVO = 'A' "+condicao+" "
+                + "ORDER BY CD_PRODUTO";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
     }
 
     public void retornaProduto(Produto produto, boolean todos) {
@@ -188,18 +215,17 @@ public class Produto {
     public boolean possuiEstoqueInvalido() {
         boolean possui = false;
         ResultSet retorno = produtosEstoqueInvalido();
-        try{
-           retorno.first();
-           int cd = retorno.getInt("CD_PRODUTO");
-           possui = true;
-        }
-        catch(SQLException ex){
-            
+        try {
+            retorno.first();
+            int cd = retorno.getInt("CD_PRODUTO");
+            possui = true;
+        } catch (SQLException ex) {
+
         }
         return possui;
     }
-    
-    public ResultSet produtosEstoqueInvalido(){
+
+    public ResultSet produtosEstoqueInvalido() {
         String sql = "SELECT P.CD_PRODUTO, P.DS_PRODUTO, F.DS_FAMILIA, P.VL_PRODUTO, P.VL_CUSTO, "
                 + "P.QT_ATUAL, P.QT_MIN FROM PRODUTOS P INNER JOIN FAMILIA F "
                 + "ON P.CD_FAMILIA = F.CD_FAMILIA "
