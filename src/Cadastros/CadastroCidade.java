@@ -8,7 +8,6 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
-import java.awt.Dialog;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -114,6 +113,7 @@ public class CadastroCidade extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Estado");
 
         jBtIncluir.setText("Incluir");
@@ -357,7 +357,7 @@ public class CadastroCidade extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "O nome da cidade é obrigatório!");
             jTextFieldNome.grabFocus();
         } else {
-            carregarCidade();
+            gravarCidade();
 
             if (rotina == Rotinas.incluir) {
                 cidade.incluir(cidade);
@@ -493,10 +493,8 @@ public class CadastroCidade extends javax.swing.JFrame {
     private void jbtCadEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCadEstadoActionPerformed
         CadastroEstado cadEstado = new CadastroEstado();
         cadEstado.setVisible(true);
-        this.disable();
         cadEstado.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                habilitaJframe();
                 cidade.getEstado().retornaComboEstados(jComboBoxEstado);
             }
         });
@@ -580,19 +578,19 @@ public class CadastroCidade extends javax.swing.JFrame {
     private javax.swing.JButton jbtCadEstado;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarCidade() {
+    private void gravarCidade() {
         cidade.setDsCidade(jTextFieldNome.getText().toUpperCase());
         cidade.getEstado().setCdUf(jComboBoxEstado.getSelectedIndex());
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldCodigo.setText(cidade.getCdCidade().toString());
         jTextFieldNome.setText(cidade.getDsCidade());
         jComboBoxEstado.setSelectedItem(cidade.getEstado().getDsUf());
 
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
@@ -600,9 +598,5 @@ public class CadastroCidade extends javax.swing.JFrame {
         } else {
             jBtRelatorio.setEnabled(true);
         }
-    }
-    
-    private void habilitaJframe(){
-        this.enable();
     }
 }

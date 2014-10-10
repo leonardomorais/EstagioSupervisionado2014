@@ -175,10 +175,10 @@ public class TelaAtendimentos extends javax.swing.JFrame {
 
     private void jMenuItemExibirDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirDetalhesActionPerformed
         int linha = jTableMesas.getSelectedRow();
-        int cd = Integer.parseInt(jTableMesas.getValueAt(linha, 1).toString());
+        int nr = Integer.parseInt(jTableMesas.getValueAt(linha, 1).toString());
         TelaAtendimentoMesa tela = new TelaAtendimentoMesa();
         tela.setVisible(true);
-        tela.exibirAtendimento(cd);
+        tela.exibirAtendimento(nr);
     }//GEN-LAST:event_jMenuItemExibirDetalhesActionPerformed
 
     private void jMenuItemCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelarActionPerformed
@@ -211,7 +211,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
             
             atendimento.setNrAtendimento(nr);
             atendimento.getMesa().setNrMesa(mesa);
-            atendimento.getFuncionario().setCd_funcionario(cdFunc);
+            atendimento.getFuncionario().setCdFuncionario(cdFunc);
             atendimento.setHoraAbertura(horaAbre);
             atendimento.setHoraFechamento(data.retornaHoraAtual());
             atendimento.setDtAtendimento(data.retornaDataAtual());

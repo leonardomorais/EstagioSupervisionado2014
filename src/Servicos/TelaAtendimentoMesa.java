@@ -648,11 +648,11 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         csFunc.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
 
-                if (atd.getFuncionario().getCd_funcionario() == 0) {
+                if (atd.getFuncionario().getCdFuncionario() == 0) {
                     jTextFieldCdFunc.setText("");
                     jTextFieldNomeFunc.setText("");
                 } else {
-                    jTextFieldCdFunc.setText(atd.getFuncionario().getCd_funcionario().toString());
+                    jTextFieldCdFunc.setText(atd.getFuncionario().getCdFuncionario().toString());
                     atd.getFuncionario().retornaFuncionario(atd.getFuncionario(), false);
                     jTextFieldNomeFunc.setText(atd.getFuncionario().getPessoa().getNome());
                     atd.alterar(atd, "CD_FUNCIONARIO");
@@ -706,7 +706,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void jTextFieldCdFuncFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdFuncFocusLost
         if (!jTextFieldCdFunc.getText().equals("")) {
             try {
-                atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTextFieldCdFunc.getText()));
+                atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldCdFunc.getText()));
                 atd.getFuncionario().retornaFuncionario(atd.getFuncionario(), false);
                 if (atd.getFuncionario().getPessoa().getNome().equals("")) {
                     jTextFieldCdFunc.setText("");
@@ -1199,7 +1199,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         atd.setAbertoFechado("F");
         atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
         atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
-        atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTextFieldCdFunc.getText()));
+        atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldCdFunc.getText()));
         atd.setHoraAbertura(jTextFieldHoraAbre.getText());
         atd.setHoraFechamento(jTextFieldHoraFecha.getText());
         atd.setDtAtendimento(jFormattedTextFieldData.getText());
@@ -1232,10 +1232,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldHoraAbre.setText(atd.getHoraAbertura());
         jFormattedTextFieldData.setText(atd.getDtAtendimento());
         jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
-        if (atd.getFuncionario().getCd_funcionario() <= 0) {
+        if (atd.getFuncionario().getCdFuncionario() <= 0) {
             jTextFieldCdFunc.setText("");
         } else {
-            jTextFieldCdFunc.setText(atd.getFuncionario().getCd_funcionario().toString());
+            jTextFieldCdFunc.setText(atd.getFuncionario().getCdFuncionario().toString());
             jTextFieldCdFuncFocusLost(null);
         }
 

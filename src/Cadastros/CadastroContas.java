@@ -196,6 +196,7 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("Tipo da Conta");
 
         buttonGroupTipo.add(jRadioButtonAPagar);

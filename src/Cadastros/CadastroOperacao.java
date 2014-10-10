@@ -193,6 +193,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
                     .addComponent(jBtExcluir)))
         );
 
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("Tipo da Operação");
 
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entrada", "Saída" }));
@@ -202,12 +203,14 @@ public class CadastroOperacao extends javax.swing.JFrame {
         jRadioButtonFinanceiroSim.setText("Sim");
         jRadioButtonFinanceiroSim.setToolTipText("Sim (F9)");
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Movimenta Financeiro");
 
         buttonGroupMovCaixa.add(jRadioButtonFinanceiroNao);
         jRadioButtonFinanceiroNao.setText("Não");
         jRadioButtonFinanceiroNao.setToolTipText("Não (F10)");
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Movimenta Estoque");
 
         buttonGroupMovEstoque.add(jRadioButtonEstoqueSim);

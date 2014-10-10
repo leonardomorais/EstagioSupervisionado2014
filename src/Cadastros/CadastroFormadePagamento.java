@@ -114,6 +114,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Entrada:");
 
         buttonGroupEntrada.add(jRadioButtonSim);
@@ -129,11 +130,13 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         atalho.adicionarAtalho(jRadioButtonNao, KeyEvent.VK_N,
             InputEvent.CTRL_DOWN_MASK);
 
+        jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Intervalo");
 
         jSpinnerIntervalo.setModel(new javax.swing.SpinnerNumberModel(0, 0, 200, 1));
         campos.validaSpinner(jSpinnerIntervalo);
 
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("Quantidade de Parcelas");
 
         jSpinnerQtParcelas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
@@ -393,7 +396,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "A descrição da forma de pagamento é obrigatória !");
             jTextFieldDescricao.grabFocus();
         } else {
-            carregarForma();
+            gravarForma();
 
             if (rotina == Rotinas.incluir) {
                 forma.incluir(forma);
@@ -611,7 +614,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDescricao;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarForma() {
+    private void gravarForma() {
         forma.setDsForma(jTextFieldDescricao.getText().toUpperCase());
         if (jRadioButtonSim.isSelected()) {
             forma.setEntrada("S");
@@ -622,7 +625,7 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         forma.setQtParcelas(Integer.parseInt(jSpinnerQtParcelas.getValue().toString()));
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldCdForma.setText(forma.getCdForma().toString());
         jTextFieldDescricao.setText(forma.getDsForma());
         jSpinnerIntervalo.setValue(forma.getIntervalo());
@@ -634,14 +637,14 @@ public class CadastroFormadePagamento extends javax.swing.JFrame {
         }
     }
 
-    public void limparCampos() {
+    private void limparCampos() {
         limpar.limparCampos(jPanelCadastro);
         jRadioButtonSim.setSelected(true);
         jSpinnerIntervalo.setValue(0);
         jSpinnerQtParcelas.setValue(1);
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

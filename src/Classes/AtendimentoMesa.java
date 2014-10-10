@@ -53,7 +53,7 @@ public class AtendimentoMesa {
                 + "ABERTO_FECHADO = '" + atd.getAbertoFechado() + "', "
                 + "VL_TOTAL = '" + atd.getVlTotal() + "', "
                 + "DT_ATENDIMENTO = '" + atd.getDtAtendimento() + "', "
-                + "CD_FUNCIONARIO = '" + atd.getFuncionario().getCd_funcionario() + "' "
+                + "CD_FUNCIONARIO = '" + atd.getFuncionario().getCdFuncionario() + "' "
                 + "WHERE NR_ATENDIMENTO = " + atd.getNrAtendimento();
         conexao.atualizarSQL(sql);
     }
@@ -86,7 +86,7 @@ public class AtendimentoMesa {
             break;    
                 
             default:
-                valor = atd.getFuncionario().getCd_funcionario().toString();
+                valor = atd.getFuncionario().getCdFuncionario().toString();
             break;    
             
         }
@@ -238,7 +238,7 @@ public class AtendimentoMesa {
         conexao.executeSQL(sql);
         try{
             conexao.resultset.first();
-            atd.getFuncionario().setCd_funcionario(conexao.resultset.getInt("CD_FUNCIONARIO"));
+            atd.getFuncionario().setCdFuncionario(conexao.resultset.getInt("CD_FUNCIONARIO"));
             atd.getMesa().setNrMesa(conexao.resultset.getInt("NR_MESA"));
             atd.setHoraAbertura(conexao.resultset.getString("HORA_ABERTURA"));
             atd.setHoraFechamento(conexao.resultset.getString("HORA_FECHAMENTO"));
@@ -359,7 +359,7 @@ public class AtendimentoMesa {
             atd.setNrAtendimento(conexao.resultset.getInt("NR_ATENDIMENTO"));
             atd.setHoraAbertura(conexao.resultset.getString("HORA_ABERTURA"));
             atd.setVlTotal(conexao.resultset.getDouble("VL_TOTAL"));
-            atd.getFuncionario().setCd_funcionario(conexao.resultset.getInt("CD_FUNCIONARIO"));
+            atd.getFuncionario().setCdFuncionario(conexao.resultset.getInt("CD_FUNCIONARIO"));
             atd.getFuncionario().getPessoa().setNome(conexao.resultset.getString("NOME"));
             atd.setHoraFechamento(conexao.resultset.getString("DISPONIVEL").toUpperCase());
         }

@@ -250,6 +250,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         jLabel16.setText("Fone Celular");
 
+        jLabel17.setForeground(new java.awt.Color(0, 102, 204));
         jLabel17.setText("Situação");
 
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "INATIVO" }));
@@ -661,21 +662,21 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             jTextFieldCPF.grabFocus();
         }
         else {
-            carregarFuncionario();
-            carregarContato();
-            carregarEndereco();
+            gravarFuncionario();
+            gravarContato();
+            gravarEndereco();
 
             if (rotina == Rotinas.incluir) {
                 funcionario.incluir(funcionario);
                 JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!");
-                jTextFieldCdFuncionario.setText(funcionario.getCd_funcionario().toString());
+                jTextFieldCdFuncionario.setText(funcionario.getCdFuncionario().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdFuncionario.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "É preciso informar o código do funcionário que deseja alterar!");
                     jTextFieldCdFuncionario.grabFocus();
                 } else {
                     try {
-                        funcionario.setCd_funcionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
+                        funcionario.setCdFuncionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
                         funcionario.alterar(funcionario);
                         JOptionPane.showMessageDialog(null, "Funcionário alterado com sucesso!");
                     } catch (NumberFormatException ex) {
@@ -693,7 +694,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
             jTextFieldCdFuncionario.grabFocus();
         } else {
             try {
-                funcionario.setCd_funcionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
+                funcionario.setCdFuncionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
 
                 int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente inativar este funcionário ?",
                         "Inativar Funcionário", JOptionPane.YES_NO_OPTION);
@@ -737,7 +738,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                 
             case 1:
                 try{
-                    funcionario.setCd_funcionario(Integer.parseInt(jTextFieldConsulta.getText()));
+                    funcionario.setCdFuncionario(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, funcionario.consultarCdFuncionario(funcionario, true));
                     report.setConsulta(preencher.getConsulta());
                     editaBotao(preencher.Vazia());
@@ -760,7 +761,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     private void jTextFieldCdFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdFuncionarioFocusLost
         if (!jTextFieldCdFuncionario.getText().equals("")) {
             try {
-                funcionario.setCd_funcionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
+                funcionario.setCdFuncionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
                 funcionario.retornaFuncionario(funcionario, true);
 
                 if (funcionario.getPessoa().getNome().equals("")) {
@@ -790,7 +791,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         if (linha >= 0) {
             int cd = Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString());
-            funcionario.setCd_funcionario(cd);
+            funcionario.setCdFuncionario(cd);
             funcionario.retornaFuncionario(funcionario, true);
 
             preencherCampos();
@@ -986,7 +987,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldRua;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarFuncionario() {
+    private void gravarFuncionario() {
         funcionario.getPessoa().setNome(jTextFieldNome.getText().toUpperCase());
         funcionario.getPessoa().setDtCadastro(jFormattedTextFieldData.getText());
         if (jComboBoxSituacao.getSelectedIndex() == 0) {
@@ -1004,7 +1005,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         }
     }
 
-    public void carregarEndereco() {
+    private void gravarEndereco() {
         funcionario.getPessoa().getEndereco().getCidade().setCdCidade(jComboBoxCidade.getSelectedIndex());
         funcionario.getPessoa().getEndereco().setRuaAv(jTextFieldRua.getText().toUpperCase());
         funcionario.getPessoa().getEndereco().setNrEndereco(jTextFieldNrEndereco.getText());
@@ -1014,15 +1015,15 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         funcionario.getPessoa().getEndereco().setComplemento(jTextFieldComplemento.getText().toUpperCase());
     }
 
-    public void carregarContato() {
+    private void gravarContato() {
         funcionario.getPessoa().getContato().setEmail(jTextFieldEmail.getText().toUpperCase());
         funcionario.getPessoa().getContato().setNrSeq(1);
         funcionario.getPessoa().getContato().setNomeContato(jTextFieldNome.getText().toUpperCase());
         preencheFones();
     }
 
-    public void preencherCampos() {
-        jTextFieldCdFuncionario.setText(funcionario.getCd_funcionario().toString());
+    private void preencherCampos() {
+        jTextFieldCdFuncionario.setText(funcionario.getCdFuncionario().toString());
         jTextFieldNome.setText(funcionario.getPessoa().getNome());
         jFormattedTextFieldData.setText(funcionario.getPessoa().getDtCadastro());
         jComboBoxSituacao.setSelectedItem(funcionario.getPessoa().getInAtivo());
@@ -1045,7 +1046,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jTextFieldRG.setText(funcionario.getPessoa().getPfisica().getRG());
     }
     
-    public void preencheFones() {
+    private void preencheFones() {
         if (jTextFieldFoneRes.getText().equals("(  )-    -    ")) {
             funcionario.getPessoa().getContato().setFoneRes("");
         } else {
@@ -1065,7 +1066,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         }
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

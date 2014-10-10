@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cadastros;
 
 import Classes.Mesa;
@@ -113,6 +108,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ativa", "Inativa" }));
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Situação");
 
         jBtIncluir.setText("Incluir");
@@ -354,7 +350,7 @@ public class CadastroMesa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "A descrição da mesa é obrigatória !");
             jTextFieldDescricao.grabFocus();
         } else {
-            carregarMesa();
+            gravarMesa();
 
             if (rotina == Rotinas.incluir) {
                 mesa.incluir(mesa);
@@ -559,7 +555,7 @@ public class CadastroMesa extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNRMesa;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarMesa() {
+    private void gravarMesa() {
         mesa.setDsMesa(jTextFieldDescricao.getText().toUpperCase());
         if (jComboBoxSituacao.getSelectedIndex() == 0) {
             mesa.setInAtiva("A");
@@ -568,7 +564,7 @@ public class CadastroMesa extends javax.swing.JFrame {
         }
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldNRMesa.setText(mesa.getNrMesa().toString());
         jTextFieldDescricao.setText(mesa.getDsMesa());
         if (mesa.getInAtiva().equals("ATIVA")) {
@@ -578,7 +574,7 @@ public class CadastroMesa extends javax.swing.JFrame {
         }
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

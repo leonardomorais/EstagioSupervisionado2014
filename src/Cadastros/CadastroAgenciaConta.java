@@ -124,6 +124,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Banco");
 
         jComboBoxBanco.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +155,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("Situação");
 
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVA", "INATIVA" }));

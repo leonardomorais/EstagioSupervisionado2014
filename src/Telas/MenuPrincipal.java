@@ -16,12 +16,11 @@ import Cadastros.CadastroMesa;
 import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
-import Classes.Fornecedor;
+import Servicos.ExibirMesas;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
 import Servicos.TelaVendaCompra;
 import Validacoes.Avisos;
-import Validacoes.EditarComponentes;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -38,9 +37,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        new EditarComponentes().editaBotoes(jPanelBotoes);
         procuraAvisos();
-    //    carregaImagem();  
+        carregaImagem();  
     }
 
     /**
@@ -53,19 +51,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelImagem = new javax.swing.JPanel();
-        jPanelBotoes = new javax.swing.JPanel();
-        jBtNovoAtendimento = new javax.swing.JButton();
-        jBtAtendimentos = new javax.swing.JButton();
-        jBtVendaCompra = new javax.swing.JButton();
-        jBtClientes = new javax.swing.JButton();
-        jBtProdutos = new javax.swing.JButton();
-        jBtFornecedores = new javax.swing.JButton();
-        jBtFuncionários = new javax.swing.JButton();
-        jBtPagamentos = new javax.swing.JButton();
-        jBtContas = new javax.swing.JButton();
-        jBtMovCaixa = new javax.swing.JButton();
-        jBtMovEstoque = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         jMenuItemCadMesa = new javax.swing.JMenuItem();
@@ -90,13 +75,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemVenda = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExibirAtendimentos = new javax.swing.JMenuItem();
+        jMenuItemExibirMesas = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemSaldoProdutos = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenuItemExibirMovEstoque = new javax.swing.JMenuItem();
         jMenuFinanceiro = new javax.swing.JMenu();
         jMenuItemBancos = new javax.swing.JMenuItem();
         jMenuItemAgencia = new javax.swing.JMenuItem();
         jMenuItemContas = new javax.swing.JMenuItem();
         jMenuItemPagamento = new javax.swing.JMenuItem();
+        jMenuItemTransferencia = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItemMovCaixa = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
@@ -116,240 +105,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelImagem.setLayout(jPanelImagemLayout);
         jPanelImagemLayout.setHorizontalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
         );
         jPanelImagemLayout.setVerticalGroup(
             jPanelImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
-        );
-
-        jBtNovoAtendimento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/atendimento1.png"))); // NOI18N
-        jBtNovoAtendimento.setText("Atendimento");
-        jBtNovoAtendimento.setToolTipText("Abrir novo atendimento");
-        jBtNovoAtendimento.setBorder(null);
-        jBtNovoAtendimento.setContentAreaFilled(false);
-        jBtNovoAtendimento.setFocusPainted(false);
-        jBtNovoAtendimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtNovoAtendimento.setOpaque(true);
-        jBtNovoAtendimento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtNovoAtendimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoAtendimentoActionPerformed(evt);
-            }
-        });
-
-        jBtAtendimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/exibirAtendimentos.png"))); // NOI18N
-        jBtAtendimentos.setText("Exibir Atuais");
-        jBtAtendimentos.setToolTipText("Exibir os atendimentos atuais");
-        jBtAtendimentos.setBorder(null);
-        jBtAtendimentos.setContentAreaFilled(false);
-        jBtAtendimentos.setFocusPainted(false);
-        jBtAtendimentos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtAtendimentos.setOpaque(true);
-        jBtAtendimentos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtAtendimentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAtendimentosActionPerformed(evt);
-            }
-        });
-
-        jBtVendaCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/vendaCompra.png"))); // NOI18N
-        jBtVendaCompra.setText("Venda/Compra");
-        jBtVendaCompra.setToolTipText("Realizar Venda/Compra");
-        jBtVendaCompra.setBorder(null);
-        jBtVendaCompra.setContentAreaFilled(false);
-        jBtVendaCompra.setFocusPainted(false);
-        jBtVendaCompra.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtVendaCompra.setOpaque(true);
-        jBtVendaCompra.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtVendaCompra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtVendaCompraActionPerformed(evt);
-            }
-        });
-
-        jBtClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/cliente1.png"))); // NOI18N
-        jBtClientes.setText("Clientes");
-        jBtClientes.setToolTipText("Cadastro de Clientes");
-        jBtClientes.setBorder(null);
-        jBtClientes.setContentAreaFilled(false);
-        jBtClientes.setFocusPainted(false);
-        jBtClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtClientes.setOpaque(true);
-        jBtClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtClientesActionPerformed(evt);
-            }
-        });
-
-        jBtProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/prod.png"))); // NOI18N
-        jBtProdutos.setText("Produtos");
-        jBtProdutos.setToolTipText("Cadastro de Produtos");
-        jBtProdutos.setBorder(null);
-        jBtProdutos.setContentAreaFilled(false);
-        jBtProdutos.setFocusPainted(false);
-        jBtProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtProdutos.setOpaque(true);
-        jBtProdutos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtProdutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtProdutosActionPerformed(evt);
-            }
-        });
-
-        jBtFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/fornecedor1.png"))); // NOI18N
-        jBtFornecedores.setText("Fornecedores");
-        jBtFornecedores.setToolTipText("Cadastro de Fornecedores");
-        jBtFornecedores.setBorder(null);
-        jBtFornecedores.setContentAreaFilled(false);
-        jBtFornecedores.setFocusPainted(false);
-        jBtFornecedores.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtFornecedores.setOpaque(true);
-        jBtFornecedores.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtFornecedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtFornecedoresActionPerformed(evt);
-            }
-        });
-
-        jBtFuncionários.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/funcionário1.png"))); // NOI18N
-        jBtFuncionários.setText("Funcionários");
-        jBtFuncionários.setToolTipText("Cadastro de Funcionários");
-        jBtFuncionários.setBorder(null);
-        jBtFuncionários.setContentAreaFilled(false);
-        jBtFuncionários.setFocusPainted(false);
-        jBtFuncionários.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtFuncionários.setOpaque(true);
-        jBtFuncionários.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtFuncionários.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtFuncionáriosActionPerformed(evt);
-            }
-        });
-
-        jBtPagamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/pgtos.png"))); // NOI18N
-        jBtPagamentos.setText("Pagamentos");
-        jBtPagamentos.setToolTipText("Realizar Pagamentos");
-        jBtPagamentos.setBorder(null);
-        jBtPagamentos.setContentAreaFilled(false);
-        jBtPagamentos.setFocusPainted(false);
-        jBtPagamentos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtPagamentos.setOpaque(true);
-        jBtPagamentos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtPagamentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPagamentosActionPerformed(evt);
-            }
-        });
-
-        jBtContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/contas.png"))); // NOI18N
-        jBtContas.setText("Contas");
-        jBtContas.setToolTipText("Gerenciar Contas");
-        jBtContas.setBorder(null);
-        jBtContas.setContentAreaFilled(false);
-        jBtContas.setFocusPainted(false);
-        jBtContas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtContas.setOpaque(true);
-        jBtContas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtContas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtContasActionPerformed(evt);
-            }
-        });
-
-        jBtMovCaixa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/caixa.png"))); // NOI18N
-        jBtMovCaixa.setText("Mov Caixa");
-        jBtMovCaixa.setToolTipText("Exibir Movimentação de Caixa");
-        jBtMovCaixa.setBorder(null);
-        jBtMovCaixa.setContentAreaFilled(false);
-        jBtMovCaixa.setFocusPainted(false);
-        jBtMovCaixa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtMovCaixa.setOpaque(true);
-        jBtMovCaixa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtMovCaixa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtMovCaixaActionPerformed(evt);
-            }
-        });
-
-        jBtMovEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/estoque1.png"))); // NOI18N
-        jBtMovEstoque.setText("Mov Estoque");
-        jBtMovEstoque.setToolTipText("Exibir Movimentação de Estoque");
-        jBtMovEstoque.setBorder(null);
-        jBtMovEstoque.setContentAreaFilled(false);
-        jBtMovEstoque.setFocusPainted(false);
-        jBtMovEstoque.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtMovEstoque.setOpaque(true);
-        jBtMovEstoque.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtMovEstoque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtMovEstoqueActionPerformed(evt);
-            }
-        });
-
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/usuário.png"))); // NOI18N
-        jButton10.setText("Usuários");
-        jButton10.setToolTipText("Gerenciar Usuários");
-        jButton10.setBorder(null);
-        jButton10.setContentAreaFilled(false);
-        jButton10.setFocusPainted(false);
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton10.setOpaque(true);
-        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
-        jPanelBotoes.setLayout(jPanelBotoesLayout);
-        jPanelBotoesLayout.setHorizontalGroup(
-            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBotoesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtNovoAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtAtendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtVendaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtFuncionários, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtContas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtMovCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtMovEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanelBotoesLayout.setVerticalGroup(
-            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBtVendaCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBtClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBtAtendimentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBtNovoAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBtProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(jBtFornecedores, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(jBtFuncionários, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jBtPagamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(jBtContas, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(jBtMovCaixa, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(jBtMovEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addGap(0, 618, Short.MAX_VALUE)
         );
 
         jMenuCadastros.setMnemonic(KeyEvent.VK_C);
         jMenuCadastros.setText("Cadastros");
-        jMenuCadastros.setMargin(new java.awt.Insets(0, 0, 0, 20));
+        jMenuCadastros.setMargin(new java.awt.Insets(0, 0, 0, 5));
 
-        jMenuItemCadMesa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadMesa.setText("Cadastrar Mesa");
         jMenuItemCadMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,7 +124,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadMesa);
 
-        jMenuItemCadCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadCliente.setText("Cadastrar Cliente");
         jMenuItemCadCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -368,7 +133,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadCliente);
         jMenuCadastros.add(jSeparator1);
 
-        jMenuItemCadOrigem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadOrigem.setText("Cadastrar Origem de Produtos");
         jMenuItemCadOrigem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,7 +141,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadOrigem);
 
-        jMenuItemCadFamilia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadFamilia.setText("Cadastrar Família de Produtos");
         jMenuItemCadFamilia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,7 +149,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadFamilia);
 
-        jMenuItemCadProduto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadProduto.setText("Cadastrar Produtos");
         jMenuItemCadProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -396,7 +158,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadProduto);
         jMenuCadastros.add(jSeparator2);
 
-        jMenuItemCadEndereco.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadEndereco.setText("Cadastrar Endereços");
         jMenuItemCadEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -405,7 +166,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadEndereco);
 
-        jMenuItemCadContato.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadContato.setText("Cadastrar Contatos");
         jMenuItemCadContato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -414,7 +174,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadContato);
 
-        jMenuItemCadEstado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadEstado.setText("Cadastrar Estados");
         jMenuItemCadEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -423,7 +182,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadEstado);
 
-        jMenuItemCadCidade.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadCidade.setText("Cadastrar Cidades");
         jMenuItemCadCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,7 +191,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadCidade);
         jMenuCadastros.add(jSeparator3);
 
-        jMenuItemCadForma.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadForma.setText("Cadastrar Formas de Pagamento");
         jMenuItemCadForma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -442,7 +199,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadForma);
 
-        jMenuItemCadTipo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadTipo.setText("Cadastrar Tipos de Pagamento");
         jMenuItemCadTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -452,7 +208,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadTipo);
         jMenuCadastros.add(jSeparator4);
 
-        jMenuItemCadFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadFornecedor.setText("Cadastrar Fornecedores");
         jMenuItemCadFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -461,7 +216,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadFornecedor);
 
-        jMenuItemCadFuncionario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadFuncionario.setText("Cadastrar Funcionários");
         jMenuItemCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,9 +228,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuServicos.setMnemonic(KeyEvent.VK_S);
         jMenuServicos.setText("Serviços");
-        jMenuServicos.setMargin(new java.awt.Insets(0, 0, 0, 20));
+        jMenuServicos.setMargin(new java.awt.Insets(0, 0, 0, 5));
 
-        jMenuItemAtendimento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAtendimento.setText("Realizar Atendimento");
         jMenuItemAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -485,7 +238,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuServicos.add(jMenuItemAtendimento);
 
-        jMenuItemVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemVenda.setText("Realizar Venda/Compra");
         jMenuItemVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -495,7 +247,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jMenuItemVenda);
         jMenuServicos.add(jSeparator5);
 
-        jMenuItemExibirAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemExibirAtendimentos.setText("Exibir Atendimentos");
         jMenuItemExibirAtendimentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -503,9 +254,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuServicos.add(jMenuItemExibirAtendimentos);
+
+        jMenuItemExibirMesas.setText("Exibir Mesas");
+        jMenuItemExibirMesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExibirMesasActionPerformed(evt);
+            }
+        });
+        jMenuServicos.add(jMenuItemExibirMesas);
         jMenuServicos.add(jSeparator7);
 
-        jMenuItemExibirMovEstoque.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemSaldoProdutos.setText("Exibir Saldo dos Produtos");
+        jMenuItemSaldoProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSaldoProdutosActionPerformed(evt);
+            }
+        });
+        jMenuServicos.add(jMenuItemSaldoProdutos);
+        jMenuServicos.add(jSeparator9);
+
         jMenuItemExibirMovEstoque.setText("Exibir Movimentação de Estoque");
         jMenuItemExibirMovEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -518,9 +285,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuFinanceiro.setMnemonic(KeyEvent.VK_F);
         jMenuFinanceiro.setText("Financeiro");
-        jMenuFinanceiro.setMargin(new java.awt.Insets(0, 0, 0, 20));
+        jMenuFinanceiro.setMargin(new java.awt.Insets(0, 0, 0, 5));
 
-        jMenuItemBancos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBancos.setText("Bancos");
         jMenuItemBancos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -529,7 +295,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemBancos);
 
-        jMenuItemAgencia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAgencia.setText("Agência");
         jMenuItemAgencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -538,7 +303,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemAgencia);
 
-        jMenuItemContas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemContas.setText("Gerenciar Contas");
         jMenuItemContas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -547,7 +311,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemContas);
 
-        jMenuItemPagamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemPagamento.setText("Realizar Pagamentos");
         jMenuItemPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -555,9 +318,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuFinanceiro.add(jMenuItemPagamento);
+
+        jMenuItemTransferencia.setText("Realizar Transferência entre Contas");
+        jMenuItemTransferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTransferenciaActionPerformed(evt);
+            }
+        });
+        jMenuFinanceiro.add(jMenuItemTransferencia);
         jMenuFinanceiro.add(jSeparator6);
 
-        jMenuItemMovCaixa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemMovCaixa.setText("Consultar Movimentação de Caixa");
         jMenuItemMovCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -567,7 +337,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jMenuItemMovCaixa);
         jMenuFinanceiro.add(jSeparator8);
 
-        jMenuItemFaturamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemFaturamento.setText("Consultar Faturamento");
         jMenuItemFaturamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -584,20 +353,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+            .addComponent(jPanelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -682,10 +443,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
        new TelaMovCaixa().setVisible(true);
     }//GEN-LAST:event_jMenuItemMovCaixaActionPerformed
 
-    private void jMenuItemExibirMovEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirMovEstoqueActionPerformed
-        new TelaMovEstoque().setVisible(true);
-    }//GEN-LAST:event_jMenuItemExibirMovEstoqueActionPerformed
-
     private void jMenuItemFaturamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFaturamentoActionPerformed
         new Faturamento().setVisible(true);
     }//GEN-LAST:event_jMenuItemFaturamentoActionPerformed
@@ -702,49 +459,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         new CadastroEndereco().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadEnderecoActionPerformed
 
-    private void jBtProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutosActionPerformed
-        new CadastroProduto().setVisible(true);
-    }//GEN-LAST:event_jBtProdutosActionPerformed
-
-    private void jBtClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtClientesActionPerformed
-       new CadastroCliente().setVisible(true);
-    }//GEN-LAST:event_jBtClientesActionPerformed
-
-    private void jBtNovoAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoAtendimentoActionPerformed
-        new TelaAtendimentoMesa().setVisible(true);
-    }//GEN-LAST:event_jBtNovoAtendimentoActionPerformed
-
-    private void jBtAtendimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtendimentosActionPerformed
-        new TelaAtendimentos().setVisible(true);
-    }//GEN-LAST:event_jBtAtendimentosActionPerformed
-
-    private void jBtVendaCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVendaCompraActionPerformed
-        new TelaVendaCompra().setVisible(true);
-    }//GEN-LAST:event_jBtVendaCompraActionPerformed
-
-    private void jBtFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFornecedoresActionPerformed
-        new CadastroFornecedor().setVisible(true);
-    }//GEN-LAST:event_jBtFornecedoresActionPerformed
-
-    private void jBtFuncionáriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFuncionáriosActionPerformed
-        new CadastroFuncionario().setVisible(true);
-    }//GEN-LAST:event_jBtFuncionáriosActionPerformed
-
-    private void jBtContasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtContasActionPerformed
-        new CadastroContas().setVisible(true);
-    }//GEN-LAST:event_jBtContasActionPerformed
-
-    private void jBtPagamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPagamentosActionPerformed
-        new TelaPagamento().setVisible(true);
-    }//GEN-LAST:event_jBtPagamentosActionPerformed
-
-    private void jBtMovCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMovCaixaActionPerformed
-        new TelaMovCaixa().setVisible(true);
-    }//GEN-LAST:event_jBtMovCaixaActionPerformed
-
-    private void jBtMovEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMovEstoqueActionPerformed
+    private void jMenuItemExibirMovEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirMovEstoqueActionPerformed
         new TelaMovEstoque().setVisible(true);
-    }//GEN-LAST:event_jBtMovEstoqueActionPerformed
+    }//GEN-LAST:event_jMenuItemExibirMovEstoqueActionPerformed
+
+    private void jMenuItemTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTransferenciaActionPerformed
+        new TelaTransferenciaContas().setVisible(true);
+    }//GEN-LAST:event_jMenuItemTransferenciaActionPerformed
+
+    private void jMenuItemExibirMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirMesasActionPerformed
+        new ExibirMesas().setVisible(true);
+    }//GEN-LAST:event_jMenuItemExibirMesasActionPerformed
+
+    private void jMenuItemSaldoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSaldoProdutosActionPerformed
+        new SaldoProdutos().setVisible(true);
+    }//GEN-LAST:event_jMenuItemSaldoProdutosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -782,18 +511,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtAtendimentos;
-    private javax.swing.JButton jBtClientes;
-    private javax.swing.JButton jBtContas;
-    private javax.swing.JButton jBtFornecedores;
-    private javax.swing.JButton jBtFuncionários;
-    private javax.swing.JButton jBtMovCaixa;
-    private javax.swing.JButton jBtMovEstoque;
-    private javax.swing.JButton jBtNovoAtendimento;
-    private javax.swing.JButton jBtPagamentos;
-    private javax.swing.JButton jBtProdutos;
-    private javax.swing.JButton jBtVendaCompra;
-    private javax.swing.JButton jButton10;
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenu jMenuFinanceiro;
@@ -815,13 +532,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadTipo;
     private javax.swing.JMenuItem jMenuItemContas;
     private javax.swing.JMenuItem jMenuItemExibirAtendimentos;
+    private javax.swing.JMenuItem jMenuItemExibirMesas;
     private javax.swing.JMenuItem jMenuItemExibirMovEstoque;
     private javax.swing.JMenuItem jMenuItemFaturamento;
     private javax.swing.JMenuItem jMenuItemMovCaixa;
     private javax.swing.JMenuItem jMenuItemPagamento;
+    private javax.swing.JMenuItem jMenuItemSaldoProdutos;
+    private javax.swing.JMenuItem jMenuItemTransferencia;
     private javax.swing.JMenuItem jMenuItemVenda;
     private javax.swing.JMenu jMenuServicos;
-    private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelImagem;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -831,6 +550,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     // End of variables declaration//GEN-END:variables
 
     private void carregaImagem() {
@@ -838,9 +558,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         String caminho = "src\\Extras\\Imagens\\";
 
-        int nr = aleatorio.nextInt(5);
+        //int nr = aleatorio.nextInt(4);
         
-        ImageIcon img = new ImageIcon(caminho + nr + ".jpg");
+        ImageIcon img = new ImageIcon(caminho + 0 + ".jpg");
         
         int largura = img.getIconWidth();
         int altura = img.getIconHeight();

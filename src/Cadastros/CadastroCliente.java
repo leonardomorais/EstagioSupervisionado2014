@@ -204,6 +204,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Tipo de Pessoa");
 
         buttonGroupTipoPessoa.add(jRadioButtonFisica);
@@ -376,6 +377,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addComponent(jBtCancelar)))
         );
 
+        jLabel20.setForeground(new java.awt.Color(0, 102, 204));
         jLabel20.setText("Situação");
 
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "INATIVO" }));
@@ -784,9 +786,9 @@ public class CadastroCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CNPJ inválido!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
         } else {
-            carregarCliente();
-            carregarEndereco();
-            carregarContato();
+            gravarCliente();
+            gravarEndereco();
+            gravarContato();
 
             if (rotina == Rotinas.incluir) {
                 cliente.incluir(cliente);
@@ -1153,7 +1155,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldRua;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarCliente() {
+    private void gravarCliente() {
         cliente.getPessoa().setNome(jTextFieldNome.getText().toUpperCase());
 
         cliente.setDtCadastro(jFormattedTextFieldData.getText());
@@ -1163,15 +1165,15 @@ public class CadastroCliente extends javax.swing.JFrame {
             cliente.setInAtivo("I");
         }
         if (jRadioButtonFisica.isSelected()) {
-            carregarClienteFisico();
+            gravarClienteFisico();
         } else {
-            carregarClienteJuridico();
+            gravarClienteJuridico();
         }
         cliente.getPessoa().setDtCadastro(cliente.getDtCadastro());
         cliente.getPessoa().setInAtivo(cliente.getInAtivo());
     }
 
-    public void carregarClienteFisico() {
+    private void gravarClienteFisico() {
         cliente.getPessoa().setTpPessoa("F");
         cliente.getPessoa().getPfisica().setCPF(jFormattedTextFieldCpfCNPJ.getText());
         cliente.getPessoa().getPfisica().setRG(jTextFieldRG.getText());
@@ -1183,13 +1185,13 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
     }
 
-    public void carregarClienteJuridico() {
+    private void gravarClienteJuridico() {
         cliente.getPessoa().setTpPessoa("J");
         cliente.getPessoa().getPjuridica().setCNPJ(jFormattedTextFieldCpfCNPJ.getText());
         cliente.getPessoa().getPjuridica().setRazao(jTextFieldRazao.getText());
     }
 
-    public void carregarEndereco() {
+    private void gravarEndereco() {
         cliente.getPessoa().getEndereco().getCidade().setCdCidade(jComboBoxCidade.getSelectedIndex());
         cliente.getPessoa().getEndereco().setRuaAv(jTextFieldRua.getText().toUpperCase());
         cliente.getPessoa().getEndereco().setNrEndereco(jTextFieldNrEndereco.getText());
@@ -1199,14 +1201,14 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.getPessoa().getEndereco().setComplemento(jTextFieldComplemento.getText().toUpperCase());
     }
 
-    public void carregarContato() {
+    private void gravarContato() {
         cliente.getPessoa().getContato().setEmail(jTextFieldEmail.getText().toUpperCase());
         cliente.getPessoa().getContato().setNrSeq(1);
         cliente.getPessoa().getContato().setNomeContato(jTextFieldNome.getText().toUpperCase());
         preencheFones();
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldCdCliente.setText(cliente.getPessoa().getCdPessoa().toString());
         jTextFieldNome.setText(cliente.getPessoa().getNome());
         jFormattedTextFieldData.setText(cliente.getDtCadastro());
@@ -1239,7 +1241,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
     }
 
-    public void preencheFones() {
+    private void preencheFones() {
         if (jTextFieldFoneRes.getText().equals("(  )-    -    ")) {
             cliente.getPessoa().getContato().setFoneRes("");
         } else {
@@ -1259,7 +1261,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

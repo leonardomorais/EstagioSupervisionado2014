@@ -91,6 +91,12 @@
                           <Component id="jBtNovo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jBtAtualizar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jBtExibirDetalhes" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jBtEncerrar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jBtCancelar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
@@ -128,6 +134,7 @@
                                   <Component id="jTextFieldDisponivel" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -167,6 +174,9 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBtNovo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtAtualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtExibirDetalhes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtEncerrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBtCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -264,6 +274,33 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNovoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jBtExibirDetalhes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exibir Detalhes"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExibirDetalhesActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jBtEncerrar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Encerrar Atendimento"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtEncerrarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jBtCancelar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancelar Atendimento"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -133,6 +133,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(0, 102, 204));
         jLabel3.setText("Cidade");
 
         jLabel4.setForeground(new java.awt.Color(0, 102, 204));
@@ -487,7 +488,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "O código da pessoa é obrigatório!");
             jTextFieldCdPessoa.grabFocus();
         } else {
-            carregarEndereco();
+            gravarEndereco();
 
             if (rotina == Rotinas.incluir) {
                 endereco.incluir(endereco);
@@ -797,7 +798,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldRua;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarEndereco() {
+    private void gravarEndereco() {
         endereco.setCdPessoa(Integer.parseInt(jTextFieldCdPessoa.getText()));
         endereco.getCidade().setCdCidade(jComboBoxCidade.getSelectedIndex());
         endereco.setRuaAv(jTextFieldRua.getText().toUpperCase());
@@ -807,7 +808,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         endereco.setComplemento(jTextFieldComplemento.getText().toUpperCase());
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         limpar.limparCampos(jPanelCadastro);
         jTextFieldCdPessoa.setText(endereco.getCdPessoa().toString());
         jTextFieldNomePessoa.setText(pessoa.getNome());
@@ -820,7 +821,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         jTextFieldComplemento.setText(endereco.getComplemento());
     }
 
-    public void limparApenasEndereco() {
+    private void limparApenasEndereco() {
         jTextFieldNrSeq.setText("");
         jComboBoxCidade.setSelectedIndex(0);
         jTextFieldRua.setText("");

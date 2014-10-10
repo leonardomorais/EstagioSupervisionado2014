@@ -128,6 +128,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Família de Produtos");
 
         jComboBoxFamilia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -157,6 +158,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("Quantidade Atual");
 
         jSpnQtAtual.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10000, 1));
@@ -173,6 +175,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setForeground(new java.awt.Color(0, 102, 204));
         jLabel8.setText("Quantidade Mínima");
 
         jSpnQtMin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10000, 1));
@@ -184,6 +187,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setForeground(new java.awt.Color(0, 102, 204));
         jLabel9.setText("Situação");
 
         jComboBoxSituação.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "INATIVO" }));

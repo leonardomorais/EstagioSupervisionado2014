@@ -110,6 +110,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Origem");
 
         jBtIncluir.setText("Incluir");
@@ -371,7 +372,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "A descrição da família é obrigatória!");
             jTextFieldDescricao.grabFocus();
         } else {
-            carregarFamilia();
+            gravarFamilia();
 
             if (rotina == Rotinas.incluir) {
                 familia.incluir(familia);
@@ -593,18 +594,18 @@ public class CadastroFamilia extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDescricao;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarFamilia() {
+    private void gravarFamilia() {
         familia.setDsFamilia(jTextFieldDescricao.getText().toUpperCase());
         familia.getOrigem().setCdOrigem(jComboBoxOrigem.getSelectedIndex());
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldCdFamilia.setText(familia.getCdFamilia().toString());
         jComboBoxOrigem.setSelectedItem(familia.getOrigem().getDsOrigem());
         jTextFieldDescricao.setText(familia.getDsFamilia());
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

@@ -179,7 +179,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtSelecionarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
-        atd.getFuncionario().setCd_funcionario(0);
+        atd.getFuncionario().setCdFuncionario(0);
         dispose();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
@@ -191,7 +191,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
             preencher.PreencherJtableGenerico(jTableFuncionarios, atd.getFuncionario().consultarGeral(false));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
-                atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTextFieldConsulta.getText()));
+                atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldConsulta.getText()));
                 preencher.PreencherJtableGenerico(jTableFuncionarios,
                         atd.getFuncionario().consultarCdFuncionario(atd.getFuncionario(), false));
             } catch (NumberFormatException ex) {
@@ -208,7 +208,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
 
     private void jTableFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosMouseClicked
         int linha = jTableFuncionarios.getSelectedRow();
-        atd.getFuncionario().setCd_funcionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
+        atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
     }//GEN-LAST:event_jTableFuncionariosMouseClicked
 
     private void jBtCadastrarNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovoActionPerformed

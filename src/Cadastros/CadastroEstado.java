@@ -355,7 +355,7 @@ public class CadastroEstado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "A sigla do estado é obrigatória!");
             jTextFieldSigla.grabFocus();
         } else {
-            carregaEstado();
+            gravarEstado();
 
             if (rotina == Rotinas.incluir) {
                 estado.incluir(estado);
@@ -590,19 +590,18 @@ public class CadastroEstado extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldSigla;
     // End of variables declaration//GEN-END:variables
 
-    public void carregaEstado() {
-
+    private void gravarEstado() {
         estado.setDsUf(jTextFieldNome.getText().toUpperCase());
         estado.setSigla(jTextFieldSigla.getText().toUpperCase());
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldCdEstado.setText(estado.getCdUf().toString());
         jTextFieldNome.setText(estado.getDsUf());
         jTextFieldSigla.setText(estado.getSigla());
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

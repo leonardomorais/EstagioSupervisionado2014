@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  */
 public class Funcionario {
 
-    private static Integer cd_funcionario;
+    private static Integer cdFuncionario;
 
     private Pessoa pessoa = new Pessoa();
 
@@ -20,20 +20,20 @@ public class Funcionario {
     public void incluir(Funcionario funcionario) {
         funcionario.getPessoa().setTpPessoa("F");
         funcionario.getPessoa().incluir(funcionario.getPessoa());
-        funcionario.setCd_funcionario(funcionario.getPessoa().getCdPessoa());
+        funcionario.setCdFuncionario(funcionario.getPessoa().getCdPessoa());
 
-        String sql = "INSERT INTO FUNCIONARIO VALUES ('" + funcionario.getCd_funcionario() + "')";
+        String sql = "INSERT INTO FUNCIONARIO VALUES ('" + funcionario.getCdFuncionario() + "')";
         conexao.incluirSQL(sql);
     }
 
     public void alterar(Funcionario funcionario) {
-        funcionario.getPessoa().setCdPessoa(funcionario.getCd_funcionario());
+        funcionario.getPessoa().setCdPessoa(funcionario.getCdFuncionario());
         funcionario.getPessoa().setTpPessoa("F");
         funcionario.getPessoa().alterar(funcionario.getPessoa());
     }
 
     public void excluir(Funcionario funcionario) {
-        funcionario.getPessoa().setCdPessoa(funcionario.getCd_funcionario());
+        funcionario.getPessoa().setCdPessoa(funcionario.getCdFuncionario());
         funcionario.getPessoa().setTpPessoa("F");
         funcionario.getPessoa().excluir(funcionario.getPessoa());
 
@@ -81,14 +81,14 @@ public class Funcionario {
                     + "INNER JOIN CIDADE CD ON E.CD_CIDADE = CD.CD_CIDADE "
                     + "AND E.NR_SEQ = 1 "
                     + "INNER JOIN CONTATO CT ON P.CD_PESSOA = CT.CD_PESSOA "
-                    + "AND CT.NR_SEQ = 1  WHERE F.CD_PESSOA =  " + funcionario.getCd_funcionario();
+                    + "AND CT.NR_SEQ = 1  WHERE F.CD_PESSOA =  " + funcionario.getCdFuncionario();
         } else {
             sql = "SELECT F.CD_PESSOA, P.NOME, PF.CPF, "
                     + "TO_CHAR (P.DT_CADASTRO,'DD/MM/YYYY') AS DATA "
                     + "FROM FUNCIONARIO F "
                     + "INNER JOIN PESSOA P ON F.CD_PESSOA = P.CD_PESSOA"
                     + "INNER JOIN PESSOA_FISICA PF ON P.CD_PESSOA = PF.CD_PESSOA "
-                    + "WHERE P.SITUACAO = 'A' AND F.CD_PESSOA = " + funcionario.getCd_funcionario();
+                    + "WHERE P.SITUACAO = 'A' AND F.CD_PESSOA = " + funcionario.getCdFuncionario();
         }
 
         conexao.executeSQL(sql);
@@ -125,7 +125,7 @@ public class Funcionario {
     }
 
     public void retornaFuncionario(Funcionario funcionario, boolean todos) {
-        funcionario.getPessoa().setCdPessoa(funcionario.getCd_funcionario());
+        funcionario.getPessoa().setCdPessoa(funcionario.getCdFuncionario());
         ResultSet retorno = null;
 
         String sql = "";
@@ -133,13 +133,13 @@ public class Funcionario {
             sql = "SELECT F.CD_PESSOA, P.NOME, TO_CHAR(P.DT_CADASTRO,'DD/MM/YYYY') AS DATA, "
                     + "CASE WHEN P.SITUACAO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO FROM "
                     + "PESSOA P INNER JOIN FUNCIONARIO F ON P.CD_PESSOA = F.CD_PESSOA "
-                    + "WHERE F.CD_PESSOA = " + funcionario.getCd_funcionario();
+                    + "WHERE F.CD_PESSOA = " + funcionario.getCdFuncionario();
 
         } else {
             sql = "SELECT F.CD_PESSOA, P.NOME, TO_CHAR(P.DT_CADASTRO,'DD/MM/YYYY') AS DATA, "
                     + "CASE WHEN P.SITUACAO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO FROM "
                     + "PESSOA P INNER JOIN FUNCIONARIO F ON P.CD_PESSOA = F.CD_PESSOA "
-                    + "WHERE F.CD_PESSOA = " + funcionario.getCd_funcionario() + " AND P.SITUACAO = 'A'";
+                    + "WHERE F.CD_PESSOA = " + funcionario.getCdFuncionario() + " AND P.SITUACAO = 'A'";
 
         }
 
@@ -167,12 +167,12 @@ public class Funcionario {
     }
 
     // getter e setter
-    public Integer getCd_funcionario() {
-        return cd_funcionario;
+    public Integer getCdFuncionario() {
+        return cdFuncionario;
     }
 
-    public void setCd_funcionario(Integer cd_funcionario) {
-        this.cd_funcionario = cd_funcionario;
+    public void setCdFuncionario(Integer cd_funcionario) {
+        this.cdFuncionario = cd_funcionario;
     }
 
     public Pessoa getPessoa() {

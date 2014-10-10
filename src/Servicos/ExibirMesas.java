@@ -7,26 +7,25 @@
 package Servicos;
 
 import Classes.AtendimentoMesa;
-import Servicos.TelaAtendimentoMesa;
 import Validacoes.FormataMoeda;
+import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
-import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Leonardo
  */
-public class Mesas extends javax.swing.JFrame {
+public class ExibirMesas extends javax.swing.JFrame {
     
     AtendimentoMesa atendimentos = new AtendimentoMesa();
 
     /**
      * Creates new form teste
      */
-    public Mesas() {
+    public ExibirMesas() {
         initComponents();
         jBtAtualizarActionPerformed(null);
         
@@ -60,6 +59,9 @@ public class Mesas extends javax.swing.JFrame {
         jTextFieldDisponivel = new javax.swing.JTextField();
         jBtAtualizar = new javax.swing.JButton();
         jBtNovo = new javax.swing.JButton();
+        jBtExibirDetalhes = new javax.swing.JButton();
+        jBtEncerrar = new javax.swing.JButton();
+        jBtCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mesas");
@@ -133,6 +135,30 @@ public class Mesas extends javax.swing.JFrame {
             }
         });
 
+        jBtExibirDetalhes.setText("Exibir Detalhes");
+        jBtExibirDetalhes.setEnabled(false);
+        jBtExibirDetalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExibirDetalhesActionPerformed(evt);
+            }
+        });
+
+        jBtEncerrar.setText("Encerrar Atendimento");
+        jBtEncerrar.setEnabled(false);
+        jBtEncerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtEncerrarActionPerformed(evt);
+            }
+        });
+
+        jBtCancelar.setText("Cancelar Atendimento");
+        jBtCancelar.setEnabled(false);
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelInformacoesLayout = new javax.swing.GroupLayout(jPanelInformacoes);
         jPanelInformacoes.setLayout(jPanelInformacoesLayout);
         jPanelInformacoesLayout.setHorizontalGroup(
@@ -143,7 +169,13 @@ public class Mesas extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jBtNovo)
                         .addGap(18, 18, 18)
-                        .addComponent(jBtAtualizar))
+                        .addComponent(jBtAtualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtExibirDetalhes)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtEncerrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBtCancelar))
                     .addGroup(jPanelInformacoesLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +206,8 @@ public class Mesas extends javax.swing.JFrame {
                                 .addGap(20, 20, 20)
                                 .addComponent(jTextFieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
-                                .addComponent(jTextFieldDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTextFieldDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(10, 10, 10))
         );
         jPanelInformacoesLayout.setVerticalGroup(
@@ -205,7 +238,10 @@ public class Mesas extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtNovo)
-                    .addComponent(jBtAtualizar))
+                    .addComponent(jBtAtualizar)
+                    .addComponent(jBtExibirDetalhes)
+                    .addComponent(jBtEncerrar)
+                    .addComponent(jBtCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -234,48 +270,111 @@ public class Mesas extends javax.swing.JFrame {
 
     private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
         //adicionaJPanel(26);
+        jPanelMesas.removeAll();
         atendimentos.carregarMesas(jPanelMesas, jTextFieldNrMesa);
     }//GEN-LAST:event_jBtAtualizarActionPerformed
 
     private void jTextFieldNrMesaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNrMesaFocusLost
-        if (!jTextFieldNrMesa.getText().equals("")){
+        if (!jTextFieldNrMesa.getText().equals("")) {
             atendimentos.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
             atendimentos.retornaMesa(atendimentos);
             
-            if (atendimentos.getFuncionario().getCd_funcionario()==0){
+            if (atendimentos.getFuncionario().getCdFuncionario() == 0) {
                 jTextFieldCdFuncionario.setText("");
+            } else {
+                jTextFieldCdFuncionario.setText(atendimentos.getFuncionario().getCdFuncionario().toString());
             }
-            else{
-                jTextFieldCdFuncionario.setText(atendimentos.getFuncionario().getCd_funcionario().toString());
-            }
-            if (atendimentos.getNrAtendimento()==0){
+            if (atendimentos.getNrAtendimento() == 0) {
                 jTextFieldNrAtendimento.setText("");
-            }
-            else{
+            } else {
                 jTextFieldNrAtendimento.setText(atendimentos.getNrAtendimento().toString());
             }
             jTextFieldHora.setText(atendimentos.getHoraAbertura());
             jTextFieldNome.setText(atendimentos.getFuncionario().getPessoa().getNome());
             jTextFieldDisponivel.setText(atendimentos.getHoraFechamento());
-            jTextFieldValorTotal.setText(new RetornaDecimal().retornaDecimal(atendimentos.getVlTotal(), 6));   
+            jTextFieldValorTotal.setText(new RetornaDecimal().retornaDecimal(atendimentos.getVlTotal(), 6));            
+            
+            validaEstadoBotoes(jTextFieldDisponivel.getText().equals("MESA OCUPADA"));
         }
     }//GEN-LAST:event_jTextFieldNrMesaFocusLost
 
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         TelaAtendimentoMesa tela = new TelaAtendimentoMesa();
         tela.setVisible(true);
-        if (jTextFieldDisponivel.getText().equals("DISPONÍVEL")){
-            tela.iniciarAtendimento(Integer.parseInt(jTextFieldNrMesa.getText()));
-        }
-        else{
-            tela.iniciarAtendimento();
-        }
+        
         tela.addWindowListener(new WindowAdapter() {
-            public void windowClosed(WindowEvent evt){
+            public void windowClosed(WindowEvent evt) {
                 jBtAtualizarActionPerformed(null);
+                jTextFieldNrMesaFocusLost(null);
             }
         });
     }//GEN-LAST:event_jBtNovoActionPerformed
+
+    private void jBtExibirDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExibirDetalhesActionPerformed
+        int nr = Integer.parseInt(jTextFieldNrAtendimento.getText());
+        TelaAtendimentoMesa tela = new TelaAtendimentoMesa();
+        tela.setVisible(true);
+        tela.exibirAtendimento(nr);
+        
+        tela.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent evt) {
+                jBtAtualizarActionPerformed(null);
+                jTextFieldNrMesaFocusLost(null);
+            }
+        });
+    }//GEN-LAST:event_jBtExibirDetalhesActionPerformed
+
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(null, "Os atendimentos cancelados não serão salvos no sistema.\n"
+                + "Deseja cancelar este atendimento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
+        
+        if (opcao == JOptionPane.YES_OPTION) {
+            atendimentos.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+            atendimentos.getAtdProdutos().setNrAtendimento(atendimentos.getNrAtendimento());
+            atendimentos.getAtdProdutos().excluirTodos(atendimentos.getAtdProdutos());
+            atendimentos.excluir(atendimentos);
+            jBtAtualizarActionPerformed(null);
+            jTextFieldNrMesaFocusLost(null);
+        }
+    }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jBtEncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEncerrarActionPerformed
+        try {
+            atendimentos.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
+            
+            atendimentos.setVlTotal(Double.parseDouble(jTextFieldValorTotal.getText().replace(".", "").replace(",", ".")));
+            
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja encerrar este atendimento ?",
+                    "Encerrar Atendimento", JOptionPane.YES_NO_OPTION);
+            
+            if (opcao == JOptionPane.YES_OPTION) {
+                RetornaData data = new RetornaData();
+                
+                atendimentos.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+                atendimentos.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
+                atendimentos.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
+                atendimentos.setHoraAbertura(jTextFieldHora.getText());
+                atendimentos.setHoraFechamento(data.retornaHoraAtual());
+                atendimentos.setDtAtendimento(data.retornaDataAtual());
+                atendimentos.setVlTotal(Double.parseDouble(jTextFieldValorTotal.getText().replace(".", "").replace(",", ".")));
+                atendimentos.setAbertoFechado("F");
+                
+                atendimentos.alterar(atendimentos);
+                
+                JOptionPane.showMessageDialog(null, "Atendimento Encerrado");
+                //
+                TelaVendaCompra tela = new TelaVendaCompra();
+                tela.setVisible(true);
+                tela.CarregarAtendimento(atendimentos);
+                
+                jBtAtualizarActionPerformed(null);
+                jTextFieldNrMesaFocusLost(null);
+            }
+        } 
+        catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Por favor informe o funcionário e produtos para o atendimento!");
+        } 
+    }//GEN-LAST:event_jBtEncerrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,26 +393,29 @@ public class Mesas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Mesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirMesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Mesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirMesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Mesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirMesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Mesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirMesas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Mesas().setVisible(true);
+                new ExibirMesas().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAtualizar;
+    private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtEncerrar;
+    private javax.swing.JButton jBtExibirDetalhes;
     private javax.swing.JButton jBtNovo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -334,4 +436,9 @@ public class Mesas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldValorTotal;
     // End of variables declaration//GEN-END:variables
 
+    private void validaEstadoBotoes(boolean estado) {
+        jBtExibirDetalhes.setEnabled(estado);
+        jBtEncerrar.setEnabled(estado);
+        jBtCancelar.setEnabled(estado);
+    }
 }

@@ -208,6 +208,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("CPF/CNPJ");
 
+        jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Tipo de Pessoa");
 
         buttonGroupTipoPessoa.add(jRadioButtonPfisica);
@@ -311,6 +312,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "INATIVO" }));
 
+        jLabel20.setForeground(new java.awt.Color(0, 102, 204));
         jLabel20.setText("Situação");
 
         jBtIncluir.setText("Incluir");
@@ -776,9 +778,9 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             jFormattedTextFieldCpfCnpj.grabFocus();
         }
         else {
-            carregarFornecedor();
-            carregarEndereco();
-            carregarContato();
+            gravarFornecedor();
+            gravarEndereco();
+            gravarContato();
 
             if (rotina == Rotinas.incluir) {
                 fornecedor.incluir(fornecedor);
@@ -1121,7 +1123,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldRua;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarFornecedor() {
+    private void gravarFornecedor() {
         fornecedor.getPessoa().setNome(jTextFieldNome.getText().toUpperCase());
 
         fornecedor.setDtCadastro(jFormattedTextFieldDataCadastro.getText());
@@ -1132,15 +1134,15 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             fornecedor.setInAtivo("I");
         }
         if (jRadioButtonPfisica.isSelected()) {
-            carregarFornecedorFisico();
+            gravarFornecedorFisico();
         } else {
-            carregarFornecedorJuridico();
+            gravarFornecedorJuridico();
         }
         fornecedor.getPessoa().setDtCadastro(fornecedor.getDtCadastro());
         fornecedor.getPessoa().setInAtivo(fornecedor.getInAtivo());
     }
 
-    public void carregarFornecedorFisico() {
+    private void gravarFornecedorFisico() {
         fornecedor.getPessoa().setTpPessoa("F");
         fornecedor.getPessoa().getPfisica().setCPF(jFormattedTextFieldCpfCnpj.getText());
         fornecedor.getPessoa().getPfisica().setRG(jTextFieldRG.getText());
@@ -1152,13 +1154,13 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         }
     }
 
-    public void carregarFornecedorJuridico() {
+    private void gravarFornecedorJuridico() {
         fornecedor.getPessoa().setTpPessoa("J");
         fornecedor.getPessoa().getPjuridica().setCNPJ(jFormattedTextFieldCpfCnpj.getText());
         fornecedor.getPessoa().getPjuridica().setRazao(jTextFieldRazao.getText());
     }
 
-    public void carregarEndereco() {
+    private void gravarEndereco() {
         fornecedor.getPessoa().getEndereco().getCidade().setCdCidade(jComboBoxCidade.getSelectedIndex());
         fornecedor.getPessoa().getEndereco().setRuaAv(jTextFieldRua.getText().toUpperCase());
         fornecedor.getPessoa().getEndereco().setNrEndereco(jTextFieldNrEndereco.getText());
@@ -1168,14 +1170,14 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         fornecedor.getPessoa().getEndereco().setComplemento(jTextFieldComplemento.getText().toUpperCase());
     }
 
-    public void carregarContato() {
+    private void gravarContato() {
         fornecedor.getPessoa().getContato().setEmail(jTextFieldEmail.getText().toUpperCase());
         fornecedor.getPessoa().getContato().setNrSeq(1);
         fornecedor.getPessoa().getContato().setNomeContato(jTextFieldNome.getText().toUpperCase());
         preencheFones();
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldCdFornecedor.setText(fornecedor.getCdFornecedor().toString());
         jTextFieldNome.setText(fornecedor.getPessoa().getNome());
         jFormattedTextFieldDataCadastro.setText(fornecedor.getDtCadastro());
@@ -1208,7 +1210,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         }
     }
 
-    public void preencheFones() {
+    private void preencheFones() {
         if (jTextFieldFoneRes.getText().equals("(  )-    -    ")) {
             fornecedor.getPessoa().getContato().setFoneRes("");
         } else {
@@ -1228,7 +1230,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         }
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
