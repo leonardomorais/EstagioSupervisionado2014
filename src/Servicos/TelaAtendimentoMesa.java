@@ -1178,7 +1178,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
     public void iniciarAtendimento() {
         jTextFieldHoraAbre.setText(dataHora.retornaHoraAtual());
-        //jFormattedTextFieldData.setText(dataHora.retornaDataAtual(false));
         jFormattedTextFieldData.setText(dataHora.retornaDataAtual());
         atd.setDtAtendimento(jFormattedTextFieldData.getText());
         atd.setHoraAbertura(jTextFieldHoraAbre.getText());
@@ -1186,6 +1185,12 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         atd.incluir(atd);
         jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
         this.setTitle("Atendimento Nr." + atd.getNrAtendimento());
+    }
+    
+    public void iniciarAtendimento(int nrMesa){
+        jBtNovoActionPerformed(null);
+        jTextFieldNrMesa.setText(nrMesa+"");
+        jTextFieldNrMesa.grabFocus();
     }
 
     public void fecharAtendimento() {

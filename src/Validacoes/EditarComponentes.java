@@ -3,6 +3,7 @@ package Validacoes;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
@@ -165,7 +166,8 @@ public class EditarComponentes extends DefaultTableCellRenderer {
             public void mousePressed(MouseEvent e) {
                 panelMesa.setBackground(new Color(0, 108, 217));
                 campo.setText(labelnr.getText().replace("Mesa:", "").replace(" ", ""));
-                campo.lostFocus(null, this);
+                campo.grabFocus();
+                panelMesa.grabFocus();
             }
 
             @Override

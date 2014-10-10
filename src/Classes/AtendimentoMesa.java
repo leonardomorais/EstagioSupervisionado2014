@@ -356,8 +356,12 @@ public class AtendimentoMesa {
         conexao.executeSQL(sql);
         try{
             conexao.resultset.first();
-            
-            
+            atd.setNrAtendimento(conexao.resultset.getInt("NR_ATENDIMENTO"));
+            atd.setHoraAbertura(conexao.resultset.getString("HORA_ABERTURA"));
+            atd.setVlTotal(conexao.resultset.getDouble("VL_TOTAL"));
+            atd.getFuncionario().setCd_funcionario(conexao.resultset.getInt("CD_FUNCIONARIO"));
+            atd.getFuncionario().getPessoa().setNome(conexao.resultset.getString("NOME"));
+            atd.setHoraFechamento(conexao.resultset.getString("DISPONIVEL").toUpperCase());
         }
         catch(SQLException ex){
             atd.getMesa().setNrMesa(0);
