@@ -1111,8 +1111,10 @@ public class TelaPagamento extends javax.swing.JFrame {
                 // grava o pagamento
                 pagamento.incluir(pagamento);
 
-                // grava movimentação de caixa
-                if (pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getMovFinanceiro().equals("SIM")) {
+                // grava movimentação de caixa se a operação permite e se o pagamento não for em cheque
+                
+                if (pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getMovFinanceiro().equals("SIM")
+                        && pagamento.getTipo().getCdTipo() != 2) {
                     pagamento.gravarMovCaixa(pagamento);
                 }
                 jTextFieldCdPagamento.setText(pagamento.getCdPagamento().toString());

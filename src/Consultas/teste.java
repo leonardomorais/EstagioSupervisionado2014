@@ -6,7 +6,9 @@
 
 package Consultas;
 
+import Classes.AtendimentoMesa;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -14,6 +16,8 @@ import javax.swing.JPanel;
  * @author Leonardo
  */
 public class teste extends javax.swing.JFrame {
+    
+    AtendimentoMesa atendimentos = new AtendimentoMesa();
 
     /**
      * Creates new form teste
@@ -32,39 +36,125 @@ public class teste extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jScrollPaneMesas = new javax.swing.JScrollPane();
+        jPanelMesas = new javax.swing.JPanel();
+        jPanelInformacoes = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldNrMesa = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mesas");
+        setResizable(false);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Atualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        jScrollPaneMesas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneMesas.setAutoscrolls(true);
+        jScrollPaneMesas.setHorizontalScrollBar(null);
+
+        jPanelMesas.setAutoscrolls(true);
+        jPanelMesas.setPreferredSize(new java.awt.Dimension(650, 400));
+
+        javax.swing.GroupLayout jPanelMesasLayout = new javax.swing.GroupLayout(jPanelMesas);
+        jPanelMesas.setLayout(jPanelMesasLayout);
+        jPanelMesasLayout.setHorizontalGroup(
+            jPanelMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 650, Short.MAX_VALUE)
+        );
+        jPanelMesasLayout.setVerticalGroup(
+            jPanelMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+
+        jScrollPaneMesas.setViewportView(jPanelMesas);
+
+        jLabel1.setText("Nr Mesa");
+
+        jTextFieldNrMesa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldNrMesaFocusLost(evt);
+            }
+        });
+
+        jLabel2.setText("Nr Atendimento");
+
+        jTextField1.setEnabled(false);
+
+        javax.swing.GroupLayout jPanelInformacoesLayout = new javax.swing.GroupLayout(jPanelInformacoes);
+        jPanelInformacoes.setLayout(jPanelInformacoesLayout);
+        jPanelInformacoesLayout.setHorizontalGroup(
+            jPanelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacoesLayout.createSequentialGroup()
+                .addGroup(jPanelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldNrMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 487, Short.MAX_VALUE))
+        );
+        jPanelInformacoesLayout.setVerticalGroup(
+            jPanelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNrMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(317, Short.MAX_VALUE)
-                .addComponent(jButton1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPaneMesas, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addComponent(jPanelInformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(7, 7, 7)
                 .addComponent(jButton1)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPaneMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelInformacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        adicionaJPanel(5);
+        //adicionaJPanel(26);
+        atendimentos.carregarMesas(jPanelMesas, jTextFieldNrMesa);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextFieldNrMesaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNrMesaFocusLost
+        if (!jTextFieldNrMesa.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "VAI FUNCIONAR!");
+        }
+    }//GEN-LAST:event_jTextFieldNrMesaFocusLost
 
     /**
      * @param args the command line arguments
@@ -77,7 +167,7 @@ public class teste extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -103,6 +193,13 @@ public class teste extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanelInformacoes;
+    private javax.swing.JPanel jPanelMesas;
+    private javax.swing.JScrollPane jScrollPaneMesas;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldNrMesa;
     // End of variables declaration//GEN-END:variables
 
     public void adicionaJPanel(int qt){
@@ -119,12 +216,12 @@ public class teste extends javax.swing.JFrame {
             x = x + 105; // tamanho do jpanel mais o espaçamento de 5
             
             // se não há mais espaço horizontal para os componentes adiciona abaixo
-            if (x >= this.getWidth() - 105){
+            if (x >= jPanelMesas.getWidth() - 105){
                 y = y + 105;
                 x = 5;
             }
             
-            this.add(panel);
+            jPanelMesas.add(panel);
         }
 //        
 //        JPanel panel = new JPanel();
@@ -142,8 +239,8 @@ public class teste extends javax.swing.JFrame {
 //        this.add(panel);
 //        this.add(panelred);
         
-        this.repaint();
-        this.validate();
+        jPanelMesas.repaint();
+        jPanelMesas.validate();
     }
 
 }

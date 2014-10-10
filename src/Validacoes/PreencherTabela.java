@@ -79,7 +79,37 @@ public class PreencherTabela {
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar no JTable" + erro);
         }
-    }    
+    }
+    
+//    public void preencherJtableComSelecao(JTable tabela, ResultSet resultado, int posicao){
+//        DefaultTableModel model = (DefaultTableModel) tabela.getModel();
+//        model.setNumRows(0);
+//        
+//        try{
+//            int colunas = resultado.getMetaData().getColumnCount();
+//            
+//            while (resultado.next()){
+//                Object[] linha = new Object[colunas];
+//                for (int i = 0; i < colunas; i++){
+//                    if (i == posicao){
+//                        linha [i] = (false);
+//                    }
+//                    else{
+//                        linha [i] = resultado.getString(i + 1);
+//                    }
+//                    
+//                }
+//                model.addRow(linha);
+//            }
+//            if (!resultado.first()){
+//                JOptionPane.showMessageDialog(null, "Registros não localizados !");
+//            }
+//        }
+//        catch(SQLException ex){
+//            JOptionPane.showMessageDialog(null, "Erro ao listar na tabela "+ex);
+//        }
+//    }
+//    
 
     public boolean Vazia() {
         return vazia;

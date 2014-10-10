@@ -1,12 +1,22 @@
 package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
+import Validacoes.EditarComponentes;
 import Validacoes.RetornaSequencia;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import sun.swing.SwingAccessor;
 
 /**
  *
@@ -251,6 +261,107 @@ public class AtendimentoMesa {
                 + "WHERE A.ABERTO_FECHADO = 'A' ORDER BY A.NR_MESA";
         conexao.executeSQL(sql);
         return conexao.resultset;
+    }
+    
+    public void carregarMesas(JPanel panel, JTextField campoMesa) {
+        String sql = "SELECT M.NR_MESA, A.NR_ATENDIMENTO, A.HORA_ABERTURA, A.VL_TOTAL, "
+                + "A.CD_FUNCIONARIO, CASE WHEN A.NR_ATENDIMENTO IS NULL THEN "
+                + "'Mesa Disponível' ELSE 'Mesa Ocupada' END AS DISPONIVEL "
+                + "FROM MESA M LEFT JOIN ATENDIMENTO_MESA A ON M.NR_MESA = A.NR_MESA "
+                + "AND A.ABERTO_FECHADO = 'A' WHERE M.ATIVA = 'A' ORDER BY M.NR_MESA ";
+        conexao.executeSQL(sql);
+        
+        try {
+            EditarComponentes edit = new EditarComponentes();
+            int x = 5;
+            int y = 5;
+            Font fonte = new Font("Tahoma", 1, 12);
+            while (conexao.resultset.next()){
+                
+                int nr = conexao.resultset.getInt("NR_MESA");
+                String disponivel = conexao.resultset.getString("DISPONIVEL");
+                String total = conexao.resultset.getString("VL_TOTAL");
+                
+                JPanel mesa = new JPanel();
+                JLabel labelNr = new JLabel("Mesa:           "+nr);
+                
+                JLabel labelSit = new JLabel(disponivel);
+                //
+                ImageIcon img;
+                if (disponivel.equals("Mesa Disponível")){
+                    img = new ImageIcon("src\\Extras\\Imagens\\mesaDisponivel.png");
+                    labelSit.setForeground(new Color(0, 102, 51));
+                }
+                else{
+                    img = new ImageIcon("src\\Extras\\Imagens\\mesaOcupada.png");
+                    labelSit.setForeground(Color.BLUE);
+                }
+                
+                JLabel labelImg = new JLabel(img);
+                
+                try{
+                    total = total.replace(".", ",");
+                }
+                catch(NullPointerException ex){
+                    total = "0,00";
+                }
+                JLabel labelTotal = new JLabel("Total:      "+total);
+                
+                // editando os labels
+      
+                labelTotal.setFont(fonte);
+                labelNr.setFont(fonte);
+                labelSit.setFont(fonte);
+                
+                //
+                
+                mesa.add(labelNr);
+                mesa.add(labelImg);
+                mesa.add(labelTotal);
+                mesa.add(labelSit);
+                
+                mesa.setBackground(new Color(197, 222, 243));
+                
+                mesa.setBounds(x, y, 120, 120);
+                
+                x = x + 125; // tamanho do jpanel mais o espaçamento de 5
+                
+                // se não há mais espaço horizontal para os componentes, adiciona o próximo abaixo
+                if (x >= panel.getWidth() - 125){
+                    y = y + 125;
+                    x = 5;
+                }
+             
+                edit.editaJpanel(mesa, campoMesa);
+                panel.add(mesa);
+            
+                panel.repaint();
+                panel.validate();
+            }
+        } 
+        catch (SQLException ex) {
+            
+        }
+        
+    }
+    
+    public void retornaMesa(AtendimentoMesa atd){
+        String sql = "SELECT M.NR_MESA, A.NR_ATENDIMENTO, A.HORA_ABERTURA, A.VL_TOTAL, A.CD_FUNCIONARIO, P.NOME, "
+                + "CASE WHEN A.NR_ATENDIMENTO IS NULL THEN 'Mesa Disponível' ELSE 'Mesa Ocupada' END AS DISPONIVEL "
+                + "FROM MESA M LEFT JOIN ATENDIMENTO_MESA A "
+                + "ON M.NR_MESA = A.NR_MESA AND A.ABERTO_FECHADO = 'A' "
+                + "LEFT JOIN PESSOA P ON A.CD_FUNCIONARIO = P.CD_PESSOA "
+                + "WHERE M.ATIVA = 'A' "
+                + "AND M.NR_MESA = "+atd.getMesa().getNrMesa();
+        conexao.executeSQL(sql);
+        try{
+            conexao.resultset.first();
+            
+            
+        }
+        catch(SQLException ex){
+            atd.getMesa().setNrMesa(0);
+        }
     }
     
     public boolean VerificaMesaDisponivel(AtendimentoMesa atd){

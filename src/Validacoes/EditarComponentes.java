@@ -7,7 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -143,6 +146,45 @@ public class EditarComponentes extends DefaultTableCellRenderer {
                     }
                 });
                 
+    }
+    
+    public void editaJpanel (final JPanel panelMesa, final JTextField campo){
+        
+        
+        final JLabel labelnr = (JLabel) panelMesa.getComponent(0);
+        
+        
+        panelMesa.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                panelMesa.setBackground(new Color(0, 108, 217));
+                campo.setText(labelnr.getText().replace("Mesa:", "").replace(" ", ""));
+                campo.lostFocus(null, this);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                panelMesa.setBackground(new Color(51, 153, 254));
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                panelMesa.setBackground(new Color(51, 153, 254));
+               
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                panelMesa.setBackground(new Color(197, 222, 243));
+            }
+        });
+        
     }
     
     // getter e setter

@@ -188,6 +188,27 @@ public class Pagamento {
         return conexao.resultset;
     }
     
+    public ResultSet consultarPagamentosCheque() {
+        String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, P.VL_PARCELA, PAG.CD_AGENCIA_CONTA, "
+                + "AGC.DS_CONTA, B.NM_BANCO , PS.CD_PESSOA, PS.NOME FROM PAGAMENTO PAG "
+                + "INNER JOIN PARCELAS P ON "
+                + "PAG.CD_CONTA = P.CD_CONTA "
+                + "AND PAG.NR_PARCELA = P.NR_PARCELA "
+                + "INNER JOIN AGENCIA_CONTA AGC ON "
+                + "PAG.CD_AGENCIA_CONTA = AGC.CD_AGENCIA_CONTA "
+                + "INNER JOIN BANCO B ON AGC.CD_BANCO = B.CD_BANCO "
+                + "INNER JOIN CONTAS_PAGAR_RECEBER C ON "
+                + "P.CD_CONTA = C.CD_CONTA "
+                + "LEFT JOIN VENDA_COMPRA VC ON "
+                + "C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "LEFT JOIN PESSOA PS ON "
+                + "VC.CD_FORNECEDOR = PS.CD_PESSOA OR "
+                + "VC.CD_CLIENTE = PS.CD_PESSOA "
+                + "WHERE PAG.CD_TIPO = 2 AND PAG.SITUACAO = 'A'";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
     public void gravarMovCaixa(Pagamento pagamento){
         MovCaixa mov = new MovCaixa();
         mov.getOperacao().setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getCdOperacao());
