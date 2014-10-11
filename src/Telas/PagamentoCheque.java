@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Telas;
 
 import Classes.Pagamento;
 import Validacoes.PreencherTabela;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Leonardo
  */
 public class PagamentoCheque extends javax.swing.JFrame {
-    
+
     Pagamento pagamento = new Pagamento();
 
     /**
@@ -23,6 +18,7 @@ public class PagamentoCheque extends javax.swing.JFrame {
     public PagamentoCheque() {
         initComponents();
         preencherTabela();
+        pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, "TODOS");
     }
 
     /**
@@ -34,8 +30,15 @@ public class PagamentoCheque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroupSitCheque = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jCheckBoxRecebido = new javax.swing.JCheckBox();
+        jBtConfirmar = new javax.swing.JButton();
+        jCheckBoxNaoRecebido = new javax.swing.JCheckBox();
+        jComboBoxOperacao = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pagamentos realizados com cheque");
@@ -47,18 +50,48 @@ public class PagamentoCheque extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pagamento", "Cd Conta", "Parcela", "Valor", "Agência Conta", "Descrição", "Banco", "Cd Pessoa", "Nome"
+                "Pagamento", "Cd Conta", "Parcela", "Valor", "Tipo", "Agência Conta", "Descrição", "Banco", "Cd Pessoa", "Nome", "Cheque"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTableConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConsultaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableConsulta);
+
+        jLabel1.setText("Marcar situação do cheque");
+
+        buttonGroupSitCheque.add(jCheckBoxRecebido);
+        jCheckBoxRecebido.setText("Recebido");
+        jCheckBoxRecebido.setEnabled(false);
+        jCheckBoxRecebido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxRecebidoActionPerformed(evt);
+            }
+        });
+
+        jBtConfirmar.setText("Confirmar");
+        jBtConfirmar.setEnabled(false);
+        jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtConfirmarActionPerformed(evt);
+            }
+        });
+
+        buttonGroupSitCheque.add(jCheckBoxNaoRecebido);
+        jCheckBoxNaoRecebido.setText("Não Recebido");
+        jCheckBoxNaoRecebido.setEnabled(false);
+
+        jLabel2.setText("Operação");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,20 +99,103 @@ public class PagamentoCheque extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtConfirmar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jCheckBoxRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jCheckBoxNaoRecebido))
+                                    .addComponent(jLabel1))
+                                .addGap(109, 109, 109)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jComboBoxOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 219, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxRecebido)
+                    .addComponent(jCheckBoxNaoRecebido)
+                    .addComponent(jComboBoxOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jBtConfirmar)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jCheckBoxRecebidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxRecebidoActionPerformed
+
+    }//GEN-LAST:event_jCheckBoxRecebidoActionPerformed
+
+    private void jTableConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaMouseClicked
+        int linha = jTableConsulta.getSelectedRow();
+        if (linha >= 0) {
+            try {
+                pagamento.setCdPagamento(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+                pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 1).toString()));
+                pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableConsulta.getValueAt(linha, 2).toString()));
+                pagamento.getParcelas().setVlPago(Double.parseDouble(jTableConsulta.getValueAt(linha, 3).toString()));
+                pagamento.getParcelas().getContas().setTpConta(jTableConsulta.getValueAt(linha, 4).toString());
+                pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 5).toString()));
+                pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+
+                String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+                
+                if (op.equals("")) {
+                    String tipo = jTableConsulta.getValueAt(linha, 4).toString();
+                    if (tipo.equals("A RECEBER")) {
+                        tipo = "E";
+                    } else {
+                        tipo = "S";
+                    }
+                    pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
+
+                } 
+                else {
+                    jComboBoxOperacao.setSelectedItem(op);
+                }
+
+                String cheque = jTableConsulta.getValueAt(linha, 10).toString();
+                boolean ativo = cheque.equals("AGUARDANDO");
+                
+                jCheckBoxNaoRecebido.setEnabled(ativo);
+                jCheckBoxRecebido.setEnabled(ativo);
+                jBtConfirmar.setEnabled(ativo);
+            } 
+            catch (NumberFormatException ex) {
+
+            }
+        }
+    }//GEN-LAST:event_jTableConsultaMouseClicked
+
+    private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
+        if (jCheckBoxNaoRecebido.isSelected() || jCheckBoxRecebido.isSelected()) {
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente alterar a situação deste pagamento?",
+                    "Alterar situação de pagamento em cheque", JOptionPane.YES_NO_OPTION);
+            if (opcao == JOptionPane.YES_OPTION) {
+                alterarCheque(jCheckBoxRecebido.isSelected());
+                preencherTabela();
+            }
+        }
+    }//GEN-LAST:event_jBtConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,15 +233,33 @@ public class PagamentoCheque extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroupSitCheque;
+    private javax.swing.JButton jBtConfirmar;
+    private javax.swing.JCheckBox jCheckBoxNaoRecebido;
+    private javax.swing.JCheckBox jCheckBoxRecebido;
+    private javax.swing.JComboBox jComboBoxOperacao;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableConsulta;
     // End of variables declaration//GEN-END:variables
 
-
-    private void preencherTabela(){
+    private void preencherTabela() {
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableConsulta, new int [] {70, 60, 50, 50, 80, 110, 120, 60, 180});
+        preencher.FormatarJtable(jTableConsulta, new int[]{70, 60, 50, 50, 50, 80, 110, 120, 60, 170, 90});
         preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarPagamentosCheque());
     }
 
+    private void alterarCheque(boolean recebido) {
+        if (recebido) {
+            pagamento.setSitCheque("R");
+        } else {
+            pagamento.setSitCheque("N");
+        }
+        pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
+                setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getOperacao(
+                                jComboBoxOperacao.getSelectedIndex()));
+        
+        pagamento.alterarPagamentoCheque(pagamento);
+    }
 }

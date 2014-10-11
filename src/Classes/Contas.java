@@ -308,58 +308,6 @@ public class Contas {
         }
     }
 
-//    public void calcularContas() {
-//        String sql = "SELECT(SELECT SUM(VL_CONTA) FROM "
-//                + "CONTAS_PAGAR_RECEBER "
-//                + "WHERE CD_CONTA "
-//                + "IN (SELECT CD_CONTA FROM PARCELAS) "
-//                + "AND TIPO_CONTA = 'R') TOTAL_RECEBER, "
-//                + "(SELECT SUM(VL_CONTA) FROM "
-//                + "CONTAS_PAGAR_RECEBER "
-//                + "WHERE CD_CONTA "
-//                + "IN (SELECT CD_CONTA FROM PARCELAS) "
-//                + "AND TIPO_CONTA = 'P') TOTAL_PAGAR, "
-//                + "(SELECT SUM(P.VL_PAGO) FROM "
-//                + "PARCELAS P "
-//                + "INNER JOIN CONTAS_PAGAR_RECEBER C "
-//                + "ON P.CD_CONTA = C.CD_CONTA "
-//                + "AND P.SITUACAO = 'A' "
-//                + "AND C.TIPO_CONTA = 'R') TOTAL_RECEBER_PAGO, "
-//                + "(SELECT SUM(P.VL_PAGO) FROM "
-//                + "PARCELAS P INNER JOIN CONTAS_PAGAR_RECEBER C "
-//                + "ON P.CD_CONTA = C.CD_CONTA "
-//                + "AND P.SITUACAO = 'A' "
-//                + "AND C.TIPO_CONTA = 'P') TOTAL_PAGAR_PAGO "
-//                + "FROM USER";
-//        conexao.executeSQL(sql);
-//        try{
-//            conexao.resultset.first();
-//            // Total de todas as contas a receber
-//            Double todasReceber = conexao.resultset.getDouble("TOTAL_RECEBER");
-//            
-//            // Total de todas as contas a pagar
-//            Double todasPagar = conexao.resultset.getDouble("TOTAL_PAGAR"); 
-//            
-//            // Total de todas as contas a receber que já foram pagas
-//            Double receberPago = conexao.resultset.getDouble("TOTAL_RECEBER_PAGO"); 
-//            
-//            // Total de todas as contas a pagar que já foram pagas
-//            Double pagarPago = conexao.resultset.getDouble("TOTAL_PAGAR_PAGO");
-//            
-//            // Total ainda a receber
-//            Double receber = todasReceber - receberPago;
-//            
-//            // Total ainda a pagar
-//            Double pagar = todasPagar - pagarPago;
-//            
-//            System.out.println("TODAS RECEBER "+todasReceber+", JÁ PAGAS "+receberPago+", AINDA A RECEBER "+receber);
-//            System.out.println("TODAS PAGAR "+todasPagar+", JÁ PAGAS "+pagarPago+", AINDA A PAGAR "+pagar);
-//        }
-//        catch(SQLException ex){
-//            System.err.println("Erro ao consultar os registros de contas!");
-//        }
-//    }
-
     public String retornaOperacaoVendaCompra(Contas contas) {
         String operacao;
         String sql = "SELECT C.CD_CONTA, C.DS_CONTA, C.CD_VENDA_COMPRA, VC.CD_OPERACAO, O.DS_OPERACAO "

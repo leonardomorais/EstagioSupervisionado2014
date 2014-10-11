@@ -1,6 +1,7 @@
 package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
+import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.util.List;
@@ -17,18 +18,25 @@ public class Pagamento {
     private Parcelas parcelas = new Parcelas();
     private TipoPagamento tipo = new TipoPagamento();
     private String situacao;
+    private String sitCheque;
     
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
     public void incluir(Pagamento pagamento) {
+        if (pagamento.getTipo().getCdTipo() == 2){
+            pagamento.setSitCheque("A");
+        }
+        else{
+            pagamento.setSitCheque("");
+        }
         RetornaSequencia seq = new RetornaSequencia();
         pagamento.setCdPagamento(seq.retornaSequencia("CD_PAGAMENTO", "PAGAMENTO"));
         String sql = "INSERT INTO PAGAMENTO (CD_PAGAMENTO, NR_PARCELA, CD_CONTA, CD_TIPO, "
-                + "CD_AGENCIA_CONTA, SITUACAO) VALUES ('" + pagamento.getCdPagamento() + "','"
+                + "CD_AGENCIA_CONTA, SITUACAO, SIT_CHEQUE) VALUES ('" + pagamento.getCdPagamento() + "','"
                 + pagamento.getParcelas().getNrParcela() + "','"
                 + pagamento.getParcelas().getContas().getCdConta() + "','"
                 + pagamento.getTipo().getCdTipo() + "','"
-                + pagamento.getAgc().getCdAgcConta() + "','A')";
+                + pagamento.getAgc().getCdAgcConta() + "','A','"+pagamento.getSitCheque()+"')";
         conexao.incluirSQL(sql);
     }
     
@@ -37,6 +45,82 @@ public class Pagamento {
                 +pagamento.getParcelas().getContas().getCdConta()+" AND "
                 + "NR_PARCELA = "+pagamento.getParcelas().getNrParcela();
         conexao.atualizarSQL(sql);
+    }
+    
+    public void alterarPagamentoCheque(Pagamento pagamento) {
+        String slq = "UPDATE PAGAMENTO SET SIT_CHEQUE = '" + pagamento.getSitCheque() + "' "
+                + "WHERE CD_PAGAMENTO = " + pagamento.getCdPagamento();
+        conexao.atualizarSQL(slq);
+
+        // se o cheque foi recebido grava a movimentação de caixa
+        if (pagamento.getSitCheque().equals("R")) { 
+            pagamento.getAgc().retornaAgenciaConta(pagamento.getAgc());
+            MovCaixa mov = new MovCaixa();
+            mov.getOperacao().setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getCdOperacao());
+            mov.setParcelas(pagamento.getParcelas());
+            mov.setValorMov(pagamento.getParcelas().getVlPago());
+            mov.setSaldoAnterior(pagamento.getAgc().getVlConta());
+            mov.setDataMov(new RetornaData().retornaDataAtual());
+            
+            if (mov.getParcelas().getContas().getTpConta().equals("A PAGAR")){
+                mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
+                mov.setObservacao(situacao);
+            }
+            else{
+                mov.setSaldoFinal(mov.getSaldoAnterior() + mov.getValorMov());
+            }
+            
+            // atualiza a conta
+            mov.getAgc().setVlConta(mov.getSaldoFinal());
+            mov.getAgc().atualizarValorConta(mov.getAgc());
+            
+            mov.setObservacao("PAGAMENTO DA CONTA "+mov.getParcelas().getContas().getCdConta()+
+                " PARCELA "+mov.getParcelas().getNrParcela());
+            
+            // grava a movimentação de caixa
+            mov.incluir(mov, true);
+        }
+        
+        // se o cheque não foi validado altera a situação da parcela e da conta como não pagas novamente
+        else{ 
+            // altera a parcela
+            String sql = "UPDATE PARCELAS SET VL_PAGO = '0.00' , DT_PAGO = " + null + " "
+                + "WHERE CD_CONTA = " + pagamento.getParcelas().getContas().getCdConta() + " AND "
+                + "NR_PARCELA = " + pagamento.getParcelas().getNrParcela();
+            conexao.atualizarSQL(sql);
+            
+            // altera a conta
+            parcelas.getContas().setPago("N");
+            parcelas.getContas().setDtPagamento("NULL");
+            parcelas.getContas().alterar(parcelas.getContas());
+        }
+
+
+        
+//        MovCaixa mov = new MovCaixa();
+//        mov.getOperacao().setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getCdOperacao());
+//        mov.getOperacao().retornaOperacao(mov.getOperacao());
+//        pagamento.getAgc().retornaAgenciaConta(pagamento.getAgc());
+//        mov.setParcelas(pagamento.getParcelas());
+//        mov.setAgc(pagamento.getAgc());
+//        mov.setValorMov(getParcelas().getVlPago());
+//        mov.setSaldoAnterior(getAgc().getVlConta());
+//        mov.setDataMov(getParcelas().getDtPago());
+//        
+//        if (mov.getParcelas().getContas().getTpConta().equals("A PAGAR")){
+//            mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
+//        }
+//        else{
+//            mov.setSaldoFinal(mov.getSaldoAnterior() + mov.getValorMov());
+//        }
+//        // atualiza a conta
+//        mov.getAgc().setVlConta(mov.getSaldoFinal());
+//        mov.getAgc().atualizarValorConta(mov.getAgc());
+//        //
+//        mov.setObservacao("PAGAMENTO DA CONTA "+mov.getParcelas().getContas().getCdConta()+
+//                " PARCELA "+mov.getParcelas().getNrParcela());
+//        mov.incluir(mov, true);
+        
     }
 
     public ResultSet consultarGeral(boolean ativos) {
@@ -189,8 +273,12 @@ public class Pagamento {
     }
     
     public ResultSet consultarPagamentosCheque() {
-        String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, P.VL_PARCELA, PAG.CD_AGENCIA_CONTA, "
-                + "AGC.DS_CONTA, B.NM_BANCO , PS.CD_PESSOA, PS.NOME FROM PAGAMENTO PAG "
+        String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, P.VL_PARCELA, "
+                + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
+                + "PAG.CD_AGENCIA_CONTA, AGC.DS_CONTA, B.NM_BANCO , PS.CD_PESSOA, PS.NOME, "
+                + "CASE WHEN PAG.SIT_CHEQUE = 'R' THEN 'RECEBIDO' WHEN PAG.SIT_CHEQUE = 'A' THEN 'AGUARDANDO' "
+                + "ELSE 'NÃO RECEBIDO' END AS CHEQUE "
+                + "FROM PAGAMENTO PAG "
                 + "INNER JOIN PARCELAS P ON "
                 + "PAG.CD_CONTA = P.CD_CONTA "
                 + "AND PAG.NR_PARCELA = P.NR_PARCELA "
@@ -275,4 +363,14 @@ public class Pagamento {
     public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
+
+    public String getSitCheque() {
+        return sitCheque;
+    }
+
+    public void setSitCheque(String sitCheque) {
+        this.sitCheque = sitCheque;
+    }
+    
+    
 }

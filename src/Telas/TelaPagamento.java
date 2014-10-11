@@ -852,6 +852,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         if (linha >= 0) {
             pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableContas.getValueAt(linha, 0).toString()));
             pagamento.getParcelas().getContas().retornaConta(pagamento.getParcelas().getContas(), true);
+            
             String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
             if (op.equals("")){
                 String tipo = jTableContas.getValueAt(linha, 8).toString();

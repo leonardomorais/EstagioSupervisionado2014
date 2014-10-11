@@ -256,7 +256,7 @@ ORDER BY MOV.CD_MOV;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cd_operacao}+". "+$F{ds_operacao}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="f75c5b81-390b-4097-9191-5e8b6bbc16bf" x="202" y="0" width="40" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10"/>
@@ -291,7 +291,7 @@ ORDER BY MOV.CD_MOV;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="50e13ae8-a2bd-410c-9dcc-b2abb37b796a" x="254" y="1" width="44" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10"/>
