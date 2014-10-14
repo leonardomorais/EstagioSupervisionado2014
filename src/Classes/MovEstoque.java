@@ -69,7 +69,6 @@ public class MovEstoque {
                 conexao.incluirSQL(sql);
     }
     
-    
     public void alterar(MovEstoque estoque){
         String sql = "UPDATE MOV_ESTOQUE SET QT_ATUAL = '"+estoque.getQtAtual()+"' "
                 + "WHERE CD_MOV = "+estoque.getCdMov();

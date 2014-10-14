@@ -489,7 +489,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             jTextFieldVlCusto.grabFocus();
         }
         else {
-            carregarProduto();
+            gravarProduto();
 
             if (rotina == Rotinas.incluir) {
                 produto.incluir(produto);
@@ -746,7 +746,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVlProduto;
     // End of variables declaration//GEN-END:variables
 
-    private void carregarProduto() {
+    private void gravarProduto() {
         Integer qt_atual = Integer.parseInt(jSpnQtAtual.getValue().toString());
         Integer qt_min = Integer.parseInt(jSpnQtMin.getValue().toString());
 

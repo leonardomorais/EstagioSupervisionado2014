@@ -93,34 +93,7 @@ public class Pagamento {
             parcelas.getContas().setPago("N");
             parcelas.getContas().setDtPagamento("NULL");
             parcelas.getContas().alterar(parcelas.getContas());
-        }
-
-
-        
-//        MovCaixa mov = new MovCaixa();
-//        mov.getOperacao().setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getCdOperacao());
-//        mov.getOperacao().retornaOperacao(mov.getOperacao());
-//        pagamento.getAgc().retornaAgenciaConta(pagamento.getAgc());
-//        mov.setParcelas(pagamento.getParcelas());
-//        mov.setAgc(pagamento.getAgc());
-//        mov.setValorMov(getParcelas().getVlPago());
-//        mov.setSaldoAnterior(getAgc().getVlConta());
-//        mov.setDataMov(getParcelas().getDtPago());
-//        
-//        if (mov.getParcelas().getContas().getTpConta().equals("A PAGAR")){
-//            mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
-//        }
-//        else{
-//            mov.setSaldoFinal(mov.getSaldoAnterior() + mov.getValorMov());
-//        }
-//        // atualiza a conta
-//        mov.getAgc().setVlConta(mov.getSaldoFinal());
-//        mov.getAgc().atualizarValorConta(mov.getAgc());
-//        //
-//        mov.setObservacao("PAGAMENTO DA CONTA "+mov.getParcelas().getContas().getCdConta()+
-//                " PARCELA "+mov.getParcelas().getNrParcela());
-//        mov.incluir(mov, true);
-        
+        }   
     }
 
     public ResultSet consultarGeral(boolean ativos) {

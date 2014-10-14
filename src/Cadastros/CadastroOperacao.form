@@ -25,7 +25,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Registrar Opera&#xe7;&#xe3;o"/>
+    <Property name="title" type="java.lang.String" value="Cadastro de Opera&#xe7;&#xe3;o"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>

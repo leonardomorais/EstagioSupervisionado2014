@@ -810,8 +810,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jSpnQuantidadeStateChanged
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
-        int linhas = jTableProdutos.getRowCount();
-        if (linhas > 0){
             int opcao = JOptionPane.showConfirmDialog(null, "Os atendimentos cancelados não serão salvos no sistema.\n"
                 + "Deseja cancelar este atendimento ?", "Cancelar Atendimento", JOptionPane.YES_NO_OPTION);
         
@@ -832,15 +830,13 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 limpar.limparJtable(jTableProdutos);
                 jSpnQuantidade.setValue(1);
                 }
-            }
-        }
-        else{
+            
             rotina = Rotinas.padrao;
             validaEstadoCampos();
             limpar.limparCampos(jPanelAtendimento);
             limpar.limparJtable(jTableProdutos);
             jSpnQuantidade.setValue(1);
-        } 
+            }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
     private void jTextFieldCdProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdProdutoFocusLost
@@ -1096,7 +1092,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVlUnitario;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherProduto() {
+    private void preencherProduto() {
         jTextFieldNomeProduto.setText(produto.getDsProduto());
         int max = produto.getQtAtual();
         SpinnerNumberModel model = new SpinnerNumberModel(1, 1, max, 1);
@@ -1106,7 +1102,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         campos.validaSpinner(jSpnQuantidade);
     }
 
-    public void preencherTotalProduto() {
+    private void preencherTotalProduto() {
         double preco = Double.parseDouble(jTextFieldVlUnitario.getText()
                 .replace(".", "").replace(",", "."));
 
@@ -1115,7 +1111,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
     }
 
-    public void adicionarProdutos() {
+    private void adicionarProdutos() {
         DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
         SpinnerNumberModel spn = (SpinnerNumberModel) jSpnQuantidade.getModel();
 
@@ -1171,12 +1167,12 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         atd.getAtdProdutos().incluir(atd.getAtdProdutos());
     }
 
-    public void formatarTabela() {
+    private void formatarTabela() {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableProdutos, new int[]{100, 280, 100, 100, 100});
     }
 
-    public void iniciarAtendimento() {
+    private void iniciarAtendimento() {
         jTextFieldHoraAbre.setText(dataHora.retornaHoraAtual());
         jFormattedTextFieldData.setText(dataHora.retornaDataAtual());
         atd.setDtAtendimento(jFormattedTextFieldData.getText());

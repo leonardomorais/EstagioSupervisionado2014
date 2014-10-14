@@ -365,7 +365,7 @@ public class TelaMovEstoque extends javax.swing.JFrame {
         else{
             params.put("VENDA_COMPRA", "TODAS");
         }
-        if (jComboBoxConsulta.getSelectedIndex() == 3){
+        if (jComboBoxConsulta.getSelectedIndex() == 3 || jComboBoxConsulta.getSelectedIndex() == 4){
             params.put("PRODUTO", jTextFieldConsulta.getText());
         }
         else{

@@ -17,8 +17,8 @@ public class PagamentoCheque extends javax.swing.JFrame {
      */
     public PagamentoCheque() {
         initComponents();
-        preencherTabela();
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, "TODOS");
+        preencherTabela();
     }
 
     /**
@@ -148,41 +148,34 @@ public class PagamentoCheque extends javax.swing.JFrame {
     private void jTableConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaMouseClicked
         int linha = jTableConsulta.getSelectedRow();
         if (linha >= 0) {
-            try {
-                pagamento.setCdPagamento(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
-                pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 1).toString()));
-                pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableConsulta.getValueAt(linha, 2).toString()));
-                pagamento.getParcelas().setVlPago(Double.parseDouble(jTableConsulta.getValueAt(linha, 3).toString()));
-                pagamento.getParcelas().getContas().setTpConta(jTableConsulta.getValueAt(linha, 4).toString());
-                pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 5).toString()));
-                pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
 
-                String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
-                
-                if (op.equals("")) {
-                    String tipo = jTableConsulta.getValueAt(linha, 4).toString();
-                    if (tipo.equals("A RECEBER")) {
-                        tipo = "E";
-                    } else {
-                        tipo = "S";
-                    }
-                    pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
+            pagamento.setCdPagamento(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+            pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 1).toString()));
+            pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableConsulta.getValueAt(linha, 2).toString()));
+            pagamento.getParcelas().setVlPago(Double.parseDouble(jTableConsulta.getValueAt(linha, 3).toString()));
+            pagamento.getParcelas().getContas().setTpConta(jTableConsulta.getValueAt(linha, 4).toString());
+            pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 5).toString()));
+            pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
 
-                } 
-                else {
-                    jComboBoxOperacao.setSelectedItem(op);
-                }
-
-                String cheque = jTableConsulta.getValueAt(linha, 10).toString();
-                boolean ativo = cheque.equals("AGUARDANDO");
-                
-                jCheckBoxNaoRecebido.setEnabled(ativo);
-                jCheckBoxRecebido.setEnabled(ativo);
-                jBtConfirmar.setEnabled(ativo);
-            } 
-            catch (NumberFormatException ex) {
-
+            String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+            String tipo = pagamento.getParcelas().getContas().getTpConta();
+            if (tipo.equals("A RECEBER")) {
+                tipo = "E";
+            } else {
+                tipo = "S";
             }
+            pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
+            
+            if (!op.equals("")){
+                jComboBoxOperacao.setSelectedItem(op); 
+            }
+            
+            String cheque = jTableConsulta.getValueAt(linha, 10).toString();
+            boolean ativo = cheque.equals("AGUARDANDO");
+
+            jCheckBoxNaoRecebido.setEnabled(ativo);
+            jCheckBoxRecebido.setEnabled(ativo);
+            jBtConfirmar.setEnabled(ativo);
         }
     }//GEN-LAST:event_jTableConsultaMouseClicked
 
@@ -204,7 +197,7 @@ public class PagamentoCheque extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -259,7 +252,7 @@ public class PagamentoCheque extends javax.swing.JFrame {
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().
                 setCdOperacao(pagamento.getParcelas().getContas().getVendaCompra().getOperacao().getOperacao(
                                 jComboBoxOperacao.getSelectedIndex()));
-        
+
         pagamento.alterarPagamentoCheque(pagamento);
     }
 }

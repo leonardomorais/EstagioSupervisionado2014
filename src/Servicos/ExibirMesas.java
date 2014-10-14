@@ -63,7 +63,7 @@ public class ExibirMesas extends javax.swing.JFrame {
         jBtEncerrar = new javax.swing.JButton();
         jBtCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mesas");
         setResizable(false);
 
@@ -301,6 +301,10 @@ public class ExibirMesas extends javax.swing.JFrame {
     private void jBtNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtNovoActionPerformed
         TelaAtendimentoMesa tela = new TelaAtendimentoMesa();
         tela.setVisible(true);
+        
+        if (jTextFieldDisponivel.getText().equals("MESA DISPONÍVEL")){
+            tela.iniciarAtendimento(Integer.parseInt(jTextFieldNrMesa.getText()));
+        }
         
         tela.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent evt) {

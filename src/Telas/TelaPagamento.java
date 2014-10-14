@@ -973,7 +973,7 @@ public class TelaPagamento extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPagamento;
     // End of variables declaration//GEN-END:variables
 
-    public void validaEstadoCampos() {
+    private void validaEstadoCampos() {
         ValidaBotoes botoes = new ValidaBotoes();
         botoes.validaEstadoCampos(jPanelPagamento, rotina);
         jTextFieldAgenciaConta.setEnabled(false);

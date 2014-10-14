@@ -104,7 +104,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         jPopupMenuOperacao.add(jMenuItemCarregarDados);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Registrar Operação");
+        setTitle("Cadastro de Operação");
         setResizable(false);
 
         jLabel1.setText("Código da Operação");
@@ -397,7 +397,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "A descrição é obrigatória!");
         }
         else {
-           carregarOperacao();
+           gravarOperacao();
             
             switch (rotina){
                 case Rotinas.incluir :
@@ -637,7 +637,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldDescricao;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarOperacao(){
+    private void gravarOperacao(){
          operacao.setDsOperacao(jTextFieldDescricao.getText().toUpperCase());
             if (jComboBoxTipo.getSelectedIndex() == 0){
                 operacao.setTipo("E");
@@ -661,7 +661,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             }
     }
     
-    public void preencherCampos(){
+    private void preencherCampos(){
         jTextFieldCdOperacao.setText(operacao.getCdOperacao().toString());
         jTextFieldDescricao.setText(operacao.getDsOperacao());
         
@@ -687,7 +687,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         }
     }
     
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

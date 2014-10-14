@@ -1042,25 +1042,30 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor adicione produtos na tabela!");
         } else {
 
-            carregarVendaCompra();
+            gravarVendaCompra();
             JOptionPane.showMessageDialog(null, "A " + tipo + " foi gravada com sucesso!");
-            gerarContas();
+            
             rotina = Rotinas.padrao;
             validaEstadoCampos();
 
-            // mostra as parcelas
-            ConsultaParcelas consulta = new ConsultaParcelas();
-            consulta.setVisible(true);
-            consulta.exibirParcelas();
-            consulta.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(WindowEvent evt){
-                   limparCampos();
-                   report.setConsulta(venda.consultarTicket(venda));
-                   report.setSubreport(false);
-                   report.setTabela("TICKET_VENDA_COMPRA");
-                   report.gerarRelatorio(report);
+            // se a operação gera movimento financeiro
+            if (venda.getOperacao().getMovFinanceiro().equals("SIM")){
+                gerarContas();
+                
+                // mostra as parcelas
+                ConsultaParcelas consulta = new ConsultaParcelas();
+                consulta.setVisible(true);
+                consulta.exibirParcelas();
+                consulta.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowClosed(WindowEvent evt){
+                    limparCampos();
+                    report.setConsulta(venda.consultarTicket(venda));
+                    report.setSubreport(false);
+                    report.setTabela("TICKET_VENDA_COMPRA");
+                    report.gerarRelatorio(report);
                }
-            });
+            });   
+            }
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -1443,7 +1448,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVlUnitario;
     // End of variables declaration//GEN-END:variables
 
-    public void preencherProduto() {
+    private void preencherProduto() {
         jTextFieldProduto.setText(venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
                 .getProduto().getDsProduto());
         int max;
@@ -1461,7 +1466,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         preencherTotalProduto();
     }
 
-    public void preencherTotalProduto() {
+    private void preencherTotalProduto() {
         double preco = Double.parseDouble(jTextFieldVlUnitario.getText()
                 .replace(".", "").replace(",", "."));
 
@@ -1470,7 +1475,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
     }
 
-    public void adicionarProdutos() {
+    private void adicionarProdutos() {
         DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
         SpinnerNumberModel spn = (SpinnerNumberModel) jSpnQuantidade.getModel();
 
@@ -1552,7 +1557,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         edit.setLinhas(linhasAtendimento);
     }
 
-    public void retornaCliente(int cd) {
+    private void retornaCliente(int cd) {
         venda.getCliente().setCdCliente(cd);
         venda.getCliente().retornaCliente(venda.getCliente());
         if (venda.getCliente().getPessoa().getNome().equals("")) {
@@ -1562,13 +1567,13 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         }
     }
 
-    public void limparCamposClienteFornecedor() {
+    private void limparCamposClienteFornecedor() {
         jTextFieldCdCliente.setText("");
         jTextFieldNomeCliente.setText("");
         jTextFieldCdCliente.grabFocus();
     }
 
-    public void retornaFornecedor(int cd) {
+    private void retornaFornecedor(int cd) {
         venda.getFornecedor().setCdFornecedor(cd);
         venda.getFornecedor().retornaFornecedor(venda.getFornecedor());
         if (venda.getFornecedor().getPessoa().getNome().equals("")) {
@@ -1578,12 +1583,12 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         }
     }
 
-    public void preencherTotal() {
+    private void preencherTotal() {
         double vlTotal = venda.retornaTotalVendaCompra(jTableProdutos);
         jTextFieldTotal.setText(decimal.retornaDecimal(vlTotal, 6));
     }
 
-    public void carregarVendaCompra() {
+    private void gravarVendaCompra() {
         if (jRadioButtonVenda.isSelected()) {
             venda.getCliente().setCdCliente(Integer.parseInt(jTextFieldCdCliente.getText()));
         } else {
@@ -1651,7 +1656,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         }
     }
 
-    public void gravarMovEstoque(int anterior) {
+    private void gravarMovEstoque(int anterior) {
         MovEstoque mov = new MovEstoque();
 
         mov.setCdVendaCompra(venda.getCdVendaCompra());
@@ -1670,7 +1675,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         mov.incluir(mov, true);
     }
 
-    public void gerarContas() {
+    private void gerarContas() {
         String tipoConta;
         if (jRadioButtonVenda.isSelected()) {
             tipoConta = "R"; // conta a receber
@@ -1688,7 +1693,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         contas.incluir(contas, true);
     }
 
-    public void limparCampos() {
+    private void limparCampos() {
         jRadioButtonCompra.setEnabled(false);
         jRadioButtonVenda.setEnabled(false);
         limpar.limparCampos(jPanelGravar);
@@ -1696,7 +1701,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jSpnQuantidade.setValue(1);
     }
 
-    public void validaEstadoCampos() {
+    private void validaEstadoCampos() {
         ValidaBotoes botoes = new ValidaBotoes();
         botoes.validaEstadoCampos(jPanelGravar, rotina);
         jTextFieldNrAtendimento.setEnabled(false);
@@ -1708,7 +1713,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jTextFieldTotalProduto.setEnabled(false);
     }
     
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
