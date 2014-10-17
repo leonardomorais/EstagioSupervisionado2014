@@ -53,9 +53,8 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             }
         });
 
-        jMenuItemPagarParcela.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
         jMenuItemPagarParcela.setText("Pagar Parcela");
-        jMenuItemPagarParcela.setToolTipText("Pagar Parcela (Enter)");
+        jMenuItemPagarParcela.setToolTipText("");
         jMenuItemPagarParcela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemPagarParcelaActionPerformed(evt);
@@ -64,7 +63,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         jPopupMenuPagaParcela.add(jMenuItemPagarParcela);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Parcelas Geradas");
+        setTitle("Parcelas");
         setResizable(false);
 
         jLabelTopo.setText("Parcelas");

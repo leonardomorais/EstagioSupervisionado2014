@@ -212,6 +212,28 @@ public class Cliente {
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
+    
+    public boolean parcelasAPagar(Cliente cliente){
+        
+        String sql = "SELECT P.CD_CONTA, P.NR_PARCELA, P.VL_PARCELA, "
+                + "TO_CHAR(P.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
+                + "P.VL_PAGO, TO_CHAR(P.DT_PAGO, 'DD/MM/YYYY') AS DT_PAGO "
+                + "FROM PARCELAS P INNER JOIN CONTAS_PAGAR_RECEBER C "
+                + "ON P.CD_CONTA = C.CD_CONTA AND P.SITUACAO = 'A' AND P.DT_PAGO IS NULL "
+                + "INNER JOIN VENDA_COMPRA VC "
+                + "ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
+                + "AND VC.CD_CLIENTE = " + cliente.getCdCliente();
+        conexao.executeSQL(sql);
+        
+        try{
+            conexao.resultset.first();
+            int cd = conexao.resultset.getInt("CD_CONTA");
+            return true;
+        }
+        catch(SQLException ex){
+            return false;    
+        }
+    }
 
 // getter e setter
     public Integer getCdCliente() {

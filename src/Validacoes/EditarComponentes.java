@@ -3,6 +3,7 @@ package Validacoes;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -172,21 +173,34 @@ public class EditarComponentes extends DefaultTableCellRenderer {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                panelMesa.setBackground(new Color(51, 153, 254));
+               // panelMesa.setBackground(new Color(51, 153, 254));
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                panelMesa.setBackground(new Color(51, 153, 254));
+                //panelMesa.setBackground(new Color(51, 153, 254));
                
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                panelMesa.setBackground(new Color(197, 222, 243));
+               // panelMesa.setBackground(new Color(197, 222, 243));
             }
         });
         
+        panelMesa.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusGained(FocusEvent e){
+                //panelMesa.setBackground(new Color(255, 231, 39));
+                panelMesa.setBackground(new Color(0, 108, 217));
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e){
+                panelMesa.setBackground(new Color(197, 222, 243));
+            }
+        });
     }
     
     // getter e setter

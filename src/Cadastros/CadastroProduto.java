@@ -525,7 +525,8 @@ public class CadastroProduto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Produto inativado com sucesso!");
                     limparCampos();
                 }
-            } catch (NumberFormatException ex) {
+            } 
+            catch (NumberFormatException ex) {
 
             }
         }

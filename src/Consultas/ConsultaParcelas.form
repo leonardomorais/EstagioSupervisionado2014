@@ -13,11 +13,8 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPagarParcela">
           <Properties>
-            <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-              <KeyStroke key="ENTER"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Pagar Parcela"/>
-            <Property name="toolTipText" type="java.lang.String" value="Pagar Parcela (Enter)"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemPagarParcelaActionPerformed"/>
@@ -28,7 +25,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="Parcelas Geradas"/>
+    <Property name="title" type="java.lang.String" value="Parcelas"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>

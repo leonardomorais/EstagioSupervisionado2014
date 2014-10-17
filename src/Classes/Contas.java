@@ -64,7 +64,6 @@ public class Contas {
         Parcelas p = new Parcelas();
         p.setContas(contas);
         p.geraParcelas(p);
-//        p.gerarParcelas(p);
     }
 
     public void alterar(Contas contas) {

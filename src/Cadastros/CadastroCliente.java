@@ -751,15 +751,25 @@ public class CadastroCliente extends javax.swing.JFrame {
         } else {
             try {
                 cliente.setCdCliente(Integer.parseInt(jTextFieldCdCliente.getText()));
-
-                int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente inativar este cliente ?",
-                        "Inativar Cliente", JOptionPane.YES_OPTION);
-                if (delete == JOptionPane.YES_OPTION) {
-                    cliente.excluir(cliente);
-                    JOptionPane.showMessageDialog(null, "Cliente inativado com sucesso!");
-                    limpar.limparCampos(jPanelCadastro);
+                cliente.retornaCliente(cliente);
+                if (cliente.getInAtivo().equals("INATIVO")){
+                    JOptionPane.showMessageDialog(null, "Este cliente já está inativo!");
                 }
-            } catch (NumberFormatException ex) {
+                else if (cliente.parcelasAPagar(cliente)){
+                    JOptionPane.showMessageDialog(null, "Este cliente possui parcelas a serem pagas, não pode ser inativado!");
+                }
+                else{
+                    int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente inativar este cliente ?",
+                        "Inativar Cliente", JOptionPane.YES_OPTION);
+                    if (delete == JOptionPane.YES_OPTION) {
+                        cliente.excluir(cliente);
+                        JOptionPane.showMessageDialog(null, "Cliente inativado com sucesso!");
+                        limpar.limparCampos(jPanelCadastro);
+                    }
+                }
+            } 
+            catch (NumberFormatException ex) {
+            
             }
         }
         rotina = Rotinas.excluir;

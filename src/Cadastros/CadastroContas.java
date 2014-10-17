@@ -764,7 +764,7 @@ public class CadastroContas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informe uma data válida!");
             jFormattedTextFieldDataVencimento.grabFocus();
         } else {
-            carregarConta();
+            gravarConta();
 
             if (rotina == Rotinas.incluir) {
                 contas.incluir(contas, false);
@@ -932,43 +932,8 @@ public class CadastroContas extends javax.swing.JFrame {
                     p.setDtVencimento(jTableParcelas.getValueAt(0, 3).toString()); // data da primeira parcela
                     p.setVlParcela(vl);
                     p.excluir(p);
-                    
-                    
-                // 
-//                atualizaJtable(conta);
-//
-//                int parc = 0;
-//                for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
-//                    // conta quantas parcela ainda não estão pagas
-//                    try {
-//                        String pago = jTableParcelas.getValueAt(i, 4).toString();
-//                        String dtPago = jTableParcelas.getValueAt(i, 5).toString();
-//                        if (pago.equals("0.00") || dtPago.equals("")) {
-//                            parc = parc + 1;
-//                        }
-//                    } catch (NullPointerException ex) {
-//                        parc = parc + 1;
-//                    }
-//                }
-//                double vlParcela = (double) vl / parc;
-//                // percorre novamente as parcelas e altera o valor das que não estão pagas
-//                for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
-//                    String pago = jTableParcelas.getValueAt(i, 4).toString();
-//                    if (pago.equals("0.00")) {
-//                        p.getContas().setCdConta(conta);
-//                        p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()));
-//                        p.retornaParcela(p);
-//                        p.setVlParcela(p.getVlParcela() + vlParcela);
-//                        p.setDtVencimento(jTableParcelas.getValueAt(i, 3).toString());
-//                        p.alterar(p);
-//                    }
-//                }
+                   
                 atualizaJtable(conta);
-//                }
-//                else{
-//                    JOptionPane.showMessageDialog(null, "Esta parcela não pode ser excluída, "
-//                            + "pois a mesma já possui pagamento e/ou movimentação no caixa!");
-//                }
             }
         }
     }//GEN-LAST:event_jMenuItemExcluirParcelaActionPerformed
@@ -1067,7 +1032,7 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarConta() {
+    private void gravarConta() {
         contas.setDsConta(jTextFieldDescrição.getText().toUpperCase());
         contas.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
         contas.setVlConta(valor);
@@ -1087,7 +1052,7 @@ public class CadastroContas extends javax.swing.JFrame {
         }
     }
 
-    public void preencherCampos() {
+    private void preencherCampos() {
         jTextFieldCdConta.setText(contas.getCdConta().toString());
         jTextFieldDescrição.setText(contas.getDsConta());
         jTextFieldCdForma.setText(contas.getForma().getCdForma().toString());
@@ -1102,12 +1067,6 @@ public class CadastroContas extends javax.swing.JFrame {
             jRadioButtonAReceber.setSelected(true);
         }
         jComboBoxSituacao.setSelectedItem(contas.getPago());
-//        if (contas.getPago().equals("PAGA")){
-//            jComboBoxSituacao.setSelectedIndex(1);
-//        }
-//        else{
-//            jComboBoxSituacao.setSelectedIndex(0);
-//        }
     }
 
     private boolean itemExcluirAtivo() {
@@ -1147,7 +1106,7 @@ public class CadastroContas extends javax.swing.JFrame {
         atualizaJtable(conta);
     }
     
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

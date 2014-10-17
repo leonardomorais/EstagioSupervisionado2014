@@ -288,7 +288,7 @@ public class Parcelas {
                 + "TO_CHAR(P.DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, "
                 + "P.VL_PAGO, TO_CHAR(P.DT_PAGO, 'DD/MM/YYYY') AS DT_PAGO "
                 + "FROM PARCELAS P INNER JOIN CONTAS_PAGAR_RECEBER C "
-                + "ON P.CD_CONTA = C.CD_CONTA "
+                + "ON P.CD_CONTA = C.CD_CONTA AND P.SITUACAO = 'A' "
                 + "INNER JOIN VENDA_COMPRA VC "
                 + "ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
                 + "AND VC.CD_CLIENTE = "+cd+" OR VC.CD_FORNECEDOR = "+cd+" "

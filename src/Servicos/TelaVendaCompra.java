@@ -1048,24 +1048,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             rotina = Rotinas.padrao;
             validaEstadoCampos();
 
-            // se a operação gera movimento financeiro
-            if (venda.getOperacao().getMovFinanceiro().equals("SIM")){
-                gerarContas();
-                
-                // mostra as parcelas
-                ConsultaParcelas consulta = new ConsultaParcelas();
-                consulta.setVisible(true);
-                consulta.exibirParcelas();
-                consulta.addWindowListener(new java.awt.event.WindowAdapter() {
-                public void windowClosed(WindowEvent evt){
-                    limparCampos();
-                    report.setConsulta(venda.consultarTicket(venda));
-                    report.setSubreport(false);
-                    report.setTabela("TICKET_VENDA_COMPRA");
-                    report.gerarRelatorio(report);
-               }
-            });   
-            }
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -1654,6 +1636,27 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
             }
         }
+        
+        // se a operação gera movimento financeiro
+        if (venda.getOperacao().getMovFinanceiro().equals("SIM")) {
+            gerarContas();
+
+            // mostra as parcelas
+            ConsultaParcelas consulta = new ConsultaParcelas();
+            consulta.setVisible(true);
+            consulta.exibirParcelas();
+            
+            consulta.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowClosed(WindowEvent evt) {
+                    limparCampos();
+                    report.setConsulta(venda.consultarTicket(venda));
+                    report.setSubreport(false);
+                    report.setTabela("TICKET_VENDA_COMPRA");
+                    report.gerarRelatorio(report);
+                }
+            });
+        }
+
     }
 
     private void gravarMovEstoque(int anterior) {

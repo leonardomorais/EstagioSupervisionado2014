@@ -109,7 +109,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jBtRemover = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtRemover, KeyEvent.VK_F3, 0);
         jTextFieldVlUnitario = new javax.swing.JTextField();
-        jPanelBotoes = new javax.swing.JPanel();
         jBtNovo = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
         jBtFechaAtendimento = new javax.swing.JButton();
@@ -281,17 +280,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
-        jPanelBotoes.setLayout(jPanelBotoesLayout);
-        jPanelBotoesLayout.setHorizontalGroup(
-            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-        jPanelBotoesLayout.setVerticalGroup(
-            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
         jBtNovo.setText("Iniciar Atendimento");
         jBtNovo.setToolTipText("Iniciar Atendimento (F1)");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -355,8 +343,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                             .addComponent(jScrollPane1)
                             .addGroup(jPanelAtendimentoLayout.createSequentialGroup()
                                 .addComponent(jBtNovo)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBtFechaAtendimento)
                                 .addGap(18, 18, 18)
@@ -460,14 +446,12 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                         .addComponent(jTextFieldVlUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jBtCancelar, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtNovo)
-                            .addComponent(jBtFechaAtendimento))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtCancelar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jBtNovo)
+                        .addComponent(jBtFechaAtendimento)))
                 .addContainerGap())
         );
 
@@ -1065,7 +1049,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanelAtendimento;
-    private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelConsulta;
     private javax.swing.JRadioButton jRadioButtonAbertos;
     private javax.swing.JRadioButton jRadioButtonAmbos;

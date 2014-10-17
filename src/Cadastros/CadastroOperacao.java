@@ -459,7 +459,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             try {
                 operacao.setCdOperacao(Integer.parseInt(jTextFieldCdOperacao.getText()));
 
-                int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta operação ?",
+                int delete = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta operação ",
                         "Excluir Operação", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     operacao.excluir(operacao);

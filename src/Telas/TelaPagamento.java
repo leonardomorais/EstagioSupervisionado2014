@@ -635,7 +635,7 @@ public class TelaPagamento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecione um tipo de pagamento!");
             jTextFieldCdTipo.grabFocus();
         } else {
-            carregarPagamento();
+            gravarPagamento();
             JOptionPane.showMessageDialog(null, "Parcela(s) paga(s)!");
             try {
                 carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
@@ -1014,7 +1014,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTextFieldCdAgencia.grabFocus();
     }
 
-    public void preencheTabela() {
+    private void preencheTabela() {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableParcelas, new int[]{105, 110, 110, 110, 110, 110});
 
@@ -1022,7 +1022,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                 pagamento.getParcelas().consultarCdConta(pagamento.getParcelas().getContas(), true));
     }
 
-    public void carregaTabelaContas(int cd) {
+    private void carregaTabelaContas(int cd) {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableContas, new int[]{50, 100, 95, 60, 100, 70, 90, 80, 80, 80});
 
@@ -1043,7 +1043,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         }
     }
 
-    public void carregarTabelaContas() {
+    private void carregarTabelaContas() {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableContas, new int[]{50, 100, 95, 60, 100, 70, 90, 80, 80, 80});
 
@@ -1051,7 +1051,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                 consultarCdConta(pagamento.getParcelas().getContas()));
     }
 
-    public int parcelasSelecionadas() {
+    private int parcelasSelecionadas() {
         int selecionadas = 0;
         if (jTableParcelas.getRowCount() > 0) {
             for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
@@ -1065,7 +1065,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         return selecionadas;
     }
 
-    public void carregarPagamento() {
+    private void gravarPagamento() {
 
         int linhas = jTableParcelas.getRowCount();
         int row = jTableContas.getSelectedRow();
@@ -1124,12 +1124,12 @@ public class TelaPagamento extends javax.swing.JFrame {
         preencheTabela();
     }
 
-    public void gerarNovaParcela(double valor) {
+    private void gerarNovaParcela(double valor) {
         pagamento.getParcelas().setVlParcela(valor);
         pagamento.getParcelas().gerarParcela(pagamento.getParcelas());
     }
 
-    public void retornaFornecedor(int cd) {
+    private void retornaFornecedor(int cd) {
         pagamento.getParcelas().getContas().getVendaCompra().getFornecedor().setCdFornecedor(cd);
         pagamento.getParcelas().getContas().getVendaCompra().getFornecedor().retornaFornecedor(
                 pagamento.getParcelas().getContas().getVendaCompra().getFornecedor());
@@ -1144,7 +1144,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         }
     }
 
-    public void retornaCliente(int cd) {
+    private void retornaCliente(int cd) {
         pagamento.getParcelas().getContas().getVendaCompra().getCliente().setCdCliente(cd);
         pagamento.getParcelas().getContas().getVendaCompra().getCliente().retornaCliente(
                 pagamento.getParcelas().getContas().getVendaCompra().getCliente());
@@ -1159,7 +1159,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         }
     }
 
-    public int retornaLinha(int parcela) {
+    private int retornaLinha(int parcela) {
         int row = 0;
         for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
             if (Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()) == parcela) {
@@ -1169,7 +1169,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         return row;
     }
 
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");

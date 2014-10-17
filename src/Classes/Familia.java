@@ -40,9 +40,9 @@ public class Familia {
         conexao.atualizarSQL(sql);
     }
 
-    public void excluir(Familia familia) {
+    public void excluir(Familia familia){
         String sql = "DELETE FROM FAMILIA WHERE CD_FAMILIA = " + familia.getCdFamilia();
-        conexao.deleteSQL(sql);
+           conexao.deleteSQL(sql); 
     }
 
     public ResultSet consultarGeral() {

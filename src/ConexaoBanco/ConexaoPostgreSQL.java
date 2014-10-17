@@ -108,13 +108,15 @@ public class ConexaoPostgreSQL {
               //  JOptionPane.showMessageDialog(null, "Exclusao realizada com sucesso");
             }
         } catch (SQLException sqlex) {
-            if (sqlex.getErrorCode() == 2292) {
-                JOptionPane.showMessageDialog(null, "O Registro não pôde ser excluído porque ele"
-                        + " está sendo utilizado em outro cadastro/movimento");
-            } else {
-                JOptionPane.showMessageDialog(null, "Não foi possível executar o comando sql de exclusão, " + sqlex + ""
-                        + " ,o sql passado foi " + sql);
-            }
+            JOptionPane.showMessageDialog(null, "Este registro não pode ser excluído!");
+            //if (sqlex.getErrorCode() == 2292) {
+//            
+//                JOptionPane.showMessageDialog(null, "O Registro não pôde ser excluído porque ele"
+//                        + " está sendo utilizado em outro cadastro/movimento");
+//            } else {
+                //JOptionPane.showMessageDialog(null, "Não foi possível executar o comando sql de exclusão, " + sqlex + ""
+                  //      + " ,o sql passado foi " + sql);
+            //}
             retorno = 0;
         }
 

@@ -5,18 +5,18 @@ import Validacoes.EditarComponentes;
 import Validacoes.RetornaSequencia;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import sun.swing.SwingAccessor;
 
 /**
  *
@@ -323,18 +323,19 @@ public class AtendimentoMesa {
                 mesa.setBackground(new Color(197, 222, 243));
                 
                 mesa.setBounds(x, y, 120, 120);
-                
+
+                mesa.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, false));
                 x = x + 125; // tamanho do jpanel mais o espaçamento de 5
-                
+
                 // se não há mais espaço horizontal para os componentes, adiciona o próximo abaixo
-                if (x >= panel.getWidth() - 125){
+                if (x >= panel.getWidth() - 125) {
                     y = y + 125;
                     x = 5;
                 }
-             
+               
                 edit.editaJpanel(mesa, campoMesa);
                 panel.add(mesa);
-            
+                
                 panel.repaint();
                 panel.validate();
             }

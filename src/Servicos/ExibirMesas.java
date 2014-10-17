@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Servicos;
 
 import Classes.AtendimentoMesa;
@@ -28,7 +22,6 @@ public class ExibirMesas extends javax.swing.JFrame {
     public ExibirMesas() {
         initComponents();
         jBtAtualizarActionPerformed(null);
-        
     }
 
     /**
@@ -67,11 +60,11 @@ public class ExibirMesas extends javax.swing.JFrame {
         setTitle("Mesas");
         setResizable(false);
 
-        jScrollPaneMesas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneMesas.setToolTipText("");
         jScrollPaneMesas.setAutoscrolls(true);
         jScrollPaneMesas.setHorizontalScrollBar(null);
 
-        jPanelMesas.setAutoscrolls(true);
+        jPanelMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanelMesas.setPreferredSize(new java.awt.Dimension(650, 400));
 
         javax.swing.GroupLayout jPanelMesasLayout = new javax.swing.GroupLayout(jPanelMesas);

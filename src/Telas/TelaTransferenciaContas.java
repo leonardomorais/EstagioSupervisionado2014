@@ -420,7 +420,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldVlTransferência;
     // End of variables declaration//GEN-END:variables
 
-    public void gravarTransferencia(double valor) {
+    private void gravarTransferencia(double valor) {
         RetornaData data = new RetornaData();
         int pos = jComboBoxContaOrigem.getSelectedItem().toString().indexOf(" ");
         int cd = Integer.parseInt(jComboBoxContaOrigem.getSelectedItem().toString().substring(0, pos));
@@ -462,7 +462,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jTextFieldVlContaDestino.setText(decimal.retornaDecimal(agc.getVlConta(), 6));
     }
 
-    public void validaEstadoCampos() {
+    private void validaEstadoCampos() {
         ValidaBotoes botoes = new ValidaBotoes();
         botoes.validaEstadoCampos(this.getContentPane(), rotina);
         jTextFieldVlContaOrigem.setEnabled(false);
