@@ -136,7 +136,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
-        jBtExcluir = new javax.swing.JButton();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableVendaCompra = new javax.swing.JTable();
@@ -420,15 +419,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             }
         });
 
-        jBtExcluir.setText("Excluir Venda/Compra");
-        jBtExcluir.setToolTipText("Excluir Venda/Compra (Delete)");
-        atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_DELETE, 0);
-        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtExcluirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelGravarLayout = new javax.swing.GroupLayout(jPanelGravar);
         jPanelGravar.setLayout(jPanelGravarLayout);
         jPanelGravarLayout.setHorizontalGroup(
@@ -513,8 +503,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelGravarLayout.createSequentialGroup()
                         .addComponent(jBtIncluir)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -606,8 +594,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtIncluir)
                     .addComponent(jBtGravar)
-                    .addComponent(jBtCancelar)
-                    .addComponent(jBtExcluir))
+                    .addComponent(jBtCancelar))
                 .addContainerGap())
         );
 
@@ -1043,7 +1030,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         } else {
 
             gravarVendaCompra();
-            JOptionPane.showMessageDialog(null, "A " + tipo + " foi gravada com sucesso!");
+            //JOptionPane.showMessageDialog(null, "A " + tipo + " foi gravada com sucesso!");
             
             rotina = Rotinas.padrao;
             validaEstadoCampos();
@@ -1236,37 +1223,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldCdVendaCompraFocusLost
 
-    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        if (jTextFieldCdVendaCompra.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Informe o código da " + tipo + " que deseja excluir!");
-            jTextFieldCdVendaCompra.grabFocus();
-        } else {
-
-            int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta " + tipo + " ?",
-                    "Excluir " + tipo, JOptionPane.YES_NO_OPTION);
-            if (opcao == JOptionPane.YES_OPTION) {
-                try {
-                    venda.setCdVendaCompra(Integer.parseInt(jTextFieldCdVendaCompra.getText()));
-                    venda.getOperacao().setCdOperacao(Integer.parseInt(jTextFieldCdOperacao.getText()));
-                    if (venda.permiteExclusao(venda)) {
-                        venda.excluir(venda);
-                        limpar.limparCampos(jPanelGravar);
-                        limpar.limparJtable(jTableProdutos);
-                        rotina = Rotinas.padrao;
-                        validaEstadoCampos();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Esta " + tipo + " possui parcelas pagas e não pode ser excluída!");
-                    }
-                } 
-                catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Informe um código válido!");
-                    jTextFieldCdVendaCompra.setText("");
-                    jTextFieldCdVendaCompra.grabFocus();
-                }
-            }
-        }
-    }//GEN-LAST:event_jBtExcluirActionPerformed
-
     private void jMenuItemCarregarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarregarDadosActionPerformed
         int linha = jTableVendaCompra.getSelectedRow();
         if (linha >= 0){
@@ -1363,7 +1319,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupTipo;
     private javax.swing.JButton jBtAdicionar;
     private javax.swing.JButton jBtCancelar;
-    private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
     private javax.swing.JButton jBtPesquisaOperacao;
@@ -1644,9 +1599,12 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             // mostra as parcelas
             ConsultaParcelas consulta = new ConsultaParcelas();
             consulta.setVisible(true);
+            consulta.rotina = 1;
             consulta.exibirParcelas();
             
             consulta.addWindowListener(new java.awt.event.WindowAdapter() {
+                
+                @Override
                 public void windowClosed(WindowEvent evt) {
                     limparCampos();
                     report.setConsulta(venda.consultarTicket(venda));
@@ -1656,7 +1614,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 }
             });
         }
-
     }
 
     private void gravarMovEstoque(int anterior) {

@@ -2,11 +2,13 @@ package Consultas;
 
 import Classes.Parcelas;
 import Dialogos.DialogoData;
+import Relatorios.Relatorios;
 import Telas.TelaPagamento;
 import Validacoes.EditarComponentes;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,6 +19,9 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     Parcelas parcelas = new Parcelas();
 
     EditarComponentes edit = new EditarComponentes();
+    int cod;
+    String name;
+    public int rotina;
     /**
      * Creates new form ConsultaParcelas
      */
@@ -42,14 +47,15 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         TeclasdeAtalho atalho = new TeclasdeAtalho();
         atalho.adicionarAtalho(jBtFechar, KeyEvent.VK_ESCAPE, 0);
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jPopupMenuPagaParcela.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuPagaParcelaPopupMenuWillBecomeVisible(evt);
+            }
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                jPopupMenuPagaParcelaPopupMenuWillBecomeVisible(evt);
             }
         });
 
@@ -100,8 +106,13 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("* Parcelas em vermelho estão em atraso");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(253, 134, 8));
+        jLabel1.setText("- Parcelas devem ser pagas hoje");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("- Parcelas em atraso");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,10 +125,12 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jBtFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelTopo, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -128,8 +141,10 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTopo)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtFechar)
                 .addContainerGap())
@@ -165,6 +180,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                             parcelas.getContas().retornaConta(parcelas.getContas(), true);
                             parcelas.getContas().setDtVencimento(parcelas.retornaDataUltimaParcela(parcelas));
                         }
+                        jTableParcelas.clearSelection();
                     }
                 });
 
@@ -174,20 +190,27 @@ public class ConsultaParcelas extends javax.swing.JFrame {
 
     private void jMenuItemPagarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagarParcelaActionPerformed
         int linha = jTableParcelas.getSelectedRow();
-        int cdConta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
-        int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString());
+        if (linha >= 0) {
+            int cdConta = Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString());
+            int parcela = Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString());
 
-        TelaPagamento tela = new TelaPagamento();
-        tela.setVisible(true);
-        tela.carregarConta(cdConta, parcela);
+            TelaPagamento tela = new TelaPagamento();
+            tela.setVisible(true);
+            tela.carregarConta(cdConta, parcela);
 
-        tela.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evento) {
-                exibirParcelas();
-            }
-        });
-
-
+            tela.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowClosed(java.awt.event.WindowEvent evento) {
+                    if (rotina == 1){
+                        exibirParcelas();
+                    }
+                    else{
+                        exibirParcelasPessoa(cod, name);
+                    }
+                }
+            });
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma parcela!");
+        }
     }//GEN-LAST:event_jMenuItemPagarParcelaActionPerformed
 
     private void jPopupMenuPagaParcelaPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuPagaParcelaPopupMenuWillBecomeVisible
@@ -208,6 +231,13 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     }//GEN-LAST:event_jPopupMenuPagaParcelaPopupMenuWillBecomeVisible
 
     private void jBtFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFecharActionPerformed
+        if (rotina == 1){
+            Relatorios report = new Relatorios();
+            report.setConsulta(parcelas.consultarCdConta(parcelas.getContas(), true));
+            report.setSubreport(false);
+            report.setTabela("TICKET_PARCELAS");
+            report.gerarRelatorio(report);
+        }
         dispose();
     }//GEN-LAST:event_jBtFecharActionPerformed
 
@@ -249,6 +279,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtFechar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelTopo;
     private javax.swing.JMenuItem jMenuItemPagarParcela;
     private javax.swing.JPopupMenu jPopupMenuPagaParcela;
@@ -266,10 +297,12 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             edit.setTipo("PARCELAS");
             edit.editarTabela(jTableParcelas);
         }
-        
     }
 
     public void exibirParcelasPessoa(int cd, String nome){
+        cod = cd;
+        name = nome;
+        rotina = 0;
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableParcelas, new int [] {90, 90, 90, 90, 90, 90});
         preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdPessoa(cd, true));

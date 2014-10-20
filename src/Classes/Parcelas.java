@@ -292,7 +292,7 @@ public class Parcelas {
                 + "INNER JOIN VENDA_COMPRA VC "
                 + "ON C.CD_VENDA_COMPRA = VC.CD_VENDA_COMPRA "
                 + "AND VC.CD_CLIENTE = "+cd+" OR VC.CD_FORNECEDOR = "+cd+" "
-                + condicao+ "ORDER BY P.NR_PARCELA";
+                + condicao+ "ORDER BY P.CD_CONTA, P.NR_PARCELA";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
@@ -375,7 +375,7 @@ public class Parcelas {
                 + "LEFT JOIN PESSOA PS "
                 + "ON VC.CD_CLIENTE = PS.CD_PESSOA "
                 + "WHERE P.SITUACAO = 'A' "
-                + "AND P.DT_VENCIMENTO <= CURRENT_DATE "
+                + "AND P.DT_VENCIMENTO < CURRENT_DATE "
                 + "AND P.VL_PAGO = 0.00";
         conexao.executeSQL(sql);
         return conexao.resultset;

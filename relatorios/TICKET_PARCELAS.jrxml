@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TICKET_PARCELAS" language="groovy" pageWidth="297" pageHeight="421" whenNoDataType="AllSectionsNoDetail" columnWidth="297" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="a21dbd9b-f46e-4f5f-b763-fb4183625760">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT CD_CONTA, NR_PARCELA, VL_PARCELA,
+TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, VL_PAGO,
+TO_CHAR(DT_PAGO, 'DD/MM/YYYY') AS DT_PAGO
+FROM PARCELAS ORDER BY NR_PARCELA]]>
+	</queryString>
+	<field name="cd_conta" class="java.lang.Integer"/>
+	<field name="nr_parcela" class="java.lang.Integer"/>
+	<field name="vl_parcela" class="java.math.BigDecimal"/>
+	<field name="dt_venc" class="java.lang.String"/>
+	<field name="vl_pago" class="java.math.BigDecimal"/>
+	<field name="dt_pago" class="java.lang.String"/>
+	<variable name="TOTAL" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{vl_parcela}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="9dc6a464-f616-412f-9e6b-ee1c3b309b1f" mode="Opaque" x="0" y="0" width="297" height="100" backcolor="#FFFF99"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#FFFF99"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="5414fd4a-7fd6-4855-a9ee-28bfa9bc7f52" mode="Transparent" x="0" y="0" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[AMANDA FAVORETTO DE ALBUQUERQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c2f248f-e0db-4f34-bd29-ec047e92f181" mode="Transparent" x="0" y="20" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[PIZZA AL TÁLIO E CONFEITARIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c2f248f-e0db-4f34-bd29-ec047e92f181" mode="Transparent" x="0" y="40" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[RUA ARARUNA, 805  CENTRO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c2f248f-e0db-4f34-bd29-ec047e92f181" mode="Transparent" x="0" y="60" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[   CEP 87302-210  Fone (44) 3525-4983 Campo Mourão - PR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c2f248f-e0db-4f34-bd29-ec047e92f181" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="80" width="297" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[   CNPJ 16.922.235/0001-47]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="55" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="d4f10088-fed5-46bb-bc56-d034dd728b08" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="297" height="55" backcolor="#FFFF99"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#FFFF99"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="df5f3271-e6ff-414f-9f48-503185242b59" x="0" y="0" width="63" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   CONTA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="0e3fb74f-9316-4f51-85e4-d49c11247ea8" x="236" y="1" width="61" height="19"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="db49fac6-683b-40c3-b4d5-b2aff2915985" x="204" y="1" width="32" height="19"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[DATA]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="901ee82d-66a5-40ae-b409-b219505ed236" x="0" y="0" width="297" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="3bf505ab-d407-46a3-be59-74bda7d694f4" x="0" y="34" width="297" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="d739ff43-9cae-4b62-b58f-ac45c93a323e" x="0" y="35" width="52" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[   Parcela]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d351aa97-d055-4e3d-9130-931c83f5b56f" x="52" y="35" width="59" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="49c25d57-f7e4-4a31-8bfe-7d3b48d2e8bd" x="111" y="35" width="67" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Data Venc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e9322311-f131-4985-a8fb-b0dde3b0bf82" x="236" y="35" width="61" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Data Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="142ec259-84e4-45f5-8f3e-1ce095eb538e" x="178" y="35" width="58" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="22216003-cc75-485f-9d59-a6b4c0794627" x="63" y="1" width="35" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cd_conta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="09fa7eb7-2db3-4cfa-9132-f9deffb60c17" x="0" y="0" width="297" height="27" backcolor="#FFFF99"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="8afb2567-b272-48df-93fd-4f7f17cc58b5" x="0" y="0" width="52" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nr_parcela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fc27c60d-d6a7-4cc3-86bd-db0ddbe12daf" x="52" y="0" width="59" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vl_parcela}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b4175a8f-7c06-4092-a441-0a4cdf2beb78" x="111" y="0" width="67" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dt_venc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a8ccc229-3ebe-4ade-895c-65c1fc466917" x="178" y="0" width="58" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vl_pago}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6f275a9c-30e7-47ee-bdf8-786a03b39345" x="236" y="0" width="61" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dt_pago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="053d6535-66c3-4d3e-b2af-6834c61ded1e" x="0" y="0" width="297" height="50" backcolor="#FFFF99"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement uuid="fa192b67-51e9-45e2-8bb9-2ff5bcedf29a" x="0" y="0" width="297" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="27d2efbd-816c-4cb1-a23f-3abe0191a29b" x="0" y="1" width="52" height="49"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Usuário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fc14b17f-9a02-49f5-b3af-a7211b55ccc6" x="184" y="1" width="62" height="49"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[TOTAL  R$]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ca0b7f2d-711c-41b7-ac38-072640361079" mode="Transparent" x="246" y="1" width="51" height="49" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

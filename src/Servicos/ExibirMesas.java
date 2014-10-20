@@ -264,7 +264,7 @@ public class ExibirMesas extends javax.swing.JFrame {
     private void jBtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAtualizarActionPerformed
         //adicionaJPanel(26);
         jPanelMesas.removeAll();
-        atendimentos.carregarMesas(jPanelMesas, jTextFieldNrMesa);
+        atendimentos.carregarMesas(jPanelMesas, jScrollPaneMesas, jTextFieldNrMesa);
     }//GEN-LAST:event_jBtAtualizarActionPerformed
 
     private void jTextFieldNrMesaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNrMesaFocusLost

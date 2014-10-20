@@ -3,6 +3,7 @@ package Validacoes;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
@@ -48,14 +49,23 @@ public class EditarComponentes extends DefaultTableCellRenderer {
         else {
             String dataTabela = table.getValueAt(row, 3).toString();
             double vlPago = Double.parseDouble(table.getValueAt(row, 4).toString());
-                if (data.comparaData(dataTabela) > 0) {
-                    comp.setForeground(Color.black);
-                } else {
-                    comp.setForeground(Color.red);
-                    if (vlPago > 0){
+            int valor = data.comparaData(dataTabela);
+            if (vlPago > 0){
                         comp.setForeground(Color.black);
                     }
+            else{
+            if (valor > 0) {
+                    comp.setForeground(Color.black);
+                } 
+                else if (valor == 0){
+                    comp.setForeground(new Color(253, 134, 8));
+                    comp.setFont(new Font("Tahoma", 1, 11));
                 }
+                else {
+                    comp.setForeground(Color.RED);
+                    comp.setFont(new Font("Tahoma", 1, 11));
+                }
+            }
         }
         return comp;
     }

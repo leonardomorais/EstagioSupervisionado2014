@@ -195,8 +195,6 @@
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jBtIncluir" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jBtExcluir" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jBtGravar" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -313,7 +311,6 @@
                           <Component id="jBtIncluir" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtGravar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBtExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -662,18 +659,6 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JButton" name="jBtExcluir">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Excluir Venda/Compra"/>
-                <Property name="toolTipText" type="java.lang.String" value="Excluir Venda/Compra (Delete)"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExcluirActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_DELETE, 0);&#xd;&#xa;"/>
               </AuxValues>
             </Component>
           </SubComponents>

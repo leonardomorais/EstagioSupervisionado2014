@@ -1,9 +1,9 @@
 package Relatorios;
 
 import ConexaoBanco.ConexaoPostgreSQL;
-import Validacoes.MostrarDialogo;
 import java.sql.ResultSet;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -40,7 +40,7 @@ public class Relatorios {
             JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
 
             //viewReport(JasperPrint jasperPrint, boolean isExitOnClose) 
-            JasperViewer relatorio = new JasperViewer(print, false); // erro aqui
+            JasperViewer relatorio = new JasperViewer(print, false); 
             relatorio.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
             relatorio.setVisible(true);
             
@@ -50,13 +50,14 @@ public class Relatorios {
 //        JasperExportManager.exportReportToPdfFile(print,
 //				"relatorios\\Relatorio"+tabela+".pdf");
         } catch (JRException ex) {
-            System.err.println("Erro ao gerar Relatório!");
+            JOptionPane.showMessageDialog(null, "Erro ao gerar documento");
         }
     }
     
     public void gerarRelatorio(Relatorios r, HashMap parametros){
         try{
             conexao.conecta();
+            
             if (r.isSubreport()){
                 parametros.put("SUBREPORT_DIR", "relatorios\\");
                 parametros.put("REPORT_CONNECTION", conexao.conecta());
@@ -69,19 +70,20 @@ public class Relatorios {
             
             JasperViewer relatorio = new JasperViewer(print, false);
             relatorio.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
+            
             relatorio.setVisible(true);
         }
         catch(JRException ex){
-            System.err.println("Erro ao gerar Relatório");
+            JOptionPane.showMessageDialog(null, "Erro ao gerar documento");
         }
     }
-
-    public boolean login() {
-        boolean aceito;
-        MostrarDialogo dialogo = new MostrarDialogo();
-        aceito = dialogo.dialogoPassword("ADMIN");
-        return aceito;
-    }
+//
+//    public boolean login() {
+//        boolean aceito;
+//        MostrarDialogo dialogo = new MostrarDialogo();
+//        aceito = dialogo.dialogoPassword("ADMIN");
+//        return aceito;
+//    }
     
     // getter e setter
     public String getTabela() {

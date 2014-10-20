@@ -4,6 +4,7 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.EditarComponentes;
 import Validacoes.RetornaSequencia;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.sql.ResultSet;
@@ -263,7 +264,7 @@ public class AtendimentoMesa {
         return conexao.resultset;
     }
     
-    public void carregarMesas(JPanel panel, JTextField campoMesa) {
+    public void carregarMesas(JPanel panel,JScrollPane scroll, JTextField campoMesa) {
         String sql = "SELECT M.NR_MESA, A.NR_ATENDIMENTO, A.HORA_ABERTURA, A.VL_TOTAL, "
                 + "A.CD_FUNCIONARIO, CASE WHEN A.NR_ATENDIMENTO IS NULL THEN "
                 + "'Mesa Disponível' ELSE 'Mesa Ocupada' END AS DISPONIVEL "
@@ -331,6 +332,8 @@ public class AtendimentoMesa {
                 if (x >= panel.getWidth() - 125) {
                     y = y + 125;
                     x = 5;
+                    panel.setPreferredSize(new Dimension(x, y));
+                    scroll.setPreferredSize(new Dimension(x, y));
                 }
                
                 edit.editaJpanel(mesa, campoMesa);
