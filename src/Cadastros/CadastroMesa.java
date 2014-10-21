@@ -354,7 +354,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 mesa.incluir(mesa);
-                JOptionPane.showMessageDialog(null, "Mesa gravada com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Mesa gravada com sucesso!");
                 jTextFieldNRMesa.setText(mesa.getNrMesa().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldNRMesa.getText().equals("")) {
@@ -364,7 +364,7 @@ public class CadastroMesa extends javax.swing.JFrame {
                     try {
                         mesa.setNrMesa(Integer.parseInt(jTextFieldNRMesa.getText()));
                         mesa.alterar(mesa);
-                        JOptionPane.showMessageDialog(null, "Mesa alterada com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Mesa alterada com sucesso!");
                     } catch (NumberFormatException ex) {
 
                     }
@@ -377,7 +377,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
         if (jTextFieldNRMesa.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "É preciso informar o número da mesa que deseja excluir!");
+            JOptionPane.showMessageDialog(null, "É preciso informar o número da mesa que deseja inativar!");
             jTextFieldNRMesa.grabFocus();
         } else {
             try {
@@ -388,7 +388,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     mesa.excluir(mesa);
-                    JOptionPane.showMessageDialog(null, "Mesa inativada com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Mesa inativada com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

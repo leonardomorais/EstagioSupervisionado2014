@@ -24,45 +24,48 @@ public class Mesa {
         String sql = "INSERT INTO MESA (NR_MESA, DS_MESA, ATIVA) "
                 + "VALUES ('" + mesa.getNrMesa() + "','" + mesa.getDsMesa() + "','" + mesa.getInAtiva() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Mesa gravada com sucesso!");
+        }
     }
 
     public void alterar(Mesa mesa) {
         String sql = "UPDATE MESA SET DS_MESA = '" + mesa.getDsMesa() + "', "
                 + "ATIVA = '" + mesa.getInAtiva() + "' WHERE NR_MESA = " + mesa.getNrMesa();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Mesa alterada com sucesso!");
+        }
     }
 
     public void excluir(Mesa mesa) {
         String sql = "UPDATE MESA SET ATIVA = 'I' WHERE NR_MESA = " + mesa.getNrMesa();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Mesa inativada com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {
-        ResultSet retorno = null;
         String sql = "SELECT NR_MESA, DS_MESA, CASE WHEN ATIVA = 'A' THEN 'ATIVA' ELSE 'INATIVA' "
                 + "END AS SITUACAO FROM MESA ORDER BY NR_MESA";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarNrMesa(Mesa mesa) {
-        ResultSet retorno = null;
         String sql = "SELECT NR_MESA, DS_MESA, CASE WHEN ATIVA = 'A' THEN 'ATIVA' ELSE 'INATIVA' "
                 + "END AS SITUACAO FROM MESA WHERE NR_MESA = " + mesa.getNrMesa();
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarDescricao(Mesa mesa) {
-        ResultSet retorno = null;
         String sql = "SELECT NR_MESA, DS_MESA, CASE WHEN ATIVA = 'A' THEN 'ATIVA' ELSE 'INATIVA' "
                 + "END AS SITUACAO FROM  MESA WHERE DS_MESA LIKE '%" + mesa.getDsMesa() + "%' "
                 + "ORDER BY NR_MESA";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public void retornaMesa(Mesa mesa, boolean todas) {

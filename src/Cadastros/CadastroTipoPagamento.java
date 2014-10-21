@@ -345,7 +345,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
                         "Inativar Tipo de pagamento", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     tipo.exclur(tipo);
-                    JOptionPane.showMessageDialog(null, "Tipo de pagamento excluído com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Tipo de pagamento inativado com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

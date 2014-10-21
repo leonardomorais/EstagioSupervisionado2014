@@ -36,6 +36,9 @@ public class AgenciaConta {
                 + banco.getBanco(banco.getCdBanco()) + "','" + agc.getNrAgencia() + "','" + agc.getNrConta() + "','"
                 + agc.getDsConta() + "','" + agc.getVlConta() + "','" + agc.getInAtivo() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
+        }
     }
 
     public void alterar(AgenciaConta agc) {
@@ -45,11 +48,17 @@ public class AgenciaConta {
                 + "VALOR_CONTA = '" + agc.getVlConta() + "', IN_ATIVO = '" + agc.getInAtivo() + "' "
                 + "WHERE CD_AGENCIA_CONTA = " + agc.getCdAgcConta();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Conta alterada com sucesso!");
+        }
     }
 
     public void excluir(AgenciaConta agc) {
         String sql = "UPDATE AGENCIA_CONTA SET IN_ATIVO = 'I' WHERE CD_AGENCIA_CONTA = " + agc.getCdAgcConta();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Conta inativada com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {

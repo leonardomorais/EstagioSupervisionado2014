@@ -24,6 +24,9 @@ public class Funcionario {
 
         String sql = "INSERT INTO FUNCIONARIO VALUES ('" + funcionario.getCdFuncionario() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!");
+        }
     }
 
     public void alterar(Funcionario funcionario) {

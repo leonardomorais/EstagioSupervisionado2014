@@ -38,7 +38,9 @@ public class Produto {
                 + "'" + produto.getQtAtual() + "','" + produto.getQtMin() + "',"
                 + "'" + produto.getVlCusto() + "','" + produto.getAtivo() + "')";
         conexao.incluirSQL(sql);
-
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Produto gravado com sucesso!");
+        } 
         atualizarEstoque(produto, 0, true);
     }
 
@@ -59,6 +61,9 @@ public class Produto {
                 + "VL_CUSTO = '" + produto.getVlCusto() + "', ATIVO = '" + produto.getAtivo() + "'"
                 + " WHERE CD_PRODUTO = " + produto.getCdProduto();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+        }
 
         if (qtAntes != produto.qtAtual) {
             if (qtAntes < produto.qtAtual) {
@@ -73,6 +78,9 @@ public class Produto {
     public void excluir(Produto produto) {
         String sql = "UPDATE PRODUTOS SET ATIVO = 'I' WHERE CD_PRODUTO = " + produto.getCdProduto();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Produto inativado com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral(boolean todos) {

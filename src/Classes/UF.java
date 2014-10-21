@@ -30,44 +30,44 @@ public class UF {
         String sql = "INSERT INTO UF (CD_UF, NOME_UF, SIGLA) VALUES ('" + uf.getCdUf() + "','"
                 + uf.getDsUf() + "','" + uf.getSigla() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Estado gravado com sucesso!");
+        }
     }
 
     public void alterar(UF uf) {
         String sql = "UPDATE UF SET NOME_UF = '" + uf.getDsUf() + "', SIGLA ='" + uf.getSigla() + "' WHERE "
                 + "CD_UF = " + uf.getCdUf();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Estado alterado com sucesso!");
+        }
     }
 
     public void excluir(UF uf) {
         String sql = "DELETE FROM UF WHERE CD_UF = " + uf.getCdUf();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Estado excluído com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {
-        ResultSet retorno = null;
         String sql = "SELECT * FROM UF ORDER BY CD_UF";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;        
     }
 
     public ResultSet consultarCodigo(UF uf) {
-        ResultSet retorno = null;
         String sql = "SELECT * FROM UF WHERE CD_UF = " + uf.getCdUf();
         conexao.executeSQL(sql);
-
-        retorno = conexao.resultset;
-
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarNome(UF uf) {
-        ResultSet retorno = null;
         String sql = "SELECT * FROM UF WHERE NOME_UF LIKE '%" + uf.getDsUf() + "%' ORDER BY CD_UF";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-
-        return retorno;
+        return conexao.resultset;
     }
 
     public void retornaEstado(UF uf) {

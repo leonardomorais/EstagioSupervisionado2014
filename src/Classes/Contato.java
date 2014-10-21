@@ -4,6 +4,7 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +30,9 @@ public class Contato {
                 + contato.getNrSeq() + "','" + contato.getNomeContato() + "','" + contato.getEmail() + "','"
                 + contato.getFoneRes() + "','" + contato.getFoneCom() + "','" + contato.getFoneCel() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Contato gravado com sucesso!");
+        }
     }
 
     public void alterar(Contato contato) {
@@ -37,17 +41,26 @@ public class Contato {
                 + "FONE_COM = '" + contato.getFoneCom() + "', FONE_CEL = '" + contato.getFoneCel() + "' "
                 + "WHERE CD_PESSOA = " + contato.getCdPessoa() + " AND NR_SEQ = " + contato.getNrSeq();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Contato alterado com sucesso!");
+        }
     }
 
     public void excluir(Contato contato) {
         String sql = "DELETE FROM CONTATO WHERE CD_PESSOA = " + contato.getCdPessoa()
                 + " AND NR_SEQ = " + contato.getNrSeq();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!");
+        }
     }
 
     public void excluirTodos(Contato contato) {
         String sql = "DELETE FROM CONTATO WHERE CD_PESSOA = " + contato.getCdPessoa();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Contatos excluídos com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {

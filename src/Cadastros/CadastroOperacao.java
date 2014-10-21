@@ -402,7 +402,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             switch (rotina){
                 case Rotinas.incluir :
                     operacao.incluir(operacao);
-                    JOptionPane.showMessageDialog(null, "Operação gravada com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Operação gravada com sucesso!");
                     jTextFieldCdOperacao.setText(operacao.getCdOperacao().toString());
                     break;
                 
@@ -414,7 +414,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
                     try{
                         operacao.setCdOperacao(Integer.parseInt(jTextFieldCdOperacao.getText()));
                         operacao.alterar(operacao);
-                        JOptionPane.showMessageDialog(null, "Operação alterada com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Operação alterada com sucesso!");
                     }
                     catch(NumberFormatException ex){
                     }
@@ -463,7 +463,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
                         "Excluir Operação", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     operacao.excluir(operacao);
-                    JOptionPane.showMessageDialog(null, "Operação excluída com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Operação excluída com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

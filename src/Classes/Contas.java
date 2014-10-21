@@ -61,6 +61,9 @@ public class Contas {
                     + contas.getPago() + "')";
         }
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
+        }
         Parcelas p = new Parcelas();
         p.setContas(contas);
         p.geraParcelas(p);
@@ -97,6 +100,9 @@ public class Contas {
         p.excluirTodas(p);
         String sql = "DELETE FROM CONTAS_PAGAR_RECEBER WHERE CD_CONTA = " + contas.getCdConta();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
+        }
     }
 
     public void pagarConta(Contas contas) {

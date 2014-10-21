@@ -376,7 +376,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 familia.incluir(familia);
-                JOptionPane.showMessageDialog(null, "Família gravada com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Família gravada com sucesso!");
                 jTextFieldCdFamilia.setText(familia.getCdFamilia().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdFamilia.getText().equals("")) {
@@ -386,7 +386,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
                     try {
                         familia.setCdFamilia(Integer.parseInt(jTextFieldCdFamilia.getText()));
                         familia.alterar(familia);
-                        JOptionPane.showMessageDialog(null, "Família alterada com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Família alterada com sucesso!");
                     } catch (NumberFormatException ex) {
 
                     }
@@ -410,7 +410,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     familia.excluir(familia);
-                    JOptionPane.showMessageDialog(null, "Família de produtos excluída com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Família de produtos excluída com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

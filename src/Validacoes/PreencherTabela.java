@@ -31,7 +31,7 @@ public class PreencherTabela {
                 setVazia(false);
             }
             if (!resultado.first()) {
-                //JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
+                JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
                 setVazia(true);
             }
         } catch (SQLException erro) {

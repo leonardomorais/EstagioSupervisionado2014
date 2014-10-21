@@ -27,6 +27,9 @@ public class FormaPagamento {
                 + "VALUES ('" + forma.getCdForma() + "','" + forma.getDsForma() + "','" + forma.getEntrada() + "','"
                 + forma.getIntervalo() + "','" + forma.getQtParcelas() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Forma gravada com sucesso!");
+        }
     }
 
     public void alterar(FormaPagamento forma) {
@@ -34,11 +37,17 @@ public class FormaPagamento {
                 + " INTERVALO = '" + forma.getIntervalo() + "', QT_PARCELAS = '" + forma.getQtParcelas() + "' "
                 + "WHERE CD_FORMA = " + forma.getCdForma();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Forma alterada com sucesso!");
+        }
     }
 
     public void excluir(FormaPagamento forma) {
         String sql = "DELETE FROM FORMA_PGTO WHERE CD_FORMA = " + forma.getCdForma();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Forma de pagamento excluída com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {
@@ -49,7 +58,6 @@ public class FormaPagamento {
     }
     
     public ResultSet consultarCodigo(FormaPagamento forma) {
-        ResultSet retorno = null;
         String sql = "SELECT CD_FORMA, DS_FORMA, CASE WHEN ENTRADA = 'S' THEN 'SIM' ELSE 'NÃO' END AS ENTRADA,"
                 + " INTERVALO, QT_PARCELAS FROM FORMA_PGTO WHERE CD_FORMA = " + forma.getCdForma();
         conexao.executeSQL(sql);
@@ -57,7 +65,6 @@ public class FormaPagamento {
     }
 
     public ResultSet consultarDsForma(FormaPagamento forma) {
-        ResultSet retorno = null;
         String sql = "SELECT CD_FORMA, DS_FORMA, CASE WHEN ENTRADA = 'S' THEN 'SIM' ELSE 'NAO' END AS ENTRADA,"
                 + " INTERVALO, QT_PARCELAS FROM FORMA_PGTO WHERE DS_FORMA LIKE '%" + forma.getDsForma() + "%' "
                 + "ORDER BY CD_FORMA";

@@ -25,42 +25,45 @@ public class Origem {
         String sql = "INSERT INTO ORIGEM (CD_ORIGEM, DS_ORIGEM) VALUES "
                 + "('" + origem.getCdOrigem() + "','" + origem.getDsOrigem() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Origem gravada com sucesso!");
+        }
     }
 
     public void alterar(Origem origem) {
         String sql = "UPDATE ORIGEM SET DS_ORIGEM = '" + origem.getDsOrigem() + "' "
                 + "WHERE CD_ORIGEM = " + origem.getCdOrigem();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Origem alterada com sucesso!");
+        }
     }
 
     public void excluir(Origem origem) {
         String sql = "DELETE FROM ORIGEM WHERE CD_ORIGEM = " + origem.getCdOrigem();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Origem excluída com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {
-        ResultSet retorno = null;
         String sql = "SELECT * FROM ORIGEM ORDER BY CD_ORIGEM";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarCdOrigem(Origem origem) {
-        ResultSet retorno = null;
         String sql = "SELECT * FROM ORIGEM WHERE CD_ORIGEM = " + origem.getCdOrigem();
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarDsOrigem(Origem origem) {
-        ResultSet retorno = null;
         String sql = "SELECT * FROM ORIGEM WHERE DS_ORIGEM LIKE '%" + origem.getDsOrigem() + "%' "
                 + "ORDER BY CD_ORIGEM";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public void retornaOrigem(Origem origem) {

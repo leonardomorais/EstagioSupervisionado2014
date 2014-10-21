@@ -157,33 +157,35 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     private void jTableParcelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableParcelasMouseClicked
         final int linha = jTableParcelas.getSelectedRow();
         final int coluna = jTableParcelas.getSelectedColumn();
-        if (coluna == 3) {
-            try {
-                String dataPago = jTableParcelas.getValueAt(linha, 5).toString();
-            } 
-            catch (NullPointerException ex) {
-                final String data = jTableParcelas.getValueAt(linha, coluna).toString();
-                final DialogoData dialogo = new DialogoData(this, true, data);
-                dialogo.setVisible(true);
-                dialogo.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosed(java.awt.event.WindowEvent evt) {
-                        String valor = dialogo.retorno();
-                        jTableParcelas.setValueAt(valor, linha, coluna);
-                        if (!data.equals(valor)) {
-                            // sofreu alteração
-                            parcelas.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
-                            parcelas.setVlParcela(Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString()));
-                            parcelas.setDtVencimento(valor);
-                            parcelas.getContas().setCdConta(Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString()));
-                            // altera a parcela
-                            parcelas.alterar(parcelas);
-                            parcelas.getContas().retornaConta(parcelas.getContas(), true);
-                            parcelas.getContas().setDtVencimento(parcelas.retornaDataUltimaParcela(parcelas));
+        if (linha >=0 && evt.getClickCount() == 2){
+            if (coluna == 3) {
+                try {
+                    String dataPago = jTableParcelas.getValueAt(linha, 5).toString();
+                } 
+                catch (NullPointerException ex) {
+                    final String data = jTableParcelas.getValueAt(linha, coluna).toString();
+                    final DialogoData dialogo = new DialogoData(this, true, data);
+                    dialogo.setVisible(true);
+                    dialogo.addWindowListener(new java.awt.event.WindowAdapter() {
+                        public void windowClosed(java.awt.event.WindowEvent evt) {
+                            String valor = dialogo.retorno();
+                            jTableParcelas.setValueAt(valor, linha, coluna);
+                            if (!data.equals(valor)) {
+                                // sofreu alteração
+                                parcelas.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
+                                parcelas.setVlParcela(Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString()));
+                                parcelas.setDtVencimento(valor);
+                                parcelas.getContas().setCdConta(Integer.parseInt(jTableParcelas.getValueAt(linha, 0).toString()));
+                                // altera a parcela
+                                parcelas.alterar(parcelas);
+                                parcelas.getContas().retornaConta(parcelas.getContas(), true);
+                                parcelas.getContas().setDtVencimento(parcelas.retornaDataUltimaParcela(parcelas));
+                            }
+                            jTableParcelas.clearSelection();
                         }
-                        jTableParcelas.clearSelection();
-                    }
-                });
+                    });
 
+                }
             }
         }
     }//GEN-LAST:event_jTableParcelasMouseClicked

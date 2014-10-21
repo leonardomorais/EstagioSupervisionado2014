@@ -32,48 +32,51 @@ public class Familia {
                 + "VALUES ('" + familia.getCdFamilia() + "','" + origem.getOrigem(origem.getCdOrigem()) + "','"
                 + familia.getDsFamilia() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Família gravada com sucesso!");
+        }
     }
 
     public void alterar(Familia familia) {
         String sql = "UPDATE FAMILIA SET CD_ORIGEM = '" + origem.getOrigem(origem.getCdOrigem()) + "', "
                 + "DS_FAMILIA = '" + familia.getDsFamilia() + "' WHERE CD_FAMILIA = " + familia.getCdFamilia();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Família alterada com sucesso!");
+        }
     }
 
     public void excluir(Familia familia){
         String sql = "DELETE FROM FAMILIA WHERE CD_FAMILIA = " + familia.getCdFamilia();
            conexao.deleteSQL(sql); 
+           if (conexao.retorno == 1){
+               JOptionPane.showMessageDialog(null, "Família de produtos excluída com sucesso!");
+           }
     }
 
     public ResultSet consultarGeral() {
-        ResultSet retorno = null;
         String sql = "SELECT F.CD_FAMILIA, F.DS_FAMILIA, F.CD_ORIGEM, O.DS_ORIGEM "
                 + "FROM FAMILIA F INNER JOIN ORIGEM O ON F.CD_ORIGEM = O.CD_ORIGEM "
                 + "ORDER BY F.CD_FAMILIA";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarCdFamilia(Familia familia) {
-        ResultSet retorno = null;
         String sql = "SELECT F.CD_FAMILIA, F.DS_FAMILIA, F.CD_ORIGEM, O.DS_ORIGEM "
                 + "FROM FAMILIA F INNER JOIN ORIGEM O ON F.CD_ORIGEM = O.CD_ORIGEM "
                 + "WHERE F.CD_FAMILIA = " + familia.getCdFamilia();
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarDsFamilia(Familia familia) {
-        ResultSet retorno = null;
         String sql = "SELECT F.CD_FAMILIA, F.DS_FAMILIA, F.CD_ORIGEM, O.DS_ORIGEM "
                 + "FROM FAMILIA F INNER JOIN ORIGEM O ON F.CD_ORIGEM = O.CD_ORIGEM "
                 + "WHERE F.DS_FAMILIA  LIKE '%" + familia.getDsFamilia() + "%' "
                 + "ORDER BY F.CD_FAMILIA";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public void retornaFamilia(Familia familia) {

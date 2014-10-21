@@ -339,7 +339,7 @@ public class CadastroOrigem extends javax.swing.JFrame {
             carregarOrigem();
             if (rotina == Rotinas.incluir) {
                 origem.incluir(origem);
-                JOptionPane.showMessageDialog(null, "Origem gravada com sucesso!");
+//                JOptionPane.showMessageDialog(null, "Origem gravada com sucesso!");
                 preencherCampos();
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdOrigem.getText().equals("")) {
@@ -349,7 +349,7 @@ public class CadastroOrigem extends javax.swing.JFrame {
                     try {
                         origem.setCdOrigem(Integer.parseInt(jTextFieldCdOrigem.getText()));
                         origem.alterar(origem);
-                        JOptionPane.showMessageDialog(null, "Origem alterada com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Origem alterada com sucesso!");
                     } catch (NumberFormatException ex) {
 
                     }
@@ -373,7 +373,7 @@ public class CadastroOrigem extends javax.swing.JFrame {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     origem.excluir(origem);
-                    JOptionPane.showMessageDialog(null, "Origem excluída com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Origem excluída com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
 
                 }

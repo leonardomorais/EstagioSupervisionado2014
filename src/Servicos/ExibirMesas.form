@@ -37,8 +37,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPaneMesas" min="-2" pref="330" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPaneMesas" min="-2" pref="323" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanelInformacoes" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -47,8 +47,8 @@
   <SubComponents>
     <Container class="javax.swing.JScrollPane" name="jScrollPaneMesas">
       <Properties>
+        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="autoscrolls" type="boolean" value="true"/>
         <Property name="horizontalScrollBar" type="javax.swing.JScrollBar" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="null"/>
         </Property>

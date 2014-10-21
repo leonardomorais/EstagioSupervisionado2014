@@ -31,17 +31,26 @@ public class Banco {
                 + "VALUES ('" + banco.getCdBanco() + "','" + banco.getNmBanco() + "',"
                 + "'" + banco.getInAtivo() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Banco gravado com sucesso!");
+        }
     }
 
     public void alterar(Banco banco) {
         String sql = "UPDATE BANCO SET NM_BANCO = '" + banco.getNmBanco() + "', "
                 + "IN_ATIVO = '" + banco.getInAtivo() + "' WHERE CD_BANCO = " + banco.getCdBanco();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Banco alterado com sucesso!");
+        }
     }
 
     public void excluir(Banco banco) {
         String sql = "UPDATE BANCO SET IN_ATIVO = 'I' WHERE CD_BANCO = " + banco.getCdBanco();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Banco inativado com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {

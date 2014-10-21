@@ -33,19 +33,28 @@ public class Operacao {
                 + operacao.getDsOperacao().toUpperCase() + "','" + operacao.getTipo() + "','"
                 + operacao.getMovEstoque() + "','" + operacao.getMovEstoque() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Operação gravada com sucesso!");
+        }
     }
 
     public void alterar(Operacao operacao) {
-        String sql = "UPDATE OPERACAO SET DS_OPERACAO = '" + operacao.getDsOperacao().toString() + "', "
+        String sql = "UPDATE OPERACAO SET DS_OPERACAO = '" + operacao.getDsOperacao() + "', "
                 + "TIPO = '" + operacao.getTipo() + "', MOV_ESTOQUE = '" + operacao.getMovEstoque() + "', "
                 + "MOV_FINANCEIRO = '" + operacao.getMovFinanceiro() + "' "
                 + "WHERE CD_OPERACAO = " + operacao.getCdOperacao();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Operação alterada com sucesso!");
+        }
     }
 
     public void excluir(Operacao operacao) {
         String sql = "DELETE FROM OPERACAO WHERE CD_OPERACAO = " + operacao.getCdOperacao();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Operação excluída com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {

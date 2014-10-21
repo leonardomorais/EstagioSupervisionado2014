@@ -461,7 +461,7 @@ public class CadastroContato extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 contato.incluir(contato);
-                JOptionPane.showMessageDialog(null, "Contato gravado com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Contato gravado com sucesso!");
                 jTextFieldNrSeq.setText(contato.getNrSeq().toString());
             } else if (rotina == Rotinas.alterar) {
 
@@ -472,7 +472,7 @@ public class CadastroContato extends javax.swing.JFrame {
                     try {
                         contato.setNrSeq(Integer.parseInt(jTextFieldNrSeq.getText()));
                         contato.alterar(contato);
-                        JOptionPane.showMessageDialog(null, "Contato alterado com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Contato alterado com sucesso!");
                     } catch (NumberFormatException ex) {
                     }
                 }
@@ -505,7 +505,7 @@ public class CadastroContato extends javax.swing.JFrame {
                             "Excluir Todos os Contatos", JOptionPane.YES_NO_OPTION);
                     if (delete == JOptionPane.YES_OPTION) {
                         contato.excluirTodos(contato);
-                        JOptionPane.showMessageDialog(null, "Contatos excluídos com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Contatos excluídos com sucesso!");
                         limpar.limparCampos(jPanelCadastro);
                     }
                 } else {
@@ -523,7 +523,7 @@ public class CadastroContato extends javax.swing.JFrame {
 
                 if (excluir == JOptionPane.YES_OPTION) {
                     contato.excluir(contato);
-                    JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Contato excluído com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
 
@@ -532,7 +532,6 @@ public class CadastroContato extends javax.swing.JFrame {
         }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
-
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtPesquisaPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisaPessoaActionPerformed

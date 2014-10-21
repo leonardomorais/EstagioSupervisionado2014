@@ -23,6 +23,9 @@ public class Cliente {
                 + "VALUES ('" + cliente.getCdCliente() + "','" + cliente.getDtCadastro() + "','"
                 + cliente.getInAtivo() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Cliente gravado com sucesso!");
+        }
     }
 
     public void alterar(Cliente cliente) {
@@ -33,11 +36,17 @@ public class Cliente {
                 + "SITUACAO = '" + cliente.getInAtivo() + "' "
                 + "WHERE CD_PESSOA = " + cliente.getCdCliente();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
+        }
     }
 
     public void excluir(Cliente cliente) {
         String sql = "UPDATE CLIENTE SET SITUACAO = 'I' WHERE CD_PESSOA = '" + cliente.getCdCliente() + "'";
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Cliente inativado com sucesso!");
+        }
     }
 
     public void retornaCliente(Cliente cliente) {

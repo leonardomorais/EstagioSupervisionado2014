@@ -763,7 +763,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                         "Inativar Cliente", JOptionPane.YES_OPTION);
                     if (delete == JOptionPane.YES_OPTION) {
                         cliente.excluir(cliente);
-                        JOptionPane.showMessageDialog(null, "Cliente inativado com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Cliente inativado com sucesso!");
                         limpar.limparCampos(jPanelCadastro);
                     }
                 }
@@ -802,7 +802,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 cliente.incluir(cliente);
-                JOptionPane.showMessageDialog(null, "Cliente gravado com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Cliente gravado com sucesso!");
                 jTextFieldCdCliente.setText(cliente.getPessoa().getCdPessoa().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdCliente.getText().equals("")) {
@@ -812,7 +812,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     try {
                         cliente.setCdCliente(Integer.parseInt(jTextFieldCdCliente.getText()));
                         cliente.alterar(cliente);
-                        JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
                     } catch (NumberFormatException ex) {
                     }
                 }

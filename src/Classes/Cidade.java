@@ -32,17 +32,26 @@ public class Cidade {
                 + "('" + cidade.getCdCidade() + "','" + estado.getEstado(estado.getCdUf()) + "','"
                 + cidade.getDsCidade() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Cidade gravada com sucesso!");
+        }
     }
 
     public void alterar(Cidade cidade) {
         String sql = "UPDATE CIDADE SET CD_UF = '" + estado.getEstado(estado.getCdUf()) + "', "
                 + " DS_CIDADE = '" + cidade.getDsCidade() + "' WHERE CD_CIDADE = " + cidade.getCdCidade();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Cidade alterada com sucesso!");
+        }
     }
 
     public void excluir(Cidade cidade) {
         String sql = "DELETE FROM CIDADE WHERE CD_CIDADE = " + cidade.getCdCidade();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Cidade excluída com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {

@@ -27,17 +27,26 @@ public class TipoPagamento {
         String sql = "INSERT INTO TIPO_PGTO (CD_TIPO, DS_TIPO, IN_ATIVO) "
                 + "VALUES ('" + tp.getCdTipo() + "','" + tp.getDsTipo() + "','" + tp.getInAtivo() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Tipo de pagamento gravado com sucesso!");
+        }
     }
 
     public void alterar(TipoPagamento tp) {
         String sql = "UPDATE TIPO_PGTO SET DS_TIPO = '" + tp.getDsTipo() + "', IN_ATIVO = '" + tp.getInAtivo() + "' "
                 + "WHERE CD_TIPO = " + tp.getCdTipo();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Tipo de pagamento alterado com sucesso!");
+        }
     }
 
     public void exclur(TipoPagamento tp) {
         String sql = "UPDATE TIPO_PGTO SET IN_ATIVO = 'I' WHERE CD_TIPO = " + tp.getCdTipo();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Tipo de pagamento inativado com sucesso!");
+        }
     }
 
     public ResultSet consultarGeral() {

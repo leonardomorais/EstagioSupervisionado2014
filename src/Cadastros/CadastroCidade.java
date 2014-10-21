@@ -361,7 +361,7 @@ public class CadastroCidade extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 cidade.incluir(cidade);
-                JOptionPane.showMessageDialog(null, "Cidade gravada com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Cidade gravada com sucesso!");
                 jTextFieldCodigo.setText(Integer.toString(cidade.getCdCidade()));
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCodigo.getText().equals("")) {
@@ -371,7 +371,7 @@ public class CadastroCidade extends javax.swing.JFrame {
                     try {
                         cidade.setCdCidade(Integer.parseInt(jTextFieldCodigo.getText()));
                         cidade.alterar(cidade);
-                        JOptionPane.showMessageDialog(null, "Cidade alterada com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Cidade alterada com sucesso!");
                     } catch (NumberFormatException ex) {
                     }
                 }
@@ -392,7 +392,7 @@ public class CadastroCidade extends javax.swing.JFrame {
                         "Excluir Cidade", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     cidade.excluir(cidade);
-                    JOptionPane.showMessageDialog(null, "Cidade excluída com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Cidade excluída com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

@@ -6,7 +6,6 @@ import Validacoes.RetornaSequencia;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
@@ -332,8 +331,10 @@ public class AtendimentoMesa {
                 if (x >= panel.getWidth() - 125) {
                     y = y + 125;
                     x = 5;
-                    panel.setPreferredSize(new Dimension(x, y));
-                    scroll.setPreferredSize(new Dimension(x, y));
+                    int largura = panel.getWidth();
+                    int altura = y + 125;
+                    panel.setPreferredSize(new Dimension(largura, altura));
+                    scroll.setPreferredSize(new Dimension(largura, altura));
                 }
                
                 edit.editaJpanel(mesa, campoMesa);

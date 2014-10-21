@@ -494,7 +494,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             if (rotina == Rotinas.incluir) {
                 produto.incluir(produto);
                 jTextFieldCdProduto.setText(produto.getCdProduto().toString());
-                JOptionPane.showMessageDialog(null, "Produto gravado com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Produto gravado com sucesso!");
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdProduto.getText().equals("")) {
                     JOptionPane.showMessageDialog(null, "É preciso informar o código do produto que deseja alterar!");
@@ -502,7 +502,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                 } else {
                     produto.setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
                     produto.alterar(produto);
-                    JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
                 }
             }
             rotina = Rotinas.padrao;
@@ -522,7 +522,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                         "Inativar Produto", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     produto.excluir(produto);
-                    JOptionPane.showMessageDialog(null, "Produto inativado com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Produto inativado com sucesso!");
                     limparCampos();
                 }
             } 

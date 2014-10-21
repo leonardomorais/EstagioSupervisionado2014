@@ -668,7 +668,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 funcionario.incluir(funcionario);
-                JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Funcionário gravado com sucesso!");
                 jTextFieldCdFuncionario.setText(funcionario.getCdFuncionario().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdFuncionario.getText().equals("")) {

@@ -684,18 +684,24 @@ public class CadastroContas extends javax.swing.JFrame {
             try {
                 contas.setCdConta(Integer.parseInt(jTextFieldCdConta.getText()));
 
-                if (contas.permiteExclusao(contas)) {
-                    contas.excluir(contas);
-                    JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
-                    rotina = Rotinas.padrao;
-                    botoes.validaBotoes(jPanelBotoes, rotina);
-                    limpar.limparCampos(jPanelCadastro);
-                    botoes.validaEstadoCampos(jPanelCadastro, rotina);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Esta conta já possui parcelas pagas, "
-                            + "é necessário extornar as parcelas da conta para excluí-la!");
+                int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta conta?", 
+                        "Excluir conta",JOptionPane.YES_NO_OPTION);
+                if (opcao == JOptionPane.YES_OPTION) {
+
+                    if (contas.permiteExclusao(contas)) {
+                        contas.excluir(contas);
+                        //JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
+                        rotina = Rotinas.padrao;
+                        botoes.validaBotoes(jPanelBotoes, rotina);
+                        limpar.limparCampos(jPanelCadastro);
+                        botoes.validaEstadoCampos(jPanelCadastro, rotina);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Esta conta já possui parcelas pagas, "
+                                + "é necessário extornar as parcelas da conta para excluí-la!");
+                    }
                 }
-            } catch (NumberFormatException ex) {
+            } 
+            catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Informe um código válido!");
                 jTextFieldCdConta.setText("");
                 jTextFieldCdConta.grabFocus();
@@ -737,9 +743,9 @@ public class CadastroContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtPesquisarFormaPgtoActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
-        rotina = Rotinas.alterar;
-        botoes.validaBotoes(jPanelBotoes, rotina);
-        jTextFieldDescrição.grabFocus();
+//        rotina = Rotinas.alterar;
+//        botoes.validaBotoes(jPanelBotoes, rotina);
+//        jTextFieldDescrição.grabFocus();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
@@ -768,7 +774,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 contas.incluir(contas, false);
-                JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
                 jTextFieldCdConta.setText(contas.getCdConta().toString());
                 // mostra as parcelas geradas
                 ConsultaParcelas consulta = new ConsultaParcelas();

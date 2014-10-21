@@ -358,7 +358,7 @@ public class CadastroBanco extends javax.swing.JFrame {
                         "Inativar Banco", JOptionPane.YES_OPTION);
                 if (delete == JOptionPane.YES_OPTION) {
                     banco.excluir(banco);
-                    JOptionPane.showMessageDialog(null, "Banco inativado com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Banco inativado com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } 
@@ -388,7 +388,7 @@ public class CadastroBanco extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 banco.incluir(banco);
-                JOptionPane.showMessageDialog(null, "Banco gravado com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Banco gravado com sucesso!");
                 jTextFieldCdBanco.setText(banco.getCdBanco().toString());
             } 
             else if (rotina == Rotinas.alterar) {
@@ -400,7 +400,7 @@ public class CadastroBanco extends javax.swing.JFrame {
                     try {
                         banco.setCdBanco(Integer.parseInt(jTextFieldCdBanco.getText()));
                         banco.alterar(banco);
-                        JOptionPane.showMessageDialog(null, "Banco alterado com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Banco alterado com sucesso!");
                     } 
                     catch (NumberFormatException ex) {
                         jBtCancelarActionPerformed(null);

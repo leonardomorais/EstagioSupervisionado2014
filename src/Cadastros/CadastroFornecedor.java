@@ -784,7 +784,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 fornecedor.incluir(fornecedor);
-                JOptionPane.showMessageDialog(null, "Fornecedor gravado com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Fornecedor gravado com sucesso!");
                 jTextFieldCdFornecedor.setText(fornecedor.getCdFornecedor().toString());
             } else if (rotina == Rotinas.alterar) {
                 if (jTextFieldCdFornecedor.getText().equals("")) {
@@ -794,7 +794,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                     try {
                         fornecedor.setCdFornecedor(Integer.parseInt(jTextFieldCdFornecedor.getText()));
                         fornecedor.alterar(fornecedor);
-                        JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
+                        //JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
                     } catch (NumberFormatException ex) {
 
                     }
@@ -870,7 +870,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     fornecedor.excluir(fornecedor);
-                    JOptionPane.showMessageDialog(null, "Fornecedor inativado com sucesso!");
+                    //JOptionPane.showMessageDialog(null, "Fornecedor inativado com sucesso!");
                     limpar.limparCampos(jPanelCadastro);
                 }
             } catch (NumberFormatException ex) {

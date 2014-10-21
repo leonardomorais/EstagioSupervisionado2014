@@ -27,6 +27,9 @@ public class Fornecedor {
                 + "VALUES ('" + fornecedor.getCdFornecedor() + "','" + fornecedor.getDtCadastro() + "','"
                 + fornecedor.getInAtivo() + "')";
         conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Fornecedor gravado com sucesso!");
+        }
     }
 
     public void alterar(Fornecedor fornecedor) {
@@ -39,11 +42,17 @@ public class Fornecedor {
         String sql = "UPDATE FORNECEDOR SET DT_CADASTRO = '" + fornecedor.getDtCadastro() + "', "
                 + "SITUACAO = '" + fornecedor.getInAtivo() + "' WHERE CD_PESSOA = " + fornecedor.getCdFornecedor();
         conexao.atualizarSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Fornecedor alterado com sucesso!");
+        }
     }
 
     public void excluir(Fornecedor fornecedor) {
         String sql = "UPDATE FORNECEDOR SET SITUACAO = 'I' WHERE CD_PESSOA = " + fornecedor.getCdFornecedor();
         conexao.deleteSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Fornecedor inativado com sucesso!");
+        }
     }
 
     public void retornaFornecedor(Fornecedor fornecedor) {
