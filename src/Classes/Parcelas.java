@@ -122,7 +122,7 @@ public class Parcelas {
         verificaAvisos();
     }
 
-    public void estornarParcela(Parcelas parcelas) {
+    public void estornarParcela(Parcelas parcelas, String tela) {
         //parcelas.getContas().retornaConta(parcelas.getContas(), true);
         if (verificaParcelasPagas(parcelas)) {
             // se a conta possuir todas as parcelas pagas a situação da conta deve ser alterada
@@ -138,12 +138,16 @@ public class Parcelas {
                 + "NR_PARCELA = " + parcelas.getNrParcela();
         conexao.atualizarSQL(sql);
 
-        // remove o pagamento da parcela e a conta
-        Pagamento pag = new Pagamento();
-        pag.setParcelas(parcelas);
-        pag.alterar(pag);
+         // se este estorno vier da tela de contas, remove o pagamento,
+         // caso contrário para o exemplo de o estorno vir da tela de conciliação mantém o pagamento ativo
+        if (tela.equals("CONTAS")) {
+            // remove o pagamento da parcela e a conta
+            Pagamento pag = new Pagamento();
+            pag.setParcelas(parcelas);
+            pag.alterar(pag);
+        }
 
-        RetornaData data = new RetornaData();
+        //RetornaData data = new RetornaData();
         MovCaixa mov = new MovCaixa();
         mov.setParcelas(parcelas);
         mov.retornaMov(mov);

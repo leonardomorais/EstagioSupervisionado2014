@@ -5,6 +5,7 @@ import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
@@ -40,7 +41,7 @@ public class Pagamento {
         conexao.incluirSQL(sql);
     }
     
-    public void alterar(Pagamento pagamento){
+    public void alterar(Pagamento pagamento){     
         String sql = "UPDATE PAGAMENTO SET SITUACAO = 'I' WHERE CD_CONTA = "
                 +pagamento.getParcelas().getContas().getCdConta()+" AND "
                 + "NR_PARCELA = "+pagamento.getParcelas().getNrParcela();
@@ -201,7 +202,7 @@ public class Pagamento {
     }
     
     public ResultSet consultarSituacao(Pagamento pagamento){
-        String sql = "";
+        String sql;
         if (pagamento.getSituacao().equals("TODOS")){
             sql = "";
         }
@@ -240,12 +241,29 @@ public class Pagamento {
                 + "ON T.CD_TIPO = PAG.CD_TIPO "
                 + "WHERE PAG.SITUACAO = 'A' "
                 + "AND PAG.CD_CONTA = " +pagamento.getParcelas().getContas().getCdConta()+ " "
-                + "AND P.NR_PARCELA IN (" + consulta + ") AND P.SITUACAO = 'A'";
+                + "AND PAG.CD_PAGAMENTO IN (" + consulta + ") AND P.SITUACAO = 'A'";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
     
-    public ResultSet consultarPagamentosCheque() {
+    public ResultSet consultarPagamentosCheque(Pagamento pagamento) {
+        String condicao;
+        switch (pagamento.getSitCheque()){
+            case "TODOS":
+                condicao = "";
+            break;
+                
+            case "AGUARDANDO":
+                condicao = " AND PAG.SIT_CHEQUE = 'A'";
+            break;
+                
+            case "RECEBIDOS":
+                condicao = " AND PAG.SIT_CHEQUE = 'R'";
+            break;    
+                
+            default:
+                condicao = " AND PAG.SIT_CHEQUE = 'N'";
+        }
         String sql = "SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, P.VL_PARCELA, "
                 + "CASE WHEN C.TIPO_CONTA = 'P' THEN 'A PAGAR' ELSE 'A RECEBER' END AS TIPO, "
                 + "PAG.CD_AGENCIA_CONTA, AGC.DS_CONTA, B.NM_BANCO , PS.CD_PESSOA, PS.NOME, "
@@ -265,7 +283,7 @@ public class Pagamento {
                 + "LEFT JOIN PESSOA PS ON "
                 + "VC.CD_FORNECEDOR = PS.CD_PESSOA OR "
                 + "VC.CD_CLIENTE = PS.CD_PESSOA "
-                + "WHERE PAG.CD_TIPO = 2 AND PAG.SITUACAO = 'A'";
+                + "WHERE PAG.CD_TIPO = 2 AND PAG.SITUACAO = 'A'"+condicao;
         conexao.executeSQL(sql);
         return conexao.resultset;
     }

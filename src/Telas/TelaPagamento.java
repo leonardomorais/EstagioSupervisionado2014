@@ -27,8 +27,7 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     Pagamento pagamento = new Pagamento();
     Relatorios report = new Relatorios();
-    List<Integer> parcelas = new ArrayList<Integer>();
-
+    List<Integer> codigos = new ArrayList<>();
     RetornaDecimal decimal = new RetornaDecimal();
     RetornaData data = new RetornaData();
     LimparCampos limpar = new LimparCampos();
@@ -739,7 +738,9 @@ public class TelaPagamento extends javax.swing.JFrame {
                 } 
                 catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                    editaBotao(true);
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                    jBtRelatorio.setEnabled(false);
                 }
             break;
 
@@ -752,7 +753,9 @@ public class TelaPagamento extends javax.swing.JFrame {
                 } 
                 catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                    editaBotao(true);
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                    jBtRelatorio.setEnabled(false);
                 }
             break;
 
@@ -772,7 +775,9 @@ public class TelaPagamento extends javax.swing.JFrame {
                 } 
                 catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
-                    editaBotao(true);
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                    jBtRelatorio.setEnabled(false);
                 }
             break;
         }
@@ -1058,7 +1063,6 @@ public class TelaPagamento extends javax.swing.JFrame {
                 if ((boolean) jTableParcelas.getValueAt(i, 0)) {
                     // selecionada
                     selecionadas = selecionadas + 1;
-                    parcelas.add(Integer.parseInt(jTableParcelas.getValueAt(i, 1).toString()));
                 }
             }
         }
@@ -1111,6 +1115,7 @@ public class TelaPagamento extends javax.swing.JFrame {
 
                 // grava o pagamento
                 pagamento.incluir(pagamento);
+                codigos.add(pagamento.getCdPagamento());
 
                 // grava movimentação de caixa se a operação permite e se o pagamento não for em cheque
                 
@@ -1171,16 +1176,18 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     private void editaBotao(boolean vazia) {
         if (vazia) {
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
+            
         }
     }
 
     private void exibirTicket() {
-        report.setConsulta(pagamento.consultarTicket(pagamento, parcelas));
+        report.setConsulta(pagamento.consultarTicket(pagamento, codigos));
         report.setTabela("TICKET_PAGAMENTO");
         report.setSubreport(false);
         report.gerarRelatorio(report);

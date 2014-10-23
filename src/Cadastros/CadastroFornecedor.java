@@ -1232,6 +1232,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
     private void editaBotao(boolean vazia) {
         if (vazia) {
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();

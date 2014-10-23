@@ -57,8 +57,8 @@ public class Avisos {
 
             ImageIcon img = new ImageIcon("src\\Extras\\Imagens\\aviso.png");
 
-            trayIcon = new TrayIcon(img.getImage(), "Avisos", null);
-            trayIcon.setImageAutoSize(true);
+            trayIcon = new TrayIcon(img.getImage(), "Al Tálio Sistema - Avisos", null);
+            trayIcon.setImageAutoSize(false);
 
             try {
                 tray.add(trayIcon);

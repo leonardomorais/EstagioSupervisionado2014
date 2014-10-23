@@ -694,6 +694,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
         }
     }
 

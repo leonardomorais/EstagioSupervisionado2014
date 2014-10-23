@@ -1241,6 +1241,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     
     public void editaBotao(boolean vazia) {
         if (vazia) {
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();

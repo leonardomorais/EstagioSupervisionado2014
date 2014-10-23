@@ -249,7 +249,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGerenciarCheques">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gerenciar Cheques"/>
+                <Property name="text" type="java.lang.String" value="Concilia&#xe7;&#xe3;o Banc&#xe1;ria"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGerenciarChequesActionPerformed"/>

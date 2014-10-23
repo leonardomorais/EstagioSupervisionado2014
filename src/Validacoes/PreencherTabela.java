@@ -31,10 +31,11 @@ public class PreencherTabela {
                 setVazia(false);
             }
             if (!resultado.first()) {
-                JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
+                //JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
                 setVazia(true);
             }
-        } catch (SQLException erro) {
+        } 
+        catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar no JTable" + erro);
             setVazia(true);
         }
@@ -74,7 +75,7 @@ public class PreencherTabela {
                 modelo.addRow(row);
             }
             if (!resultado.first()) {
-                JOptionPane.showMessageDialog(null, "Registros não localizados !");
+                //JOptionPane.showMessageDialog(null, "Registros não localizados !");
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar no JTable" + erro);

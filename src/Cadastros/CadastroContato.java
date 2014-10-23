@@ -622,6 +622,10 @@ public class CadastroContato extends javax.swing.JFrame {
                 preencher.PreencherJtableGenerico(jTableConsulta, contato.consultarNome(pessoa));
             break;       
         }
+        if (preencher.Vazia()){
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
+            jTextFieldConsulta.setText("");
+        }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jMenuItemCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarregarActionPerformed

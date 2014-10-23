@@ -909,7 +909,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 p.getContas().setCdConta(conta);
                 p.getContas().setTpConta(jTableContas.getValueAt(linhaConta, 8).toString());
                 p.setNrParcela(Integer.parseInt(jTableParcelas.getValueAt(linha, 1).toString()));
-                p.estornarParcela(p);
+                p.estornarParcela(p,"CONTAS");
 
                 JOptionPane.showMessageDialog(null, "Parcela extornada com sucesso!");
                 atualizaJtable(conta);
@@ -1114,6 +1114,7 @@ public class CadastroContas extends javax.swing.JFrame {
     
     private void editaBotao(boolean vazia) {
         if (vazia) {
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();

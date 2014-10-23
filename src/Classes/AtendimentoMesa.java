@@ -276,7 +276,9 @@ public class AtendimentoMesa {
             int x = 5;
             int y = 5;
             Font fonte = new Font("Tahoma", 1, 12);
+            
             while (conexao.resultset.next()){
+                
                 
                 int nr = conexao.resultset.getInt("NR_MESA");
                 String disponivel = conexao.resultset.getString("DISPONIVEL");
@@ -322,11 +324,6 @@ public class AtendimentoMesa {
                 
                 mesa.setBackground(new Color(197, 222, 243));
                 
-                mesa.setBounds(x, y, 120, 120);
-
-                mesa.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, false));
-                x = x + 125; // tamanho do jpanel mais o espaçamento de 5
-
                 // se não há mais espaço horizontal para os componentes, adiciona o próximo abaixo
                 if (x >= panel.getWidth() - 125) {
                     y = y + 125;
@@ -336,6 +333,11 @@ public class AtendimentoMesa {
                     panel.setPreferredSize(new Dimension(largura, altura));
                     scroll.setPreferredSize(new Dimension(largura, altura));
                 }
+                
+                mesa.setBounds(x, y, 120, 120);
+
+                mesa.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, false));
+                x = x + 125; // tamanho do jpanel mais o espaçamento de 5
                
                 edit.editaJpanel(mesa, campoMesa);
                 panel.add(mesa);

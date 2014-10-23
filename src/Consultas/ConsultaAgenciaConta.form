@@ -91,6 +91,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="popupMenuWillBecomeInvisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="jComboBoxConsultaPopupMenuWillBecomeInvisible"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtPesquisar">
       <Properties>

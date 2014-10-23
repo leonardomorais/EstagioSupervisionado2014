@@ -328,7 +328,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemTransferencia);
 
-        jMenuItemGerenciarCheques.setText("Gerenciar Cheques");
+        jMenuItemGerenciarCheques.setText("Conciliação Bancária");
         jMenuItemGerenciarCheques.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemGerenciarChequesActionPerformed(evt);
@@ -485,7 +485,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemSaldoProdutosActionPerformed
 
     private void jMenuItemGerenciarChequesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGerenciarChequesActionPerformed
-        new PagamentoCheque().setVisible(true);
+        new TelaConciliacaoBancaria().setVisible(true);
     }//GEN-LAST:event_jMenuItemGerenciarChequesActionPerformed
 
     /**

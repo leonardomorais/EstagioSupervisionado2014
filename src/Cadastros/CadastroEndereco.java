@@ -618,6 +618,10 @@ public class CadastroEndereco extends javax.swing.JFrame {
                 preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarNome(pessoa));
             break;    
         }
+        if (preencher.Vazia()){
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
+            jTextFieldConsulta.setText("");
+        }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jMenuItemCarregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarregaActionPerformed

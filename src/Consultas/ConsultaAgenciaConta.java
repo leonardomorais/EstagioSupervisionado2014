@@ -56,6 +56,15 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         jLabel1.setText("Filtro da Consulta");
 
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
+        jComboBoxConsulta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                jComboBoxConsultaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         jBtPesquisar.setText("Pesquisar");
         jBtPesquisar.setToolTipText("Pesquisar (F5)");
@@ -189,6 +198,11 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
                 agcConta.setDsConta(jTextFieldConsulta.getText().toUpperCase());
                 preencher.PreencherJtableGenerico(jTableConsulta, agcConta.consultarDsConta(agcConta));
         }
+        if (preencher.Vazia()){
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
+            jTextFieldConsulta.setText("");
+            jTextFieldConsulta.grabFocus();
+        }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jBtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarActionPerformed
@@ -238,6 +252,21 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
                 evt.consume();
             }
     }//GEN-LAST:event_jTableConsultaKeyPressed
+
+    private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+         switch (jComboBoxConsulta.getSelectedIndex()) {
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+                break;
+
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+                break;
+        }
+    }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 //
 //    /**
 //     * @param args the command line arguments
