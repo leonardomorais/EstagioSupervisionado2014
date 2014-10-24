@@ -4,6 +4,8 @@ import Classes.Pagamento;
 import Validacoes.PreencherTabela;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -20,6 +22,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
     public TelaConciliacaoBancaria() {
         initComponents();
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, "TODOS");
+        
         preencherTabela("TODOS");
     }
 
@@ -39,6 +42,14 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
         jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        jTableConsulta.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                preencherCampos();
+            }
+        });
         jLabel1 = new javax.swing.JLabel();
         jCheckBoxRecebido = new javax.swing.JCheckBox();
         jBtConfirmar = new javax.swing.JButton();
@@ -240,50 +251,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBoxRecebidoActionPerformed
 
     private void jTableConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaMouseClicked
-        int linha = jTableConsulta.getSelectedRow();
-        if (linha >= 0) {
-
-            pagamento.setCdPagamento(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
-            pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 1).toString()));
-            pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableConsulta.getValueAt(linha, 2).toString()));
-            pagamento.getParcelas().setVlPago(Double.parseDouble(jTableConsulta.getValueAt(linha, 3).toString()));
-            pagamento.getParcelas().getContas().setTpConta(jTableConsulta.getValueAt(linha, 4).toString());
-            pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 5).toString()));
-            pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
-
-            String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
-            String tipo = pagamento.getParcelas().getContas().getTpConta();
-            if (tipo.equals("A RECEBER")) {
-                tipo = "E";
-            } else {
-                tipo = "S";
-            }
-            pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
-            
-            if (!op.equals("")){
-                jComboBoxOperacao.setSelectedItem(op); 
-            }
-            String cheque = jTableConsulta.getValueAt(linha, 10).toString();
-            
-            switch (cheque){
-                case "AGUARDANDO":
-                    jCheckBoxNaoRecebido.setEnabled(true);
-                    jCheckBoxRecebido.setEnabled(true);
-                break;
-                    
-                case "RECEBIDO":
-                    jCheckBoxRecebido.setEnabled(false);
-                    jCheckBoxNaoRecebido.setEnabled(true);
-                break;
-                    
-                default:
-                    jCheckBoxRecebido.setEnabled(true);
-                    jCheckBoxNaoRecebido.setEnabled(false);
-                break;    
-            }
-            
-            jBtConfirmar.setEnabled(true);
-        }
+        preencherCampos();
     }//GEN-LAST:event_jTableConsultaMouseClicked
 
     private void jBtConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtConfirmarActionPerformed
@@ -300,6 +268,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
             
             if (opcao == JOptionPane.YES_OPTION) {
                 alterarCheque(recebido);
+                JOptionPane.showMessageDialog(null, "Operação realizada com sucesso!");
                 preencherTabela(retornaSelecionado());
             }
         }
@@ -451,5 +420,57 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
         }
         
         return sel;
+    }
+    
+    private void preencherCampos(){
+        int linha = jTableConsulta.getSelectedRow();
+        if (linha >= 0) {
+
+            pagamento.setCdPagamento(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+            pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 1).toString()));
+            pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableConsulta.getValueAt(linha, 2).toString()));
+            pagamento.getParcelas().setVlPago(Double.parseDouble(jTableConsulta.getValueAt(linha, 3).toString()));
+            pagamento.getParcelas().getContas().setTpConta(jTableConsulta.getValueAt(linha, 4).toString());
+            pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 5).toString()));
+            pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+
+            String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+            String tipo = pagamento.getParcelas().getContas().getTpConta();
+            if (tipo.equals("A RECEBER")) {
+                tipo = "E";
+            } else {
+                tipo = "S";
+            }
+            jComboBoxOperacao.setEnabled(true);
+            pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
+            
+            
+            if (!op.equals("")){
+                jComboBoxOperacao.setSelectedItem(op); 
+                jComboBoxOperacao.setEnabled(false);
+            }
+            String cheque = jTableConsulta.getValueAt(linha, 10).toString();
+            boolean sit = cheque.equals("AGUARDANDO");
+            jCheckBoxRecebido.setEnabled(sit);
+            jCheckBoxNaoRecebido.setEnabled(sit);
+//            
+//            switch (cheque){
+//                case "AGUARDANDO":
+//                    jCheckBoxNaoRecebido.setEnabled(true);
+//                    jCheckBoxRecebido.setEnabled(true);
+//                break;
+//                    
+//                case "RECEBIDO":
+//                    jCheckBoxRecebido.setEnabled(false);
+//                    jCheckBoxNaoRecebido.setEnabled(false);
+//                break;
+//                    
+//                default:
+//                    jCheckBoxRecebido.setEnabled(true);
+//                    jCheckBoxNaoRecebido.setEnabled(false);
+//                break;    
+//            }          
+            jBtConfirmar.setEnabled(true);
+        }
     }
 }

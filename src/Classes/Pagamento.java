@@ -5,7 +5,6 @@ import Validacoes.RetornaData;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.util.List;
-import javax.swing.JTable;
 
 /**
  *
@@ -65,7 +64,6 @@ public class Pagamento {
             
             if (mov.getParcelas().getContas().getTpConta().equals("A PAGAR")){
                 mov.setSaldoFinal(mov.getSaldoAnterior() - mov.getValorMov());
-                mov.setObservacao(situacao);
             }
             else{
                 mov.setSaldoFinal(mov.getSaldoAnterior() + mov.getValorMov());
@@ -85,15 +83,15 @@ public class Pagamento {
         // se o cheque não foi validado altera a situação da parcela e da conta como não pagas novamente
         else{ 
             // altera a parcela
-            String sql = "UPDATE PARCELAS SET VL_PAGO = '0.00' , DT_PAGO = " + null + " "
+              String sql = "UPDATE PARCELAS SET VL_PAGO = '0.00' , DT_PAGO = " + null + " "
                 + "WHERE CD_CONTA = " + pagamento.getParcelas().getContas().getCdConta() + " AND "
                 + "NR_PARCELA = " + pagamento.getParcelas().getNrParcela();
             conexao.atualizarSQL(sql);
             
             // altera a conta
-            parcelas.getContas().setPago("N");
-            parcelas.getContas().setDtPagamento("NULL");
-            parcelas.getContas().alterar(parcelas.getContas());
+            pagamento.getParcelas().getContas().setPago("N");
+            pagamento.getParcelas().getContas().setDtPagamento("NULL");
+            pagamento.getParcelas().getContas().alterar(pagamento.getParcelas().getContas());
         }   
     }
 
@@ -283,7 +281,8 @@ public class Pagamento {
                 + "LEFT JOIN PESSOA PS ON "
                 + "VC.CD_FORNECEDOR = PS.CD_PESSOA OR "
                 + "VC.CD_CLIENTE = PS.CD_PESSOA "
-                + "WHERE PAG.CD_TIPO = 2 AND PAG.SITUACAO = 'A'"+condicao;
+                + "WHERE PAG.CD_TIPO = 2 AND PAG.SITUACAO = 'A'"+condicao+" "
+                + "ORDER BY PAG.CD_PAGAMENTO";
         conexao.executeSQL(sql);
         return conexao.resultset;
     }

@@ -16,6 +16,7 @@ import Cadastros.CadastroMesa;
 import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
+import Relatorios.TelaSplash;
 import Servicos.ExibirMesas;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;

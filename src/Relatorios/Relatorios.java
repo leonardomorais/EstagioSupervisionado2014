@@ -1,6 +1,8 @@
 package Relatorios;
 
 import ConexaoBanco.ConexaoPostgreSQL;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -19,6 +21,8 @@ public class Relatorios {
     private String tabela;
     private ResultSet consulta;
     private boolean subreport;
+    
+    //TelaSplash telaAguarde = new TelaSplash();
     
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -43,6 +47,17 @@ public class Relatorios {
             JasperViewer relatorio = new JasperViewer(print, false); 
             relatorio.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
             relatorio.setVisible(true);
+//            relatorio.addWindowListener(new WindowAdapter() {
+//
+//                @Override
+//                public void windowOpened(WindowEvent evt){
+//                    fecharSplash();
+//                }
+//            
+//            });
+//            
+            
+
             
              //JasperViewer.viewReport(print, false);
 
@@ -70,8 +85,20 @@ public class Relatorios {
             
             JasperViewer relatorio = new JasperViewer(print, false);
             relatorio.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
-            
             relatorio.setVisible(true);
+            
+//            relatorio.addWindowListener(new WindowAdapter() {
+//            
+//                @Override
+//                public void windowOpened(WindowEvent evt){
+//                    fecharSplash();
+//                }
+//            
+//            });
+//            
+            
+            
+            
         }
         catch(JRException ex){
             JOptionPane.showMessageDialog(null, "Erro ao gerar documento");
@@ -83,6 +110,13 @@ public class Relatorios {
 //        MostrarDialogo dialogo = new MostrarDialogo();
 //        aceito = dialogo.dialogoPassword("ADMIN");
 //        return aceito;
+//    }
+    
+//    public void exibirSplash(){
+//        telaAguarde.setVisible(true);
+//    }
+//    private void fecharSplash(){
+//        telaAguarde.dispose();
 //    }
     
     // getter e setter

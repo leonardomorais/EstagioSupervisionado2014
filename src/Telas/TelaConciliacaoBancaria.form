@@ -142,7 +142,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableConsultaMouseClicked"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;&#xd;&#xa;jTableConsulta.getSelectionModel().addListSelectionListener(new ListSelectionListener() {&#xd;&#xa;&#xd;&#xa;            @Override&#xd;&#xa;            public void valueChanged(ListSelectionEvent e) {&#xd;&#xa;                preencherCampos();&#xd;&#xa;            }&#xd;&#xa;        });"/>
           </AuxValues>
         </Component>
       </SubComponents>
