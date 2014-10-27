@@ -61,9 +61,6 @@ public class Contas {
                     + contas.getPago() + "')";
         }
         conexao.incluirSQL(sql);
-        if (conexao.retorno == 1){
-            JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
-        }
         Parcelas p = new Parcelas();
         p.setContas(contas);
         p.geraParcelas(p);

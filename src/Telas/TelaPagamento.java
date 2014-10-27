@@ -866,10 +866,12 @@ public class TelaPagamento extends javax.swing.JFrame {
                 } else {
                     tipo = "S";
                 }
-                pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
+                jComboBoxOperacao.setEnabled(true); 
+                pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);           
             }
             else{
                 jComboBoxOperacao.setSelectedItem(op);
+                jComboBoxOperacao.setEnabled(false);
             }
             preencheTabela();
         }
@@ -1002,10 +1004,12 @@ public class TelaPagamento extends javax.swing.JFrame {
                 } else {
                     tipo = "S";
                 }
+                jComboBoxOperacao.setEnabled(true);
                 pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);
             }
             else{
                 jComboBoxOperacao.setSelectedItem(op);
+                jComboBoxOperacao.setEnabled(false);
                 
                 pagamento.getParcelas().getContas().getVendaCompra().retornaVendaCompra(pagamento.getParcelas().getContas().getVendaCompra());
 

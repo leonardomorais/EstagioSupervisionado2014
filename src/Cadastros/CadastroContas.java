@@ -774,7 +774,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
             if (rotina == Rotinas.incluir) {
                 contas.incluir(contas, false);
-                //JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
+                JOptionPane.showMessageDialog(null, "Conta gravada com sucesso!");
                 jTextFieldCdConta.setText(contas.getCdConta().toString());
                 // mostra as parcelas geradas
                 ConsultaParcelas consulta = new ConsultaParcelas();

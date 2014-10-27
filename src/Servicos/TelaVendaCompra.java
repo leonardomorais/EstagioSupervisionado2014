@@ -1034,7 +1034,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             
             rotina = Rotinas.padrao;
             validaEstadoCampos();
-
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
