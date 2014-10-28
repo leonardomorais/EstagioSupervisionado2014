@@ -18,6 +18,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -79,6 +82,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
+        jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel8 = new javax.swing.JLabel();
         jTextFieldCdPessoa = new javax.swing.JTextField();
         jBtPesquisaPessoa = new javax.swing.JButton();
@@ -86,6 +90,13 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTextFieldNome = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableContas = new javax.swing.JTable();
+        jTableContas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        jTableContas.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent evt){
+                preencherCampos();
+            }
+        });
         jLabel9 = new javax.swing.JLabel();
         jRadioButtonCliente = new javax.swing.JRadioButton();
         atalho.adicionarAtalho(jRadioButtonCliente, KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK);
@@ -101,6 +112,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTextFieldConsulta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel10 = new javax.swing.JLabel();
         jRbSim = new javax.swing.JRadioButton();
         atalho.adicionarAtalho(jRbSim, KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
@@ -853,28 +865,7 @@ public class TelaPagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtPesquisaPessoaActionPerformed
 
     private void jTableContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContasMouseClicked
-        int linha = jTableContas.getSelectedRow();
-        if (linha >= 0) {
-            pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableContas.getValueAt(linha, 0).toString()));
-            pagamento.getParcelas().getContas().retornaConta(pagamento.getParcelas().getContas(), true);
-            
-            String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
-            if (op.equals("")){
-                String tipo = jTableContas.getValueAt(linha, 8).toString();
-                if (tipo.equals("A RECEBER")) {
-                    tipo = "E";
-                } else {
-                    tipo = "S";
-                }
-                jComboBoxOperacao.setEnabled(true); 
-                pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);           
-            }
-            else{
-                jComboBoxOperacao.setSelectedItem(op);
-                jComboBoxOperacao.setEnabled(false);
-            }
-            preencheTabela();
-        }
+        preencherCampos();
     }//GEN-LAST:event_jTableContasMouseClicked
 
     private void jRadioButtonFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFornecedorActionPerformed
@@ -1195,5 +1186,30 @@ public class TelaPagamento extends javax.swing.JFrame {
         report.setTabela("TICKET_PAGAMENTO");
         report.setSubreport(false);
         report.gerarRelatorio(report);
+    }
+    
+    private void preencherCampos(){
+        int linha = jTableContas.getSelectedRow();
+        if (linha >= 0) {
+            pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableContas.getValueAt(linha, 0).toString()));
+            pagamento.getParcelas().getContas().retornaConta(pagamento.getParcelas().getContas(), true);
+            
+            String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
+            if (op.equals("")){
+                String tipo = jTableContas.getValueAt(linha, 8).toString();
+                if (tipo.equals("A RECEBER")) {
+                    tipo = "E";
+                } else {
+                    tipo = "S";
+                }
+                jComboBoxOperacao.setEnabled(true); 
+                pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, tipo);           
+            }
+            else{
+                jComboBoxOperacao.setSelectedItem(op);
+                jComboBoxOperacao.setEnabled(false);
+            }
+            preencheTabela();
+        }
     }
 }

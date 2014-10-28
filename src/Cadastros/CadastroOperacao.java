@@ -10,6 +10,7 @@ import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 
 /**
@@ -87,6 +88,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOperacao = new javax.swing.JTable();
+        jTableOperacao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel5 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();

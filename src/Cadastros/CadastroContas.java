@@ -20,6 +20,9 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -117,8 +120,18 @@ public class CadastroContas extends javax.swing.JFrame {
         jTextFieldConsulta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableContas = new javax.swing.JTable();
+        jTableContas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        jTableContas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                preencherTabela();
+            }
+        });
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
+        jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jBtRelatorio = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
@@ -647,16 +660,7 @@ public class CadastroContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisarConsultaActionPerformed
 
     private void jTableContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableContasMouseClicked
-        Parcelas parcelas = new Parcelas();
-        int linha = jTableContas.getSelectedRow();
-        if (linha >= 0) {
-            contas.setCdConta(Integer.parseInt(jTableContas.getValueAt(linha, 0).toString()));
-
-            PreencherTabela preencher = new PreencherTabela();
-            preencher.FormatarJtable(jTableParcelas, new int[]{100, 100, 100, 100, 100, 100});
-
-            preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(contas,true));
-        }
+        preencherTabela();
     }//GEN-LAST:event_jTableContasMouseClicked
 
     private void jMenuItemPagarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagarParcelaActionPerformed
@@ -1122,4 +1126,18 @@ public class CadastroContas extends javax.swing.JFrame {
             jBtRelatorio.setEnabled(true);
         }
     }
+    
+    private void preencherTabela(){
+        Parcelas parcelas = new Parcelas();
+        int linha = jTableContas.getSelectedRow();
+        if (linha >= 0) {
+            contas.setCdConta(Integer.parseInt(jTableContas.getValueAt(linha, 0).toString()));
+
+            PreencherTabela preencher = new PreencherTabela();
+            preencher.FormatarJtable(jTableParcelas, new int[]{100, 100, 100, 100, 100, 100});
+
+            preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(contas,true));
+        }
+    }
+    
 }

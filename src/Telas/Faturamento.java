@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -42,6 +43,7 @@ public class Faturamento extends javax.swing.JFrame {
         buttonGroupPeriodo = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtRelatorio = new javax.swing.JButton();

@@ -164,6 +164,9 @@
               </Table>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableMovCaixa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

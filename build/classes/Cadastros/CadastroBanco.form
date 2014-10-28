@@ -332,6 +332,9 @@
                       <ComponentRef name="jPopupMenuBanco"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

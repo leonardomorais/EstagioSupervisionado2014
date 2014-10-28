@@ -352,6 +352,9 @@
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableConsultaMouseClicked"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

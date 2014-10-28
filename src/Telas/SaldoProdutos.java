@@ -6,6 +6,7 @@ import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -35,6 +36,7 @@ public class SaldoProdutos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
+        jTableProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jBtRelatorio = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtRelatorio, KeyEvent.VK_F6, 0);
         jComboBoxConsulta = new javax.swing.JComboBox();

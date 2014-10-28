@@ -614,6 +614,9 @@
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableContasMouseClicked"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableContas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xa;&#xa;jTableContas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {&#xa;&#xa;            @Override&#xa;            public void valueChanged(ListSelectionEvent e) {&#xa;                preencherTabela();&#xa;            }&#xa;        });&#xa;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -640,6 +643,9 @@
                       <ComponentRef name="jPopupMenuPagarParcela"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

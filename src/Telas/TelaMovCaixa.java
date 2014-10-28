@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -44,6 +45,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
         buttonGroupPeriodo = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMovCaixa = new javax.swing.JTable();
+        jTableMovCaixa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jComboBoxAux = new javax.swing.JComboBox();
@@ -256,6 +258,8 @@ public class TelaMovCaixa extends javax.swing.JFrame {
             case 0:
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.setEnabled(false);
+                jComboBoxAux.removeAllItems();
+                jComboBoxAux.setEnabled(false);
                 break;
             case 2:
                 mov.getAgc().retornaComboAgcConta(jComboBoxAux);

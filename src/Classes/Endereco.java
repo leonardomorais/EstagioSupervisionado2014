@@ -34,9 +34,6 @@ public class Endereco {
                 + endereco.getRuaAv() + "','" + endereco.getNrEndereco() + "','" + endereco.getBairro() + "','"
                 + endereco.getCEP() + "','" + endereco.getComplemento() + "')";
         conexao.incluirSQL(sql);
-        if (conexao.retorno == 1){
-            JOptionPane.showMessageDialog(null, "Endereço gravado com sucesso!");
-        }
     }
 
     public void alterar(Endereco endereco) {
@@ -47,26 +44,17 @@ public class Endereco {
                 + endereco.getComplemento() + "' "
                 + "WHERE CD_PESSOA = " + endereco.getCdPessoa() + " AND NR_SEQ = " + endereco.getNrSequencia();
         conexao.atualizarSQL(sql);
-        if (conexao.retorno == 1){
-            JOptionPane.showMessageDialog(null, "Endereço alterado com sucesso!");
-        }
     }
 
     public void excluir(Endereco endereco) {
         String sql = "DELETE FROM ENDERECO WHERE CD_PESSOA = " + endereco.getCdPessoa() + " "
                 + "AND NR_SEQ = " + endereco.getNrSequencia();
         conexao.deleteSQL(sql);
-        if (conexao.retorno == 1){
-            JOptionPane.showMessageDialog(null, "Endereço excluído com sucesso!");
-        }
     }
 
     public void excluirTodos(Endereco endereco) {
         String sql = "DELETE FROM ENDERECO WHERE CD_PESSOA = " + endereco.getCdPessoa();
         conexao.deleteSQL(sql);
-        if (conexao.retorno == 1){
-            JOptionPane.showMessageDialog(null, "Endereços excluídos com sucesso!");
-        }
     }
 
     public void retornaEndereco(Endereco endereco) {

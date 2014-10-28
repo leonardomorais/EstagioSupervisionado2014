@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -49,6 +50,7 @@ public class TelaMovEstoque extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jTextFieldConsulta = new javax.swing.JTextField();
         jComboBoxAux = new javax.swing.JComboBox();
         try{       data = new MaskFormatter("##/##/####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }

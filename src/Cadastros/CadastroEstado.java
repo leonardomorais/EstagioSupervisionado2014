@@ -11,6 +11,7 @@ import Validacoes.ValidaCampos;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -80,6 +81,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jBtRelatorio = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
