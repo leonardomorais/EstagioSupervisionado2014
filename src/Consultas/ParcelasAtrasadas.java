@@ -3,11 +3,12 @@ package Consultas;
 
 import Cadastros.CadastroContas;
 import Classes.Parcelas;
-import Validacoes.Avisos;
 import Telas.TelaPagamento;
+import Validacoes.Avisos;
 import Validacoes.PreencherTabela;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.ListSelectionModel;
 
 
 /**
@@ -38,6 +39,7 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
         jMenuItemPagar = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
+        jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         jMenuItemExibirDetalhes.setText("Exibir Detalhes");
         jMenuItemExibirDetalhes.addActionListener(new java.awt.event.ActionListener() {

@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -43,6 +44,7 @@ public class ConsultaTipoPagamento extends javax.swing.JDialog {
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtSelecionar = new javax.swing.JButton();

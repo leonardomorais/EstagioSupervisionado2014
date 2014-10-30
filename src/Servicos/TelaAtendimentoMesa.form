@@ -512,13 +512,13 @@
             <Component class="javax.swing.JButton" name="jBtFechaAtendimento">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fechar Atendimento"/>
-                <Property name="toolTipText" type="java.lang.String" value="Fechar Atendimento (Enter)"/>
+                <Property name="toolTipText" type="java.lang.String" value="Fechar Atendimento (Ctrl + Enter)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtFechaAtendimentoActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtFechaAtendimento, KeyEvent.VK_ENTER, 0); "/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtFechaAtendimento, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK); "/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="jBtCancelar">
@@ -642,6 +642,9 @@
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableAtendimentoMouseClicked"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableAtendimento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;&#xd;&#xa;jTableAtendimento.getSelectionModel().addListSelectionListener(new ListSelectionListener() {&#xd;&#xa;&#xd;&#xa;            @Override&#xd;&#xa;            public void valueChanged(ListSelectionEvent e) {&#xd;&#xa;                preencherTabela();&#xd;&#xa;            }&#xd;&#xa;        });&#xd;&#xa;"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -691,6 +694,9 @@
                       </Table>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableAtendimentoProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

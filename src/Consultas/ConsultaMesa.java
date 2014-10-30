@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -42,6 +43,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMesa = new javax.swing.JTable();
+        jTableMesa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);

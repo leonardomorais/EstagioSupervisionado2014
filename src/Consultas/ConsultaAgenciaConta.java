@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -41,6 +42,8 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         jBtCadastrar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCadastrar, KeyEvent.VK_F4, 0);
         jBtCancelar = new javax.swing.JButton();
@@ -187,7 +190,8 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
                 try {
                     agcConta.setCdAgcConta(Integer.parseInt(jTextFieldConsulta.getText()));
                     preencher.PreencherJtableGenerico(jTableConsulta, agcConta.consultarCdAgc(agcConta));
-                } catch (NumberFormatException ex) {
+                } 
+                catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
                     jTextFieldConsulta.setText("");
                     jTextFieldConsulta.grabFocus();

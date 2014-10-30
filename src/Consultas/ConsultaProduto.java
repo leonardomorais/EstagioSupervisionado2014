@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -46,6 +47,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
         jTextFieldConsulta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
+        jTableProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jBtSelecionar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);
         jBtCancelar = new javax.swing.JButton();

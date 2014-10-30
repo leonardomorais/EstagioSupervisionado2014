@@ -6,6 +6,7 @@ import Validacoes.RetornaData;
 import Validacoes.TeclasdeAtalho;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -42,6 +43,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMesas = new javax.swing.JTable();
+        jTableMesas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jBtAtualizar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtAtualizar, KeyEvent.VK_F5, 0);
 

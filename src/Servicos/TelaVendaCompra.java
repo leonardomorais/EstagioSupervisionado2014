@@ -27,6 +27,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -122,6 +123,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jTextFieldTotal = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
+        jTableProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel6 = new javax.swing.JLabel();
         jTextFieldCdOperacao = new javax.swing.JTextField();
         jBtPesquisaOperacao = new javax.swing.JButton();
@@ -133,18 +135,21 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jBtIncluir = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtGravar = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableVendaCompra = new javax.swing.JTable();
+        jTableVendaCompra.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel13 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableConta = new javax.swing.JTable();
+        jTableConta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableProdutosVenda = new javax.swing.JTable();
+        jTableProdutosVenda.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jBtPesquisar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jLabel14 = new javax.swing.JLabel();
@@ -1147,25 +1152,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jTableVendaCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVendaCompraMouseClicked
-        PreencherTabela tabela = new PreencherTabela();
-        int linha = jTableVendaCompra.getSelectedRow();
-        if (linha >= 0) {
-            venda.setCdVendaCompra(Integer.parseInt(jTableVendaCompra.getValueAt(linha, 0).toString()));
-            venda.getVcProdutos().setCdVendaCompra(venda.getCdVendaCompra());
-
-            tabela.FormatarJtable(jTableProdutosVenda, new int[]{170, 200, 170, 170, 170});
-            tabela.PreencherJtableGenerico(jTableProdutosVenda,
-                    venda.getVcProdutos().consultarProdutos(venda.getVcProdutos()));
-            tabela.FormatarJtable(jTableConta, new int[]{80, 100, 200, 100, 100, 100, 100, 100});
-            Contas c = new Contas();
-            c.setVendaCompra(venda);
-//            c.setCdVendaCompra(venda.getCdVendaCompra());
-            tabela.PreencherJtableGenerico(jTableConta, c.consultarCdVendaCompra(c));
-
-        } else {
-            limpar.limparJtable(jTableProdutosVenda);
-            limpar.limparJtable(jTableConta);
-        }
+        preencherTabela();
     }//GEN-LAST:event_jTableVendaCompraMouseClicked
 
     private void jTextFieldCdVendaCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdVendaCompraFocusLost
@@ -1536,7 +1523,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         venda.getOperacao().setDsOperacao(jTextFieldDsOperacao.getText());
         venda.setDtVenda(jTextFieldData.getText());
         venda.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
-        venda.setPago("N");
+        //venda.setPago("N");
 
         venda.incluir(venda);
         jTextFieldCdVendaCompra.setText(venda.getCdVendaCompra().toString());
@@ -1680,6 +1667,28 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
+        }
+    }
+    
+    private void preencherTabela(){
+        PreencherTabela tabela = new PreencherTabela();
+        int linha = jTableVendaCompra.getSelectedRow();
+        if (linha >= 0) {
+            venda.setCdVendaCompra(Integer.parseInt(jTableVendaCompra.getValueAt(linha, 0).toString()));
+            venda.getVcProdutos().setCdVendaCompra(venda.getCdVendaCompra());
+
+            tabela.FormatarJtable(jTableProdutosVenda, new int[]{170, 200, 170, 170, 170});
+            tabela.PreencherJtableGenerico(jTableProdutosVenda,
+                    venda.getVcProdutos().consultarProdutos(venda.getVcProdutos()));
+            tabela.FormatarJtable(jTableConta, new int[]{80, 100, 200, 100, 100, 100, 100, 100});
+            Contas c = new Contas();
+            c.setVendaCompra(venda);
+//            c.setCdVendaCompra(venda.getCdVendaCompra());
+            tabela.PreencherJtableGenerico(jTableConta, c.consultarCdVendaCompra(c));
+
+        } else {
+            limpar.limparJtable(jTableProdutosVenda);
+            limpar.limparJtable(jTableConta);
         }
     }
 }

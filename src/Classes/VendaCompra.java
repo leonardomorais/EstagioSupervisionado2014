@@ -24,7 +24,7 @@ public class VendaCompra {
     private VendaCompraProdutos vcProdutos = new VendaCompraProdutos();
     private String dtVenda;
     private Double vlTotal;
-    private String pago;
+   // private String pago;
     private String situacao;
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
@@ -37,18 +37,16 @@ public class VendaCompra {
         switch (vendaC.getOperacao().getDsOperacao()){
             case "VENDA":
                 sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_CLIENTE, "
-                    + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, PAGO, SITUACAO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
+                    + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, SITUACAO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
                     + vendaC .getOperacao().getCdOperacao() + "','" + vendaC.getCliente().getCdCliente() + "','"
-                    + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','"
-                    + vendaC.getPago() + "','A')";
+                    + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','A')";
             break;
                 
             case "COMPRA":
                 sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_FORNECEDOR, "
-                    + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, PAGO, SITUACAO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
+                    + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, SITUACAO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
                     + vendaC.getOperacao().getCdOperacao() + "','" + vendaC.getFornecedor().getCdFornecedor() + "','"
-                    + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','"
-                    + vendaC.getPago() + "','A')";
+                    + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','A')";
             break;
             
             default:
@@ -531,14 +529,14 @@ public class VendaCompra {
     public void setVlTotal(Double vlTotal) {
         this.vlTotal = vlTotal;
     }
-
-    public String getPago() {
-        return pago;
-    }
-
-    public void setPago(String pago) {
-        this.pago = pago;
-    }
+//
+//    public String getPago() {
+//        return pago;
+//    }
+//
+//    public void setPago(String pago) {
+//        this.pago = pago;
+//    }
 
     public VendaAtendimentoMesa getVendaAtendimento() {
         return vendaAtendimento;

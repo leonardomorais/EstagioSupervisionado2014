@@ -92,6 +92,9 @@
               <ComponentRef name="jPopupMenuParcelas"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

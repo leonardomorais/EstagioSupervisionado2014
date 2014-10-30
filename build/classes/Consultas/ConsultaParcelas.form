@@ -120,6 +120,9 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableParcelasMouseClicked"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

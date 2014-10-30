@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Consultas;
 
 import Classes.Pessoa;
@@ -10,6 +5,7 @@ import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -41,6 +37,7 @@ public class ConsultaPessoa extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePessoa = new javax.swing.JTable();
+        jTablePessoa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);

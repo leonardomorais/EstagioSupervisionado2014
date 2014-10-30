@@ -78,7 +78,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtGravar = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
@@ -186,7 +186,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
-        jBtGravar.setToolTipText("Gravar (Enter)");
+        jBtGravar.setToolTipText("Gravar (Ctrl + Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);

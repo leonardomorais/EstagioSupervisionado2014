@@ -167,11 +167,15 @@
     <Component class="javax.swing.JButton" name="jBtConfirmar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
+        <Property name="toolTipText" type="java.lang.String" value="Confirmar (Ctrl + Enter)"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtConfirmarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtConfirmar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);&#xd;&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxNaoRecebido">
       <Properties>
@@ -241,10 +245,14 @@
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Todos"/>
+            <Property name="toolTipText" type="java.lang.String" value="Todos (F1)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonTodosActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jRadioButtonTodos, KeyEvent.VK_F1, 0);&#xd; "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonRecebidos">
           <Properties>
@@ -252,10 +260,14 @@
               <ComponentRef name="buttonGroupFiltro"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Recebidos"/>
+            <Property name="toolTipText" type="java.lang.String" value="Recebidos (F3)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonRecebidosActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jRadioButtonRecebidos, KeyEvent.VK_F3, 0);&#xd;&#xa; "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonNaoRecebidos">
           <Properties>
@@ -263,10 +275,14 @@
               <ComponentRef name="buttonGroupFiltro"/>
             </Property>
             <Property name="text" type="java.lang.String" value="N&#xe3;o Recebidos"/>
+            <Property name="toolTipText" type="java.lang.String" value="N&#xe3;o Recebidos (F4)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonNaoRecebidosActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jRadioButtonNaoRecebidos, KeyEvent.VK_F4, 0);&#xd;&#xa;"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButtonAguardando">
           <Properties>
@@ -274,10 +290,14 @@
               <ComponentRef name="buttonGroupFiltro"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Aguardando"/>
+            <Property name="toolTipText" type="java.lang.String" value="Aguardando (F2)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonAguardandoActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jRadioButtonAguardando, KeyEvent.VK_F2, 0);&#xd;&#xa; "/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

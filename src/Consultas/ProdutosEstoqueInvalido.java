@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Consultas;
 
 import Cadastros.CadastroProduto;
@@ -12,6 +6,7 @@ import Validacoes.Avisos;
 import Validacoes.PreencherTabela;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.ListSelectionModel;
 
 
 /**
@@ -41,6 +36,7 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
         jMenuItemExibirCadastro = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProdutos = new javax.swing.JTable();
+        jTableProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         jMenuItemExibirCadastro.setBackground(new java.awt.Color(117, 133, 149));
         jMenuItemExibirCadastro.setText("Exibir Cadastro");

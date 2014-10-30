@@ -2,6 +2,9 @@ package Telas;
 
 import Classes.Pagamento;
 import Validacoes.PreencherTabela;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -14,6 +17,7 @@ import javax.swing.event.ListSelectionListener;
 public class TelaConciliacaoBancaria extends javax.swing.JFrame {
 
     Pagamento pagamento = new Pagamento();
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
     
             
     /**
@@ -53,14 +57,20 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jCheckBoxRecebido = new javax.swing.JCheckBox();
         jBtConfirmar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtConfirmar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jCheckBoxNaoRecebido = new javax.swing.JCheckBox();
         jComboBoxOperacao = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jRadioButtonTodos = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonTodos, KeyEvent.VK_F1, 0);
         jRadioButtonRecebidos = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonRecebidos, KeyEvent.VK_F3, 0);
+
         jRadioButtonNaoRecebidos = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonNaoRecebidos, KeyEvent.VK_F4, 0);
         jRadioButtonAguardando = new javax.swing.JRadioButton();
+        atalho.adicionarAtalho(jRadioButtonAguardando, KeyEvent.VK_F2, 0);
 
         jPopupMenuCheque.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -121,6 +131,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
         });
 
         jBtConfirmar.setText("Confirmar");
+        jBtConfirmar.setToolTipText("Confirmar (Ctrl + Enter)");
         jBtConfirmar.setEnabled(false);
         jBtConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +150,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
         buttonGroupFiltro.add(jRadioButtonTodos);
         jRadioButtonTodos.setSelected(true);
         jRadioButtonTodos.setText("Todos");
+        jRadioButtonTodos.setToolTipText("Todos (F1)");
         jRadioButtonTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonTodosActionPerformed(evt);
@@ -147,6 +159,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
 
         buttonGroupFiltro.add(jRadioButtonRecebidos);
         jRadioButtonRecebidos.setText("Recebidos");
+        jRadioButtonRecebidos.setToolTipText("Recebidos (F3)");
         jRadioButtonRecebidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonRecebidosActionPerformed(evt);
@@ -155,6 +168,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
 
         buttonGroupFiltro.add(jRadioButtonNaoRecebidos);
         jRadioButtonNaoRecebidos.setText("Não Recebidos");
+        jRadioButtonNaoRecebidos.setToolTipText("Não Recebidos (F4)");
         jRadioButtonNaoRecebidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonNaoRecebidosActionPerformed(evt);
@@ -163,6 +177,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
 
         buttonGroupFiltro.add(jRadioButtonAguardando);
         jRadioButtonAguardando.setText("Aguardando");
+        jRadioButtonAguardando.setToolTipText("Aguardando (F2)");
         jRadioButtonAguardando.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonAguardandoActionPerformed(evt);

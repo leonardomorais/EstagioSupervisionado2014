@@ -265,45 +265,65 @@
         <Component class="javax.swing.JButton" name="jBtAtualizar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Atualizar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Atualizar (F5)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAtualizarActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtAtualizar, KeyEvent.VK_F5, 0); "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="jBtNovo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Novo Atendimento"/>
+            <Property name="toolTipText" type="java.lang.String" value="Novo Atendimento (F1)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNovoActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0); "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="jBtExibirDetalhes">
           <Properties>
             <Property name="text" type="java.lang.String" value="Exibir Detalhes"/>
+            <Property name="toolTipText" type="java.lang.String" value="Exibir Detalhes (F2)"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtExibirDetalhesActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtExibirDetalhes, KeyEvent.VK_F2, 0); "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="jBtEncerrar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Encerrar Atendimento"/>
+            <Property name="toolTipText" type="java.lang.String" value="Encerrar Atendimento (Ctrl + Enter)"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtEncerrarActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtEncerrar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK); "/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="jBtCancelar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar Atendimento"/>
+            <Property name="toolTipText" type="java.lang.String" value="Cancelar Atendimento (Esc)"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCancelarActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);&#xd;&#xa;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

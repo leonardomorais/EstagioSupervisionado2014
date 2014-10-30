@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Consultas;
 
 import Cadastros.CadastroCliente;
@@ -12,6 +7,7 @@ import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -46,6 +42,7 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
+        jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
@@ -67,7 +64,15 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
             new String [] {
                 "Código", "Nome", "Pessoa", "CPF/CNPJ", "Data Cadastro"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableConsultaMouseClicked(evt);

@@ -15,10 +15,14 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -112,18 +116,28 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jBtNovo = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
         jBtFechaAtendimento = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtFechaAtendimento, KeyEvent.VK_ENTER, 0);
+        atalho.adicionarAtalho(jBtFechaAtendimento, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jPanelConsulta = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableAtendimento = new javax.swing.JTable();
+        jTableAtendimento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        jTableAtendimento.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                preencherTabela();
+            }
+        });
         jComboBoxConsulta = new javax.swing.JComboBox();
         jBtPesquisar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAtendimentoProdutos = new javax.swing.JTable();
+        jTableAtendimentoProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jLabel13 = new javax.swing.JLabel();
         jRadioButtonAbertos = new javax.swing.JRadioButton();
         jRadioButtonFechados = new javax.swing.JRadioButton();
@@ -289,7 +303,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         });
 
         jBtFechaAtendimento.setText("Fechar Atendimento");
-        jBtFechaAtendimento.setToolTipText("Fechar Atendimento (Enter)");
+        jBtFechaAtendimento.setToolTipText("Fechar Atendimento (Ctrl + Enter)");
         jBtFechaAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtFechaAtendimentoActionPerformed(evt);
@@ -950,17 +964,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtNovoActionPerformed
 
     private void jTableAtendimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAtendimentoMouseClicked
-        PreencherTabela tabela = new PreencherTabela();
-        int linha = jTableAtendimento.getSelectedRow();
-        if (linha >= 0) {
-            atd.setNrAtendimento(Integer.parseInt(jTableAtendimento.getValueAt(linha, 0).toString()));
-            atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
-            tabela.FormatarJtable(jTableAtendimentoProdutos, new int[]{100, 275, 100, 100, 100});
-            tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
-                    atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
-        } else {
-            limpar.limparJtable(jTableAtendimentoProdutos);
-        }
+        preencherTabela();
     }//GEN-LAST:event_jTableAtendimentoMouseClicked
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
@@ -1164,12 +1168,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         atd.incluir(atd);
         jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
         this.setTitle("Atendimento Nr." + atd.getNrAtendimento());
+        jTextFieldNrMesa.setEnabled(true);
+        jBtMesa.setEnabled(true);
     }
     
     public void iniciarAtendimento(int nrMesa){
         jBtNovoActionPerformed(null);
         jTextFieldNrMesa.setText(nrMesa+"");
         jTextFieldNrMesa.grabFocus();
+        jTextFieldNrMesa.setEnabled(false);
+        jBtMesa.setEnabled(false);
     }
 
     public void fecharAtendimento() {
@@ -1224,6 +1232,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         preencher.PreencherJtableGenerico(jTableProdutos, atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
         rotina = Rotinas.incluir;
         validaEstadoCampos();
+        jTextFieldNrMesa.setEnabled(false);
+        jBtMesa.setEnabled(false);
     }
 
     public void validaEstadoCampos() {
@@ -1247,6 +1257,20 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
+        }
+    }
+    
+    private void preencherTabela(){
+        PreencherTabela tabela = new PreencherTabela();
+        int linha = jTableAtendimento.getSelectedRow();
+        if (linha >= 0) {
+            atd.setNrAtendimento(Integer.parseInt(jTableAtendimento.getValueAt(linha, 0).toString()));
+            atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+            tabela.FormatarJtable(jTableAtendimentoProdutos, new int[]{100, 275, 100, 100, 100});
+            tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
+                    atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
+        } else {
+            limpar.limparJtable(jTableAtendimentoProdutos);
         }
     }
 }

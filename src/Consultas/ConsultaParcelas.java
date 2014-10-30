@@ -9,6 +9,7 @@ import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -43,6 +44,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         jLabelTopo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
+        jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jBtFechar = new javax.swing.JButton();
         TeclasdeAtalho atalho = new TeclasdeAtalho();
         atalho.adicionarAtalho(jBtFechar, KeyEvent.VK_ESCAPE, 0);
@@ -50,12 +52,12 @@ public class ConsultaParcelas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         jPopupMenuPagaParcela.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                jPopupMenuPagaParcelaPopupMenuWillBecomeVisible(evt);
-            }
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuPagaParcelaPopupMenuWillBecomeVisible(evt);
             }
         });
 

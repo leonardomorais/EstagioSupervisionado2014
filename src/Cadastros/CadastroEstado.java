@@ -8,6 +8,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -72,7 +73,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         jBtIncluir = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtGravar = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jPanelConsulta = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
@@ -153,7 +154,7 @@ public class CadastroEstado extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
-        jBtGravar.setToolTipText("Gravar (Enter)");
+        jBtGravar.setToolTipText("Gravar (Ctrl + Enter)");
         jBtGravar.setMinimumSize(new java.awt.Dimension(80, 23));
         jBtGravar.setPreferredSize(new java.awt.Dimension(80, 23));
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {

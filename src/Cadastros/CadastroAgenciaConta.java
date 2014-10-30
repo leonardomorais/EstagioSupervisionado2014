@@ -10,6 +10,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -85,7 +86,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);
 
         jBtGravar = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER,0);
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jLabel8 = new javax.swing.JLabel();
@@ -189,7 +190,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
-        jBtGravar.setToolTipText("Gravar (Enter)");
+        jBtGravar.setToolTipText("Gravar (Ctrl + Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -651,7 +652,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
     private void jTextFieldVlContaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlContaKeyTyped
-        new ValidaCampos().validaCamposApenasNumeros(evt);
+            new ValidaCampos().validaCamposApenasNumeros(evt);
     }//GEN-LAST:event_jTextFieldVlContaKeyTyped
 
     /**

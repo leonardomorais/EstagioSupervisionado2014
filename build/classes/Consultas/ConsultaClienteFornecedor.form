@@ -85,11 +85,11 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="0">
-                <Column editable="true" title="C&#xf3;digo" type="java.lang.Object"/>
-                <Column editable="true" title="Nome" type="java.lang.Object"/>
-                <Column editable="true" title="Pessoa" type="java.lang.Object"/>
-                <Column editable="true" title="CPF/CNPJ" type="java.lang.Object"/>
-                <Column editable="true" title="Data Cadastro" type="java.lang.Object"/>
+                <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
+                <Column editable="false" title="Nome" type="java.lang.Object"/>
+                <Column editable="false" title="Pessoa" type="java.lang.Object"/>
+                <Column editable="false" title="CPF/CNPJ" type="java.lang.Object"/>
+                <Column editable="false" title="Data Cadastro" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
@@ -97,6 +97,9 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableConsultaMouseClicked"/>
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTableConsultaKeyPressed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

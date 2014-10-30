@@ -10,6 +10,7 @@ import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import Validacoes.ValidaDocumentos;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -119,7 +120,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jBtExcluir = new javax.swing.JButton();
         atalho. adicionarAtalho(jBtExcluir, KeyEvent.VK_F3, 0);
         jBtGravar = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, 0);
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtEndereco = new javax.swing.JButton();
@@ -282,7 +283,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
-        jBtGravar.setToolTipText("Gravar (Enter)");
+        jBtGravar.setToolTipText("Gravar (Ctrl + Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);

@@ -4,6 +4,9 @@ import Classes.AtendimentoMesa;
 import Validacoes.FormataMoeda;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
+import Validacoes.TeclasdeAtalho;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -15,6 +18,7 @@ import javax.swing.JOptionPane;
 public class ExibirMesas extends javax.swing.JFrame {
     
     AtendimentoMesa atendimentos = new AtendimentoMesa();
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form teste
@@ -51,10 +55,15 @@ public class ExibirMesas extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jTextFieldDisponivel = new javax.swing.JTextField();
         jBtAtualizar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAtualizar, KeyEvent.VK_F5, 0);
         jBtNovo = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
         jBtExibirDetalhes = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtExibirDetalhes, KeyEvent.VK_F2, 0);
         jBtEncerrar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtEncerrar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mesas");
@@ -115,6 +124,7 @@ public class ExibirMesas extends javax.swing.JFrame {
         jTextFieldDisponivel.setEnabled(false);
 
         jBtAtualizar.setText("Atualizar");
+        jBtAtualizar.setToolTipText("Atualizar (F5)");
         jBtAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAtualizarActionPerformed(evt);
@@ -122,6 +132,7 @@ public class ExibirMesas extends javax.swing.JFrame {
         });
 
         jBtNovo.setText("Novo Atendimento");
+        jBtNovo.setToolTipText("Novo Atendimento (F1)");
         jBtNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtNovoActionPerformed(evt);
@@ -129,6 +140,7 @@ public class ExibirMesas extends javax.swing.JFrame {
         });
 
         jBtExibirDetalhes.setText("Exibir Detalhes");
+        jBtExibirDetalhes.setToolTipText("Exibir Detalhes (F2)");
         jBtExibirDetalhes.setEnabled(false);
         jBtExibirDetalhes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +149,7 @@ public class ExibirMesas extends javax.swing.JFrame {
         });
 
         jBtEncerrar.setText("Encerrar Atendimento");
+        jBtEncerrar.setToolTipText("Encerrar Atendimento (Ctrl + Enter)");
         jBtEncerrar.setEnabled(false);
         jBtEncerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,6 +158,7 @@ public class ExibirMesas extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar Atendimento");
+        jBtCancelar.setToolTipText("Cancelar Atendimento (Esc)");
         jBtCancelar.setEnabled(false);
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
