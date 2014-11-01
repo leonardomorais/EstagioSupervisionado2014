@@ -43,7 +43,6 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
         jTableConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
         jBtCadastrar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCadastrar, KeyEvent.VK_F4, 0);
         jBtCancelar = new javax.swing.JButton();

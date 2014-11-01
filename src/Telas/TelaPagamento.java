@@ -648,6 +648,10 @@ public class TelaPagamento extends javax.swing.JFrame {
         } else {
             gravarPagamento();
             JOptionPane.showMessageDialog(null, "Parcela(s) paga(s)!");
+            jTextFieldAgenciaConta.setText("");
+            jTextFieldCdAgencia.setText("");
+            jTextFieldCdTipo.setText("");
+            jTextFieldPagamento.setText("");
             try {
                 carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
                 exibirTicket();
@@ -1185,7 +1189,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         report.setConsulta(pagamento.consultarTicket(pagamento, codigos));
         report.setTabela("TICKET_PAGAMENTO");
         report.setSubreport(false);
-        report.gerarRelatorio(report);
+        report.iniciarSplash(report);
     }
     
     private void preencherCampos(){

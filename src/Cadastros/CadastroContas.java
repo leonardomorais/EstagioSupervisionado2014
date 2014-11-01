@@ -949,10 +949,10 @@ public class CadastroContas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemExcluirParcelaActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        jButtonPesquisarConsultaActionPerformed(null);
         report.setSubreport(true);
         report.setTabela("CONTAS_PAGAR_RECEBER");
-        report.gerarRelatorio(report);
-        jButtonPesquisarConsultaActionPerformed(null);
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTextFieldValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldValorKeyTyped

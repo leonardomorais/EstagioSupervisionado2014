@@ -625,10 +625,10 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        jBtPesquisarActionPerformed(null);
         report.setSubreport(false);
         report.setTabela("PRODUTOS");
-        report.gerarRelatorio(report);
-        jBtPesquisarActionPerformed(null);
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTextFieldVlProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldVlProdutoKeyTyped

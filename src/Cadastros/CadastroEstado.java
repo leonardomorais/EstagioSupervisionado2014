@@ -510,10 +510,10 @@ public class CadastroEstado extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-                report.setSubreport(false);
-                report.setTabela("UF");
-                report.gerarRelatorio(report);
-                jBtPesquisarActionPerformed(null);
+        jBtPesquisarActionPerformed(null);        
+        report.setSubreport(false);
+        report.setTabela("UF");
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible

@@ -153,10 +153,10 @@ public class SaldoProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        jBtPesquisarActionPerformed(null);
         report.setSubreport(false);
         report.setTabela("SALDO_PRODUTOS");
-        report.gerarRelatorio(report);
-        jBtPesquisarActionPerformed(null);
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

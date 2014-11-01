@@ -267,32 +267,31 @@ public class Faturamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        HashMap params = new HashMap();
         report.setTabela("FATURAMENTO");
         report.setSubreport(false);
         jBtPesquisarActionPerformed(null);
         
         if (jRbtSIm.isSelected()){
-            params.put("PERIODO", "DE "+jFormattedTextFieldDataInicial.getText()+" A "
+            report.getParametro().put("PERIODO", "DE "+jFormattedTextFieldDataInicial.getText()+" A "
             +jFormattedTextFieldDataFinal.getText());
         }
         else{
-            params.put("PERIODO","TODOS");
+            report.getParametro().put("PERIODO","TODOS");
         }
         if (jComboBoxConsulta.getSelectedIndex() == 1){
-            params.put("VENDA", jTextFieldConsulta.getText());
+            report.getParametro().put("VENDA", jTextFieldConsulta.getText());
         }
         else{
-            params.put("VENDA", "TODAS");
+            report.getParametro().put("VENDA", "TODAS");
         }
         
         if (jComboBoxConsulta.getSelectedIndex() == 2){
-            params.put("CLIENTE", jTextFieldConsulta.getText());
+            report.getParametro().put("CLIENTE", jTextFieldConsulta.getText());
         }
         else{
-            params.put("CLIENTE", "TODOS");
+            report.getParametro().put("CLIENTE", "TODOS");
         }
-        report.gerarRelatorio(report, params);
+        report.iniciarSplash(report);
         
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 

@@ -71,7 +71,6 @@ public class MostrarDialogo {
     }
     
     public boolean dialogoPassword(String senha) {
-
         boolean aceito = false;
         final JLabel label = new JLabel("Por favor informe a senha de Administrador");
         final JPasswordField jpf = new JPasswordField();

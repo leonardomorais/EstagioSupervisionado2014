@@ -349,38 +349,37 @@ public class TelaMovEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jRBtSimActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        HashMap params = new HashMap();
         report.setTabela("MOV_ESTOQUE");
         report.setSubreport(false);
         jBtPesquisarActionPerformed(null);
         
         if (jRBtSim.isSelected()){
-            params.put("PERIODO", "DE "+jFormattedTextFieldDataInicial.getText()+" A "
+            report.getParametro().put("PERIODO", "DE "+jFormattedTextFieldDataInicial.getText()+" A "
             +jFormattedTextFieldDataFinal.getText());
         }
         else{
-            params.put("PERIODO", "TODOS");
+            report.getParametro().put("PERIODO", "TODOS");
         }
         if (jComboBoxConsulta.getSelectedIndex() == 2){
-            params.put("VENDA_COMPRA", jTextFieldConsulta.getText());
+            report.getParametro().put("VENDA_COMPRA", jTextFieldConsulta.getText());
         }
         else{
-            params.put("VENDA_COMPRA", "TODAS");
+            report.getParametro().put("VENDA_COMPRA", "TODAS");
         }
         if (jComboBoxConsulta.getSelectedIndex() == 3 || jComboBoxConsulta.getSelectedIndex() == 4){
-            params.put("PRODUTO", jTextFieldConsulta.getText());
+            report.getParametro().put("PRODUTO", jTextFieldConsulta.getText());
         }
         else{
-            params.put("PRODUTO", "TODOS");
+            report.getParametro().put("PRODUTO", "TODOS");
         }
         if (jComboBoxConsulta.getSelectedIndex() == 5){
-            params.put("TIPO", jComboBoxAux.getSelectedItem().toString());
+            report.getParametro().put("TIPO", jComboBoxAux.getSelectedItem().toString());
         }
         else{
-            params.put("TIPO","ENTRADA E SAÍDA");
+            report.getParametro().put("TIPO","ENTRADA E SAÍDA");
         }
         
-        report.gerarRelatorio(report, params);
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

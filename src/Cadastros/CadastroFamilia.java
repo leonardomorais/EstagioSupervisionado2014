@@ -498,10 +498,10 @@ public class CadastroFamilia extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-                report.setSubreport(false);
-                report.setTabela("FAMILIA");
-                report.gerarRelatorio(report);
-                jBtPesquisarActionPerformed(null);
+        jBtPesquisarActionPerformed(null);        
+        report.setSubreport(false);
+        report.setTabela("FAMILIA");
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTableConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaMouseClicked

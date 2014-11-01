@@ -240,7 +240,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             report.setConsulta(parcelas.consultarCdConta(parcelas.getContas(), true));
             report.setSubreport(false);
             report.setTabela("TICKET_PARCELAS");
-            report.gerarRelatorio(report);
+            report.iniciarSplash(report);
         }
         dispose();
     }//GEN-LAST:event_jBtFecharActionPerformed

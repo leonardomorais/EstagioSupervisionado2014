@@ -3,6 +3,8 @@ package Relatorios;
 import ConexaoBanco.ConexaoPostgreSQL;
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -19,26 +21,23 @@ public class Relatorios {
     private String tabela;
     private ResultSet consulta;
     private boolean subreport;
+    private HashMap parametro;
     
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
     public void gerarRelatorio(Relatorios r) {
-        HashMap parametro = new HashMap();
-        
-        
-        //exibirSplash();
         try {
             conexao.conecta();
 
             if (r.isSubreport()) {
-                parametro.put("SUBREPORT_DIR", "relatorios\\");
-                parametro.put("REPORT_CONNECTION", conexao.conecta());
+                r.getParametro().put("SUBREPORT_DIR", "relatorios\\");
+                r.getParametro().put("REPORT_CONNECTION", conexao.conecta());
             }
             JRResultSetDataSource jrRs = new JRResultSetDataSource(r.getConsulta());
 
             String report = "relatorios\\" + r.getTabela() + ".jasper";
 
-            JasperPrint print = JasperFillManager.fillReport(report, parametro, jrRs);
+            JasperPrint print = JasperFillManager.fillReport(report, r.getParametro(), jrRs);
 
             //viewReport(JasperPrint jasperPrint, boolean isExitOnClose) 
             JasperViewer relatorio = new JasperViewer(print, false); 
@@ -54,29 +53,35 @@ public class Relatorios {
         }
     }
     
-    public void gerarRelatorio(Relatorios r, HashMap parametros){
-        try{
-            conexao.conecta();
-            
-            if (r.isSubreport()){
-                parametros.put("SUBREPORT_DIR", "relatorios\\");
-                parametros.put("REPORT_CONNECTION", conexao.conecta());
-            }
-            JRResultSetDataSource jrRs = new JRResultSetDataSource(r.getConsulta());
-            
-            String report = "relatorios\\"+r.getTabela()+".jasper";
-            
-            JasperPrint print = JasperFillManager.fillReport(report, parametros, jrRs);
-            
-            JasperViewer relatorio = new JasperViewer(print, false);
-            relatorio.setExtendedState(JasperViewer.MAXIMIZED_BOTH);
-            relatorio.setVisible(true);
-        }
-        catch(JRException ex){
-            JOptionPane.showMessageDialog(null, "Erro ao gerar documento");
-        }
-    }
+    public void iniciarSplash(final Relatorios relatorio){
+        final Thread thread = new Thread(new Runnable() {
 
+            @Override
+            public void run() {
+                   relatorio.gerarRelatorio(relatorio); 
+            }
+        });
+        
+        thread.start();
+        
+        Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                SplashRelatorio splash = new SplashRelatorio();
+                splash.setVisible(true);
+                thread.join();
+                splash.dispose();
+                } 
+                catch (InterruptedException ex) {
+                    Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        t.start();
+    }
+    
     // getter e setter
     public String getTabela() {
         return tabela;
@@ -100,6 +105,19 @@ public class Relatorios {
 
     public void setConsulta(ResultSet consulta) {
         this.consulta = consulta;
+    }
+
+    public HashMap getParametro() {
+        if (parametro == null){
+            parametro = new HashMap();
+        }
+        return parametro;
+        
+        
+    }
+
+    public void setParametro(HashMap parametro) {
+        this.parametro = parametro;
     }
     
 }

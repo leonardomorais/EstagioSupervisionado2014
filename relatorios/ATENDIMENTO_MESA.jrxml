@@ -82,11 +82,11 @@ ORDER BY A.NR_ATENDIMENTO]]>
 				<reportElement uuid="b2744479-f861-45e6-9647-b0eff4a9f1cc" x="0" y="0" width="555" height="98"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="94445f24-0ebf-4c18-9de5-6b4c6cba9f01" x="0" y="0" width="91" height="25"/>
+				<reportElement uuid="94445f24-0ebf-4c18-9de5-6b4c6cba9f01" x="0" y="0" width="101" height="25"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nr Atendimento]]></text>
+				<text><![CDATA[   Nr Atendimento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="04627716-9a18-4ed6-b58c-55f8543d2288" x="455" y="0" width="35" height="25"/>
@@ -103,11 +103,11 @@ ORDER BY A.NR_ATENDIMENTO]]>
 				<text><![CDATA[Nr Mesa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="29bb8f6b-bc33-4820-8bf4-94d28c273bef" x="0" y="25" width="91" height="25"/>
+				<reportElement uuid="29bb8f6b-bc33-4820-8bf4-94d28c273bef" x="0" y="25" width="101" height="25"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cd Funcionário]]></text>
+				<text><![CDATA[   Cd Funcionário]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="3b265e0c-dbf6-4107-8008-6aea6cb5eeb4" x="176" y="25" width="51" height="25"/>
@@ -117,11 +117,11 @@ ORDER BY A.NR_ATENDIMENTO]]>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="237c1bb8-7db6-442f-8a40-8743670da96d" x="0" y="50" width="91" height="23"/>
+				<reportElement uuid="237c1bb8-7db6-442f-8a40-8743670da96d" x="0" y="50" width="101" height="23"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Hora Abertura]]></text>
+				<text><![CDATA[   Hora Abertura]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="689a892e-44d1-4817-96c8-b218eec0dfc9" x="176" y="50" width="110" height="23"/>
@@ -138,7 +138,7 @@ ORDER BY A.NR_ATENDIMENTO]]>
 				<text><![CDATA[Situação]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="da85d0bf-5ad5-4eb7-a2a0-3d0deb642676" x="91" y="0" width="36" height="25"/>
+				<reportElement uuid="da85d0bf-5ad5-4eb7-a2a0-3d0deb642676" x="101" y="0" width="36" height="25"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nr_atendimento}]]></textFieldExpression>
 			</textField>
@@ -153,7 +153,7 @@ ORDER BY A.NR_ATENDIMENTO]]>
 				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="967ddcab-90a7-436d-a30d-962d9809bb81" x="91" y="25" width="36" height="25"/>
+				<reportElement uuid="967ddcab-90a7-436d-a30d-962d9809bb81" x="101" y="25" width="36" height="25"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cd_funcionario}]]></textFieldExpression>
 			</textField>
@@ -163,7 +163,7 @@ ORDER BY A.NR_ATENDIMENTO]]>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2a6bedfa-99f8-456e-a8b3-71431fa071d2" x="91" y="50" width="85" height="23"/>
+				<reportElement uuid="2a6bedfa-99f8-456e-a8b3-71431fa071d2" x="101" y="50" width="75" height="23"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{hora_abertura}]]></textFieldExpression>
 			</textField>
@@ -205,14 +205,14 @@ ORDER BY A.NR_ATENDIMENTO]]>
 	<pageFooter>
 		<band height="45" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="08935b96-1cf7-41c0-8a70-0f7297843547" x="0" y="0" width="153" height="22"/>
+				<reportElement uuid="08935b96-1cf7-41c0-8a70-0f7297843547" x="0" y="0" width="199" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[Nr de contas encontradas]]></text>
+				<text><![CDATA[   Nr de atendimentos encontrados]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="6107e6c5-e514-4c6b-b225-0c272fa69b74" x="153" y="0" width="23" height="22"/>
+				<reportElement uuid="6107e6c5-e514-4c6b-b225-0c272fa69b74" x="199" y="0" width="23" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>

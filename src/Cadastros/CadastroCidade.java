@@ -487,10 +487,10 @@ public class CadastroCidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeKeyTyped
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        jBtPesquisarActionPerformed(null);
         report.setSubreport(false);
         report.setTabela("CIDADE");
-        report.gerarRelatorio(report);
-        jBtPesquisarActionPerformed(null);
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jbtCadEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCadEstadoActionPerformed

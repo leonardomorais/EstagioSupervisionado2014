@@ -416,45 +416,42 @@ public class TelaMovCaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jRBtSimActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-        HashMap params = new HashMap();
         report.setSubreport(false);
         report.setTabela("MOV_CAIXA");
         jBtPesquisarActionPerformed(null);
         
         if (jRBtSim.isSelected()){
-            params.put("PERIODO", "DE "+jFormattedTextFieldDtInicial.getText()+" A "
+            report.getParametro().put("PERIODO", "DE "+jFormattedTextFieldDtInicial.getText()+" A "
             +jFormattedTextFieldDtFinal.getText());
         }
         else{
-            params.put("PERIODO", "TODOS");
+            report.getParametro().put("PERIODO", "TODOS");
         }
         if (jComboBoxConsulta.getSelectedIndex() == 2){
-            params.put("AGENCIA_CONTA",jComboBoxAux.getSelectedItem().toString());
+            report.getParametro().put("AGENCIA_CONTA",jComboBoxAux.getSelectedItem().toString());
         }
         else{
-            params.put("AGENCIA_CONTA","TODAS");
+            report.getParametro().put("AGENCIA_CONTA","TODAS");
         }
         if (jComboBoxConsulta.getSelectedIndex() == 3){
-            params.put("OPERACAO", jComboBoxAux.getSelectedItem().toString());
+            report.getParametro().put("OPERACAO", jComboBoxAux.getSelectedItem().toString());
         }
         else{
-            params.put("OPERACAO", "TODAS");
+            report.getParametro().put("OPERACAO", "TODAS");
         }
         if (jComboBoxConsulta.getSelectedIndex() == 4){
-            params.put("CONTA", jTextFieldConsulta.getText());
+            report.getParametro().put("CONTA", jTextFieldConsulta.getText());
         }
         else{
-            params.put("CONTA", "TODAS");
+            report.getParametro().put("CONTA", "TODAS");
         }
         if (jComboBoxConsulta.getSelectedIndex() == 7){
-            params.put("TIPO"," "+jComboBoxAux.getSelectedItem().toString());
+            report.getParametro().put("TIPO"," "+jComboBoxAux.getSelectedItem().toString());
         }
         else{
-            params.put("TIPO", "ENTRADA E SAÍDA");
+            report.getParametro().put("TIPO", "ENTRADA E SAÍDA");
         }
-        
-        report.gerarRelatorio(report, params);        
-            
+        report.iniciarSplash(report);           
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     /**

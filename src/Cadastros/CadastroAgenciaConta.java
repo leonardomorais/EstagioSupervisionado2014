@@ -604,10 +604,10 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldConsultaActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
+        jBtPesquisarActionPerformed(null);
         report.setTabela("AGENCIA_CONTA");
         report.setSubreport(false);
-        report.gerarRelatorio(report);
-        jBtPesquisarActionPerformed(null);
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jTextFieldVlContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldVlContaActionPerformed

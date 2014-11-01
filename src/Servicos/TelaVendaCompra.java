@@ -1593,10 +1593,11 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 @Override
                 public void windowClosed(WindowEvent evt) {
                     limparCampos();
+                    
                     report.setConsulta(venda.consultarTicket(venda));
                     report.setSubreport(false);
                     report.setTabela("TICKET_VENDA_COMPRA");
-                    report.gerarRelatorio(report);
+                    report.iniciarSplash(report);
                 }
             });
         }

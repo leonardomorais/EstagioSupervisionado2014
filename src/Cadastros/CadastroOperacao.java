@@ -549,10 +549,10 @@ public class CadastroOperacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCarregarDadosActionPerformed
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
-            report.setSubreport(false);
-            report.setTabela("OPERACAO");
-            report.gerarRelatorio(report);
-            jBtPesquisarActionPerformed(null);
+        jBtPesquisarActionPerformed(null);
+        report.setSubreport(false);
+        report.setTabela("OPERACAO");
+        report.iniciarSplash(report);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
@@ -692,12 +692,12 @@ public class CadastroOperacao extends javax.swing.JFrame {
     
     private void editaBotao(boolean vazia) {
         if (vazia) {
+            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
             jBtRelatorio.setEnabled(false);
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
             jBtRelatorio.setEnabled(true);
-            JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
         }
     }
 
