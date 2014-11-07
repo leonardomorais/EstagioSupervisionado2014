@@ -305,6 +305,7 @@ public class CadastroOperacao extends javax.swing.JFrame {
             }
         });
         jTableOperacao.setComponentPopupMenu(jPopupMenuOperacao);
+        jTableOperacao.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableOperacao);
 
         jLabel5.setText("Filtro da Consulta");

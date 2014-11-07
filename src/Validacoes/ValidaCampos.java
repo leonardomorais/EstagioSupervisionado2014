@@ -55,4 +55,45 @@ public class ValidaCampos {
        
     }
     
+    private int contaNumeros(String campo){
+        int qt = 0;
+        for (int i = 0; i < campo.length(); i++){
+            if ("0123456789".contains(campo.charAt(i)+"")){
+                qt = qt + 1;
+            }
+        }
+        return qt;
+    }
+    
+    public boolean CEPValido(JTextField cep){
+        if (contaNumeros(cep.getText())!=0
+         && contaNumeros(cep.getText()) !=8){
+            cep.grabFocus();
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    public boolean fonesValidos(JTextField res, JTextField com, JTextField cel){
+        if (contaNumeros(res.getText())!=0 
+         && contaNumeros(res.getText())!=10){
+            res.grabFocus();
+            return false;
+        }
+        else if (contaNumeros(com.getText())!=0 
+         && contaNumeros(com.getText())!=10){
+            com.grabFocus();
+            return false;
+        }
+        else if (contaNumeros(cel.getText())!=0 
+         && contaNumeros(cel.getText())!=10){
+            cel.grabFocus();
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }

@@ -68,6 +68,7 @@ public class ConsultaPessoa extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jTablePessoa.getTableHeader().setReorderingAllowed(false);
         jTablePessoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTablePessoaMouseClicked(evt);

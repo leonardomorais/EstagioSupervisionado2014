@@ -88,6 +88,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableMovCaixa.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableMovCaixa);
 
         jLabel1.setText("Selecione o filtro");

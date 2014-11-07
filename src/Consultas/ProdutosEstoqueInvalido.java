@@ -69,6 +69,7 @@ public class ProdutosEstoqueInvalido extends javax.swing.JFrame {
             }
         });
         jTableProdutos.setComponentPopupMenu(jPopupMenu1);
+        jTableProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableProdutos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

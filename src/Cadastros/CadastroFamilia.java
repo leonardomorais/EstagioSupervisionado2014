@@ -254,6 +254,7 @@ public class CadastroFamilia extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setComponentPopupMenu(jPopupMenuFamilia);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jTableConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableConsultaMouseClicked(evt);

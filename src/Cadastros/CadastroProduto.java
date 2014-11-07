@@ -381,6 +381,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setComponentPopupMenu(jPopupMenuProduto);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel1.setText("Filtro da Consulta");

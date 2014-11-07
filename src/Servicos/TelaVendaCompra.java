@@ -356,6 +356,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableProdutos.getTableHeader().setReorderingAllowed(false);
         jTableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableProdutosMouseClicked(evt);
@@ -622,6 +623,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             }
         });
         jTableVendaCompra.setComponentPopupMenu(jPopupMenuVendaCompra);
+        jTableVendaCompra.getTableHeader().setReorderingAllowed(false);
         jTableVendaCompra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableVendaCompraMouseClicked(evt);
@@ -659,6 +661,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             }
         });
         jTableConta.setComponentPopupMenu(jPopupMenuConta);
+        jTableConta.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTableConta);
 
         jTableProdutosVenda.setModel(new javax.swing.table.DefaultTableModel(
@@ -677,6 +680,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableProdutosVenda.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTableProdutosVenda);
 
         jBtPesquisar.setText("Pesquisar");

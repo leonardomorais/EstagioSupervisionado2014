@@ -226,6 +226,7 @@ public class CadastroOrigem extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setComponentPopupMenu(jPopupMenuOrigem);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel1.setText("Filtro da Consulta");

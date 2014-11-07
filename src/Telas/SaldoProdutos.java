@@ -66,6 +66,7 @@ public class SaldoProdutos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableProdutos);
 
         jBtRelatorio.setText("Relatório");

@@ -123,7 +123,7 @@
                                       <EmptySpace min="29" pref="29" max="-2" attributes="0"/>
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
@@ -134,21 +134,19 @@
                                                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jFtextFieldFoneRes" min="-2" pref="90" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jFTextFieldFoneCom" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
-                                                          <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace min="45" pref="45" max="-2" attributes="0"/>
-                                                          <Component id="jLabel17" min="-2" pref="90" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="jTextFieldFoneRes" min="-2" pref="90" max="-2" attributes="0"/>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Component id="jTextFieldFoneCom" min="-2" pref="90" max="-2" attributes="0"/>
-                                                          <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
-                                                          <Component id="jTextFieldFoneCel" min="-2" pref="90" max="-2" attributes="0"/>
-                                                      </Group>
+                                                      <Component id="jLabel17" pref="90" max="32767" attributes="0"/>
+                                                      <Component id="jFTextFieldFoneCel" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
                                               </Group>
@@ -234,7 +232,7 @@
                                                   </Group>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jTextFieldCEP" min="-2" pref="88" max="-2" attributes="0"/>
+                                                      <Component id="jFTextFieldCEP" min="-2" pref="88" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -320,8 +318,8 @@
                           <Component id="jTextFieldRG" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBoxCidade" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jBtCidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldCEP" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jFormattedTextFieldCpfCNPJ" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFTextFieldCEP" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -356,9 +354,11 @@
                       </Group>
                       <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextFieldFoneRes" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldFoneCom" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldFoneCel" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFtextFieldFoneRes" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jFTextFieldFoneCom" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jFTextFieldFoneCel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jBtContatos" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jBtEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -469,6 +469,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldData">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(data);"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       data = new MaskFormatter(&quot;##/##/####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
@@ -483,12 +486,6 @@
               <Events>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldRuaKeyTyped"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldCEP">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(cep);"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       cep = new MaskFormatter(&quot;#####-###&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
@@ -555,24 +552,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fone Residencial"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldFoneRes">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldFoneCom">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldFoneCel">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel17">
               <Properties>
@@ -752,6 +731,45 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldCpfCNPJ">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="jFtextFieldFoneRes">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="jFTextFieldFoneCom">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="jFTextFieldFoneCel">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="jFTextFieldCEP">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(cep);"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       cep = new MaskFormatter(&quot;#####-###&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -835,6 +853,9 @@
                     </Property>
                     <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="jPopupMenuCliente"/>
+                    </Property>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
                   <AuxValues>

@@ -218,6 +218,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableParcelas.getTableHeader().setReorderingAllowed(false);
         jTableParcelas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableParcelasMouseClicked(evt);
@@ -269,6 +270,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableContas.getTableHeader().setReorderingAllowed(false);
         jTableContas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableContasMouseClicked(evt);
@@ -458,6 +460,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel10.setText("Ocultar registros inativos ?");

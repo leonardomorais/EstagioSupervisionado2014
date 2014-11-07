@@ -53,7 +53,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
 
-//        System.err.println("Válido ?"+doc.validaCPFCNPJ("097.089.169-51"));
         jRadioButtonFisicaActionPerformed(null);
 
         cliente.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
@@ -96,8 +95,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         jFormattedTextFieldData = new JFormattedTextField(data);
         jLabel9 = new javax.swing.JLabel();
         jTextFieldRua = new javax.swing.JTextField();
-        try{       cep = new MaskFormatter("#####-###");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldCEP = new JFormattedTextField(cep);
         jLabel10 = new javax.swing.JLabel();
         jComboBoxCidade = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
@@ -110,12 +107,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneRes = new JFormattedTextField(fone);
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneCom = new JFormattedTextField(fone);
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneCel = new JFormattedTextField(fone);
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jComboBoxSexo = new javax.swing.JComboBox();
@@ -140,6 +131,14 @@ public class CadastroCliente extends javax.swing.JFrame {
         jBtEndereco = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtEndereco, KeyEvent.VK_F8, 0);
         jFormattedTextFieldCpfCNPJ = new javax.swing.JFormattedTextField();
+        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFtextFieldFoneRes = new JFormattedTextField(fone);
+        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFTextFieldFoneCom = new JFormattedTextField(fone);
+        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFTextFieldFoneCel = new JFormattedTextField(fone);
+        try{       cep = new MaskFormatter("#####-###");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFTextFieldCEP = new JFormattedTextField(cep);
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -248,6 +247,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         });
 
         jLabel8.setText("Data de Cadastro");
+
+        jFormattedTextFieldData.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
 
         jLabel9.setText("Rua Avenida");
 
@@ -408,6 +409,16 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        jFormattedTextFieldCpfCNPJ.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jFtextFieldFoneRes.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jFTextFieldFoneCom.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jFTextFieldFoneCel.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jFTextFieldCEP.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -429,7 +440,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel12)
                                 .addGap(29, 29, 29)
                                 .addComponent(jLabel9))
-                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCadastroLayout.createSequentialGroup()
                                     .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanelCadastroLayout.createSequentialGroup()
@@ -438,19 +449,17 @@ public class CadastroCliente extends javax.swing.JFrame {
                                                 .addComponent(jLabel14))
                                             .addGap(33, 33, 33))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroLayout.createSequentialGroup()
+                                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel16)
+                                                .addComponent(jFtextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(28, 28, 28)
+                                            .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel18)
+                                                .addComponent(jFTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(28, 28, 28)
                                             .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroLayout.createSequentialGroup()
-                                                    .addComponent(jLabel16)
-                                                    .addGap(38, 38, 38)
-                                                    .addComponent(jLabel18)
-                                                    .addGap(45, 45, 45)
-                                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroLayout.createSequentialGroup()
-                                                    .addComponent(jTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(28, 28, 28)
-                                                    .addComponent(jTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                                .addComponent(jFTextFieldFoneCel))
                                             .addGap(114, 114, 114)))
                                     .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jTextFieldEmail)
@@ -514,7 +523,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                                                     .addGap(18, 18, 18)))
                                             .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel10)
-                                                .addComponent(jTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
+                                                .addComponent(jFTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanelCadastroLayout.setVerticalGroup(
@@ -573,8 +582,8 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addComponent(jTextFieldRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtCidade)
-                    .addComponent(jTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextFieldCpfCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldCpfCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
@@ -602,9 +611,10 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addComponent(jLabel20))
                 .addGap(5, 5, 5)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFtextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jFTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jFTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jBtContatos)
                         .addComponent(jBtEndereco))
@@ -634,6 +644,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setComponentPopupMenu(jPopupMenuCliente);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel1.setText("Filtro da Consulta");
@@ -782,22 +793,46 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (jTextFieldNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O nome do cliente é obrigatório!");
             jTextFieldNome.grabFocus();
-        } else if (jFormattedTextFieldCpfCNPJ.getText().equals("   .   .   -  ")
+        } 
+        
+        else if (jFormattedTextFieldCpfCNPJ.getText().equals("   .   .   -  ")
                 || jFormattedTextFieldCpfCNPJ.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do cliente é obrigatório!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        } else if (rotina == Rotinas.incluir && !doc.validaCPFCNPJ(jFormattedTextFieldCpfCNPJ.getText())) {
+        } 
+        
+        else if (rotina == Rotinas.incluir && !doc.validaCPFCNPJ(jFormattedTextFieldCpfCNPJ.getText())) {
             JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        } else if (rotina == Rotinas.alterar && jRadioButtonFisica.isSelected()
+        } 
+        
+        else if (rotina == Rotinas.alterar && jRadioButtonFisica.isSelected()
                 && !doc.validaCPF(doc.removeMascara(jFormattedTextFieldCpfCNPJ.getText()))) {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        } else if (rotina == Rotinas.alterar && jRadioButtonJuridica.isSelected()
+        } 
+        
+        else if (rotina == Rotinas.alterar && jRadioButtonJuridica.isSelected()
                 && !doc.validaCNPJ(doc.removeMascara(jFormattedTextFieldCpfCNPJ.getText()))) {
             JOptionPane.showMessageDialog(null, "CNPJ inválido!");
             jFormattedTextFieldCpfCNPJ.grabFocus();
-        } else {
+        } 
+        
+        else if ((dataAtual.comparaData(jFormattedTextFieldData.getText()) > 0) 
+            ||!dataAtual.dataExiste(jFormattedTextFieldData.getText())){
+            JOptionPane.showMessageDialog(null, "Por favor informe uma data válida!");
+        }
+        
+        else if (!campos.CEPValido(jFTextFieldCEP)){
+            JOptionPane.showMessageDialog(null, "Por favor preencha completamente o CEP ou mantenha-o vazio!");
+        }
+        
+        else if (!campos.fonesValidos(jFtextFieldFoneRes, jFTextFieldFoneCom, jFTextFieldFoneCel)){
+            JOptionPane.showMessageDialog(null, "Por favor preencha completamente o(s) telefone(s)"
+                    + " ou mantenha-o(s) vazio(s)!");
+        }
+        
+        else {
             gravarCliente();
             gravarEndereco();
             gravarContato();
@@ -1116,8 +1151,12 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxSexo;
     private javax.swing.JComboBox jComboBoxSituacao;
+    private javax.swing.JFormattedTextField jFTextFieldCEP;
+    private javax.swing.JFormattedTextField jFTextFieldFoneCel;
+    private javax.swing.JFormattedTextField jFTextFieldFoneCom;
     private javax.swing.JFormattedTextField jFormattedTextFieldCpfCNPJ;
     private javax.swing.JFormattedTextField jFormattedTextFieldData;
+    private javax.swing.JFormattedTextField jFtextFieldFoneRes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1152,14 +1191,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPaneCliente;
     private javax.swing.JTable jTableConsulta;
     private javax.swing.JTextField jTextFieldBairro;
-    private javax.swing.JTextField jTextFieldCEP;
     private javax.swing.JTextField jTextFieldCdCliente;
     private javax.swing.JTextField jTextFieldComplemento;
     private javax.swing.JTextField jTextFieldConsulta;
     private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldFoneCel;
-    private javax.swing.JTextField jTextFieldFoneCom;
-    private javax.swing.JTextField jTextFieldFoneRes;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldNrEndereco;
     private javax.swing.JTextField jTextFieldRG;
@@ -1208,7 +1243,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.getPessoa().getEndereco().setRuaAv(jTextFieldRua.getText().toUpperCase());
         cliente.getPessoa().getEndereco().setNrEndereco(jTextFieldNrEndereco.getText());
         cliente.getPessoa().getEndereco().setNrSequencia(1);
-        cliente.getPessoa().getEndereco().setCEP(jTextFieldCEP.getText());
+        cliente.getPessoa().getEndereco().setCEP(jFTextFieldCEP.getText());
         cliente.getPessoa().getEndereco().setBairro(jTextFieldBairro.getText().toUpperCase());
         cliente.getPessoa().getEndereco().setComplemento(jTextFieldComplemento.getText().toUpperCase());
     }
@@ -1228,16 +1263,16 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jComboBoxCidade.setSelectedItem(cliente.getPessoa().getEndereco().getCidade().getDsCidade());
 
-        jTextFieldCEP.setText(cliente.getPessoa().getEndereco().getCEP());
+        jFTextFieldCEP.setText(cliente.getPessoa().getEndereco().getCEP());
         jTextFieldNrEndereco.setText(cliente.getPessoa().getEndereco().getNrEndereco());
         jTextFieldRua.setText(cliente.getPessoa().getEndereco().getRuaAv());
         jTextFieldBairro.setText(cliente.getPessoa().getEndereco().getBairro());
         jTextFieldComplemento.setText(cliente.getPessoa().getEndereco().getComplemento());
 
         jTextFieldEmail.setText(cliente.getPessoa().getContato().getEmail());
-        jTextFieldFoneRes.setText(cliente.getPessoa().getContato().getFoneRes());
-        jTextFieldFoneCom.setText(cliente.getPessoa().getContato().getFoneCom());
-        jTextFieldFoneCel.setText(cliente.getPessoa().getContato().getFoneCel());
+        jFtextFieldFoneRes.setText(cliente.getPessoa().getContato().getFoneRes());
+        jFTextFieldFoneCom.setText(cliente.getPessoa().getContato().getFoneCom());
+        jFTextFieldFoneCel.setText(cliente.getPessoa().getContato().getFoneCel());
 
         if (cliente.getPessoa().getTpPessoa().equals("F")) {
             jRadioButtonFisica.setSelected(true);
@@ -1254,25 +1289,25 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
 
     private void preencheFones() {
-        if (jTextFieldFoneRes.getText().equals("(  )-    -    ")) {
+        if (jFtextFieldFoneRes.getText().equals("(  )-    -    ")) {
             cliente.getPessoa().getContato().setFoneRes("");
         } else {
-            cliente.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
+            cliente.getPessoa().getContato().setFoneRes(jFtextFieldFoneRes.getText());
         }
 
-        if (jTextFieldFoneCom.getText().equals("(  )-    -    ")) {
+        if (jFTextFieldFoneCom.getText().equals("(  )-    -    ")) {
             cliente.getPessoa().getContato().setFoneCom("");
         } else {
-            cliente.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
+            cliente.getPessoa().getContato().setFoneCom(jFTextFieldFoneCom.getText());
         }
 
-        if (jTextFieldFoneCel.getText().equals("(  )-    -    ")) {
+        if (jFTextFieldFoneCel.getText().equals("(  )-    -    ")) {
             cliente.getPessoa().getContato().setFoneCel("");
         } else {
-            cliente.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
+            cliente.getPessoa().getContato().setFoneCel(jFTextFieldFoneCel.getText());
         }
     }
-
+    
     private void editaBotao(boolean vazia) {
         if (vazia) {
             JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
@@ -1283,5 +1318,5 @@ public class CadastroCliente extends javax.swing.JFrame {
             jBtRelatorio.setEnabled(true);
         }
     }
-
+    
 }

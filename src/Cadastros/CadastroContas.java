@@ -470,6 +470,7 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
         jTableContas.setComponentPopupMenu(jPopupMenuContas);
+        jTableContas.getTableHeader().setReorderingAllowed(false);
         jTableContas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableContasMouseClicked(evt);
@@ -494,6 +495,7 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
         jTableParcelas.setComponentPopupMenu(jPopupMenuPagarParcela);
+        jTableParcelas.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableParcelas);
 
         jBtRelatorio.setText("Relatório");

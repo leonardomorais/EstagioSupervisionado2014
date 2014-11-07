@@ -62,16 +62,7 @@ public class CadastroContato extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneRes = new JFormattedTextField(fone);
-        ;
         jLabel6 = new javax.swing.JLabel();
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneCel = new JFormattedTextField(fone);
-        ;
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneCom = new JFormattedTextField(fone);
-        ;
         jLabel7 = new javax.swing.JLabel();
         jPanelBotoes = new javax.swing.JPanel();
         jBtIncluir = new javax.swing.JButton();
@@ -89,6 +80,12 @@ public class CadastroContato extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtPesquisaPessoa, 
             KeyEvent.VK_F4, 0);
         jLabel8 = new javax.swing.JLabel();
+        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFTextFieldFoneRes = new JFormattedTextField(fone);  ;
+        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFTextFieldFoneCom = new JFormattedTextField(fone);  ;
+        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFTextFieldFoneCel = new JFormattedTextField(fone);  ;
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -151,13 +148,7 @@ public class CadastroContato extends javax.swing.JFrame {
 
         jLabel5.setText("Fone Residencial");
 
-        jTextFieldFoneRes.setName(""); // NOI18N
-
         jLabel6.setText("Fone Comercial");
-
-        jTextFieldFoneCel.setName(""); // NOI18N
-
-        jTextFieldFoneCom.setName(""); // NOI18N
 
         jLabel7.setText("Fone Celular");
 
@@ -247,6 +238,12 @@ public class CadastroContato extends javax.swing.JFrame {
 
         jLabel8.setText("Nome");
 
+        jFTextFieldFoneRes.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jFTextFieldFoneCom.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jFTextFieldFoneCel.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -277,16 +274,16 @@ public class CadastroContato extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jFTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jFTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
-                                    .addComponent(jTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jFTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
                                 .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.LEADING)))
@@ -325,9 +322,9 @@ public class CadastroContato extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jFTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -456,6 +453,10 @@ public class CadastroContato extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "O nome do contato é obrigatório!");
             jTextFieldNome.grabFocus();
         }
+        else if (!campos.fonesValidos(jFTextFieldFoneRes, jFTextFieldFoneCom, jFTextFieldFoneCel)){
+            JOptionPane.showMessageDialog(null, "Por favor preencha completamente o(s) telefone(s)"
+                    + " ou o(s) mantenha vazio(s)!");
+        }
         
         else {
             carregarContato();
@@ -474,7 +475,8 @@ public class CadastroContato extends javax.swing.JFrame {
                         contato.setNrSeq(Integer.parseInt(jTextFieldNrSeq.getText()));
                         contato.alterar(contato);
                         JOptionPane.showMessageDialog(null, "Contato alterado com sucesso!");
-                    } catch (NumberFormatException ex) {
+                    } 
+                    catch (NumberFormatException ex) {
                     }
                 }
             }
@@ -725,6 +727,9 @@ public class CadastroContato extends javax.swing.JFrame {
     private javax.swing.JButton jBtPesquisaPessoa;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JComboBox jComboBoxConsulta;
+    private javax.swing.JFormattedTextField jFTextFieldFoneCel;
+    private javax.swing.JFormattedTextField jFTextFieldFoneCom;
+    private javax.swing.JFormattedTextField jFTextFieldFoneRes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -745,9 +750,6 @@ public class CadastroContato extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCdPessoa;
     private javax.swing.JTextField jTextFieldConsulta;
     private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldFoneCel;
-    private javax.swing.JTextField jTextFieldFoneCom;
-    private javax.swing.JTextField jTextFieldFoneRes;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldNomePessoa;
     private javax.swing.JTextField jTextFieldNrSeq;
@@ -757,20 +759,20 @@ public class CadastroContato extends javax.swing.JFrame {
         contato.setCdPessoa(Integer.parseInt(jTextFieldCdPessoa.getText()));
         contato.setNomeContato(jTextFieldNome.getText().toUpperCase());
         contato.setEmail(jTextFieldEmail.getText().toUpperCase());
-        if (jTextFieldFoneRes.getText().equals("(  )-    -    ")) {
+        if (jFTextFieldFoneRes.getText().equals("(  )-    -    ")) {
             contato.setFoneRes("");
         } else {
-            contato.setFoneRes(jTextFieldFoneRes.getText());
+            contato.setFoneRes(jFTextFieldFoneRes.getText());
         }
-        if (jTextFieldFoneCom.getText().equals("(  )-    -    ")) {
+        if (jFTextFieldFoneCom.getText().equals("(  )-    -    ")) {
             contato.setFoneCom("");
         } else {
-            contato.setFoneCom(jTextFieldFoneCom.getText());
+            contato.setFoneCom(jFTextFieldFoneCom.getText());
         }
-        if (jTextFieldFoneCel.getText().equals("(  )-    -    ")) {
+        if (jFTextFieldFoneCel.getText().equals("(  )-    -    ")) {
             contato.setFoneCel("");
         } else {
-            contato.setFoneCel(jTextFieldFoneCel.getText());
+            contato.setFoneCel(jFTextFieldFoneCel.getText());
         }
     }
 
@@ -781,18 +783,18 @@ public class CadastroContato extends javax.swing.JFrame {
         jTextFieldNrSeq.setText(contato.getNrSeq().toString());
         jTextFieldNome.setText(contato.getNomeContato());
         jTextFieldEmail.setText(contato.getEmail());
-        jTextFieldFoneRes.setText(contato.getFoneRes());
-        jTextFieldFoneCom.setText(contato.getFoneCom());
-        jTextFieldFoneCel.setText(contato.getFoneCel());
+        jFTextFieldFoneRes.setText(contato.getFoneRes());
+        jFTextFieldFoneCom.setText(contato.getFoneCom());
+        jFTextFieldFoneCel.setText(contato.getFoneCel());
     }
 
     public void limparApenasContato() {
         jTextFieldNrSeq.setText("");
         jTextFieldNome.setText("");
         jTextFieldEmail.setText("");
-        jTextFieldFoneRes.setText("");
-        jTextFieldFoneCom.setText("");
-        jTextFieldFoneCel.setText("");
+        jFTextFieldFoneRes.setText("");
+        jFTextFieldFoneCom.setText("");
+        jFTextFieldFoneCel.setText("");
     }
 
     public void getValores() {
@@ -810,5 +812,4 @@ public class CadastroContato extends javax.swing.JFrame {
         preencher.PreencherJtableGenerico(jTableConsulta, contato.consultarCdContato(contato));
 
     }
-
 }

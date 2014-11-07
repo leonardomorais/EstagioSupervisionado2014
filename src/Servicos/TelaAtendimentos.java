@@ -113,6 +113,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
             }
         });
         jTableMesas.setComponentPopupMenu(jPopupMenuAtendimentos);
+        jTableMesas.getTableHeader().setReorderingAllowed(false);
         jTableMesas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTableMesasKeyPressed(evt);

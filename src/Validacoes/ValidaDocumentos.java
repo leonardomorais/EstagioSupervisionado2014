@@ -42,17 +42,21 @@ public class ValidaDocumentos {
 
     public boolean validaCPF(String documento) {
         boolean valido;
+        try {
+            int digito1 = Integer.parseInt("" + documento.charAt(9));
+            int digito2 = Integer.parseInt("" + documento.charAt(10));
 
-        int digito1 = Integer.parseInt("" + documento.charAt(9));
-        int digito2 = Integer.parseInt("" + documento.charAt(10));
-
-        if ((digito1 == retornaDvCPF(documento, 1))
-                && (digito2 == retornaDvCPF(documento, 2))) {
-            valido = true;
-        } else {
-            valido = false;
+            if ((digito1 == retornaDvCPF(documento, 1))
+                    && (digito2 == retornaDvCPF(documento, 2))) {
+                valido = true;
+            } else {
+                valido = false;
+            }
+            return valido;
+            
+        } catch (NumberFormatException ex) {
+            return false;
         }
-        return valido;
     }
 
     public int retornaDvCPF(String valores, int dv) {
@@ -94,18 +98,21 @@ public class ValidaDocumentos {
 
     public boolean validaCNPJ(String documento) {
         boolean valido;
+        try {
+            int digito1 = Integer.parseInt("" + documento.charAt(12));
+            int digito2 = Integer.parseInt("" + documento.charAt(13));
 
-        int digito1 = Integer.parseInt("" + documento.charAt(12));
-        int digito2 = Integer.parseInt("" + documento.charAt(13));
-
-        if ((digito1 == retornaDvCNPJ(documento, 1))
-                && (digito2 == retornaDvCNPJ(documento, 2))) {
-            valido = true;
-        } else {
-            valido = false;
+            if ((digito1 == retornaDvCNPJ(documento, 1))
+                    && (digito2 == retornaDvCNPJ(documento, 2))) {
+                valido = true;
+            } else {
+                valido = false;
+            }
+            return valido;
+            
+        } catch (NumberFormatException ex) {
+            return false;
         }
-
-        return valido;
     }
 
     public int retornaDvCNPJ(String valores, int dv) {

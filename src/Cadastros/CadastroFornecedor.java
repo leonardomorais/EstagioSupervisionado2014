@@ -103,8 +103,6 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jComboBoxCidade = new javax.swing.JComboBox();
         jBtCidades = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCidades, KeyEvent.VK_F4, 0);
-        try{       cep = new MaskFormatter("#####-###");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldCEP = new JFormattedTextField(cep);
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jTextFieldNrEndereco = new javax.swing.JTextField();
@@ -117,12 +115,6 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneRes = new JFormattedTextField(fone);
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneCom = new JFormattedTextField(fone);
-        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
-        jTextFieldFoneCel = new JFormattedTextField(fone);
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox();
@@ -142,6 +134,12 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtContatos, KeyEvent.VK_F7, 0);
         jBtEndereco = new javax.swing.JButton();
         jFormattedTextFieldCpfCnpj = new javax.swing.JFormattedTextField();
+        jFTextFieldCEP = new javax.swing.JFormattedTextField();
+        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFTextFieldFoneRes = new JFormattedTextField(fone);
+        try{       fone = new MaskFormatter("(##)-####-####");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
+        jFTextFieldFoneCom = new JFormattedTextField(fone);
+        jFTextFieldFoneCel = new javax.swing.JFormattedTextField();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -235,6 +233,8 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jLabel6.setText("Sexo");
 
         jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MASCULINO", "FEMININO" }));
+
+        jFormattedTextFieldDataCadastro.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
 
         jLabel7.setText("Data de Cadastro");
 
@@ -402,6 +402,12 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jFormattedTextFieldCpfCnpj.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jFTextFieldFoneRes.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jFTextFieldFoneCom.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -445,16 +451,16 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                     .addComponent(jTextFieldComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17))
+                            .addComponent(jLabel17)
+                            .addComponent(jFTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18))
+                            .addComponent(jLabel18)
+                            .addComponent(jFTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
-                            .addComponent(jTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jFTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(33, 33, 33)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
@@ -497,7 +503,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
                                         .addComponent(jLabel11)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jTextFieldCEP))))
+                                    .addComponent(jFTextFieldCEP))))
                         .addGap(40, 40, 40))))
             .addComponent(jPanelBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -544,8 +550,8 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                     .addComponent(jTextFieldRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtCidades)
-                    .addComponent(jTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextFieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -572,12 +578,12 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                     .addComponent(jLabel20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtContatos)
-                    .addComponent(jBtEndereco))
+                    .addComponent(jBtEndereco)
+                    .addComponent(jFTextFieldFoneRes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTextFieldFoneCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFTextFieldFoneCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -602,6 +608,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setComponentPopupMenu(jPopupMenuFornecedor);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel1.setText("Filtro da Consulta");
@@ -759,26 +766,45 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         if (jTextFieldNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O nome do fornecedor é obrigatório!");
             jTextFieldNome.grabFocus();
-        } 
+        }
+        
         else if (jFormattedTextFieldCpfCnpj.getText().equals("   .   .   -  ")||
                 jFormattedTextFieldCpfCnpj.getText().equals("  .   .   /    -  ")) {
             JOptionPane.showMessageDialog(null, "O CPF/CNPJ do fornecedor é obrigatório!");
             jFormattedTextFieldCpfCnpj.grabFocus();
-        } 
+        }
+        
         else if (rotina == Rotinas.incluir && !doc.validaCPFCNPJ(jFormattedTextFieldCpfCnpj.getText())){
             JOptionPane.showMessageDialog(null, "CPF/CNPJ inválido!");
             jFormattedTextFieldCpfCnpj.grabFocus();
         }
+        
         else if (rotina == Rotinas.alterar && jRadioButtonPfisica.isSelected() 
                 && !doc.validaCPF(doc.removeMascara(jFormattedTextFieldCpfCnpj.getText()))){
             JOptionPane.showMessageDialog(null, "CPF inválido!");
             jFormattedTextFieldCpfCnpj.grabFocus();
         }
+        
         else if (rotina == Rotinas.alterar && jRadioButtonPJuridica.isSelected()
                 && !doc.validaCNPJ(doc.removeMascara(jFormattedTextFieldCpfCnpj.getText()))){
             JOptionPane.showMessageDialog(null, "CNPJ inválido!");
             jFormattedTextFieldCpfCnpj.grabFocus();
         }
+        
+        else if ((new RetornaData().comparaData(jFormattedTextFieldDataCadastro.getText()) > 0) 
+            ||!new RetornaData().dataExiste(jFormattedTextFieldDataCadastro.getText())){
+            JOptionPane.showMessageDialog(null, "Por favor informe uma data válida!");
+        }
+        
+        else if (!campos.CEPValido(jFTextFieldCEP)){
+            JOptionPane.showMessageDialog(null, "Por favor preencha completamente o CEP ou mantenha-o vazio!");
+        }
+        
+        else if (!campos.fonesValidos(jFTextFieldFoneRes, jFTextFieldFoneCom, jFTextFieldFoneCel)){
+            JOptionPane.showMessageDialog(null, "Por favor preencha completamente o(s) telefone(s)"
+                    + " ou mantenha-o(s) vazio(s)!");
+        }
+        
         else {
             gravarFornecedor();
             gravarEndereco();
@@ -1074,6 +1100,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxSexo;
     private javax.swing.JComboBox jComboBoxSituacao;
+    private javax.swing.JFormattedTextField jFTextFieldCEP;
+    private javax.swing.JFormattedTextField jFTextFieldFoneCel;
+    private javax.swing.JFormattedTextField jFTextFieldFoneCom;
+    private javax.swing.JFormattedTextField jFTextFieldFoneRes;
     private javax.swing.JFormattedTextField jFormattedTextFieldCpfCnpj;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataCadastro;
     private javax.swing.JLabel jLabel1;
@@ -1110,14 +1140,10 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPaneFornecedor;
     private javax.swing.JTable jTableConsulta;
     private javax.swing.JTextField jTextFieldBairro;
-    private javax.swing.JTextField jTextFieldCEP;
     private javax.swing.JTextField jTextFieldCdFornecedor;
     private javax.swing.JTextField jTextFieldComplemento;
     private javax.swing.JTextField jTextFieldConsulta;
     private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldFoneCel;
-    private javax.swing.JTextField jTextFieldFoneCom;
-    private javax.swing.JTextField jTextFieldFoneRes;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldNrEndereco;
     private javax.swing.JTextField jTextFieldRG;
@@ -1167,7 +1193,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         fornecedor.getPessoa().getEndereco().setRuaAv(jTextFieldRua.getText().toUpperCase());
         fornecedor.getPessoa().getEndereco().setNrEndereco(jTextFieldNrEndereco.getText());
         fornecedor.getPessoa().getEndereco().setNrSequencia(1);
-        fornecedor.getPessoa().getEndereco().setCEP(jTextFieldCEP.getText());
+        fornecedor.getPessoa().getEndereco().setCEP(jFTextFieldCEP.getText());
         fornecedor.getPessoa().getEndereco().setBairro(jTextFieldBairro.getText().toUpperCase());
         fornecedor.getPessoa().getEndereco().setComplemento(jTextFieldComplemento.getText().toUpperCase());
     }
@@ -1187,16 +1213,16 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         jComboBoxCidade.setSelectedItem(fornecedor.getPessoa().getEndereco().getCidade().getDsCidade());
 
-        jTextFieldCEP.setText(fornecedor.getPessoa().getEndereco().getCEP());
+        jFTextFieldCEP.setText(fornecedor.getPessoa().getEndereco().getCEP());
         jTextFieldNrEndereco.setText(fornecedor.getPessoa().getEndereco().getNrEndereco());
         jTextFieldRua.setText(fornecedor.getPessoa().getEndereco().getRuaAv());
         jTextFieldBairro.setText(fornecedor.getPessoa().getEndereco().getBairro());
         jTextFieldComplemento.setText(fornecedor.getPessoa().getEndereco().getComplemento());
 
         jTextFieldEmail.setText(fornecedor.getPessoa().getContato().getEmail());
-        jTextFieldFoneRes.setText(fornecedor.getPessoa().getContato().getFoneRes());
-        jTextFieldFoneCom.setText(fornecedor.getPessoa().getContato().getFoneCom());
-        jTextFieldFoneCel.setText(fornecedor.getPessoa().getContato().getFoneCel());
+        jFTextFieldFoneRes.setText(fornecedor.getPessoa().getContato().getFoneRes());
+        jFTextFieldFoneCom.setText(fornecedor.getPessoa().getContato().getFoneCom());
+        jFTextFieldFoneCel.setText(fornecedor.getPessoa().getContato().getFoneCel());
 
         if (fornecedor.getPessoa().getTpPessoa().equals("F")) {
             jRadioButtonPfisica.setSelected(true);
@@ -1213,22 +1239,22 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     }
 
     private void preencheFones() {
-        if (jTextFieldFoneRes.getText().equals("(  )-    -    ")) {
+        if (jFTextFieldFoneRes.getText().equals("(  )-    -    ")) {
             fornecedor.getPessoa().getContato().setFoneRes("");
         } else {
-            fornecedor.getPessoa().getContato().setFoneRes(jTextFieldFoneRes.getText());
+            fornecedor.getPessoa().getContato().setFoneRes(jFTextFieldFoneRes.getText());
         }
 
-        if (jTextFieldFoneCom.getText().equals("(  )-    -    ")) {
+        if (jFTextFieldFoneCom.getText().equals("(  )-    -    ")) {
             fornecedor.getPessoa().getContato().setFoneCom("");
         } else {
-            fornecedor.getPessoa().getContato().setFoneCom(jTextFieldFoneCom.getText());
+            fornecedor.getPessoa().getContato().setFoneCom(jFTextFieldFoneCom.getText());
         }
 
-        if (jTextFieldFoneCel.getText().equals("(  )-    -    ")) {
+        if (jFTextFieldFoneCel.getText().equals("(  )-    -    ")) {
             fornecedor.getPessoa().getContato().setFoneCel("");
         } else {
-            fornecedor.getPessoa().getContato().setFoneCel(jTextFieldFoneCel.getText());
+            fornecedor.getPessoa().getContato().setFoneCel(jFTextFieldFoneCel.getText());
         }
     }
 

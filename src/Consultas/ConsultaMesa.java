@@ -95,6 +95,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
             }
         });
         jTableMesa.setComponentPopupMenu(jPopupMenuCsMesa);
+        jTableMesa.getTableHeader().setReorderingAllowed(false);
         jTableMesa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableMesaMouseClicked(evt);

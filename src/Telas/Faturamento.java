@@ -84,6 +84,7 @@ public class Faturamento extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel1.setText("Filtro da Consulta");

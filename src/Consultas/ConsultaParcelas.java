@@ -93,6 +93,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             }
         });
         jTableParcelas.setComponentPopupMenu(jPopupMenuPagaParcela);
+        jTableParcelas.getTableHeader().setReorderingAllowed(false);
         jTableParcelas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableParcelasMouseClicked(evt);

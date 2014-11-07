@@ -396,6 +396,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
             }
         ));
         jTableConsulta.setComponentPopupMenu(jPopupMenuEndereco);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jBtPesquisar.setText("Pesquisar");

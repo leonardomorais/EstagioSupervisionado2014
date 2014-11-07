@@ -72,6 +72,7 @@ public class ConsultaForma extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jTableConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableConsultaMouseClicked(evt);

@@ -109,6 +109,7 @@ public class TelaMovEstoque extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setOpaque(false);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jComboBoxAux.setEnabled(false);

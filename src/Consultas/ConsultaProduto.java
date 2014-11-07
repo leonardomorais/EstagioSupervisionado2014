@@ -96,6 +96,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jTableProdutos.getTableHeader().setReorderingAllowed(false);
         jTableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableProdutosMouseClicked(evt);

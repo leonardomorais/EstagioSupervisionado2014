@@ -276,6 +276,7 @@ public class CadastroEstado extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setComponentPopupMenu(jPopupMenuConsulta);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jTableConsulta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTableConsultaKeyPressed(evt);

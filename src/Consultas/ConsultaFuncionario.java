@@ -74,6 +74,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jTableFuncionarios.getTableHeader().setReorderingAllowed(false);
         jTableFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableFuncionariosMouseClicked(evt);

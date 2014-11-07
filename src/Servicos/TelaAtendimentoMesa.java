@@ -489,6 +489,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableAtendimento.getTableHeader().setReorderingAllowed(false);
         jTableAtendimento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableAtendimentoMouseClicked(evt);
@@ -531,6 +532,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableAtendimentoProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(jTableAtendimentoProdutos);
 
         jLabel13.setText("Mostrar os Atendimentos");

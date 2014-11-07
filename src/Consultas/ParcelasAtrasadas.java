@@ -78,6 +78,7 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
             }
         });
         jTableParcelas.setComponentPopupMenu(jPopupMenuParcelas);
+        jTableParcelas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableParcelas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -112,6 +112,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
             }
         });
         jTableConsulta.setComponentPopupMenu(jPopupMenuCheque);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jTableConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableConsultaMouseClicked(evt);

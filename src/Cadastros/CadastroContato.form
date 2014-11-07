@@ -104,18 +104,18 @@
                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jTextFieldFoneRes" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
-                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jFTextFieldFoneRes" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jTextFieldFoneCom" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
-                                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jFTextFieldFoneCom" min="-2" pref="90" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTextFieldFoneCel" min="-2" pref="90" max="-2" attributes="0"/>
+                                          <Component id="jFTextFieldFoneCel" min="-2" pref="90" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
@@ -165,9 +165,9 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextFieldFoneRes" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldFoneCom" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldFoneCel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jFTextFieldFoneRes" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jFTextFieldFoneCom" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jFTextFieldFoneCel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -232,37 +232,10 @@
                 <Property name="text" type="java.lang.String" value="Fone Residencial"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldFoneRes">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="" noResource="true"/>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);&#xd;&#xa;"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fone Comercial"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldFoneCel">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="" noResource="true"/>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);&#xd;&#xa;"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextFieldFoneCom">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="" noResource="true"/>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);&#xd;&#xa;"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -391,6 +364,33 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nome"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="jFTextFieldFoneRes">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);  "/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="jFTextFieldFoneCom">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);  "/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="jFTextFieldFoneCel">
+              <Properties>
+                <Property name="focusLostBehavior" type="int" value="3"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(fone);  "/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try{       fone = new MaskFormatter(&quot;(##)-####-####&quot;);   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, &quot;N&#xe3;o foi possivel localizar&quot;);   }"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

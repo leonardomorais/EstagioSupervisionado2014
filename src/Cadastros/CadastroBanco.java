@@ -244,6 +244,7 @@ public class CadastroBanco extends javax.swing.JFrame {
         });
         jTableConsulta.setToolTipText("");
         jTableConsulta.setComponentPopupMenu(jPopupMenuBanco);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableConsulta);
 
         jLabel1.setText("Filtro da Consulta");
