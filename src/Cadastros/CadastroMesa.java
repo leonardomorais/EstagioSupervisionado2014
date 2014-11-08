@@ -8,6 +8,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -20,6 +21,8 @@ import javax.swing.ListSelectionModel;
 public class CadastroMesa extends javax.swing.JFrame {
 
     Mesa mesa = new Mesa();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
+    
     Relatorios report = new Relatorios();
 
     LimparCampos limpar = new LimparCampos();
@@ -35,6 +38,7 @@ public class CadastroMesa extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }
 
     /**
@@ -90,6 +94,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Mesas");
+        setName("CADASTRAR MESA"); // NOI18N
         setResizable(false);
 
         jLabel2.setText("Número da Mesa");
@@ -333,17 +338,20 @@ public class CadastroMesa extends javax.swing.JFrame {
         jTextFieldDescricao.grabFocus();
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         rotina = Rotinas.alterar;
         jTextFieldDescricao.grabFocus();
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         limpar.limparCampos(jPanelCadastro);
         jTextFieldNRMesa.grabFocus();
         jComboBoxSituacao.setSelectedIndex(0);
@@ -376,6 +384,7 @@ public class CadastroMesa extends javax.swing.JFrame {
             }
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -401,6 +410,7 @@ public class CadastroMesa extends javax.swing.JFrame {
         }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
@@ -467,6 +477,7 @@ public class CadastroMesa extends javax.swing.JFrame {
 
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jMenuItemMesaActionPerformed
 
@@ -585,8 +596,12 @@ public class CadastroMesa extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
-
+    
+    private void carregarUsuario(){
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
+    }
 }

@@ -21,6 +21,7 @@ import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
 import Servicos.TelaVendaCompra;
 import Validacoes.Avisos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -32,6 +33,9 @@ import javax.swing.JLabel;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+    public static String usuarioAtual;
+    
+    ValidaNivelUsuario validaUsuario = new ValidaNivelUsuario();
     /**
      * Creates new form MenuPrincipal
      */
@@ -39,6 +43,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         initComponents();
         procuraAvisos();
         carregaImagem();  
+        
+        TelaLogin login = new TelaLogin(this, true);
+        login.setVisible(true);
+        
+        validaUsuario.checarBarra(jMenuBarPrincipal, usuarioAtual);
+        
+        jLabelAtual.setText(usuarioAtual);
+        
     }
 
     /**
@@ -51,6 +63,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelImagem = new javax.swing.JPanel();
+        jLabelAtual = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         jMenuItemCadMesa = new javax.swing.JMenuItem();
@@ -91,6 +105,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItemMovCaixa = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jMenuItemFaturamento = new javax.swing.JMenuItem();
+        jMenuUsuarios = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Al Tálio Sistema");
@@ -113,11 +130,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 618, Short.MAX_VALUE)
         );
 
+        jLabelAtual.setText("User");
+
+        jLabel1.setText("Logado como :");
+
         jMenuCadastros.setMnemonic(KeyEvent.VK_C);
         jMenuCadastros.setText("Cadastros");
         jMenuCadastros.setMargin(new java.awt.Insets(0, 0, 0, 5));
+        jMenuCadastros.setName("MENU CADASTROS"); // NOI18N
 
         jMenuItemCadMesa.setText("Cadastrar Mesa");
+        jMenuItemCadMesa.setName("CADASTRAR MESA"); // NOI18N
         jMenuItemCadMesa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadMesaActionPerformed(evt);
@@ -126,6 +149,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadMesa);
 
         jMenuItemCadCliente.setText("Cadastrar Cliente");
+        jMenuItemCadCliente.setName("CADASTRAR CLIENTES"); // NOI18N
         jMenuItemCadCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadClienteActionPerformed(evt);
@@ -135,6 +159,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jSeparator1);
 
         jMenuItemCadOrigem.setText("Cadastrar Origem de Produtos");
+        jMenuItemCadOrigem.setName("CADASTRAR ORIGEM"); // NOI18N
         jMenuItemCadOrigem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadOrigemActionPerformed(evt);
@@ -143,6 +168,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadOrigem);
 
         jMenuItemCadFamilia.setText("Cadastrar Família de Produtos");
+        jMenuItemCadFamilia.setName("CADASTRAR FAMÍLIA DE PRODUTOS"); // NOI18N
         jMenuItemCadFamilia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadFamiliaActionPerformed(evt);
@@ -151,6 +177,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadFamilia);
 
         jMenuItemCadProduto.setText("Cadastrar Produtos");
+        jMenuItemCadProduto.setName("CADASTRAR PRODUTOS"); // NOI18N
         jMenuItemCadProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadProdutoActionPerformed(evt);
@@ -160,6 +187,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jSeparator2);
 
         jMenuItemCadEndereco.setText("Cadastrar Endereços");
+        jMenuItemCadEndereco.setName("CADASTRAR ENDEREÇO"); // NOI18N
         jMenuItemCadEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadEnderecoActionPerformed(evt);
@@ -168,6 +196,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadEndereco);
 
         jMenuItemCadContato.setText("Cadastrar Contatos");
+        jMenuItemCadContato.setName("CADASTRAR CONTATO"); // NOI18N
         jMenuItemCadContato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadContatoActionPerformed(evt);
@@ -176,6 +205,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadContato);
 
         jMenuItemCadEstado.setText("Cadastrar Estados");
+        jMenuItemCadEstado.setName("CADASTRAR ESTADO"); // NOI18N
         jMenuItemCadEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadEstadoActionPerformed(evt);
@@ -184,6 +214,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadEstado);
 
         jMenuItemCadCidade.setText("Cadastrar Cidades");
+        jMenuItemCadCidade.setName("CADASTRAR CIDADE"); // NOI18N
         jMenuItemCadCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadCidadeActionPerformed(evt);
@@ -193,6 +224,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jSeparator3);
 
         jMenuItemCadForma.setText("Cadastrar Formas de Pagamento");
+        jMenuItemCadForma.setName("CADASTRAR FORMA DE PAGAMENTO"); // NOI18N
         jMenuItemCadForma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadFormaActionPerformed(evt);
@@ -201,6 +233,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadForma);
 
         jMenuItemCadTipo.setText("Cadastrar Tipos de Pagamento");
+        jMenuItemCadTipo.setName("CADASTRAR TIPO DE PAGAMENTO"); // NOI18N
         jMenuItemCadTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadTipoActionPerformed(evt);
@@ -210,6 +243,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jSeparator4);
 
         jMenuItemCadFornecedor.setText("Cadastrar Fornecedores");
+        jMenuItemCadFornecedor.setName("CADASTRAR FORNECEDORES"); // NOI18N
         jMenuItemCadFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadFornecedorActionPerformed(evt);
@@ -218,6 +252,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadFornecedor);
 
         jMenuItemCadFuncionario.setText("Cadastrar Funcionários");
+        jMenuItemCadFuncionario.setName("CADASTRAR FUNCIONÁRIOS"); // NOI18N
         jMenuItemCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCadFuncionarioActionPerformed(evt);
@@ -230,8 +265,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.setMnemonic(KeyEvent.VK_S);
         jMenuServicos.setText("Serviços");
         jMenuServicos.setMargin(new java.awt.Insets(0, 0, 0, 5));
+        jMenuServicos.setName("MENU SERVIÇOS"); // NOI18N
 
         jMenuItemAtendimento.setText("Realizar Atendimento");
+        jMenuItemAtendimento.setName("REALIZAR ATENDIMENTO MESA"); // NOI18N
         jMenuItemAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemAtendimentoActionPerformed(evt);
@@ -240,6 +277,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jMenuItemAtendimento);
 
         jMenuItemVenda.setText("Realizar Venda/Compra");
+        jMenuItemVenda.setName("REALIZAR VENDA/COMPRA"); // NOI18N
         jMenuItemVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemVendaActionPerformed(evt);
@@ -249,6 +287,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jSeparator5);
 
         jMenuItemExibirAtendimentos.setText("Exibir Atendimentos");
+        jMenuItemExibirAtendimentos.setName("CONSULTAR ATENDIMENTOS"); // NOI18N
         jMenuItemExibirAtendimentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExibirAtendimentosActionPerformed(evt);
@@ -257,6 +296,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jMenuItemExibirAtendimentos);
 
         jMenuItemExibirMesas.setText("Exibir Mesas");
+        jMenuItemExibirMesas.setName("EXIBIR MESAS"); // NOI18N
         jMenuItemExibirMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExibirMesasActionPerformed(evt);
@@ -266,6 +306,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jSeparator7);
 
         jMenuItemSaldoProdutos.setText("Exibir Saldo dos Produtos");
+        jMenuItemSaldoProdutos.setName("CONSULTAR SALDO PRODUTOS"); // NOI18N
         jMenuItemSaldoProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemSaldoProdutosActionPerformed(evt);
@@ -275,6 +316,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jSeparator9);
 
         jMenuItemExibirMovEstoque.setText("Exibir Movimentação de Estoque");
+        jMenuItemExibirMovEstoque.setName("MOVIMENTAÇÃO DE ESTOQUE"); // NOI18N
         jMenuItemExibirMovEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExibirMovEstoqueActionPerformed(evt);
@@ -287,8 +329,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.setMnemonic(KeyEvent.VK_F);
         jMenuFinanceiro.setText("Financeiro");
         jMenuFinanceiro.setMargin(new java.awt.Insets(0, 0, 0, 5));
+        jMenuFinanceiro.setName("MENU FINANCEIRO"); // NOI18N
 
         jMenuItemBancos.setText("Bancos");
+        jMenuItemBancos.setName("CADASTRAR BANCO"); // NOI18N
         jMenuItemBancos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemBancosActionPerformed(evt);
@@ -297,6 +341,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jMenuItemBancos);
 
         jMenuItemAgencia.setText("Agência");
+        jMenuItemAgencia.setName("CADASTRAR AGÊNCIA CONTA"); // NOI18N
         jMenuItemAgencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemAgenciaActionPerformed(evt);
@@ -305,6 +350,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jMenuItemAgencia);
 
         jMenuItemContas.setText("Gerenciar Contas");
+        jMenuItemContas.setName("CADASTRAR CONTAS PAGAR/RECEBER"); // NOI18N
         jMenuItemContas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemContasActionPerformed(evt);
@@ -313,6 +359,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jMenuItemContas);
 
         jMenuItemPagamento.setText("Realizar Pagamentos");
+        jMenuItemPagamento.setName("REALIZAR PAGAMENTO"); // NOI18N
         jMenuItemPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemPagamentoActionPerformed(evt);
@@ -321,6 +368,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jMenuItemPagamento);
 
         jMenuItemTransferencia.setText("Realizar Transferência entre Contas");
+        jMenuItemTransferencia.setName("REALIZAR TRANSFERÊNCIA"); // NOI18N
         jMenuItemTransferencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemTransferenciaActionPerformed(evt);
@@ -329,6 +377,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jMenuItemTransferencia);
 
         jMenuItemGerenciarCheques.setText("Conciliação Bancária");
+        jMenuItemGerenciarCheques.setName("CONCILIAÇÃO BANCÁRIA"); // NOI18N
         jMenuItemGerenciarCheques.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemGerenciarChequesActionPerformed(evt);
@@ -338,6 +387,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jSeparator6);
 
         jMenuItemMovCaixa.setText("Consultar Movimentação de Caixa");
+        jMenuItemMovCaixa.setName("MOVIMENTAÇÃO DE CAIXA"); // NOI18N
         jMenuItemMovCaixa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemMovCaixaActionPerformed(evt);
@@ -347,6 +397,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jSeparator8);
 
         jMenuItemFaturamento.setText("Consultar Faturamento");
+        jMenuItemFaturamento.setName("CONSULTAR FATURAMENTO"); // NOI18N
         jMenuItemFaturamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemFaturamentoActionPerformed(evt);
@@ -356,6 +407,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBarPrincipal.add(jMenuFinanceiro);
 
+        jMenuUsuarios.setText("Configurações");
+        jMenuUsuarios.setName("MENU CONFIGURAÇÕES"); // NOI18N
+
+        jMenuItem1.setText("Gerenciar Usuários");
+        jMenuItem1.setName("CADASTRAR USUÁRIOS"); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuUsuarios.add(jMenuItem1);
+
+        jMenuItem2.setText("Gerenciar Níveis de Acesso");
+        jMenuItem2.setName("CADASTRAR NÍVEIS DE ACESSO"); // NOI18N
+        jMenuUsuarios.add(jMenuItem2);
+
+        jMenuBarPrincipal.add(jMenuUsuarios);
+
         setJMenuBar(jMenuBarPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -363,11 +432,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelAtual)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -488,6 +566,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         new TelaConciliacaoBancaria().setVisible(true);
     }//GEN-LAST:event_jMenuItemGerenciarChequesActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -524,9 +606,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelAtual;
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenu jMenuFinanceiro;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemAgencia;
     private javax.swing.JMenuItem jMenuItemAtendimento;
     private javax.swing.JMenuItem jMenuItemBancos;
@@ -555,6 +641,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemTransferencia;
     private javax.swing.JMenuItem jMenuItemVenda;
     private javax.swing.JMenu jMenuServicos;
+    private javax.swing.JMenu jMenuUsuarios;
     private javax.swing.JPanel jPanelImagem;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -569,11 +656,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void carregaImagem() {
         Random aleatorio = new Random();
-
         String caminho = "src\\Extras\\Imagens\\";
-
         //int nr = aleatorio.nextInt(4);
-        
         ImageIcon img = new ImageIcon(caminho + 0 + ".jpg");
         
         int largura = img.getIconWidth();

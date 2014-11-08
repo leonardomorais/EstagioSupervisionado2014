@@ -2,6 +2,7 @@ package Validacoes;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -80,6 +81,33 @@ public class PreencherTabela {
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar no JTable" + erro);
         }
+    }
+    
+    public void preencherJtableTelas(JTable tabela, ResultSet resultado) {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        
+        try{
+            int colunas = resultado.getMetaData().getColumnCount();
+            
+            while (resultado.next()){
+                Object [] linha = new Object[colunas];
+                for (int i = 0; i != colunas; i++){
+                    
+                    if (i == 1 || i == 2){
+                        linha [i] = resultado.getString(i + 1);
+                    }
+                    else{
+                        linha [i] = (false);
+                    }
+                }
+                modelo.addRow(linha);
+            }
+        }
+        catch(SQLException ex){
+            
+        }
+        
     }
     
 //    public void preencherJtableComSelecao(JTable tabela, ResultSet resultado, int posicao){

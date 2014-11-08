@@ -115,6 +115,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Agência Contas");
+        setName(""); // NOI18N
         setResizable(false);
 
         jTabbedPaneAgcConta.setToolTipText("");
