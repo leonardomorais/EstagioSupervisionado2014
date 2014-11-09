@@ -11,6 +11,7 @@ import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
 import Validacoes.ValidaDocumentos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -31,6 +32,7 @@ import javax.swing.text.MaskFormatter;
 public class CadastroCliente extends javax.swing.JFrame {
 
     Cliente cliente = new Cliente();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     Relatorios report = new Relatorios();
 
     LimparCampos limpar = new LimparCampos();
@@ -52,7 +54,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-
+        carregarUsuario();
         jRadioButtonFisicaActionPerformed(null);
 
         cliente.getPessoa().getEndereco().retornaComboCidade(jComboBoxCidade);
@@ -746,6 +748,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         jTextFieldNome.grabFocus();
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         jFormattedTextFieldData.setText(dataAtual.retornaDataAtual());
         jRadioButtonFisica.setSelected(true);
         jRadioButtonFisicaActionPerformed(null);
@@ -755,6 +758,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         rotina = Rotinas.alterar;
         jTextFieldNome.grabFocus();
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
@@ -787,6 +791,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
@@ -856,6 +861,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -931,6 +937,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         limpar.limparCampos(jPanelCadastro);
         jTextFieldCdCliente.grabFocus();
         jRadioButtonFisica.setSelected(true);
@@ -980,6 +987,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jMenuItemCarregarDadosActionPerformed
 
@@ -1315,8 +1323,12 @@ public class CadastroCliente extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
     
+    private void carregarUsuario(){
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
+    }
 }

@@ -5,9 +5,9 @@ import Relatorios.Relatorios;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -21,6 +21,7 @@ public class Faturamento extends javax.swing.JFrame {
 
     MaskFormatter data;
     VendaCompra venda = new VendaCompra();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     Relatorios report = new Relatorios();
     
     TeclasdeAtalho atalho = new TeclasdeAtalho();
@@ -377,7 +378,8 @@ public class Faturamento extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            valida.validaNivel(this.getName());
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
 

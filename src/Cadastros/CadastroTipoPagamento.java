@@ -8,6 +8,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ import javax.swing.ListSelectionModel;
 public class CadastroTipoPagamento extends javax.swing.JFrame {
 
     TipoPagamento tipo = new TipoPagamento();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     Relatorios report = new Relatorios();
 
     LimparCampos limpar = new LimparCampos();
@@ -35,6 +37,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }
 
     /**
@@ -328,6 +331,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
         rotina = Rotinas.alterar;
         jTextFieldDescricao.grabFocus();
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
@@ -335,6 +339,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
         jTextFieldDescricao.grabFocus();
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         jComboBoxSituacao.setSelectedIndex(0);
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
@@ -357,11 +362,13 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
         }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         limpar.limparCampos(jPanelCadastro);
         jTextFieldCdTipo.grabFocus();
     }//GEN-LAST:event_jBtCancelarActionPerformed
@@ -387,6 +394,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
             }
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -454,6 +462,7 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
 
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jMenuItemTipoPagamentoActionPerformed
 
@@ -568,7 +577,12 @@ public class CadastroTipoPagamento extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
+    }
+    
+    private void carregarUsuario(){
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
     }
 }

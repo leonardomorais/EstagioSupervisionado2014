@@ -9,6 +9,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -25,6 +26,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
     Pessoa pessoa = new Pessoa();
     Endereco endereco = new Endereco();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
 
     LimparCampos limpar = new LimparCampos();
     ValidaBotoes botoes = new ValidaBotoes();
@@ -41,9 +43,8 @@ public class CadastroEndereco extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-
+        carregarUsuario();
         endereco.retornaComboCidade(jComboBoxCidade);
-
     }
 
     /**
@@ -472,6 +473,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         jComboBoxCidade.setSelectedIndex(0);
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
@@ -479,6 +481,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         rotina = Rotinas.alterar;
         jTextFieldRua.grabFocus();
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jTextFieldRuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRuaActionPerformed
@@ -511,12 +514,14 @@ public class CadastroEndereco extends javax.swing.JFrame {
             }
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         limpar.limparCampos(jPanelCadastro);
         jTextFieldCdPessoa.grabFocus();
     }//GEN-LAST:event_jBtCancelarActionPerformed
@@ -644,6 +649,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jMenuItemCarregaActionPerformed
 
@@ -692,7 +698,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
-
+        carregarUsuario();
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jTextFieldNomePessoaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomePessoaKeyTyped
@@ -850,5 +856,10 @@ public class CadastroEndereco extends javax.swing.JFrame {
         endereco.setCdPessoa(pessoa.getCdPessoa());
         preencher.FormatarJtable(jTableConsulta, new int[]{40, 40, 200, 100, 120, 40, 80, 60, 55});
         preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarCodigo(endereco));
+    }
+    
+    private void carregarUsuario(){
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
     }
 }

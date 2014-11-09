@@ -8,6 +8,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -20,6 +21,7 @@ import javax.swing.ListSelectionModel;
 public class CadastroCidade extends javax.swing.JFrame {
 
     Cidade cidade = new Cidade();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     Relatorios report = new Relatorios();
 
     LimparCampos limpar = new LimparCampos();
@@ -32,7 +34,7 @@ public class CadastroCidade extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-
+        carregarUsuario();
         cidade.getEstado().retornaComboEstados(jComboBoxEstado);
     }
 
@@ -348,11 +350,13 @@ public class CadastroCidade extends javax.swing.JFrame {
         jTextFieldNome.grabFocus();
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
         rotina = Rotinas.alterar;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         jTextFieldNome.grabFocus();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
@@ -382,6 +386,7 @@ public class CadastroCidade extends javax.swing.JFrame {
             }
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -405,11 +410,13 @@ public class CadastroCidade extends javax.swing.JFrame {
         }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         limpar.limparCampos(jPanelCadastro);
         jTextFieldCodigo.grabFocus();
     }//GEN-LAST:event_jBtCancelarActionPerformed
@@ -479,6 +486,7 @@ public class CadastroCidade extends javax.swing.JFrame {
 
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jMenuItemCidadeActionPerformed
 
@@ -591,7 +599,6 @@ public class CadastroCidade extends javax.swing.JFrame {
         jTextFieldCodigo.setText(cidade.getCdCidade().toString());
         jTextFieldNome.setText(cidade.getDsCidade());
         jComboBoxEstado.setSelectedItem(cidade.getEstado().getDsUf());
-
     }
 
     private void editaBotao(boolean vazia) {
@@ -601,7 +608,12 @@ public class CadastroCidade extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
+    }
+    
+    private void carregarUsuario(){
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
     }
 }

@@ -5,9 +5,9 @@ import Relatorios.Relatorios;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -22,6 +22,7 @@ public class TelaMovEstoque extends javax.swing.JFrame {
     MovEstoque estoque = new MovEstoque();
     RetornaData rdata = new RetornaData();
     Relatorios report = new Relatorios();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
 
     MaskFormatter data;
     
@@ -464,7 +465,8 @@ public class TelaMovEstoque extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            valida.validaNivel(this.getName());
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
 

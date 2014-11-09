@@ -4,6 +4,7 @@ import Classes.Produto;
 import Relatorios.Relatorios;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -16,6 +17,7 @@ public class SaldoProdutos extends javax.swing.JFrame {
 
     Produto produto = new Produto();
     Relatorios report = new Relatorios();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     TeclasdeAtalho atalho = new TeclasdeAtalho();
     /**
      * Creates new form SaldoProdutos
@@ -212,7 +214,8 @@ public class SaldoProdutos extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            valida.validaNivel(this.getName());
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
 

@@ -5,7 +5,9 @@ import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
 import Validacoes.ValidaBotoes;
+import Validacoes.ValidaNivelUsuario;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -15,16 +17,19 @@ public class CadastroNivel extends javax.swing.JFrame {
 
     NivelTelas nivel = new NivelTelas();
     LimparCampos limpar = new LimparCampos();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     ValidaBotoes botoes = new ValidaBotoes();
     
     int rotina;
     /**
-     * Creates new form NovoCad
+     * Creates new form CadastroNivel
      */
     public CadastroNivel() {
         initComponents();
         preencherTabelaTelas();
         rotina = Rotinas.padrao;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }
 
     /**
@@ -39,6 +44,8 @@ public class CadastroNivel extends javax.swing.JFrame {
         jPopupMenuPermissoes = new javax.swing.JPopupMenu();
         jMenuItemSelecionarTodas = new javax.swing.JMenuItem();
         jMenuItemRemoverTodas = new javax.swing.JMenuItem();
+        jPopupMenuCarregarDados = new javax.swing.JPopupMenu();
+        jMenuItemCarregarDados = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanelCadastro = new javax.swing.JPanel();
         jPanelBotoes = new javax.swing.JPanel();
@@ -58,10 +65,11 @@ public class CadastroNivel extends javax.swing.JFrame {
         jPanelConsulta = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jTextFieldConsulta = new javax.swing.JTextField();
+        jBtPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableConsulta = new javax.swing.JTable();
+        jTableConsulta.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         jPopupMenuPermissoes.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -89,8 +97,17 @@ public class CadastroNivel extends javax.swing.JFrame {
         });
         jPopupMenuPermissoes.add(jMenuItemRemoverTodas);
 
+        jMenuItemCarregarDados.setText("Carregar Dados");
+        jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCarregarDadosActionPerformed(evt);
+            }
+        });
+        jPopupMenuCarregarDados.add(jMenuItemCarregarDados);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciar Níveis de Acesso");
+        setName("CADASTRAR NÍVEIS DE ACESSO"); // NOI18N
         setResizable(false);
 
         jBtIncluir.setText("Incluir");
@@ -101,8 +118,18 @@ public class CadastroNivel extends javax.swing.JFrame {
         });
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirActionPerformed(evt);
+            }
+        });
 
         jBtGravar.setText("Gravar");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +139,11 @@ public class CadastroNivel extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
         jPanelBotoes.setLayout(jPanelBotoesLayout);
@@ -146,6 +178,12 @@ public class CadastroNivel extends javax.swing.JFrame {
         jComboBoxSituacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ATIVO", "INATIVO" }));
 
         jLabel2.setText("Descrição");
+
+        jTextFieldCdNivel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdNivelFocusLost(evt);
+            }
+        });
 
         jLabel1.setText("Código Nível");
 
@@ -235,27 +273,35 @@ public class CadastroNivel extends javax.swing.JFrame {
 
         jLabel4.setText("Filtro da Consulta");
 
-        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código Nível", "Descrição Nível", "Código Tela", "Descrição Tela" }));
 
-        jButton1.setText("Pesquisar");
+        jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableConsulta.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTableConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código Nível", "Descrição", "Código Tela", "Tela", "Incluir", "Alterar", "Excluir", "Gravar ", "Relatório"
+                "Cd. Nível", "Descrição", "Cd. Tela", "Tela", "Incluir", "Alterar", "Excluir", "Gravar ", "Relatório", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jTableConsulta.setComponentPopupMenu(jPopupMenuCarregarDados);
+        jTableConsulta.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableConsulta);
 
         javax.swing.GroupLayout jPanelConsultaLayout = new javax.swing.GroupLayout(jPanelConsulta);
         jPanelConsulta.setLayout(jPanelConsultaLayout);
@@ -264,16 +310,16 @@ public class CadastroNivel extends javax.swing.JFrame {
             .addGroup(jPanelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1)
+                        .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(jBtPesquisar))
                     .addGroup(jPanelConsultaLayout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelConsultaLayout.setVerticalGroup(
@@ -284,8 +330,8 @@ public class CadastroNivel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtPesquisar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
                 .addContainerGap())
@@ -328,13 +374,27 @@ public class CadastroNivel extends javax.swing.JFrame {
             if (rotina == Rotinas.incluir){
                 nivel.getNivel().incluir(nivel.getNivel());
                 jTextFieldCdNivel.setText(nivel.getNivel().getCdNivel().toString());
+                gravarNivelTela();
+                JOptionPane.showMessageDialog(null, "Nível gravado com sucesso!");
             }
             else{
-
+                if (jTextFieldCdNivel.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "É preciso informar o código do nível que deseja alterar!");
+                    jTextFieldCdNivel.grabFocus();
+                } else {
+                    try {
+                        nivel.getNivel().setCdNivel(Integer.parseInt(jTextFieldCdNivel.getText()));
+                        nivel.getNivel().alterar(nivel.getNivel());
+                        nivel.excluir(nivel);
+                        gravarNivelTela();
+                        JOptionPane.showMessageDialog(null, "Nível alterado com sucesso!");
+                    } catch (NumberFormatException ex) {
+                    }
+                }
             }
-            gravarNivelTela();
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -374,7 +434,106 @@ public class CadastroNivel extends javax.swing.JFrame {
         jTextFieldDescricao.grabFocus();
         rotina = Rotinas.incluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }//GEN-LAST:event_jBtIncluirActionPerformed
+
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        rotina = Rotinas.alterar;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
+        jTextFieldDescricao.grabFocus();
+    }//GEN-LAST:event_jBtAlterarActionPerformed
+
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        rotina = Rotinas.excluir;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
+    }//GEN-LAST:event_jBtExcluirActionPerformed
+
+    private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
+        rotina = Rotinas.padrao;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
+        limpar.limparCampos(jPanelCadastro);
+        limparTabela();
+        jTextFieldCdNivel.grabFocus();
+    }//GEN-LAST:event_jBtCancelarActionPerformed
+
+    private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
+        PreencherTabela preencher = new PreencherTabela();
+        preencher.FormatarJtable(jTableConsulta, new int [] {55, 160, 55, 200, 50, 50, 50, 50, 55, 55});
+        switch (jComboBoxConsulta.getSelectedIndex()){
+            case 0:
+                preencher.PreencherJtableGenerico(jTableConsulta, nivel.consultarGeral());
+            break;
+                
+            case 1:
+                try{
+                    nivel.getNivel().setCdNivel(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, nivel.consultarCdNivel(nivel));
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                }
+            break;
+                
+            case 2:
+                nivel.getNivel().setDsNivel(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, nivel.consultarDsNivel(nivel));
+            break;
+                
+            case 3:
+                try{
+                    nivel.getTela().setCdTela(Integer.parseInt(jTextFieldConsulta.getText()));
+                    preencher.PreencherJtableGenerico(jTableConsulta, nivel.consultarCdTela(nivel));
+                }
+                catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Por favor informe um código para pesquisar!");
+                    jTextFieldConsulta.setText("");
+                    jTextFieldConsulta.grabFocus();
+                }
+            break;
+                
+            default:
+                nivel.getTela().setDsTela(jTextFieldConsulta.getText().toUpperCase());
+                preencher.PreencherJtableGenerico(jTableConsulta, nivel.consultarDsTela(nivel));
+            break;    
+        }
+    }//GEN-LAST:event_jBtPesquisarActionPerformed
+
+    private void jTextFieldCdNivelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdNivelFocusLost
+        if (!jTextFieldCdNivel.getText().equals("")){
+            try{
+                nivel.getNivel().setCdNivel(Integer.parseInt(jTextFieldCdNivel.getText()));
+                limparTabela();
+                nivel.retornaNivelTabela(nivel, jTableTelas);
+                if (nivel.getNivel().getDsNivel().equals("")){
+                    jTextFieldDescricao.setText("");
+                    jBtCancelarActionPerformed(null);
+                }
+                else{
+                    jTextFieldDescricao.setText(nivel.getNivel().getDsNivel());
+                    jComboBoxSituacao.setSelectedItem(nivel.getNivel().getInAtivo());
+                }
+            }
+            catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                jBtCancelarActionPerformed(null);
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdNivelFocusLost
+
+    private void jMenuItemCarregarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCarregarDadosActionPerformed
+        int linha = jTableConsulta.getSelectedRow();
+        if (linha >=0){
+            String cd = jTableConsulta.getValueAt(linha, 0).toString();
+            jTextFieldCdNivel.setText(cd);
+            jTextFieldCdNivelFocusLost(null);
+            jTabbedPane1.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jMenuItemCarregarDadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,29 +576,28 @@ public class CadastroNivel extends javax.swing.JFrame {
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtPesquisar;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JComboBox jComboBoxSituacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuItem jMenuItemCarregarDados;
     private javax.swing.JMenuItem jMenuItemRemoverTodas;
     private javax.swing.JMenuItem jMenuItemSelecionarTodas;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelCadastro;
     private javax.swing.JPanel jPanelConsulta;
+    private javax.swing.JPopupMenu jPopupMenuCarregarDados;
     private javax.swing.JPopupMenu jPopupMenuPermissoes;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableConsulta;
     private javax.swing.JTable jTableTelas;
-    private javax.swing.JTable jTableTelas2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldCdNivel;
+    private javax.swing.JTextField jTextFieldConsulta;
     private javax.swing.JTextField jTextFieldDescricao;
     // End of variables declaration//GEN-END:variables
 
@@ -475,6 +633,15 @@ public class CadastroNivel extends javax.swing.JFrame {
             jTableTelas.setValueAt(sel, linha, 0);
             for (int col = 3; col < 8; col++){
                 jTableTelas.setValueAt(sel, linha, col);
+            }
+        }
+    }
+    
+    private void limparTabela(){
+        for (int linha = 0; linha < jTableTelas.getRowCount(); linha++){
+            jTableTelas.setValueAt(false, linha, 0);
+            for (int col = 3; col < 8; col++){
+                jTableTelas.setValueAt(false, linha, col);
             }
         }
     }
@@ -532,5 +699,9 @@ public class CadastroNivel extends javax.swing.JFrame {
             }
         }
     }
-
+    
+    private void carregarUsuario(){
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
+    }
 }

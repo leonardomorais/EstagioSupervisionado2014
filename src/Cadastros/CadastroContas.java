@@ -15,6 +15,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.Dialog;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -32,6 +33,7 @@ import javax.swing.text.MaskFormatter;
 public class CadastroContas extends javax.swing.JFrame {
 
     Contas contas = new Contas();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     Relatorios report = new Relatorios();
 
     ValidaBotoes botoes = new ValidaBotoes();
@@ -51,6 +53,7 @@ public class CadastroContas extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
     }
 
     /**
@@ -699,6 +702,7 @@ public class CadastroContas extends javax.swing.JFrame {
                         //JOptionPane.showMessageDialog(null, "Conta excluída com sucesso!");
                         rotina = Rotinas.padrao;
                         botoes.validaBotoes(jPanelBotoes, rotina);
+                        carregarUsuario();
                         limpar.limparCampos(jPanelCadastro);
                         botoes.validaEstadoCampos(jPanelCadastro, rotina);
                     } else {
@@ -719,6 +723,7 @@ public class CadastroContas extends javax.swing.JFrame {
         rotina = Rotinas.incluir;
         botoes.validaEstadoCampos(jPanelCadastro, rotina);
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         jTextFieldDescrição.grabFocus();
     }//GEN-LAST:event_jBtIncluirActionPerformed
 
@@ -757,6 +762,7 @@ public class CadastroContas extends javax.swing.JFrame {
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
+        carregarUsuario();
         limpar.limparCampos(jPanelCadastro);
         jTextFieldCdConta.grabFocus();
     }//GEN-LAST:event_jBtCancelarActionPerformed
@@ -803,6 +809,7 @@ public class CadastroContas extends javax.swing.JFrame {
             }
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -856,6 +863,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
             rotina = Rotinas.padrao;
             botoes.validaBotoes(jPanelBotoes, rotina);
+            carregarUsuario();
         }
     }//GEN-LAST:event_jMenuItemCarregarDadosActionPerformed
 
@@ -1125,7 +1133,7 @@ public class CadastroContas extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
     
@@ -1142,4 +1150,8 @@ public class CadastroContas extends javax.swing.JFrame {
         }
     }
     
+    private void carregarUsuario(){
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
+    }
 }

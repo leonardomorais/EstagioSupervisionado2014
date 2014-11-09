@@ -27,6 +27,17 @@ public class Nivel {
         }
     }
     
+    public void alterar(Nivel nivel){
+        String sql = "UPDATE NIVEL SET DS_NIVEL = '"+nivel.getDsNivel()+"', IN_ATIVO = '"+nivel.getInAtivo()+"'"
+                + "WHERE CD_NIVEL = "+nivel.getCdNivel();
+        conexao.atualizarSQL(sql);
+    }
+    
+    public void excluir(Nivel nivel){
+        String sql = "UPDATE NIVEL SET IN_ATIVO = 'I' WHERE CD_NIVEL = "+nivel.getCdNivel();
+        conexao.atualizarSQL(sql);
+    }
+    
     
     // getter e setter
 

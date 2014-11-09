@@ -13,9 +13,11 @@ import Cadastros.CadastroFormadePagamento;
 import Cadastros.CadastroFornecedor;
 import Cadastros.CadastroFuncionario;
 import Cadastros.CadastroMesa;
+import Cadastros.CadastroNivel;
 import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
+import Cadastros.CadastroUsuario;
 import Servicos.ExibirMesas;
 import Servicos.TelaAtendimentoMesa;
 import Servicos.TelaAtendimentos;
@@ -47,10 +49,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         TelaLogin login = new TelaLogin(this, true);
         login.setVisible(true);
         
+        if (usuarioAtual == null){
+            System.exit(0);
+        }
         validaUsuario.checarBarra(jMenuBarPrincipal, usuarioAtual);
-        
         jLabelAtual.setText(usuarioAtual);
-        
     }
 
     /**
@@ -65,6 +68,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelImagem = new javax.swing.JPanel();
         jLabelAtual = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabelSair = new javax.swing.JLabel();
         jMenuBarPrincipal = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         jMenuItemCadMesa = new javax.swing.JMenuItem();
@@ -106,14 +110,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jMenuItemFaturamento = new javax.swing.JMenuItem();
         jMenuUsuarios = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItemGerenciarUsuarios = new javax.swing.JMenuItem();
+        jMenuItemGerenciarNiveis = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Al Tálio Sistema");
         setIconImages(null);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -130,9 +137,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 618, Short.MAX_VALUE)
         );
 
+        jLabelAtual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelAtual.setForeground(new java.awt.Color(0, 51, 255));
         jLabelAtual.setText("User");
 
         jLabel1.setText("Logado como :");
+
+        jLabelSair.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelSair.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSair.setText("Sair");
+        jLabelSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelSairMouseClicked(evt);
+            }
+        });
 
         jMenuCadastros.setMnemonic(KeyEvent.VK_C);
         jMenuCadastros.setText("Cadastros");
@@ -410,18 +429,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuUsuarios.setText("Configurações");
         jMenuUsuarios.setName("MENU CONFIGURAÇÕES"); // NOI18N
 
-        jMenuItem1.setText("Gerenciar Usuários");
-        jMenuItem1.setName("CADASTRAR USUÁRIOS"); // NOI18N
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemGerenciarUsuarios.setText("Gerenciar Usuários");
+        jMenuItemGerenciarUsuarios.setName("CADASTRAR USUÁRIOS"); // NOI18N
+        jMenuItemGerenciarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemGerenciarUsuariosActionPerformed(evt);
             }
         });
-        jMenuUsuarios.add(jMenuItem1);
+        jMenuUsuarios.add(jMenuItemGerenciarUsuarios);
 
-        jMenuItem2.setText("Gerenciar Níveis de Acesso");
-        jMenuItem2.setName("CADASTRAR NÍVEIS DE ACESSO"); // NOI18N
-        jMenuUsuarios.add(jMenuItem2);
+        jMenuItemGerenciarNiveis.setText("Gerenciar Níveis de Acesso");
+        jMenuItemGerenciarNiveis.setName("CADASTRAR NÍVEIS DE ACESSO"); // NOI18N
+        jMenuItemGerenciarNiveis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGerenciarNiveisActionPerformed(evt);
+            }
+        });
+        jMenuUsuarios.add(jMenuItemGerenciarNiveis);
 
         jMenuBarPrincipal.add(jMenuUsuarios);
 
@@ -436,16 +460,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabelAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelSair, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelAtual)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                    .addComponent(jLabelAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -566,9 +593,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         new TelaConciliacaoBancaria().setVisible(true);
     }//GEN-LAST:event_jMenuItemGerenciarChequesActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jMenuItemGerenciarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGerenciarUsuariosActionPerformed
+        new CadastroUsuario().setVisible(true);
+    }//GEN-LAST:event_jMenuItemGerenciarUsuariosActionPerformed
+
+    private void jMenuItemGerenciarNiveisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGerenciarNiveisActionPerformed
+        new CadastroNivel().setVisible(true);
+    }//GEN-LAST:event_jMenuItemGerenciarNiveisActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        validaUsuario.checarBarra(jMenuBarPrincipal, usuarioAtual);
+        jLabelAtual.setText(usuarioAtual);
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jLabelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSairMouseClicked
+        TelaLogin login = new TelaLogin(this, true);
+        login.setVisible(true);
+    }//GEN-LAST:event_jLabelSairMouseClicked
 
     /**
      * @param args the command line arguments
@@ -608,11 +649,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAtual;
+    private javax.swing.JLabel jLabelSair;
     private javax.swing.JMenuBar jMenuBarPrincipal;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenu jMenuFinanceiro;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItemAgencia;
     private javax.swing.JMenuItem jMenuItemAtendimento;
     private javax.swing.JMenuItem jMenuItemBancos;
@@ -635,6 +675,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemExibirMovEstoque;
     private javax.swing.JMenuItem jMenuItemFaturamento;
     private javax.swing.JMenuItem jMenuItemGerenciarCheques;
+    private javax.swing.JMenuItem jMenuItemGerenciarNiveis;
+    private javax.swing.JMenuItem jMenuItemGerenciarUsuarios;
     private javax.swing.JMenuItem jMenuItemMovCaixa;
     private javax.swing.JMenuItem jMenuItemPagamento;
     private javax.swing.JMenuItem jMenuItemSaldoProdutos;

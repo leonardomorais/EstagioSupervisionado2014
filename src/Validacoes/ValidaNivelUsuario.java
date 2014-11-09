@@ -164,7 +164,7 @@ public class ValidaNivelUsuario {
                     }
                 }
                 
-                else if (nome.equals("Gravar")){
+                else if (nome.equals("Gravar") | nome.equals("Fechar Atendimento")){
                     if (pGravacao.equals("N") && field.isEnabled()){
                         // se o botão gravar estiver ativo e não houver a permissão de gravar
                     field.setEnabled(false);
