@@ -5,6 +5,7 @@ import Cadastros.CadastroFornecedor;
 import Classes.VendaCompra;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -19,6 +20,7 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
     boolean cliente;
     
     TeclasdeAtalho atalho = new TeclasdeAtalho();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
 
     /**
      * Creates new form ConsultaClienteFornecedor
@@ -26,9 +28,15 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
     public ConsultaClienteFornecedor(java.awt.Frame telaOrigem, boolean modal, boolean sel) {
         super(telaOrigem, modal);
         initComponents();
-
+        valida.validaNivel("");
         cliente = sel;   // se a venda estiver selecionada esta tela buscará cliente, 
         // caso contrário buscará um fornecedor;
+        if (cliente){
+            jBtExibirCadastro.setEnabled(valida.validaBotaoCadastro("CADASTRAR CLIENTES"));
+        }
+        else{
+            jBtExibirCadastro.setEnabled(valida.validaBotaoCadastro("CADASTRAR FORNECEDORES"));
+        }
     }
 
     /**

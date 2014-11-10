@@ -5,6 +5,7 @@ import Cadastros.CadastroFormadePagamento;
 import Classes.VendaCompra;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,7 +18,7 @@ import javax.swing.ListSelectionModel;
  */
 public class ConsultaForma extends javax.swing.JDialog {
     VendaCompra vendaC = new VendaCompra();
-    
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     TeclasdeAtalho atalho = new TeclasdeAtalho();
     
     /**
@@ -26,6 +27,8 @@ public class ConsultaForma extends javax.swing.JDialog {
     public ConsultaForma(java.awt.Frame telaOrigem, boolean modal) {
         super(telaOrigem, modal);
         initComponents();
+        valida.validaNivel(null);
+        jBtCadastrarNova.setEnabled(valida.validaBotaoCadastro(jBtCadastrarNova.getName()));
     }
 
     /**
@@ -108,6 +111,7 @@ public class ConsultaForma extends javax.swing.JDialog {
 
         jBtCadastrarNova.setText("Exibir Cadastro");
         jBtCadastrarNova.setToolTipText("Exibir Cadastro (F4)");
+        jBtCadastrarNova.setName("CADASTRAR FORMA DE PAGAMENTO"); // NOI18N
         jBtCadastrarNova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarNovaActionPerformed(evt);

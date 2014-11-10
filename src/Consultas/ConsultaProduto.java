@@ -5,6 +5,7 @@ import Cadastros.CadastroProduto;
 import Classes.Produto;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -19,7 +20,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
     
     boolean todos;
     Produto produto = new Produto();
-    
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
@@ -29,6 +30,8 @@ public class ConsultaProduto extends javax.swing.JDialog {
         super (telaOrigem, modal);
         todos = consulta;
         initComponents();
+        valida.validaNivel(null);
+        jBtNovo.setEnabled(valida.validaBotaoCadastro("CADASTRAR PRODUTOS"));
     }
 
     /**

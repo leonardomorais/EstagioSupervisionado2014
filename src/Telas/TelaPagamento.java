@@ -13,6 +13,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class TelaPagamento extends javax.swing.JFrame {
     int rotina;
     
     TeclasdeAtalho atalho = new TeclasdeAtalho();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
 
     /**
      * Creates new form TelaPagamento
@@ -73,12 +75,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         jBtPesquisarTpPagamento = new javax.swing.JButton();
         jTextFieldCdTipo = new javax.swing.JTextField();
         jTextFieldPagamento = new javax.swing.JTextField();
-        jBtNovo = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
-        jBtCancelar = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
-        jBtGravar = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
@@ -104,6 +100,13 @@ public class TelaPagamento extends javax.swing.JFrame {
         atalho.adicionarAtalho(jRadioButtonFornecedor, KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK);
         jComboBoxOperacao = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        jPanelBotoes = new javax.swing.JPanel();
+        jBtNovo = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtNovo, KeyEvent.VK_F1, 0);
+        jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
+        jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jPanelConsulta = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
@@ -123,6 +126,7 @@ public class TelaPagamento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Pagamento");
+        setName("REALIZAR PAGAMENTO"); // NOI18N
         setResizable(false);
 
         jLabel1.setText("Parcelas da Conta");
@@ -168,30 +172,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         });
 
         jTextFieldPagamento.setEnabled(false);
-
-        jBtNovo.setText("Novo Pagamento");
-        jBtNovo.setToolTipText("Novo Pagamento (F1)");
-        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtNovoActionPerformed(evt);
-            }
-        });
-
-        jBtCancelar.setText("Cancelar");
-        jBtCancelar.setToolTipText("Cancelar (Esc)");
-        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCancelarActionPerformed(evt);
-            }
-        });
-
-        jBtGravar.setText("Gravar");
-        jBtGravar.setToolTipText("Gravar (Ctrl + Enter)");
-        jBtGravar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtGravarActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Contas");
 
@@ -296,6 +276,53 @@ public class TelaPagamento extends javax.swing.JFrame {
 
         jLabel7.setText("Operação");
 
+        jBtNovo.setText("Novo Pagamento");
+        jBtNovo.setToolTipText("Novo Pagamento (F1)");
+        jBtNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtNovoActionPerformed(evt);
+            }
+        });
+
+        jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Ctrl + Enter)");
+        jBtGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGravarActionPerformed(evt);
+            }
+        });
+
+        jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
+        jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
+        jPanelBotoes.setLayout(jPanelBotoesLayout);
+        jPanelBotoesLayout.setHorizontalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtNovo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelBotoesLayout.setVerticalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotoesLayout.createSequentialGroup()
+                .addGap(0, 11, Short.MAX_VALUE)
+                .addGroup(jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtNovo)
+                    .addComponent(jBtGravar)
+                    .addComponent(jBtCancelar)))
+        );
+
         javax.swing.GroupLayout jPanelPagamentoLayout = new javax.swing.GroupLayout(jPanelPagamento);
         jPanelPagamento.setLayout(jPanelPagamentoLayout);
         jPanelPagamentoLayout.setHorizontalGroup(
@@ -309,13 +336,6 @@ public class TelaPagamento extends javax.swing.JFrame {
                     .addGroup(jPanelPagamentoLayout.createSequentialGroup()
                         .addComponent(jScrollPane2)
                         .addGap(10, 10, 10))
-                    .addGroup(jPanelPagamentoLayout.createSequentialGroup()
-                        .addComponent(jBtNovo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(jPanelPagamentoLayout.createSequentialGroup()
                         .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -363,6 +383,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                             .addGroup(jPanelPagamentoLayout.createSequentialGroup()
                                 .addComponent(jComboBoxOperacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())))))
+            .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelPagamentoLayout.setVerticalGroup(
             jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,27 +418,24 @@ public class TelaPagamento extends javax.swing.JFrame {
                 .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel7))
+                .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCdAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPesquisar)
+                    .addComponent(jTextFieldAgenciaConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelPagamentoLayout.createSequentialGroup()
-                        .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldCdAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonPesquisar)
-                            .addComponent(jTextFieldAgenciaConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldCdTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtPesquisarTpPagamento)
                             .addComponent(jTextFieldPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                        .addComponent(jBtNovo))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPagamentoLayout.createSequentialGroup()
+                        .addGap(0, 73, Short.MAX_VALUE))
+                    .addGroup(jPanelPagamentoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtCancelar)
-                            .addComponent(jBtGravar))))
+                        .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -955,6 +973,7 @@ public class TelaPagamento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelConsulta;
     private javax.swing.JPanel jPanelPagamento;
     private javax.swing.JRadioButton jRadioButtonCliente;
@@ -981,6 +1000,8 @@ public class TelaPagamento extends javax.swing.JFrame {
     private void validaEstadoCampos() {
         ValidaBotoes botoes = new ValidaBotoes();
         botoes.validaEstadoCampos(jPanelPagamento, rotina);
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
         jTextFieldAgenciaConta.setEnabled(false);
         jTextFieldPagamento.setEnabled(false);
     }
@@ -1183,8 +1204,7 @@ public class TelaPagamento extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
-            
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));   
         }
     }
 

@@ -168,6 +168,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Exibir Cadastro"/>
         <Property name="toolTipText" type="java.lang.String" value="Exibir Cadastro (F4)"/>
+        <Property name="name" type="java.lang.String" value="CADASTRAR FUNCION&#xc1;RIOS" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtCadastrarNovoActionPerformed"/>

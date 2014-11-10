@@ -4,6 +4,7 @@ import Cadastros.CadastroTipoPagamento;
 import Classes.TipoPagamento;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,7 +18,7 @@ import javax.swing.ListSelectionModel;
 public class ConsultaTipoPagamento extends javax.swing.JDialog {
 
     TipoPagamento tpPag = new TipoPagamento();
-    
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
@@ -26,6 +27,8 @@ public class ConsultaTipoPagamento extends javax.swing.JDialog {
     public ConsultaTipoPagamento(java.awt.Frame telaOrigem, boolean modal) {
         super(telaOrigem, modal);
         initComponents();
+        valida.validaNivel(null);
+        jBtCadastrar.setEnabled(valida.validaBotaoCadastro("CADASTRAR TIPO DE PAGAMENTO"));
     }
 
     /**

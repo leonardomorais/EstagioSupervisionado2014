@@ -67,6 +67,7 @@ public class Faturamento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Faturamento");
+        setName("CONSULTAR FATURAMENTO"); // NOI18N
         setResizable(false);
 
         jTableConsulta.setModel(new javax.swing.table.DefaultTableModel(

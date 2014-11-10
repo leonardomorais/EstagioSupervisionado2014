@@ -48,6 +48,7 @@ public class SaldoProdutos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Saldo dos Produtos");
+        setName("CONSULTAR SALDO PRODUTOS"); // NOI18N
         setResizable(false);
 
         jLabel1.setText("Filtro da Consulta");

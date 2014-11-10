@@ -114,6 +114,7 @@ public class CadastroContas extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
         jBtIncluir = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
+        jLabel21 = new javax.swing.JLabel();
         jPanelConsulta = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
@@ -182,6 +183,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciar Contas");
+        setName("CADASTRAR CONTAS PAGAR/RECEBER"); // NOI18N
         setResizable(false);
 
         jLabel3.setText("Código da Conta");
@@ -335,6 +337,9 @@ public class CadastroContas extends javax.swing.JFrame {
                     .addComponent(jBtIncluir)))
         );
 
+        jLabel21.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel21.setText("- Campos Obrigatórios");
+
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
         jPanelCadastroLayout.setHorizontalGroup(
@@ -377,14 +382,18 @@ public class CadastroContas extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jComboBoxSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jTextFieldFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addComponent(jLabel21)
+                .addContainerGap())
             .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelCadastroLayout.setVerticalGroup(
             jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldCdConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1021,6 +1030,7 @@ public class CadastroContas extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFormattedTextFieldDataVencimento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

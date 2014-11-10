@@ -67,6 +67,7 @@ public class ExibirMesas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mesas");
+        setName("EXIBIR MESAS"); // NOI18N
         setResizable(false);
 
         jScrollPaneMesas.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

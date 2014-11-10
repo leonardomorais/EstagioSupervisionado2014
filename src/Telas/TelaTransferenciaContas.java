@@ -11,6 +11,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     int rotina;
     
     TeclasdeAtalho atalho = new TeclasdeAtalho();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
 
     /**
      * Creates new form TelaTransferenciaContas
@@ -35,6 +37,8 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     public TelaTransferenciaContas() {
         initComponents();
         rotina = Rotinas.padrao;
+        valida.validaNivel(this.getName());
+        jBtCadAgenciaConta.setEnabled(valida.validaBotaoCadastro("CADASTRAR AGÊNCIA CONTA"));
         validaEstadoCampos();
 
     }
@@ -75,6 +79,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Tranferência");
+        setName("REALIZAR TRANSFERÊNCIA"); // NOI18N
         setResizable(false);
 
         jComboBoxContaOrigem.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {

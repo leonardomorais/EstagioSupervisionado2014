@@ -132,6 +132,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
+        jLabel21 = new javax.swing.JLabel();
         jBtContatos = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtContatos, KeyEvent.VK_F7, 0);
         jBtEndereco = new javax.swing.JButton();
@@ -188,6 +189,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Fornecedores");
+        setName("CADASTRAR FORNECEDORES"); // NOI18N
         setResizable(false);
 
         jLabel2.setText("Código do Fornecedor");
@@ -238,6 +240,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         jFormattedTextFieldDataCadastro.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
 
+        jLabel7.setForeground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("Data de Cadastro");
 
         jLabel8.setText("Razão Social");
@@ -260,6 +263,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         jBtCidades.setText("Cidades...");
         jBtCidades.setToolTipText("Cidades (F4)");
+        jBtCidades.setName("CADASTRAR CIDADE"); // NOI18N
         jBtCidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCidadesActionPerformed(evt);
@@ -359,6 +363,9 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             }
         });
 
+        jLabel21.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel21.setText("- Campos Obrigatórios");
+
         javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
         jPanelBotoes.setLayout(jPanelBotoesLayout);
         jPanelBotoesLayout.setHorizontalGroup(
@@ -375,11 +382,17 @@ public class CadastroFornecedor extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel21)
+                .addGap(40, 40, 40))
         );
         jPanelBotoesLayout.setVerticalGroup(
             jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotoesLayout.createSequentialGroup()
-                .addGap(0, 27, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtIncluir)
                     .addComponent(jBtExcluir)
@@ -390,6 +403,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         jBtContatos.setText("Contatos...");
         jBtContatos.setToolTipText("Contatos (F7)");
+        jBtContatos.setName("CADASTRAR CONTATO"); // NOI18N
         jBtContatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtContatosActionPerformed(evt);
@@ -398,6 +412,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
         jBtEndereco.setText("Endereços...");
         jBtEndereco.setToolTipText("Endereços (F8)");
+        jBtEndereco.setName("CADASTRAR ENDEREÇO"); // NOI18N
         jBtEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEnderecoActionPerformed(evt);
@@ -1127,6 +1142,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1280,5 +1296,8 @@ public class CadastroFornecedor extends javax.swing.JFrame {
     private void carregarUsuario(){
         valida.validaNivel(this.getName());
         valida.validaBotoesUsuario(jPanelBotoes);
+        jBtCidades.setEnabled(valida.validaBotaoCadastro("CADASTRAR CIDADE"));
+        jBtContatos.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTATO"));
+        jBtEndereco.setEnabled(valida.validaBotaoCadastro("CADASTRAR ENDEREÇO"));
     }
 }

@@ -29,6 +29,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Concilia&#xe7;&#xe3;o Banc&#xe1;ria"/>
+    <Property name="name" type="java.lang.String" value="CONCILIA&#xc7;&#xc3;O BANC&#xc1;RIA" noResource="true"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>

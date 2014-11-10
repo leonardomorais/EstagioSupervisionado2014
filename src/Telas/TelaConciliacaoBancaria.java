@@ -92,6 +92,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Conciliação Bancária");
+        setName("CONCILIAÇÃO BANCÁRIA"); // NOI18N
         setResizable(false);
 
         jTableConsulta.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N

@@ -128,6 +128,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jFTextFieldFoneCel = new JFormattedTextField(fone);
         try{       cpf = new MaskFormatter("###.###.###-##");   }   catch(Exception erro)   {   JOptionPane.showMessageDialog(null, "Não foi possivel localizar");   }
         jFTextFieldCPF = new JFormattedTextField(cpf);
+        jLabel21 = new javax.swing.JLabel();
         jPanelConsulta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableConsulta = new javax.swing.JTable();
@@ -166,6 +167,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Funcionários");
+        setName("CADASTRAR FUNCIONÁRIOS"); // NOI18N
         setResizable(false);
 
         jLabel1.setText("Código do Funcionário");
@@ -200,6 +202,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         jComboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MASCULINO", "FEMININO" }));
 
+        jLabel6.setForeground(new java.awt.Color(0, 102, 204));
         jLabel6.setText("Data de Cadastro");
 
         jFormattedTextFieldData.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
@@ -208,6 +211,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         jButtonCidades.setText("Cidades ...");
         jButtonCidades.setToolTipText("Cidades (F4)");
+        jButtonCidades.setName("CADASTRAR CIDADE"); // NOI18N
         jButtonCidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCidadesActionPerformed(evt);
@@ -338,6 +342,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         jBtEndereco.setText("Endereço...");
         jBtEndereco.setToolTipText("Endereços (F8)");
+        jBtEndereco.setName("CADASTRAR ENDEREÇO"); // NOI18N
         jBtEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEnderecoActionPerformed(evt);
@@ -346,6 +351,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         jBtContatos.setText("Contatos...");
         jBtContatos.setToolTipText("Contatos (F7)");
+        jBtContatos.setName("CADASTRAR CONTATO"); // NOI18N
         jBtContatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtContatosActionPerformed(evt);
@@ -361,6 +367,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jFTextFieldFoneCel.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
 
         jFTextFieldCPF.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
+
+        jLabel21.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel21.setText("- Campos Obrigatórios");
 
         javax.swing.GroupLayout jPanelCadastroLayout = new javax.swing.GroupLayout(jPanelCadastro);
         jPanelCadastro.setLayout(jPanelCadastroLayout);
@@ -451,7 +460,10 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                                             .addComponent(jLabel7)
                                             .addComponent(jLabel11)
                                             .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel21))))))
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
                         .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -470,7 +482,9 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldCdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -1013,6 +1027,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1134,5 +1149,8 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     private void carregarUsuario(){
         valida.validaNivel(this.getName());
         valida.validaBotoesUsuario(jPanelBotoes);
+        jButtonCidades.setEnabled(valida.validaBotaoCadastro("CADASTRAR CIDADE"));
+        jBtContatos.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTATO"));
+        jBtEndereco.setEnabled(valida.validaBotaoCadastro("CADASTRAR ENDEREÇO"));
     }
 }

@@ -6,6 +6,7 @@ import Classes.AtendimentoMesa;
 import Classes.Funcionario;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -21,7 +22,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
     //AtendimentoMesa atd = new AtendimentoMesa();
     
     Funcionario funcionario = new Funcionario();
-    
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
@@ -30,6 +31,8 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
     public ConsultaFuncionario(java.awt.Frame telaOrigem, boolean modal) {
         super(telaOrigem, modal);
         initComponents();
+        valida.validaNivel(null);
+        jBtCadastrarNovo.setEnabled(valida.validaBotaoCadastro(jBtCadastrarNovo.getName()));
     }
 
     /**
@@ -129,6 +132,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
 
         jBtCadastrarNovo.setText("Exibir Cadastro");
         jBtCadastrarNovo.setToolTipText("Exibir Cadastro (F4)");
+        jBtCadastrarNovo.setName("CADASTRAR FUNCIONÁRIOS"); // NOI18N
         jBtCadastrarNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarNovoActionPerformed(evt);

@@ -4,6 +4,7 @@ import Cadastros.CadastroAgenciaConta;
 import Classes.AgenciaConta;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,6 +18,7 @@ import javax.swing.ListSelectionModel;
 public class ConsultaAgenciaConta extends javax.swing.JDialog {
 
     AgenciaConta agcConta = new AgenciaConta();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
     TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
@@ -25,6 +27,8 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
     public ConsultaAgenciaConta(java.awt.Frame telaOrigem, boolean modal) {
         super(telaOrigem, modal);
         initComponents();
+        valida.validaNivel(null);
+        jBtCadastrar.setEnabled(valida.validaBotaoCadastro(jBtCadastrar.getName()));
     }
 
     /**
@@ -107,6 +111,7 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
 
         jBtCadastrar.setText("Exibir Cadastro");
         jBtCadastrar.setToolTipText("Exibir Cadastro (F4)");
+        jBtCadastrar.setName("CADASTRAR AGÊNCIA CONTA"); // NOI18N
         jBtCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCadastrarActionPerformed(evt);

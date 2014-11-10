@@ -21,6 +21,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -51,6 +52,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     MaskFormatter data;
     
     TeclasdeAtalho atalho = new TeclasdeAtalho();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
 
     /**
      * Creates new form TelaVenda
@@ -132,6 +134,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jTextFieldVlAtendimento = new javax.swing.JTextField();
         jTextFieldVlUnitario = new javax.swing.JTextField();
+        jPanelBotoes = new javax.swing.JPanel();
         jBtIncluir = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtGravar = new javax.swing.JButton();
@@ -199,6 +202,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Venda/Compra");
+        setName("REALIZAR VENDA/COMPRA"); // NOI18N
         setResizable(false);
 
         jTextFieldCdVendaCompra.setName(""); // NOI18N
@@ -240,6 +244,8 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 jRadioButtonCompraActionPerformed(evt);
             }
         });
+
+        jTextFieldData.setEnabled(false);
 
         jLabel4.setText("Data");
 
@@ -425,6 +431,29 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
+        jPanelBotoes.setLayout(jPanelBotoesLayout);
+        jPanelBotoesLayout.setHorizontalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBotoesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtIncluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelBotoesLayout.setVerticalGroup(
+            jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotoesLayout.createSequentialGroup()
+                .addGap(0, 11, Short.MAX_VALUE)
+                .addGroup(jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtIncluir)
+                    .addComponent(jBtGravar)
+                    .addComponent(jBtCancelar)))
+        );
+
         javax.swing.GroupLayout jPanelGravarLayout = new javax.swing.GroupLayout(jPanelGravar);
         jPanelGravar.setLayout(jPanelGravarLayout);
         jPanelGravarLayout.setHorizontalGroup(
@@ -505,15 +534,9 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGravarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelGravarLayout.createSequentialGroup()
-                        .addComponent(jBtIncluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelGravarLayout.setVerticalGroup(
             jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,11 +619,8 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                             .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(jPanelGravarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtIncluir)
-                    .addComponent(jBtGravar)
-                    .addComponent(jBtCancelar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1028,16 +1048,23 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "O fornecedor é obrigatório!");
             }
             jTextFieldCdCliente.grabFocus();
-        } else if (jTextFieldCdForma.getText().equals("")) {
+        } 
+        
+        else if (jTextFieldCdForma.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "A forma de pagamento é obrigatória!");
             jTextFieldCdForma.grabFocus();
-        } else if (jTextFieldCdOperacao.getText().equals("")) {
+        } 
+        
+        else if (jTextFieldCdOperacao.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "A operação é obrigatória!");
             jTextFieldCdOperacao.grabFocus();
-        } else if (linhas == 0) {
+        }
+        
+        else if (linhas == 0) {
             JOptionPane.showMessageDialog(null, "Por favor adicione produtos na tabela!");
-        } else {
-
+        } 
+        
+        else {
             gravarVendaCompra();
             //JOptionPane.showMessageDialog(null, "A " + tipo + " foi gravada com sucesso!");
             
@@ -1251,6 +1278,9 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         if (linha >= 0){
             venda.setCdVendaCompra(Integer.parseInt(jTableVendaCompra.getValueAt(linha, 0).toString()));
             jMenuItemExcluir.setEnabled(venda.permiteExclusao(venda));
+            if (jMenuItemExcluir.isEnabled()){
+                jMenuItemExcluir.setEnabled(valida.pExclusao.equals("S"));
+            }
         }
     }//GEN-LAST:event_jPopupMenuVendaCompraPopupMenuWillBecomeVisible
 
@@ -1339,6 +1369,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCarregarDados;
     private javax.swing.JMenuItem jMenuItemExcluir;
     private javax.swing.JMenuItem jMenuItemExibirParcelas;
+    private javax.swing.JPanel jPanelBotoes;
     private javax.swing.JPanel jPanelConsulta;
     private javax.swing.JPanel jPanelGravar;
     private javax.swing.JPopupMenu jPopupMenuConta;
@@ -1655,6 +1686,9 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private void validaEstadoCampos() {
         ValidaBotoes botoes = new ValidaBotoes();
         botoes.validaEstadoCampos(jPanelGravar, rotina);
+        valida.validaNivel(this.getName());
+        valida.validaBotoesUsuario(jPanelBotoes);
+        
         jTextFieldNrAtendimento.setEnabled(false);
         jTextFieldVlAtendimento.setEnabled(false);
         jTextFieldDsOperacao.setEnabled(false);
@@ -1671,7 +1705,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
     

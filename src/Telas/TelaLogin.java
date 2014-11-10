@@ -106,9 +106,11 @@ public class TelaLogin extends javax.swing.JDialog {
     private void jBtEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEntrarActionPerformed
         if (jTextFieldLogin.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Por favor informe o login!");
+            jTextFieldLogin.grabFocus();
         }
         else if (jPasswordFieldSenha.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Por favor informe a senha!");
+            jPasswordFieldSenha.grabFocus();
         }
         else{
             usuario.setLogin(jTextFieldLogin.getText().toUpperCase());
@@ -120,7 +122,7 @@ public class TelaLogin extends javax.swing.JDialog {
             }
             else{
                 JOptionPane.showMessageDialog(null, "Erro ao fazer login!");
-               
+                jTextFieldLogin.grabFocus();
             }
         }
     }//GEN-LAST:event_jBtEntrarActionPerformed

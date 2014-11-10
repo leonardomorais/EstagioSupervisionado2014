@@ -15,6 +15,7 @@ import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaCampos;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JFormattedTextField;
@@ -148,6 +149,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Atendimento");
+        setName("REALIZAR ATENDIMENTO MESA"); // NOI18N
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -1258,7 +1260,9 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(true);
+            ValidaNivelUsuario valida = new ValidaNivelUsuario();
+            valida.validaNivel(this.getName());
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
     

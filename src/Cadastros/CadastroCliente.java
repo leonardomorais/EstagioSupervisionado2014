@@ -124,6 +124,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtCancelar = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
+        jLabel21 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox();
         jBtCidade = new javax.swing.JButton();
@@ -188,6 +189,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
+        setName("CADASTRAR CLIENTES"); // NOI18N
         setResizable(false);
 
         jLabel2.setText("Código do Cliente");
@@ -248,6 +250,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setForeground(new java.awt.Color(0, 102, 204));
         jLabel8.setText("Data de Cadastro");
 
         jFormattedTextFieldData.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
@@ -353,6 +356,9 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        jLabel21.setForeground(new java.awt.Color(0, 102, 204));
+        jLabel21.setText("- Campos Obrigatórios");
+
         javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
         jPanelBotoes.setLayout(jPanelBotoesLayout);
         jPanelBotoesLayout.setHorizontalGroup(
@@ -368,7 +374,9 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel21)
+                .addGap(40, 40, 40))
         );
         jPanelBotoesLayout.setVerticalGroup(
             jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,7 +387,8 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addComponent(jBtAlterar)
                     .addComponent(jBtExcluir)
                     .addComponent(jBtGravar)
-                    .addComponent(jBtCancelar)))
+                    .addComponent(jBtCancelar)
+                    .addComponent(jLabel21)))
         );
 
         jLabel20.setForeground(new java.awt.Color(0, 102, 204));
@@ -389,6 +398,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jBtCidade.setText("Cidades...");
         jBtCidade.setToolTipText("Cidades (F4)");
+        jBtCidade.setName("CADASTRAR CIDADE"); // NOI18N
         jBtCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCidadeActionPerformed(evt);
@@ -397,6 +407,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jBtContatos.setText("Contatos...");
         jBtContatos.setToolTipText("Contatos (F7)");
+        jBtContatos.setName("CADASTRAR CONTATO"); // NOI18N
         jBtContatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtContatosActionPerformed(evt);
@@ -405,6 +416,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         jBtEndereco.setText("Endereço...");
         jBtEndereco.setToolTipText("Endereço (F8)");
+        jBtEndereco.setName("CADASTRAR ENDEREÇO"); // NOI18N
         jBtEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtEnderecoActionPerformed(evt);
@@ -512,7 +524,6 @@ public class CadastroCliente extends javax.swing.JFrame {
                                                 .addComponent(jLabel8)
                                                 .addComponent(jFormattedTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addComponent(jTextFieldRazao)
-                                        .addComponent(jLabel7)
                                         .addGroup(jPanelCadastroLayout.createSequentialGroup()
                                             .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(jPanelCadastroLayout.createSequentialGroup()
@@ -525,7 +536,8 @@ public class CadastroCliente extends javax.swing.JFrame {
                                                     .addGap(18, 18, 18)))
                                             .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel10)
-                                                .addComponent(jFTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
+                                                .addComponent(jFTextFieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel7)))))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanelCadastroLayout.setVerticalGroup(
@@ -1178,6 +1190,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1330,5 +1343,8 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void carregarUsuario(){
         valida.validaNivel(this.getName());
         valida.validaBotoesUsuario(jPanelBotoes);
+        jBtCidade.setEnabled(valida.validaBotaoCadastro("CADASTRAR CIDADE"));
+        jBtEndereco.setEnabled(valida.validaBotaoCadastro("CADASTRAR ENDEREÇO"));
+        jBtContatos.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTATO"));
     }
 }

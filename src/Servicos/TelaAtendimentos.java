@@ -86,6 +86,7 @@ public class TelaAtendimentos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Exibir Atendimentos");
+        setName("CONSULTAR ATENDIMENTOS"); // NOI18N
         setResizable(false);
 
         jBtNovo.setText("Novo Atendimento");

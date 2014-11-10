@@ -177,4 +177,21 @@ public class ValidaNivelUsuario {
         }
     }
     
+    public boolean validaBotaoCadastro(String nome){
+        String sql = "SELECT T.DS_TELA FROM NIVEL_TELA NT "
+                + "INNER JOIN NIVEL N ON NT.CD_NIVEL = N.CD_NIVEL "
+                + "AND NT.CD_NIVEL = "+nivel+" "
+                + "INNER JOIN TELAS T ON NT.CD_TELA = T.CD_TELA "
+                + "AND T.DS_TELA = '"+nome+"'";
+        conexao.executeSQL(sql);
+        try{
+            conexao.resultset.first();
+            nome = conexao.resultset.getString("DS_TELA");
+            return true;
+        }
+        catch(SQLException ex){
+            return false;
+        }
+    }
+    
 }
