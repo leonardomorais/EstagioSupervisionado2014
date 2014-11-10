@@ -71,7 +71,7 @@ public class Funcionario {
     }
 
     public ResultSet consultarCdFuncionario(Funcionario funcionario, boolean todos) {
-        String sql = "";
+        String sql;
 
         if (todos) {
             sql = "SELECT F.CD_PESSOA, P.NOME, PF.CPF, CD.DS_CIDADE, CT.EMAIL_CONTATO, "
@@ -89,11 +89,10 @@ public class Funcionario {
             sql = "SELECT F.CD_PESSOA, P.NOME, PF.CPF, "
                     + "TO_CHAR (P.DT_CADASTRO,'DD/MM/YYYY') AS DATA "
                     + "FROM FUNCIONARIO F "
-                    + "INNER JOIN PESSOA P ON F.CD_PESSOA = P.CD_PESSOA"
+                    + "INNER JOIN PESSOA P ON F.CD_PESSOA = P.CD_PESSOA "
                     + "INNER JOIN PESSOA_FISICA PF ON P.CD_PESSOA = PF.CD_PESSOA "
                     + "WHERE P.SITUACAO = 'A' AND F.CD_PESSOA = " + funcionario.getCdFuncionario();
         }
-
         conexao.executeSQL(sql);
         return conexao.resultset;
     }

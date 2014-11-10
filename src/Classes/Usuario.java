@@ -1,5 +1,9 @@
-
 package Classes;
+
+import ConexaoBanco.ConexaoPostgreSQL;
+import Validacoes.RetornaSequencia;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +17,21 @@ public class Usuario {
     
     private Nivel nivel = new Nivel();
     private Funcionario funcionario = new Funcionario();
+
+    ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
     
+    public void incluir(Usuario usuario){
+        RetornaSequencia seq = new RetornaSequencia();
+        usuario.setCdUsuario(seq.retornaSequencia("CD_USUARIO", "USUARIO"));
+        String sql = "INSERT INTO USUARIO (CD_USUARIO, CD_NIVEL, CD_PESSOA, "
+                + "LOGIN, SENHA) VALUES ('"+usuario.getCdUsuario()+"','"
+                +usuario.getNivel().getCdNivel()+"','"+usuario.getFuncionario().getCdFuncionario()+"','"
+                +usuario.getLogin()+"','"+usuario.getSenha()+"')";
+        conexao.incluirSQL(sql);
+        if (conexao.retorno == 1){
+            JOptionPane.showMessageDialog(null, "Usuário gravado com sucesso!");
+        }
+    }
     
     // getter e setter
 

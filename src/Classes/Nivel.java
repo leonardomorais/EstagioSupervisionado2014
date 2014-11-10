@@ -2,6 +2,8 @@ package Classes;
 
 import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -10,8 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class Nivel {
     
-    private Integer cdNivel;
-    private String dsNivel;
+    private static Integer cdNivel;
+    private static String dsNivel;
     private String inAtivo;
     
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
@@ -38,6 +40,56 @@ public class Nivel {
         conexao.atualizarSQL(sql);
     }
     
+    public ResultSet consultarGeral(boolean todos){
+        String condicao = "";
+        if (!todos){
+            condicao = "WHERE IN_ATIVO = 'A' ";
+        }
+        String sql = "SELECT CD_NIVEL, DS_NIVEL, "
+                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SIT "
+                + "FROM NIVEL "+ condicao +"ORDER BY CD_NIVEL";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarCdNivel(Nivel nivel, boolean todos){
+        String condicao = "";
+        if (!todos){
+            condicao = "AND IN_ATIVO = 'A' ";
+        }
+        String sql = "SELECT CD_NIVEL, DS_NIVEL, "
+                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SIT "
+                + "FROM NIVEL WHERE CD_NIVEL = "+nivel.getCdNivel()+" "
+                + condicao;
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public ResultSet consultarDescricao(Nivel nivel, boolean todos){
+        String condicao = "";
+        if (!todos){
+            condicao = "AND IN_ATIVO = 'A' ";
+        }
+        String sql = "SELECT CD_NIVEL, DS_NIVEL, "
+                + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SIT "
+                + "FROM NIVEL WHERE DS_NIVEL LIKE '%"+nivel.getDsNivel()+"%' "
+                +condicao+"ORDER BY CD_NIVEL";
+        conexao.executeSQL(sql);
+        return conexao.resultset;
+    }
+    
+    public void retornaNivel(Nivel nivel, boolean todos){
+        ResultSet retorno = consultarCdNivel(nivel, todos);
+        try{
+            retorno.first();
+            nivel.setDsNivel(retorno.getString("DS_NIVEL"));
+            nivel.setInAtivo(retorno.getString("SIT"));
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Nível não encontrado!");
+            nivel.setDsNivel("");
+        }
+    }
     
     // getter e setter
 

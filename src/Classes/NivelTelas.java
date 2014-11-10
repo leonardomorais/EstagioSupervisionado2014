@@ -36,8 +36,6 @@ public class NivelTelas {
         conexao.deleteSQL(sql);
     }
     
-    
-    
     public ResultSet consultarGeral(){
         String sql = "SELECT NT.CD_NIVEL, N.DS_NIVEL, NT.CD_TELA, T.DS_TELA, "
                 + "CASE WHEN NT.P_INCLUIR = 'S' THEN 'SIM' ELSE 'NÃO' END AS INCLUIR, "
@@ -47,9 +45,8 @@ public class NivelTelas {
                 + "CASE WHEN NT.P_RELATORIO = 'S' THEN 'SIM' ELSE 'NÃO' END AS RELATORIO,"
                 + "CASE WHEN N.IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SIT "
                 + "FROM NIVEL_TELA NT INNER JOIN NIVEL N "
-                + "ON NT.CD_NIVEL = N.CD_NIVEL AND N.IN_ATIVO = 'A' "
+                + "ON NT.CD_NIVEL = N.CD_NIVEL "
                 + "INNER JOIN TELAS T ON NT.CD_TELA = T.CD_TELA "
-                + "AND T.IN_ATIVO = 'A' "
                 + "ORDER BY NT.CD_NIVEL, NT.CD_TELA";
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -64,9 +61,9 @@ public class NivelTelas {
                 + "CASE WHEN NT.P_RELATORIO = 'S' THEN 'SIM' ELSE 'NÃO' END AS RELATORIO, "
                 + "CASE WHEN N.IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SIT "
                 + "FROM NIVEL_TELA NT INNER JOIN NIVEL N "
-                + "ON NT.CD_NIVEL = N.CD_NIVEL AND N.IN_ATIVO = 'A' "
+                + "ON NT.CD_NIVEL = N.CD_NIVEL "
                 + "INNER JOIN TELAS T ON NT.CD_TELA = T.CD_TELA "
-                + "AND T.IN_ATIVO = 'A' WHERE NT.CD_NIVEL = "+nvTelas.getNivel().getCdNivel()+" "
+                + "WHERE NT.CD_NIVEL = "+nvTelas.getNivel().getCdNivel()+" "
                 + "ORDER BY NT.CD_NIVEL, NT.CD_TELA";
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -81,9 +78,9 @@ public class NivelTelas {
                 + "CASE WHEN NT.P_RELATORIO = 'S' THEN 'SIM' ELSE 'NÃO' END AS RELATORIO, "
                 + "CASE WHEN N.IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SIT "
                 + "FROM NIVEL_TELA NT INNER JOIN NIVEL N "
-                + "ON NT.CD_NIVEL = N.CD_NIVEL AND N.IN_ATIVO = 'A' "
+                + "ON NT.CD_NIVEL = N.CD_NIVEL "
                 + "INNER JOIN TELAS T ON NT.CD_TELA = T.CD_TELA "
-                + "AND T.IN_ATIVO = 'A' WHERE N.DS_NIVEL LIKE '%"+nvTelas.getNivel().getDsNivel()+"%' "
+                + "WHERE N.DS_NIVEL LIKE '%"+nvTelas.getNivel().getDsNivel()+"%' "
                 + "ORDER BY NT.CD_NIVEL, NT.CD_TELA";
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -98,9 +95,9 @@ public class NivelTelas {
                 + "CASE WHEN NT.P_RELATORIO = 'S' THEN 'SIM' ELSE 'NÃO' END AS RELATORIO, "
                 + "CASE WHEN N.IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SIT "
                 + "FROM NIVEL_TELA NT INNER JOIN NIVEL N "
-                + "ON NT.CD_NIVEL = N.CD_NIVEL AND N.IN_ATIVO = 'A' "
+                + "ON NT.CD_NIVEL = N.CD_NIVEL "
                 + "INNER JOIN TELAS T ON NT.CD_TELA = T.CD_TELA "
-                + "AND T.IN_ATIVO = 'A' WHERE NT.CD_TELA = "+nvTelas.getTela().getCdTela()+" "
+                + "WHERE NT.CD_TELA = "+nvTelas.getTela().getCdTela()+" "
                 + "ORDER BY NT.CD_NIVEL, NT.CD_TELA";
         conexao.executeSQL(sql);
         return conexao.resultset;
@@ -115,9 +112,9 @@ public class NivelTelas {
                 + "CASE WHEN NT.P_RELATORIO = 'S' THEN 'SIM' ELSE 'NÃO' END AS RELATORIO, "
                 + "CASE WHEN N.IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SIT "
                 + "FROM NIVEL_TELA NT INNER JOIN NIVEL N "
-                + "ON NT.CD_NIVEL = N.CD_NIVEL AND N.IN_ATIVO = 'A' "
+                + "ON NT.CD_NIVEL = N.CD_NIVEL "
                 + "INNER JOIN TELAS T ON NT.CD_TELA = T.CD_TELA "
-                + "AND T.IN_ATIVO = 'A' WHERE T.DS_TELA LIKE '%"+nvTelas.getTela().getDsTela()+"%' "
+                + "WHERE T.DS_TELA LIKE '%"+nvTelas.getTela().getDsTela()+"%' "
                 + "ORDER BY NT.CD_NIVEL, NT.CD_TELA";
         conexao.executeSQL(sql);
         return conexao.resultset;

@@ -3,6 +3,7 @@ package Consultas;
 
 import Cadastros.CadastroFuncionario;
 import Classes.AtendimentoMesa;
+import Classes.Funcionario;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
 import java.awt.event.KeyEvent;
@@ -17,7 +18,9 @@ import javax.swing.ListSelectionModel;
  */
 public class ConsultaFuncionario extends javax.swing.JDialog {
 
-    AtendimentoMesa atd = new AtendimentoMesa();
+    //AtendimentoMesa atd = new AtendimentoMesa();
+    
+    Funcionario funcionario = new Funcionario();
     
     TeclasdeAtalho atalho = new TeclasdeAtalho();
 
@@ -191,7 +194,8 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtSelecionarActionPerformed
 
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
-        atd.getFuncionario().setCdFuncionario(0);
+        funcionario.setCdFuncionario(0);
+        //atd.getFuncionario().setCdFuncionario(0);
         dispose();
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
@@ -200,21 +204,26 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         preencher.FormatarJtable(jTableFuncionarios, new int[]{100, 280, 100, 100});
 
         if (jComboBoxConsulta.getSelectedIndex() == 0) {
-            preencher.PreencherJtableGenerico(jTableFuncionarios, atd.getFuncionario().consultarGeral(false));
+            //preencher.PreencherJtableGenerico(jTableFuncionarios, atd.getFuncionario().consultarGeral(false));
+            preencher.PreencherJtableGenerico(jTableFuncionarios, funcionario.consultarGeral(false));
         } else if (jComboBoxConsulta.getSelectedIndex() == 1) {
             try {
-                atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldConsulta.getText()));
-                preencher.PreencherJtableGenerico(jTableFuncionarios,
-                        atd.getFuncionario().consultarCdFuncionario(atd.getFuncionario(), false));
+                //atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldConsulta.getText()));
+                funcionario.setCdFuncionario(Integer.parseInt(jTextFieldConsulta.getText()));
+                preencher.PreencherJtableGenerico(jTableFuncionarios, funcionario.consultarCdFuncionario(funcionario, false));
+//                preencher.PreencherJtableGenerico(jTableFuncionarios,
+//                        atd.getFuncionario().consultarCdFuncionario(atd.getFuncionario(), false));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
             }
         } else {
-            atd.getFuncionario().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
-            preencher.PreencherJtableGenerico(jTableFuncionarios,
-                    atd.getFuncionario().consultarNomeFuncionario(atd.getFuncionario(), false));
+//            atd.getFuncionario().getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
+//            preencher.PreencherJtableGenerico(jTableFuncionarios,
+//                    atd.getFuncionario().consultarNomeFuncionario(atd.getFuncionario(), false));
+            funcionario.getPessoa().setNome(jTextFieldConsulta.getText().toUpperCase());
+            preencher.PreencherJtableGenerico(jTableFuncionarios, funcionario.consultarNomeFuncionario(funcionario, false));
         }
         if (preencher.Vazia()){
             JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
@@ -225,7 +234,8 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
 
     private void jTableFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosMouseClicked
         int linha = jTableFuncionarios.getSelectedRow();
-        atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
+        funcionario.setCdFuncionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
+        //atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
     }//GEN-LAST:event_jTableFuncionariosMouseClicked
 
     private void jBtCadastrarNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarNovoActionPerformed

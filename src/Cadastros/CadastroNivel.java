@@ -263,10 +263,10 @@ public class CadastroNivel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldCdNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Cadastro", jPanelCadastro);
@@ -343,17 +343,11 @@ public class CadastroNivel extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 805, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -445,6 +439,28 @@ public class CadastroNivel extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        if (jTextFieldCdNivel.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "É preciso informar o código do nível que deseja excluir!");
+            jTextFieldCdNivel.grabFocus();
+        }
+        else{
+            try{
+                nivel.getNivel().setCdNivel(Integer.parseInt(jTextFieldCdNivel.getText()));
+                
+                int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente inativar este nível ?",
+                        "Inativar Nível de Usuário", JOptionPane.YES_NO_OPTION);
+                
+                if (opcao == JOptionPane.YES_OPTION){
+                    nivel.getNivel().excluir(nivel.getNivel());
+                    JOptionPane.showMessageDialog(null, "Nível de usuário inativado com sucesso!");
+                    limpar.limparCampos(jPanelCadastro);
+                    limparTabela();
+                }
+            }
+            catch(NumberFormatException ex){
+                
+            }
+        }
         rotina = Rotinas.excluir;
         botoes.validaBotoes(jPanelBotoes, rotina);
         carregarUsuario();

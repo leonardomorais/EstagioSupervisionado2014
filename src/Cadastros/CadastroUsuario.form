@@ -72,7 +72,7 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jTextFieldCdFuncionario" min="-2" pref="70" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jBtPesquisar" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -80,7 +80,7 @@
                                                       <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jBtPesquisarNivel" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -120,7 +120,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldCdNivel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtPesquisarNivel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldDsNivel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -128,7 +128,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldCdFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBtPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldNomeFuncionario" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -163,8 +163,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldCdNivel">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldCdNivelFocusLost"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="jBtPesquisarNivel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pesquisar"/>
               </Properties>
@@ -180,11 +183,17 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldCdFuncionario">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldCdFuncionarioFocusLost"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="jBtPesquisar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pesquisar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPesquisarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldNomeFuncionario">
               <Properties>
@@ -244,11 +253,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Incluir"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtIncluirActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtAlterar">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Alterar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtAlterarActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtExcluir">
                   <Properties>
@@ -259,6 +274,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Gravar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtGravarActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBtCancelar">
                   <Properties>

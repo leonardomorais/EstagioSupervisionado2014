@@ -1,4 +1,3 @@
-
 package Validacoes;
 
 import Classes.Usuario;
@@ -33,12 +32,16 @@ public class ValidaNivelUsuario {
     
     public boolean login(Usuario user){
         try {
-            String sql = "SELECT CD_NIVEL FROM USUARIO WHERE LOGIN = '" + user.getLogin() + "' "
-                    + "AND SENHA = '" + user.getSenha() + "'";
+//            String sql = "SELECT CD_NIVEL FROM USUARIO WHERE LOGIN = '" + user.getLogin() + "' "
+//                    + "AND SENHA = '" + user.getSenha() + "'";
+            
+            String sql = "SELECT U.CD_NIVEL AS CODIGO FROM USUARIO U INNER JOIN "
+                    + "NIVEL N ON U.CD_NIVEL = N.CD_NIVEL AND N.IN_ATIVO = 'A' "
+                    + "WHERE U.LOGIN = '" + user.getLogin() + "' AND U.SENHA = '" + user.getSenha() + "'";
             conexao.executeSQL(sql);
             conexao.resultset.first();
-            // encontrou o usuário com a senha correta!
-            nivel = conexao.resultset.getString("CD_NIVEL");
+            // encontrou o usuário com a senha correta e nível ativo! 
+            nivel = conexao.resultset.getString("CODIGO"); 
             return true;
 
         } catch (SQLException ex) {

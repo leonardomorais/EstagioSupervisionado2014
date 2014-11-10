@@ -1,16 +1,32 @@
 package Cadastros;
 
+import Classes.Usuario;
+import Consultas.ConsultaFuncionario;
+import Validacoes.LimparCampos;
+import Validacoes.Rotinas;
+import Validacoes.ValidaBotoes;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Leonardo
  */
 public class CadastroUsuario extends javax.swing.JFrame {
+    
+    Usuario usuario = new Usuario();
+    int rotina;
+    
+    ValidaBotoes botoes = new ValidaBotoes();
+    LimparCampos limpar = new LimparCampos();
 
     /**
      * Creates new form CadastroUsuario
      */
     public CadastroUsuario() {
         initComponents();
+        rotina = Rotinas.padrao;
     }
 
     /**
@@ -28,11 +44,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jTextFieldCdUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCdNivel = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jBtPesquisarNivel = new javax.swing.JButton();
         jTextFieldDsNivel = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCdFuncionario = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jBtPesquisar = new javax.swing.JButton();
         jTextFieldNomeFuncionario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldLogin = new javax.swing.JTextField();
@@ -55,13 +71,30 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
         jLabel2.setText("Código do Nível");
 
-        jButton1.setText("Pesquisar");
+        jTextFieldCdNivel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdNivelFocusLost(evt);
+            }
+        });
+
+        jBtPesquisarNivel.setText("Pesquisar");
 
         jTextFieldDsNivel.setEnabled(false);
 
         jLabel3.setText("Código Funcionário");
 
-        jButton2.setText("Pesquisar");
+        jTextFieldCdFuncionario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCdFuncionarioFocusLost(evt);
+            }
+        });
+
+        jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarActionPerformed(evt);
+            }
+        });
 
         jTextFieldNomeFuncionario.setEnabled(false);
 
@@ -70,12 +103,27 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabel5.setText("Senha");
 
         jBtIncluir.setText("Incluir");
+        jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtIncluirActionPerformed(evt);
+            }
+        });
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarActionPerformed(evt);
+            }
+        });
 
         jBtExcluir.setText("Excluir");
 
         jBtGravar.setText("Gravar");
+        jBtGravar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGravarActionPerformed(evt);
+            }
+        });
 
         jBtCancelar.setText("Cancelar");
 
@@ -133,13 +181,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCadastroLayout.createSequentialGroup()
                                             .addComponent(jTextFieldCdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton2))
+                                            .addComponent(jBtPesquisar))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCadastroLayout.createSequentialGroup()
                                             .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addComponent(jTextFieldCdNivel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                             .addGap(18, 18, 18)
-                                            .addComponent(jButton1)))
+                                            .addComponent(jBtPesquisarNivel)))
                                     .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -167,14 +215,14 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCdNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
+                    .addComponent(jBtPesquisarNivel)
                     .addComponent(jTextFieldDsNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCdFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
+                    .addComponent(jBtPesquisar)
                     .addComponent(jTextFieldNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
@@ -234,6 +282,109 @@ public class CadastroUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBoxMostrarSenhaActionPerformed
 
+    private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
+        if (jTextFieldCdNivel.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor informe o nível de usuário!");
+            jTextFieldCdNivel.grabFocus();
+        }
+        else if (jTextFieldCdFuncionario.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor informe o funcionário!");
+            jTextFieldCdFuncionario.grabFocus();
+        }
+        else if (jTextFieldLogin.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor informe o login de usuário!");
+            jTextFieldLogin.grabFocus();
+        }
+        else if (jPasswordFieldSenha.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor informe uma senha!");
+            jPasswordFieldSenha.grabFocus();
+        }
+        else{
+            gravarUsuario();
+            if (rotina == Rotinas.incluir){
+                usuario.incluir(usuario);
+                jTextFieldCdUsuario.setText(usuario.getCdUsuario().toString());
+                //JOptionPane.showMessageDialog(null, "Usuário gravado com sucesso!");
+            }
+        }
+    }//GEN-LAST:event_jBtGravarActionPerformed
+
+    private void jBtIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIncluirActionPerformed
+        limpar.limparCampos(jPanelCadastro);
+        jTextFieldCdNivel.grabFocus();
+        rotina = Rotinas.incluir;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+    }//GEN-LAST:event_jBtIncluirActionPerformed
+
+    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        rotina = Rotinas.alterar;
+        botoes.validaBotoes(jPanelBotoes, rotina);
+        jTextFieldCdNivel.grabFocus();
+    }//GEN-LAST:event_jBtAlterarActionPerformed
+
+    private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
+        ConsultaFuncionario consulta = new ConsultaFuncionario(this, true);
+        consulta.setVisible(true);
+        
+        consulta.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent evt){
+                if (usuario.getFuncionario().getCdFuncionario() == 0) {
+                    jTextFieldCdFuncionario.setText("");
+                    jTextFieldNomeFuncionario.setText("");
+                } else {
+                    jTextFieldCdFuncionario.setText(usuario.getFuncionario().getCdFuncionario().toString());
+                    usuario.getFuncionario().retornaFuncionario(usuario.getFuncionario(), false);
+                    jTextFieldNomeFuncionario.setText(usuario.getFuncionario().getPessoa().getNome());
+                } 
+            }
+        });
+    }//GEN-LAST:event_jBtPesquisarActionPerformed
+
+    private void jTextFieldCdFuncionarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdFuncionarioFocusLost
+        if (!jTextFieldCdFuncionario.getText().equals("")) {
+            try {
+                usuario.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
+                usuario.getFuncionario().retornaFuncionario(usuario.getFuncionario(), false);
+                if (usuario.getFuncionario().getPessoa().getNome().equals("")) {
+                    jTextFieldCdFuncionario.setText("");
+                    jTextFieldNomeFuncionario.setText("");
+                    jTextFieldCdFuncionario.grabFocus();
+                } else {
+                    jTextFieldNomeFuncionario.setText(usuario.getFuncionario().getPessoa().getNome());
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                jTextFieldCdFuncionario.setText("");
+                jTextFieldNomeFuncionario.setText("");
+                jTextFieldCdFuncionario.grabFocus();
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdFuncionarioFocusLost
+
+    private void jTextFieldCdNivelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdNivelFocusLost
+        if (!jTextFieldCdNivel.getText().equals("")){
+            try {
+                usuario.getNivel().setCdNivel(Integer.parseInt(jTextFieldCdNivel.getText()));
+                usuario.getNivel().retornaNivel(usuario.getNivel(), false);
+                if (usuario.getNivel().getDsNivel().equals("")){
+                    jTextFieldCdNivel.setText("");
+                    jTextFieldDsNivel.setText("");
+                    jTextFieldCdNivel.grabFocus();
+                }
+                else{
+                    jTextFieldDsNivel.setText(usuario.getNivel().getDsNivel());
+                }
+            }
+            catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Por favor informe um código!");
+                jTextFieldCdNivel.setText("");
+                jTextFieldDsNivel.setText("");
+                jTextFieldCdNivel.grabFocus();
+            }
+        }
+    }//GEN-LAST:event_jTextFieldCdNivelFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -275,8 +426,8 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtGravar;
     private javax.swing.JButton jBtIncluir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBtPesquisar;
+    private javax.swing.JButton jBtPesquisarNivel;
     private javax.swing.JCheckBox jCheckBoxMostrarSenha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -295,4 +446,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldLogin;
     private javax.swing.JTextField jTextFieldNomeFuncionario;
     // End of variables declaration//GEN-END:variables
+
+    private void gravarUsuario() {
+        usuario.getNivel().setCdNivel(Integer.parseInt(jTextFieldCdNivel.getText()));
+        usuario.getFuncionario().setCdFuncionario(Integer.parseInt(jTextFieldCdFuncionario.getText()));
+        usuario.setLogin(jTextFieldLogin.getText().toUpperCase());
+        usuario.setSenha(jPasswordFieldSenha.getText().toUpperCase());
+    }
 }

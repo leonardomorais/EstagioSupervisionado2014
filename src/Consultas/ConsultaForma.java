@@ -258,13 +258,13 @@ public class ConsultaForma extends javax.swing.JDialog {
             case 0:
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.setEnabled(false);
-                break;
+            break;
 
             default:
                 jTextFieldConsulta.setEnabled(true);
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
-                break;
+            break;
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
