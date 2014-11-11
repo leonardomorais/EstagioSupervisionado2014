@@ -19,6 +19,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -150,12 +151,6 @@ public class TelaPagamento extends javax.swing.JFrame {
 
         jLabel4.setText("Código do Pagamento");
 
-        jTextFieldCdPagamento.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldCdPagamentoFocusLost(evt);
-            }
-        });
-
         jLabel5.setText("Tipo de Pagamento");
 
         jBtPesquisarTpPagamento.setText("Pesquisar");
@@ -268,11 +263,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         btGroupTipo.add(jRadioButtonFornecedor);
         jRadioButtonFornecedor.setText("Fornecedor");
         jRadioButtonFornecedor.setToolTipText("Fornecedor (Ctrl + F)");
-        jRadioButtonFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonFornecedorActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("Operação");
 
@@ -715,7 +705,7 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     private void jTableParcelasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableParcelasKeyTyped
         int linha = jTableParcelas.getSelectedRow();
-        int coluna = jTableParcelas.getSelectedColumn();
+        int coluna = jTableParcelas.getEditingColumn();
         if (coluna == 4) {
             if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 double vlPagar = Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString());
@@ -729,10 +719,10 @@ public class TelaPagamento extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Informe um valor válido!");
                     jTableParcelas.setValueAt("", linha, coluna);
                 }
+                evt.consume();
             } else {
                 new ValidaCampos().validaCamposReais(evt);
             }
-            evt.consume();
         }
     }//GEN-LAST:event_jTableParcelasKeyTyped
 
@@ -740,7 +730,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
             if (!jTableParcelas.getValueAt(i, 4).equals("")) {
                 try {
-
+                    
                     double valorPagar = Double.parseDouble(jTableParcelas.getValueAt(i, 2).toString());
                     double valorPago = Double.parseDouble(jTableParcelas.getValueAt(i, 4).toString());
                     if (valorPago > valorPagar) {
@@ -840,10 +830,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
-    private void jTextFieldCdPagamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdPagamentoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCdPagamentoFocusLost
-
     private void jTextFieldCdPessoaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdPessoaFocusLost
         if (!jTextFieldCdPessoa.getText().equals("")) {
             try {
@@ -894,12 +880,19 @@ public class TelaPagamento extends javax.swing.JFrame {
         preencherCampos();
     }//GEN-LAST:event_jTableContasMouseClicked
 
-    private void jRadioButtonFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFornecedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonFornecedorActionPerformed
-
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+        switch (jComboBoxConsulta.getSelectedIndex()) {
+            case 0:
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.setEnabled(false);
+                break;
 
+            default:
+                jTextFieldConsulta.setEnabled(true);
+                jTextFieldConsulta.setText("");
+                jTextFieldConsulta.grabFocus();
+                break;
+        }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 
     private void jBtRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRelatorioActionPerformed
