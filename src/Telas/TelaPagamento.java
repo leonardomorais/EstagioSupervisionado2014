@@ -723,15 +723,16 @@ public class TelaPagamento extends javax.swing.JFrame {
                     double valor = Double.parseDouble(jTableParcelas.getValueAt(linha, coluna).toString());
                     if (valor > vlPagar) {
                         JOptionPane.showMessageDialog(null, "Informe um valor válido!");
-                        jTableParcelas.setValueAt("0.00", linha, coluna);
+                        jTableParcelas.setValueAt("", linha, coluna);
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Informe um valor válido!");
-                    jTableParcelas.setValueAt("0.00", linha, coluna);
+                    jTableParcelas.setValueAt("", linha, coluna);
                 }
             } else {
                 new ValidaCampos().validaCamposReais(evt);
             }
+            evt.consume();
         }
     }//GEN-LAST:event_jTableParcelasKeyTyped
 
@@ -744,12 +745,12 @@ public class TelaPagamento extends javax.swing.JFrame {
                     double valorPago = Double.parseDouble(jTableParcelas.getValueAt(i, 4).toString());
                     if (valorPago > valorPagar) {
                         JOptionPane.showMessageDialog(null, "O valor informado é maior que o valor da parcela!");
-                        jTableParcelas.setValueAt("0.00", i, 4);
+                        jTableParcelas.setValueAt("", i, 4);
                     }
 
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Informe um valor válido para a parcela");
-                    jTableParcelas.setValueAt("0.00", i, 4);
+                    jTableParcelas.setValueAt("", i, 4);
                 }
             }
         }

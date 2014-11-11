@@ -253,6 +253,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
     private void jTableFuncionariosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableFuncionariosKeyPressed
         int linha = jTableFuncionarios.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                funcionario.setCdFuncionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
                 jBtSelecionarActionPerformed(null);
             }
     }//GEN-LAST:event_jTableFuncionariosKeyPressed

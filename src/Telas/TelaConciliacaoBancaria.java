@@ -451,6 +451,11 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
             pagamento.getAgc().setCdAgcConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 5).toString()));
             pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
 
+            String cheque = jTableConsulta.getValueAt(linha, 10).toString();
+            boolean sit = cheque.equals("AGUARDANDO");
+            jCheckBoxRecebido.setEnabled(sit);
+            jCheckBoxNaoRecebido.setEnabled(sit);
+            
             String op = pagamento.getParcelas().getContas().retornaOperacaoVendaCompra(pagamento.getParcelas().getContas());
             String tipo = pagamento.getParcelas().getContas().getTpConta();
             if (tipo.equals("A RECEBER")) {
@@ -466,10 +471,10 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
                 jComboBoxOperacao.setSelectedItem(op); 
                 jComboBoxOperacao.setEnabled(false);
             }
-            String cheque = jTableConsulta.getValueAt(linha, 10).toString();
-            boolean sit = cheque.equals("AGUARDANDO");
-            jCheckBoxRecebido.setEnabled(sit);
-            jCheckBoxNaoRecebido.setEnabled(sit);
+            else{
+                jComboBoxOperacao.setEnabled(sit);
+            }
+            
 //            
 //            switch (cheque){
 //                case "AGUARDANDO":

@@ -1,10 +1,15 @@
 package Consultas;
 
+import Cadastros.CadastroNivel;
 import Classes.Nivel;
 import Classes.Telas;
 import Validacoes.PreencherTabela;
+import Validacoes.TeclasdeAtalho;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -17,6 +22,8 @@ import javax.swing.event.ListSelectionListener;
 public class ConsultaNivel extends javax.swing.JDialog {
 
     Nivel nivel = new Nivel();
+    ValidaNivelUsuario valida = new ValidaNivelUsuario();
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
     
     /**
      * Creates new form ConsultaNivel
@@ -24,6 +31,8 @@ public class ConsultaNivel extends javax.swing.JDialog {
     public ConsultaNivel(Frame telaOrigem, boolean modal) {
         super(telaOrigem, modal);
         initComponents();
+        valida.validaNivel(null);
+        jBtExibirCadastro.setEnabled(valida.validaBotaoCadastro("CADASTRAR NÍVEIS DE ACESSO"));
     }
 
     /**
@@ -52,9 +61,13 @@ public class ConsultaNivel extends javax.swing.JDialog {
         jComboBoxConsulta = new javax.swing.JComboBox();
         jTextFieldConsulta = new javax.swing.JTextField();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F5, 0);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtSelecionar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtSelecionar, KeyEvent.VK_ENTER, 0);
+        jBtExibirCadastro = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtExibirCadastro, KeyEvent.VK_F4, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Consultar Níveis de Usuário");
@@ -113,6 +126,7 @@ public class ConsultaNivel extends javax.swing.JDialog {
         jComboBoxConsulta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Geral", "Código", "Descrição" }));
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F5)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -120,6 +134,7 @@ public class ConsultaNivel extends javax.swing.JDialog {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -127,14 +142,21 @@ public class ConsultaNivel extends javax.swing.JDialog {
         });
 
         jBtSelecionar.setText("Selecionar");
+        jBtSelecionar.setToolTipText("Selecionar (Enter)");
         jBtSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtSelecionarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Exibir Cadastro");
-        jButton3.setName("CADASTRAR NÍVEIS DE ACESSO"); // NOI18N
+        jBtExibirCadastro.setText("Exibir Cadastro");
+        jBtExibirCadastro.setToolTipText("Exibir Cadastro (F4)");
+        jBtExibirCadastro.setName("CADASTRAR NÍVEIS DE ACESSO"); // NOI18N
+        jBtExibirCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExibirCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,7 +178,7 @@ public class ConsultaNivel extends javax.swing.JDialog {
                                 .addComponent(jBtPesquisar)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(jBtExibirCadastro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtSelecionar)
                         .addGap(18, 18, 18)
@@ -181,7 +203,7 @@ public class ConsultaNivel extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtCancelar)
                     .addComponent(jBtSelecionar)
-                    .addComponent(jButton3))
+                    .addComponent(jBtExibirCadastro))
                 .addContainerGap())
         );
 
@@ -247,6 +269,19 @@ public class ConsultaNivel extends javax.swing.JDialog {
             }
     }//GEN-LAST:event_jTableNivelKeyPressed
 
+    private void jBtExibirCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExibirCadastroActionPerformed
+        CadastroNivel cad = new CadastroNivel();
+        cad.setVisible(true);
+        
+        cad.addWindowListener(new WindowAdapter() {
+           @Override
+           public void windowClosed(WindowEvent evt){
+               jComboBoxConsulta.setSelectedIndex(0);
+               jBtPesquisarActionPerformed(null);
+           }
+        });
+    }//GEN-LAST:event_jBtExibirCadastroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -284,9 +319,9 @@ public class ConsultaNivel extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtCancelar;
+    private javax.swing.JButton jBtExibirCadastro;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtSelecionar;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBoxConsulta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

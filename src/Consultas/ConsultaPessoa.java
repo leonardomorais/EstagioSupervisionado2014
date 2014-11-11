@@ -212,10 +212,8 @@ public class ConsultaPessoa extends javax.swing.JDialog {
     private void jTablePessoaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTablePessoaKeyPressed
         int linha = jTablePessoa.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                pessoa.setCdPessoa(Integer.parseInt(jTablePessoa.getValueAt(linha, 0).toString()));
                 jBtSelecionarActionPerformed(null);
-            }
-            else{
-                evt.consume();
             }
     }//GEN-LAST:event_jTablePessoaKeyPressed
 
@@ -224,13 +222,13 @@ public class ConsultaPessoa extends javax.swing.JDialog {
             case 0:
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.setEnabled(false);
-                break;
+            break;
 
             default:
                 jTextFieldConsulta.setEnabled(true);
                 jTextFieldConsulta.setText("");
                 jTextFieldConsulta.grabFocus();
-                break;
+            break;
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
 

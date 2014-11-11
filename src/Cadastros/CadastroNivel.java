@@ -6,6 +6,7 @@ import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
+import Validacoes.ValidaCampos;
 import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -199,6 +200,12 @@ public class CadastroNivel extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(0, 102, 204));
         jLabel2.setText("Descrição");
+
+        jTextFieldDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldDescricaoKeyTyped(evt);
+            }
+        });
 
         jTextFieldCdNivel.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -603,6 +610,10 @@ public class CadastroNivel extends javax.swing.JFrame {
             break;    
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+
+    private void jTextFieldDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescricaoKeyTyped
+        new ValidaCampos().validaCamposLimite(evt, jTextFieldDescricao, 40);
+    }//GEN-LAST:event_jTextFieldDescricaoKeyTyped
 
     /**
      * @param args the command line arguments

@@ -252,10 +252,10 @@ public class ConsultaTipoPagamento extends javax.swing.JDialog {
     private void jTableConsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableConsultaKeyPressed
         int linha = jTableConsulta.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                tpPag.setCdTipo(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+                tpPag.setDsTipo(jTableConsulta.getValueAt(linha, 1).toString());
+                tpPag.setInAtivo(jTableConsulta.getValueAt(linha, 2).toString());
                 jBtSelecionarActionPerformed(null);
-            }
-            else{
-                evt.consume();
             }
     }//GEN-LAST:event_jTableConsultaKeyPressed
 

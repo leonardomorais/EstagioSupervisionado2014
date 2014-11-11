@@ -110,7 +110,6 @@ public class AtendimentoMesa {
             valor = Double.parseDouble(tabela.getValueAt(i, 4).toString());
             total = total + valor;
         }
-
         return total;
     }
 
@@ -268,7 +267,7 @@ public class AtendimentoMesa {
                 + "A.CD_FUNCIONARIO, CASE WHEN A.NR_ATENDIMENTO IS NULL THEN "
                 + "'Mesa Disponível' ELSE 'Mesa Ocupada' END AS DISPONIVEL "
                 + "FROM MESA M LEFT JOIN ATENDIMENTO_MESA A ON M.NR_MESA = A.NR_MESA "
-                + "AND A.ABERTO_FECHADO = 'A' WHERE M.ATIVA = 'A' ORDER BY M.NR_MESA ";
+                + "AND A.ABERTO_FECHADO = 'A' WHERE M.ATIVA = 'A' ORDER BY M.NR_MESA";
         conexao.executeSQL(sql);
         
         try {
@@ -296,7 +295,7 @@ public class AtendimentoMesa {
                 }
                 else{
                     img = new ImageIcon("src\\Extras\\Imagens\\mesaOcupada.png");
-                    labelSit.setForeground(Color.BLUE);
+                    labelSit.setForeground(new Color(80, 80, 138));
                 }
                 
                 JLabel labelImg = new JLabel(img);

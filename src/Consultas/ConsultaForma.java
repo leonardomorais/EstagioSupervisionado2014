@@ -250,6 +250,9 @@ public class ConsultaForma extends javax.swing.JDialog {
     private void jTableConsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableConsultaKeyPressed
         int linha = jTableConsulta.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                vendaC.getForma().setCdForma(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+                vendaC.getForma().setDsForma(jTableConsulta.getValueAt(linha, 1).toString());
+                vendaC.getForma().retornaForma(vendaC.getForma());
                 jBtSelecionarActionPerformed(null);
             }
     }//GEN-LAST:event_jTableConsultaKeyPressed

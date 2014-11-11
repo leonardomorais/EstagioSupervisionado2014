@@ -29,7 +29,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         super(telaOrigem, modal);
         initComponents();
         valida.validaNivel(null);
-        jBtCadastrarNova.setEnabled(valida.validaBotaoCadastro(jBtCadastrarNova.getName()));
+        jBtCadastrarNova.setEnabled(valida.validaBotaoCadastro("CADASTRAR MESA"));
     }
 
     /**
@@ -291,6 +291,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         cadMesa.setVisible(true);
           
         cadMesa.addWindowListener(new WindowAdapter() {
+        @Override
         public void windowClosing(WindowEvent evento) {
             jComboBoxConsulta.setSelectedIndex(0);
             jBtPesquisarActionPerformed(null);

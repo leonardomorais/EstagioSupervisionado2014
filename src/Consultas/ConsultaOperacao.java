@@ -247,10 +247,9 @@ public class ConsultaOperacao extends javax.swing.JDialog {
     private void jTableConsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableConsultaKeyPressed
         int linha = jTableConsulta.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                operacao.setCdOperacao(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+                operacao.retornaOperacao(operacao);
                 jBtSelecionarActionPerformed(null);
-            }
-            else{
-                evt.consume();
             }
     }//GEN-LAST:event_jTableConsultaKeyPressed
 

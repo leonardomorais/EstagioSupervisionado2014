@@ -8,6 +8,7 @@ import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
 import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
+import Validacoes.ValidaCampos;
 import Validacoes.ValidaNivelUsuario;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -155,8 +156,20 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 102, 204));
         jLabel4.setText("Login");
 
+        jTextFieldLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldLoginKeyTyped(evt);
+            }
+        });
+
         jLabel5.setForeground(new java.awt.Color(0, 102, 204));
         jLabel5.setText("Senha");
+
+        jPasswordFieldSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordFieldSenhaKeyTyped(evt);
+            }
+        });
 
         jBtIncluir.setText("Incluir");
         jBtIncluir.setToolTipText("Incluir (F1)");
@@ -685,6 +698,14 @@ public class CadastroUsuario extends javax.swing.JFrame {
             break;    
         }
     }//GEN-LAST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
+
+    private void jTextFieldLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLoginKeyTyped
+        new ValidaCampos().validaCamposLimite(evt, jTextFieldLogin, 20);
+    }//GEN-LAST:event_jTextFieldLoginKeyTyped
+
+    private void jPasswordFieldSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordFieldSenhaKeyTyped
+        new ValidaCampos().validaCamposLimite(evt, jPasswordFieldSenha, 20);
+    }//GEN-LAST:event_jPasswordFieldSenhaKeyTyped
 
     /**
      * @param args the command line arguments

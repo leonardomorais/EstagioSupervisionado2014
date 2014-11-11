@@ -43,7 +43,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        procuraAvisos();
+        
         carregaImagem();  
         
         TelaLogin login = new TelaLogin(this, true);
@@ -54,6 +54,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
         validaUsuario.checarBarra(jMenuBarPrincipal, usuarioAtual);
         jLabelAtual.setText(usuarioAtual);
+        
+        procuraAvisos();
     }
 
     /**

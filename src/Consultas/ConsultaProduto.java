@@ -243,10 +243,8 @@ public class ConsultaProduto extends javax.swing.JDialog {
     private void jTableProdutosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableProdutosKeyPressed
         int linha = jTableProdutos.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                produto.setCdProduto(Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
                 jBtSelecionarActionPerformed(null);
-            }
-            else{
-                evt.consume();
             }
     }//GEN-LAST:event_jTableProdutosKeyPressed
 

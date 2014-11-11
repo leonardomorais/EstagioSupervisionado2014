@@ -295,9 +295,17 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
 
     private void jTableConsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableConsultaKeyPressed
         int linha = jTableConsulta.getSelectedRow();
-            if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
-                jBtSelecionarActionPerformed(null);
+        if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            if (cliente) {
+                venda.getCliente().setCdCliente(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+                venda.getCliente().getPessoa().setNome(jTableConsulta.getValueAt(linha, 1).toString());
+            } 
+            else {
+                venda.getFornecedor().setCdFornecedor(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+                venda.getFornecedor().getPessoa().setNome(jTableConsulta.getValueAt(linha, 1).toString());
             }
+            jBtSelecionarActionPerformed(null);
+        }
     }//GEN-LAST:event_jTableConsultaKeyPressed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible
