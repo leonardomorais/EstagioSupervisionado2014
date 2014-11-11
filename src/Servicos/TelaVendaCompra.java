@@ -30,6 +30,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -145,6 +147,14 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableVendaCompra = new javax.swing.JTable();
         jTableVendaCompra.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        jTableVendaCompra.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                preencherTabela();
+            }
+        });
         jLabel13 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jScrollPane3 = new javax.swing.JScrollPane();

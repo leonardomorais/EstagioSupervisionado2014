@@ -6,8 +6,11 @@ import Consultas.ConsultaNivel;
 import Validacoes.LimparCampos;
 import Validacoes.PreencherTabela;
 import Validacoes.Rotinas;
+import Validacoes.TeclasdeAtalho;
 import Validacoes.ValidaBotoes;
 import Validacoes.ValidaNivelUsuario;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -25,6 +28,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     
     ValidaBotoes botoes = new ValidaBotoes();
     LimparCampos limpar = new LimparCampos();
+    TeclasdeAtalho atalho = new TeclasdeAtalho();
 
     /**
      * Creates new form CadastroUsuario
@@ -48,16 +52,19 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jPopupMenuCarregarDados = new javax.swing.JPopupMenu();
         jMenuItemCarregarDados = new javax.swing.JMenuItem();
         jTabbedPaneUsuario = new javax.swing.JTabbedPane();
+        atalho.adicionarAtalho(jTabbedPaneUsuario);
         jPanelCadastro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCdUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldCdNivel = new javax.swing.JTextField();
         jBtPesquisarNivel = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisarNivel, KeyEvent.VK_F4, 0);
         jTextFieldDsNivel = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCdFuncionario = new javax.swing.JTextField();
         jBtPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtPesquisar, KeyEvent.VK_F6, 0);
         jTextFieldNomeFuncionario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldLogin = new javax.swing.JTextField();
@@ -65,10 +72,15 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jPasswordFieldSenha = new javax.swing.JPasswordField();
         jPanelBotoes = new javax.swing.JPanel();
         jBtIncluir = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jBtAlterar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
         jBtExcluir = new javax.swing.JButton();
+        atalho. adicionarAtalho(jBtExcluir, KeyEvent.VK_F3, 0);
         jBtGravar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtCancelar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jCheckBoxMostrarSenha = new javax.swing.JCheckBox();
         jLabel21 = new javax.swing.JLabel();
         jPanelConsulta = new javax.swing.JPanel();
@@ -78,6 +90,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jComboBoxConsulta = new javax.swing.JComboBox();
         jButtonPesquisar = new javax.swing.JButton();
+        atalho.adicionarAtalho(jButtonPesquisar, KeyEvent.VK_F5, 0);
         jTextFieldConsulta = new javax.swing.JTextField();
 
         jMenuItemCarregarDados.setText("Carregar Dados");
@@ -111,6 +124,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         });
 
         jBtPesquisarNivel.setText("Pesquisar");
+        jBtPesquisarNivel.setToolTipText("Pesquisar (F4)");
         jBtPesquisarNivel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarNivelActionPerformed(evt);
@@ -129,6 +143,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         });
 
         jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.setToolTipText("Pesquisar (F6)");
         jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtPesquisarActionPerformed(evt);
@@ -144,6 +159,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabel5.setText("Senha");
 
         jBtIncluir.setText("Incluir");
+        jBtIncluir.setToolTipText("Incluir (F1)");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtIncluirActionPerformed(evt);
@@ -151,6 +167,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         });
 
         jBtAlterar.setText("Alterar");
+        jBtAlterar.setToolTipText("Alterar (F2)");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAlterarActionPerformed(evt);
@@ -158,6 +175,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         });
 
         jBtExcluir.setText("Excluir");
+        jBtExcluir.setToolTipText("Excluir (F3)");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtExcluirActionPerformed(evt);
@@ -165,6 +183,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         });
 
         jBtGravar.setText("Gravar");
+        jBtGravar.setToolTipText("Gravar (Ctrl + Enter)");
         jBtGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtGravarActionPerformed(evt);
@@ -172,6 +191,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         });
 
         jBtCancelar.setText("Cancelar");
+        jBtCancelar.setToolTipText("Cancelar (Esc)");
         jBtCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtCancelarActionPerformed(evt);
@@ -336,6 +356,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         });
 
         jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.setToolTipText("Pesquisar (F5)");
         jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarActionPerformed(evt);

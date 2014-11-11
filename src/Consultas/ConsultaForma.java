@@ -252,9 +252,6 @@ public class ConsultaForma extends javax.swing.JDialog {
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
                 jBtSelecionarActionPerformed(null);
             }
-            else{
-                evt.consume();
-            }
     }//GEN-LAST:event_jTableConsultaKeyPressed
 
     private void jComboBoxConsultaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBoxConsultaPopupMenuWillBecomeInvisible

@@ -301,10 +301,8 @@ public class ConsultaMesa extends javax.swing.JDialog {
     private void jTableMesaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableMesaKeyPressed
         int linha = jTableMesa.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                atd.getMesa().setNrMesa(Integer.parseInt(jTableMesa.getValueAt(linha, 0).toString()));
                 jBtSelecionarActionPerformed(null);
-            }
-            else{
-                evt.consume();
             }
     }//GEN-LAST:event_jTableMesaKeyPressed
 

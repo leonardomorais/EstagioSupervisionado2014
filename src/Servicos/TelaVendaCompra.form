@@ -808,7 +808,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableVendaCompraMouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableVendaCompra.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="jTableVendaCompra.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;&#xd;&#xa;jTableVendaCompra.getSelectionModel().addListSelectionListener(new ListSelectionListener() {&#xd;&#xa;&#xd;&#xa;            @Override&#xd;&#xa;            public void valueChanged(ListSelectionEvent e) {&#xd;&#xa;                preencherTabela();&#xd;&#xa;            }&#xd;&#xa;        });&#xd;&#xa;"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

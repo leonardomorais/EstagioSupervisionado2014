@@ -693,7 +693,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 if (atd.getMesa().getNrMesa() == 0) {
                     jTextFieldNrMesa.setText("");
                 }
-                else if (atd.VerificaMesaDisponivel(atd)){
+                else if (!atd.VerificaMesaDisponivel(atd)){
                     jTextFieldNrMesa.setText("");
                 }
                 else {

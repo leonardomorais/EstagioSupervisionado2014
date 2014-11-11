@@ -255,10 +255,10 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
     private void jTableConsultaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableConsultaKeyPressed
             int linha = jTableConsulta.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                agcConta.setCdAgcConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+                agcConta.setDsConta(jTableConsulta.getValueAt(linha, 4).toString());
+                agcConta.setInAtivo(jTableConsulta.getValueAt(linha, 6).toString());
                 jBtSelecionarActionPerformed(null);
-            }
-            else{
-                evt.consume();
             }
     }//GEN-LAST:event_jTableConsultaKeyPressed
 

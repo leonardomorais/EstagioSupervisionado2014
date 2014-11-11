@@ -241,10 +241,9 @@ public class ConsultaNivel extends javax.swing.JDialog {
     private void jTableNivelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableNivelKeyPressed
         int linha = jTableNivel.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
+                nivel.setCdNivel(Integer.parseInt(jTableNivel.getValueAt(linha, 0).toString()));
+                nivel.retornaNivel(nivel, true);
                 jBtSelecionarActionPerformed(null);
-            }
-            else{
-                evt.consume();
             }
     }//GEN-LAST:event_jTableNivelKeyPressed
 

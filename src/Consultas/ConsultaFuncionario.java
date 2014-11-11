@@ -2,7 +2,6 @@
 package Consultas;
 
 import Cadastros.CadastroFuncionario;
-import Classes.AtendimentoMesa;
 import Classes.Funcionario;
 import Validacoes.PreencherTabela;
 import Validacoes.TeclasdeAtalho;
@@ -18,8 +17,6 @@ import javax.swing.ListSelectionModel;
  * @author Leonardo
  */
 public class ConsultaFuncionario extends javax.swing.JDialog {
-
-    //AtendimentoMesa atd = new AtendimentoMesa();
     
     Funcionario funcionario = new Funcionario();
     ValidaNivelUsuario valida = new ValidaNivelUsuario();
@@ -257,9 +254,6 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         int linha = jTableFuncionarios.getSelectedRow();
             if (linha >= 0 && evt.getKeyChar() == KeyEvent.VK_ENTER) {
                 jBtSelecionarActionPerformed(null);
-            }
-            else{
-                evt.consume();
             }
     }//GEN-LAST:event_jTableFuncionariosKeyPressed
 
