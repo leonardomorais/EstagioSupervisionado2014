@@ -55,6 +55,12 @@ public class ValidaCampos {
        
     }
     
+    public boolean duasCasasDecimais(String valor){
+        int pos = valor.indexOf(".");
+        valor = valor.substring(pos+1);
+        return (valor.length()==2);
+    }
+    
     private int contaNumeros(String campo){
         int qt = 0;
         for (int i = 0; i < campo.length(); i++){

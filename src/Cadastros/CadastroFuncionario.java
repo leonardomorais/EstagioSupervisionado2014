@@ -461,9 +461,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
                                             .addComponent(jLabel11)
                                             .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel21))))))
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)))))
                     .addGroup(jPanelCadastroLayout.createSequentialGroup()
                         .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -553,12 +551,13 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
         jTabbedPaneFuncionario.addTab("Cadastro", jPanelCadastro);
 
+        jTableConsulta.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jTableConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "CPF", "Cidade", "Email", "Data Cadastro", "Situação"
+                "Código", "Nome", "CPF", "Cidade", "Email", "Cadastro", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {

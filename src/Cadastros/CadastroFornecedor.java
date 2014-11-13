@@ -613,7 +613,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Nome", "Pessoa", "CPF/CNPJ", "Cidade", "Email", "Data Cadastro", "Situação"
+                "Código", "Nome", "Pessoa", "CPF/CNPJ", "Cidade", "Email", "Cadastro", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {

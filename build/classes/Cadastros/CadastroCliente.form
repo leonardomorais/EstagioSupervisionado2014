@@ -865,7 +865,7 @@
                         <Column editable="false" title="CPF/CNPJ" type="java.lang.Object"/>
                         <Column editable="false" title="Cidade" type="java.lang.Object"/>
                         <Column editable="false" title="Email" type="java.lang.Object"/>
-                        <Column editable="false" title="Data Cadastro" type="java.lang.Object"/>
+                        <Column editable="false" title="Cadastro" type="java.lang.Object"/>
                         <Column editable="false" title="Situa&#xe7;&#xe3;o" type="java.lang.Object"/>
                       </Table>
                     </Property>

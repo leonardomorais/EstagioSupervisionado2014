@@ -3,6 +3,7 @@ package Validacoes;
 import java.awt.Component;
 import java.awt.Container;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
@@ -77,6 +78,10 @@ public class ValidaBotoes {
                         }
                 }
                 
+            }
+            else if (c instanceof JPanel){
+                JPanel panel = (JPanel) c;
+                validaEstadoCampos(panel, rotina);
             }
             // demais componentes
             else {

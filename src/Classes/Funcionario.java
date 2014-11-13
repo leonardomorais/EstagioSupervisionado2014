@@ -43,7 +43,7 @@ public class Funcionario {
     }
 
     public ResultSet consultarGeral(boolean todos) {
-        String sql = "";
+        String sql;
         if (todos) {
 
             sql = " SELECT F.CD_PESSOA, P.NOME, PF.CPF, CD.DS_CIDADE, CT.EMAIL_CONTATO, "
@@ -98,7 +98,7 @@ public class Funcionario {
     }
 
     public ResultSet consultarNomeFuncionario(Funcionario funcionario, boolean todos) {
-        String sql = "";
+        String sql;
 
         if (todos) {
             sql = "SELECT F.CD_PESSOA, P.NOME, PF.CPF, CD.DS_CIDADE, CT.EMAIL_CONTATO, "
@@ -114,6 +114,7 @@ public class Funcionario {
                     + "AND CT.NR_SEQ = 1  WHERE P.NOME LIKE '%" + funcionario.getPessoa().getNome() + "%' "
                     + "ORDER BY F.CD_PESSOA";
         } else {
+            
             sql = "SELECT F.CD_PESSOA, P.NOME, PF.CPF, "
                     + "TO_CHAR (P.DT_CADASTRO,'DD/MM/YYYY') AS DATA "
                     + "FROM FUNCIONARIO F "
@@ -128,9 +129,8 @@ public class Funcionario {
 
     public void retornaFuncionario(Funcionario funcionario, boolean todos) {
         funcionario.getPessoa().setCdPessoa(funcionario.getCdFuncionario());
-        ResultSet retorno = null;
-
-        String sql = "";
+        
+        String sql;
         if (todos) {
             sql = "SELECT F.CD_PESSOA, P.NOME, TO_CHAR(P.DT_CADASTRO,'DD/MM/YYYY') AS DATA, "
                     + "CASE WHEN P.SITUACAO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO FROM "
@@ -142,17 +142,14 @@ public class Funcionario {
                     + "CASE WHEN P.SITUACAO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO FROM "
                     + "PESSOA P INNER JOIN FUNCIONARIO F ON P.CD_PESSOA = F.CD_PESSOA "
                     + "WHERE F.CD_PESSOA = " + funcionario.getCdFuncionario() + " AND P.SITUACAO = 'A'";
-
         }
-
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-
+        
         try {
-            retorno.first();
-            funcionario.getPessoa().setNome(retorno.getString("NOME"));
-            funcionario.getPessoa().setDtCadastro(retorno.getString("DATA"));
-            funcionario.getPessoa().setInAtivo(retorno.getString("SITUACAO"));
+            conexao.resultset.first();
+            funcionario.getPessoa().setNome(conexao.resultset.getString("NOME"));
+            funcionario.getPessoa().setDtCadastro(conexao.resultset.getString("DATA"));
+            funcionario.getPessoa().setInAtivo(conexao.resultset.getString("SITUACAO"));
 
             funcionario.getPessoa().getContato().setNrSeq(1);
             funcionario.getPessoa().getEndereco().setNrSequencia(1);
@@ -161,11 +158,11 @@ public class Funcionario {
 
             funcionario.getPessoa().retornaContato(funcionario.getPessoa());
             funcionario.getPessoa().retornaEndereco(funcionario.getPessoa());
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Funcionário não encontrado!");
             funcionario.getPessoa().setNome("");
         }
-
     }
 
     // getter e setter
@@ -184,5 +181,4 @@ public class Funcionario {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-
 }

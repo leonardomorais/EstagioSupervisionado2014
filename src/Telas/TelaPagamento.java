@@ -19,10 +19,10 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -205,6 +205,9 @@ public class TelaPagamento extends javax.swing.JFrame {
             }
         });
         jTableParcelas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTableParcelasKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTableParcelasKeyTyped(evt);
             }
@@ -688,9 +691,10 @@ public class TelaPagamento extends javax.swing.JFrame {
     private void jTableParcelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableParcelasMouseClicked
         int linha = jTableParcelas.getSelectedRow();
         int coluna = jTableParcelas.getSelectedColumn();
-        if (coluna == 4) {
-            jTableParcelas.setValueAt("", linha, coluna);
-        } else if (coluna == 0 && (boolean) jTableParcelas.getValueAt(linha, 0)) {
+        //if (coluna == 4) {
+            
+        //} else 
+        if (coluna == 0 && (boolean) jTableParcelas.getValueAt(linha, 0)) {
 
             try {
                 if (!jTableParcelas.getValueAt(linha, 5).toString().equals("")) {
@@ -704,46 +708,30 @@ public class TelaPagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableParcelasMouseClicked
 
     private void jTableParcelasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableParcelasKeyTyped
-        int linha = jTableParcelas.getSelectedRow();
-        int coluna = jTableParcelas.getEditingColumn();
-        if (coluna == 4) {
-            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                double vlPagar = Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString());
-                try {
-                    double valor = Double.parseDouble(jTableParcelas.getValueAt(linha, coluna).toString());
-                    if (valor > vlPagar) {
-                        JOptionPane.showMessageDialog(null, "Informe um valor válido!");
-                        jTableParcelas.setValueAt("", linha, coluna);
-                    }
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Informe um valor válido!");
-                    jTableParcelas.setValueAt("", linha, coluna);
-                }
-                evt.consume();
-            } else {
-                new ValidaCampos().validaCamposReais(evt);
-            }
-        }
+//        int linha = jTableParcelas.getSelectedRow();
+//        int coluna = jTableParcelas.getEditingColumn();
+//        if (coluna == 4) {
+//            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+//                double vlPagar = Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString());
+//                try {
+//                    double valor = Double.parseDouble(jTableParcelas.getValueAt(linha, coluna).toString());
+//                    if (valor > vlPagar) {
+//                        JOptionPane.showMessageDialog(null, "Informe um valor válido!");
+//                        jTableParcelas.setValueAt("", linha, coluna);
+//                    }
+//                } catch (NumberFormatException ex) {
+//                    JOptionPane.showMessageDialog(null, "Informe um valor válido!");
+//                    jTableParcelas.setValueAt("", linha, coluna);
+//                }
+//                evt.consume();
+//            } else {
+//                new ValidaCampos().validaCamposReais(evt);
+//            }
+//        }
     }//GEN-LAST:event_jTableParcelasKeyTyped
 
     private void jTableParcelasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableParcelasPropertyChange
-        for (int i = 0; i < jTableParcelas.getRowCount(); i++) {
-            if (!jTableParcelas.getValueAt(i, 4).equals("")) {
-                try {
-                    
-                    double valorPagar = Double.parseDouble(jTableParcelas.getValueAt(i, 2).toString());
-                    double valorPago = Double.parseDouble(jTableParcelas.getValueAt(i, 4).toString());
-                    if (valorPago > valorPagar) {
-                        JOptionPane.showMessageDialog(null, "O valor informado é maior que o valor da parcela!");
-                        jTableParcelas.setValueAt("", i, 4);
-                    }
-
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Informe um valor válido para a parcela");
-                    jTableParcelas.setValueAt("", i, 4);
-                }
-            }
-        }
+        
     }//GEN-LAST:event_jTableParcelasPropertyChange
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
@@ -901,6 +889,18 @@ public class TelaPagamento extends javax.swing.JFrame {
         report.gerarRelatorio(report);
         jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
+
+    private void jTableParcelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableParcelasKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.err.println("EDITING "+jTableParcelas.getEditingColumn()+
+                    ", SELECTED "+jTableParcelas.getSelectedColumn());
+            int coluna = jTableParcelas.getSelectedColumn();
+            if (coluna == 4) {
+                validarValorPago();
+                //evt.consume();
+            }
+        }  
+    }//GEN-LAST:event_jTableParcelasKeyPressed
 
     public void limparCamposPessoa() {
         jTextFieldCdPessoa.setText("");
@@ -1233,4 +1233,28 @@ public class TelaPagamento extends javax.swing.JFrame {
             preencheTabela();
         }
     }
+    
+    private void validarValorPago(){
+        int linha = jTableParcelas.getSelectedRow();
+            if (!jTableParcelas.getValueAt(linha, 4).equals("")) {
+                try {
+                    String valor = jTableParcelas.getValueAt(linha, 4).toString();
+                    double valorPagar = Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString());
+                    double valorPago = Double.parseDouble(valor);
+                    if (valorPago > valorPagar) {
+                        JOptionPane.showMessageDialog(null, "O valor informado é maior que o valor da parcela!");
+                        jTableParcelas.setValueAt("", linha, 4);
+                    }
+                    else if (!new ValidaCampos().duasCasasDecimais(valor)){
+                        JOptionPane.showMessageDialog(null, "Informe um valor válido para a parcela");
+                        jTableParcelas.setValueAt("", linha, 4);
+                    }
+                    
+                } 
+                catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Informe um valor válido para a parcela");
+                    jTableParcelas.setValueAt("", linha, 4);
+                }
+            }
+        }
 }
