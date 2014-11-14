@@ -141,6 +141,16 @@ public class CadastroFuncionario extends javax.swing.JFrame {
         jBtRelatorio = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
+        jPopupMenuFuncionario.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuFuncionarioPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jMenuItemCarregarDados.setText("Carregar Dados");
         jMenuItemCarregarDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -958,6 +968,11 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     private void jTextFieldRGKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldRGKeyTyped
         campos.validaCamposLimite(evt, jTextFieldRG, 12);
     }//GEN-LAST:event_jTextFieldRGKeyTyped
+
+    private void jPopupMenuFuncionarioPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuFuncionarioPopupMenuWillBecomeVisible
+        jMenuItemContatos.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTATO"));
+        jMenuItemEndereco.setEnabled(valida.validaBotaoCadastro("CADASTRAR ENDEREÇO"));
+    }//GEN-LAST:event_jPopupMenuFuncionarioPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments

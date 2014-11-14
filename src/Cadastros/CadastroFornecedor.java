@@ -155,6 +155,16 @@ public class CadastroFornecedor extends javax.swing.JFrame {
         jBtRelatorio = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
 
+        jPopupMenuFornecedor.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuFornecedorPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jMenuItemCarregaDados.setText("CarregarDados");
         jMenuItemCarregaDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1071,6 +1081,11 @@ public class CadastroFornecedor extends javax.swing.JFrame {
             consulta.exibirParcelasPessoa(cd, nome);
         }
     }//GEN-LAST:event_jMenuItemParcelasActionPerformed
+
+    private void jPopupMenuFornecedorPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuFornecedorPopupMenuWillBecomeVisible
+        jMenuItemContatos.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTATO"));
+        jMenuItemEndereco.setEnabled(valida.validaBotaoCadastro("CADASTRAR ENDEREÇO"));
+    }//GEN-LAST:event_jPopupMenuFornecedorPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments

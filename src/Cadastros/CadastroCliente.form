@@ -5,6 +5,9 @@
     <Component class="javax.swing.ButtonGroup" name="buttonGroupTipoPessoa">
     </Component>
     <Container class="javax.swing.JPopupMenu" name="jPopupMenuCliente">
+      <Events>
+        <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="jPopupMenuClientePopupMenuWillBecomeVisible"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>

@@ -1182,7 +1182,6 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldNrMesa.grabFocus();
         jTextFieldNrMesa.setEnabled(false);
         jBtMesa.setEnabled(false);
-        jTextFieldNrMesaFocusLost(null);
     }
 
     public void fecharAtendimento() {

@@ -202,6 +202,16 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         });
         jPopupMenuVendaCompra.add(jMenuItemExcluir);
 
+        jPopupMenuConta.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuContaPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jMenuItemExibirParcelas.setText("Exibir Parcelas");
         jMenuItemExibirParcelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1287,9 +1297,9 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         int linha = jTableVendaCompra.getSelectedRow();
         if (linha >= 0){
             venda.setCdVendaCompra(Integer.parseInt(jTableVendaCompra.getValueAt(linha, 0).toString()));
-            jMenuItemExcluir.setEnabled(venda.permiteExclusao(venda));
+            jMenuItemExcluir.setEnabled(valida.pExclusao.equals("S"));
             if (jMenuItemExcluir.isEnabled()){
-                jMenuItemExcluir.setEnabled(valida.pExclusao.equals("S"));
+                jMenuItemExcluir.setEnabled(venda.permiteExclusao(venda));
             }
         }
     }//GEN-LAST:event_jPopupMenuVendaCompraPopupMenuWillBecomeVisible
@@ -1307,6 +1317,10 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jMenuItemExcluirActionPerformed
+
+    private void jPopupMenuContaPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuContaPopupMenuWillBecomeVisible
+        jMenuItemExibirParcelas.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTAS PAGAR/RECEBER"));
+    }//GEN-LAST:event_jPopupMenuContaPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments

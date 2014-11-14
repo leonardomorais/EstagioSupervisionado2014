@@ -20,9 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -50,7 +51,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         pagamento.getParcelas().getContas().getVendaCompra().getOperacao().retornaComboOperacao(jComboBoxOperacao, "TODOS");
         validaEstadoCampos();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,6 +80,7 @@ public class TelaPagamento extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
         jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         jLabel8 = new javax.swing.JLabel();
         jTextFieldCdPessoa = new javax.swing.JTextField();
         jBtPesquisaPessoa = new javax.swing.JButton();
@@ -197,19 +198,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         jTableParcelas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableParcelasMouseClicked(evt);
-            }
-        });
-        jTableParcelas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jTableParcelasPropertyChange(evt);
-            }
-        });
-        jTableParcelas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTableParcelasKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTableParcelasKeyTyped(evt);
             }
         });
         jScrollPane2.setViewportView(jTableParcelas);
@@ -691,11 +679,23 @@ public class TelaPagamento extends javax.swing.JFrame {
     private void jTableParcelasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableParcelasMouseClicked
         int linha = jTableParcelas.getSelectedRow();
         int coluna = jTableParcelas.getSelectedColumn();
-        //if (coluna == 4) {
-            
-        //} else 
-        if (coluna == 0 && (boolean) jTableParcelas.getValueAt(linha, 0)) {
+        if (coluna == 4) {
+            jTableParcelas.getCellEditor(linha, 4).addCellEditorListener(new CellEditorListener() {
 
+                @Override
+                public void editingStopped(ChangeEvent e) {
+                    validarValorPago();
+                }
+
+                @Override
+                public void editingCanceled(ChangeEvent e) {
+                    validarValorPago();
+                }
+            });
+            
+        } else 
+        if (coluna == 0 && (boolean) jTableParcelas.getValueAt(linha, 0)) {
+            
             try {
                 if (!jTableParcelas.getValueAt(linha, 5).toString().equals("")) {
                     JOptionPane.showMessageDialog(null, "Esta parcela não pode ser selecionada, pois já está paga!");
@@ -706,33 +706,6 @@ public class TelaPagamento extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTableParcelasMouseClicked
-
-    private void jTableParcelasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableParcelasKeyTyped
-//        int linha = jTableParcelas.getSelectedRow();
-//        int coluna = jTableParcelas.getEditingColumn();
-//        if (coluna == 4) {
-//            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-//                double vlPagar = Double.parseDouble(jTableParcelas.getValueAt(linha, 2).toString());
-//                try {
-//                    double valor = Double.parseDouble(jTableParcelas.getValueAt(linha, coluna).toString());
-//                    if (valor > vlPagar) {
-//                        JOptionPane.showMessageDialog(null, "Informe um valor válido!");
-//                        jTableParcelas.setValueAt("", linha, coluna);
-//                    }
-//                } catch (NumberFormatException ex) {
-//                    JOptionPane.showMessageDialog(null, "Informe um valor válido!");
-//                    jTableParcelas.setValueAt("", linha, coluna);
-//                }
-//                evt.consume();
-//            } else {
-//                new ValidaCampos().validaCamposReais(evt);
-//            }
-//        }
-    }//GEN-LAST:event_jTableParcelasKeyTyped
-
-    private void jTableParcelasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableParcelasPropertyChange
-        
-    }//GEN-LAST:event_jTableParcelasPropertyChange
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
@@ -889,18 +862,6 @@ public class TelaPagamento extends javax.swing.JFrame {
         report.gerarRelatorio(report);
         jBtPesquisarActionPerformed(null);
     }//GEN-LAST:event_jBtRelatorioActionPerformed
-
-    private void jTableParcelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableParcelasKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.err.println("EDITING "+jTableParcelas.getEditingColumn()+
-                    ", SELECTED "+jTableParcelas.getSelectedColumn());
-            int coluna = jTableParcelas.getSelectedColumn();
-            if (coluna == 4) {
-                validarValorPago();
-                //evt.consume();
-            }
-        }  
-    }//GEN-LAST:event_jTableParcelasKeyPressed
 
     public void limparCamposPessoa() {
         jTextFieldCdPessoa.setText("");

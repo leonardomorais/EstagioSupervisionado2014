@@ -230,5 +230,4 @@ public class EditarComponentes extends DefaultTableCellRenderer {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
 }

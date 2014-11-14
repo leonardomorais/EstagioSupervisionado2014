@@ -2,11 +2,8 @@ package Dialogos;
 
 import Validacoes.RetornaData;
 import Validacoes.TeclasdeAtalho;
-import static java.awt.Component.RIGHT_ALIGNMENT;
 import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
@@ -26,7 +23,7 @@ public class DialogoData extends javax.swing.JDialog {
     public DialogoData(java.awt.Frame telaOrigem, boolean modal, String dataParam) {
         initComponents();
         getRootPane().setDefaultButton(jBtOk);
-        carregaImagem();
+        //carregaImagem();
         jFormattedTextFieldData.grabFocus();
         dataRetorno = dataParam;
     }
@@ -47,7 +44,7 @@ public class DialogoData extends javax.swing.JDialog {
         atalho.adicionarAtalho(jBtCancelar, KeyEvent.VK_ESCAPE, 0);
         jBtOk = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtOk, KeyEvent.VK_ENTER, 0);
-        jPanelImg = new javax.swing.JPanel();
+        jLabelIMG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Vencimento da parcela");
@@ -73,34 +70,25 @@ public class DialogoData extends javax.swing.JDialog {
             }
         });
 
-        jPanelImg.setPreferredSize(new java.awt.Dimension(48, 48));
-
-        javax.swing.GroupLayout jPanelImgLayout = new javax.swing.GroupLayout(jPanelImg);
-        jPanelImg.setLayout(jPanelImgLayout);
-        jPanelImgLayout.setHorizontalGroup(
-            jPanelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-        jPanelImgLayout.setVerticalGroup(
-            jPanelImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
+        jLabelIMG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Extras/Imagens/calendar.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jFormattedTextFieldData)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabelIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFormattedTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jBtOk, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                                .addComponent(jBtOk, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
@@ -108,19 +96,17 @@ public class DialogoData extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelIMG, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextFieldData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtCancelar)
-                            .addComponent(jBtOk)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jPanelImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jBtOk)
+                            .addComponent(jBtCancelar))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -185,24 +171,24 @@ public class DialogoData extends javax.swing.JDialog {
     private javax.swing.JButton jBtOk;
     private javax.swing.JFormattedTextField jFormattedTextFieldData;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanelImg;
+    private javax.swing.JLabel jLabelIMG;
     // End of variables declaration//GEN-END:variables
 
     public String retorno(){
         return dataRetorno;
     }
-    
-    private void carregaImagem() {
-        String caminho = "src\\Extras\\Imagens\\calendar.png";
-        ImageIcon img = new ImageIcon(caminho);
-
-        int largura = img.getIconWidth();
-        int altura = img.getIconHeight();
-
-        JLabel labelimg = new JLabel(img);
-        labelimg.setSize(largura, altura);
-
-        jPanelImg.add(labelimg, RIGHT_ALIGNMENT);
-    }
+//    
+//    private void carregaImagem() {
+//        String caminho = "src\\Extras\\Imagens\\calendar.png";
+//        ImageIcon img = new ImageIcon(caminho);
+//
+//        int largura = img.getIconWidth();
+//        int altura = img.getIconHeight();
+//
+//        JLabel labelimg = new JLabel(img);
+//        labelimg.setSize(largura, altura);
+//
+//        jPanelImg.add(labelimg, RIGHT_ALIGNMENT);
+//    }
 
 }
