@@ -235,7 +235,9 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
 
     private void jTableFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosMouseClicked
         int linha = jTableFuncionarios.getSelectedRow();
-        funcionario.setCdFuncionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
+        if (linha >=0){
+            funcionario.setCdFuncionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
+        }
         //atd.getFuncionario().setCdFuncionario(Integer.parseInt(jTableFuncionarios.getValueAt(linha, 0).toString()));
     }//GEN-LAST:event_jTableFuncionariosMouseClicked
 

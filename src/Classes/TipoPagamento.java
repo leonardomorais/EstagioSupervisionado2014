@@ -4,7 +4,6 @@ import ConexaoBanco.ConexaoPostgreSQL;
 import Validacoes.RetornaSequencia;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +16,6 @@ public class TipoPagamento {
     private static String dsTipo;
     private String inAtivo;
     
-//    private int vetTipos[] = new int [100];
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 

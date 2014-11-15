@@ -71,6 +71,8 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupSituacao = new javax.swing.ButtonGroup();
+        jPopupMenuAtendimentos = new javax.swing.JPopupMenu();
+        jMenuItemExibirDetalhes = new javax.swing.JMenuItem();
         jTabbedPaneAtendimentos = new javax.swing.JTabbedPane();
         atalho.adicionarAtalho(jTabbedPaneAtendimentos);
         jPanelAtendimento = new javax.swing.JPanel();
@@ -146,6 +148,24 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jBtRelatorio = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtRelatorio,   KeyEvent.VK_F6, 0);
         jRadioButtonAmbos = new javax.swing.JRadioButton();
+
+        jPopupMenuAtendimentos.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuAtendimentosPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
+        jMenuItemExibirDetalhes.setText("Exibir Detalhes");
+        jMenuItemExibirDetalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExibirDetalhesActionPerformed(evt);
+            }
+        });
+        jPopupMenuAtendimentos.add(jMenuItemExibirDetalhes);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar Atendimento");
@@ -491,6 +511,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableAtendimento.setComponentPopupMenu(jPopupMenuAtendimentos);
         jTableAtendimento.getTableHeader().setReorderingAllowed(false);
         jTableAtendimento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -994,6 +1015,21 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         campos.validaCamposApenasNumeros(evt);
     }//GEN-LAST:event_jTextFieldVlUnitarioKeyTyped
 
+    private void jMenuItemExibirDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExibirDetalhesActionPerformed
+        int linha = jTableAtendimento.getSelectedRow();
+        if (linha >=0){
+            int cd = Integer.parseInt(jTableAtendimento.getValueAt(linha, 0).toString());
+            exibirAtendimento(cd);
+            jTabbedPaneAtendimentos.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jMenuItemExibirDetalhesActionPerformed
+
+    private void jPopupMenuAtendimentosPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuAtendimentosPopupMenuWillBecomeVisible
+        int linha = jTableAtendimento.getSelectedRow();
+        String situacao = jTableAtendimento.getValueAt(linha, 7).toString();
+        jMenuItemExibirDetalhes.setEnabled(situacao.equals("ABERTO"));
+    }//GEN-LAST:event_jPopupMenuAtendimentosPopupMenuWillBecomeVisible
+
     /**
      * @param args the command line arguments
      */
@@ -1056,8 +1092,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItemExibirDetalhes;
     private javax.swing.JPanel jPanelAtendimento;
     private javax.swing.JPanel jPanelConsulta;
+    private javax.swing.JPopupMenu jPopupMenuAtendimentos;
     private javax.swing.JRadioButton jRadioButtonAbertos;
     private javax.swing.JRadioButton jRadioButtonAmbos;
     private javax.swing.JRadioButton jRadioButtonFechados;
@@ -1240,7 +1278,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jBtMesa.setEnabled(false);
     }
 
-    public void validaEstadoCampos() {
+    private void validaEstadoCampos() {
         ValidaBotoes botoes = new ValidaBotoes();
         botoes.validaEstadoCampos(jPanelAtendimento, rotina);
         jTextFieldNrAtendimento.setEnabled(false);
@@ -1251,9 +1289,10 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         jTextFieldNomeProduto.setEnabled(false);
         jTextFieldTotal.setEnabled(false);
         jTextFieldTotalProduto.setEnabled(false);
+        jBtNovo.setEnabled(true);
     }
     
-    public void editaBotao(boolean vazia) {
+    private void editaBotao(boolean vazia) {
         if (vazia) {
             JOptionPane.showMessageDialog(null, "A consulta não encontrou resultados!");
             jBtRelatorio.setEnabled(false);

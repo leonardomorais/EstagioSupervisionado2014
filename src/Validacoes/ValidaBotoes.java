@@ -68,8 +68,8 @@ public class ValidaBotoes {
                         
                     default:
                         if (nome.equals("Incluir") | nome.equals("Excluir") | nome.equals("Excluir Venda/Compra") 
-                            | nome.equals("Alterar")
-                            | nome.equals("Iniciar Atendimento") | nome.equals("Incluir Venda/Compra")
+                            | nome.equals("Alterar") | nome.equals("Iniciar Atendimento") 
+                            | nome.equals("Incluir Venda/Compra")
                             | nome.equals("Novo Pagamento") | nome.equals("Nova Tranferência")) {
                             botao.setEnabled(false);
                         }

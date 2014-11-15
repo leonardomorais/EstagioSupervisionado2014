@@ -78,7 +78,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Realizar Tranferência");
+        setTitle("Realizar Transferência");
         setName("REALIZAR TRANSFERÊNCIA"); // NOI18N
         setResizable(false);
 

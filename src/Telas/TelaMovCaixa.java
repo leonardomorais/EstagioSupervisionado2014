@@ -314,7 +314,7 @@ public class TelaMovCaixa extends javax.swing.JFrame {
             
             PreencherTabela preencher = new PreencherTabela();
             preencher.FormatarJtable(jTableMovCaixa,
-                    new int[]{50, 40, 100, 40, 110, 40, 110, 50, 90, 70, 70, 70, 180, 60});
+                    new int[]{50, 35, 110, 35, 170, 35, 110, 50, 80, 60, 60, 50, 190, 60});
             
             switch (jComboBoxConsulta.getSelectedIndex()) {
                 case 0:
