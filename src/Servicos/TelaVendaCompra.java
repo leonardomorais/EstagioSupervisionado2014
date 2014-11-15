@@ -2,8 +2,10 @@ package Servicos;
 
 import Cadastros.CadastroContas;
 import Classes.AtendimentoMesa;
+import Classes.AtendimentoMesaProdutos;
 import Classes.Contas;
 import Classes.MovEstoque;
+import Classes.Produto;
 import Classes.VendaCompra;
 import Consultas.ConsultaClienteFornecedor;
 import Consultas.ConsultaForma;
@@ -413,11 +415,6 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jTextFieldVlAtendimento.setDocument(new FormataMoeda());
         jTextFieldVlAtendimento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldVlAtendimento.setEnabled(false);
-        jTextFieldVlAtendimento.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jTextFieldVlAtendimentoPropertyChange(evt);
-            }
-        });
 
         jTextFieldVlUnitario.setDocument(new FormataMoeda());
         jTextFieldVlUnitario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -835,10 +832,19 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
+        double valor = Double.parseDouble(jTextFieldVlUnitario.getText().replace(",", "."));
         if (jTextFieldCdProduto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Por favor informe o produto que deseja adicionar!");
             jTextFieldCdProduto.grabFocus();
-        } else {
+        } 
+        else if (jTextFieldVlUnitario.getText().equals("") || jTextFieldVlUnitario.getText().length() <= 3){
+            JOptionPane.showMessageDialog(null, "Por favor informe o valor unitário do produto!");
+            jTextFieldVlUnitario.grabFocus();
+        }
+        else if (valor == 0){
+            JOptionPane.showMessageDialog(null, "Por favor informe um valor unitário válido!");
+        }
+        else {
             adicionarProdutos();
             edit.setLinhas(linhasAtendimento);
             edit.setTipo("VENDA_COMPRA");
@@ -988,20 +994,26 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private void jTextFieldCdProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCdProdutoFocusLost
         if (!jTextFieldCdProduto.getText().equals("")) {
             try {
-                venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
-                        .setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
+                Produto produto = new Produto();
+                produto.setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
+                
+//                venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
+//                        .setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
                 // se for uma venda retorna apenas os produtos disponíveis
-                if (tipo.equals("venda")) {
-                    venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
-                            retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
-                } // senão retorna todos os produtos
-                else {
-                    venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
-                            retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), true);
-                }
-
-                if (venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
-                        .getDsProduto().equals("")) {
+                produto.retornaProduto(produto, !tipo.equals("venda"));
+                
+//                if (tipo.equals("venda")) {
+//                    produto.retornaProduto(produto, false);
+//                    venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
+//                            retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
+//                } // senão retorna todos os produtos
+//                else {
+//                    venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
+//                            retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), true);
+//                }
+                if(produto.getDsProduto().equals("")){ 
+//                if (venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
+//                        .getDsProduto().equals("")) {
                     jTextFieldCdProduto.setText("");
                     jTextFieldProduto.setText("");
                     jTextFieldCdProduto.grabFocus();
@@ -1039,25 +1051,30 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
         csProd.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-
-                if (venda.getVendaAtendimento().getAtendimento()
-                        .getAtdProdutos().getProduto().getCdProduto() == 0) {
+                Produto produto = new Produto();
+                if (produto.getCdProduto() == 0){
                     jTextFieldProduto.setText("");
                     jTextFieldCdProduto.setText("");
-                } else {
-                    jTextFieldCdProduto.setText(venda.getVendaAtendimento().getAtendimento()
-                            .getAtdProdutos().getProduto().getCdProduto().toString());
-                    venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
-                            .retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), jRadioButtonCompra.isSelected());
+                }
+                else{
+                    jTextFieldCdProduto.setText(produto.getCdProduto().toString());
+                    produto.retornaProduto(produto, jRadioButtonCompra.isSelected());
                     preencherProduto();
                 }
+//                if (venda.getVendaAtendimento().getAtendimento()
+//                        .getAtdProdutos().getProduto().getCdProduto() == 0) {
+//                    jTextFieldProduto.setText("");
+//                    jTextFieldCdProduto.setText("");
+//                } else {
+//                    jTextFieldCdProduto.setText(venda.getVendaAtendimento().getAtendimento()
+//                            .getAtdProdutos().getProduto().getCdProduto().toString());
+//                    venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto()
+//                            .retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), jRadioButtonCompra.isSelected());
+//                    preencherProduto();
+//                }
             }
         });
     }//GEN-LAST:event_jButtonPesquisarProdutoActionPerformed
-
-    private void jTextFieldVlAtendimentoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextFieldVlAtendimentoPropertyChange
-        preencherTotal();
-    }//GEN-LAST:event_jTextFieldVlAtendimentoPropertyChange
 
     private void jBtGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGravarActionPerformed
         int linhas = jTableProdutos.getRowCount();
@@ -1136,8 +1153,9 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         tipo = "venda";
         jTextFieldCdOperacaoFocusLost(null);
         if (!jTextFieldCdProduto.getText().equals("")) {
-            venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
-                    retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
+            
+            //venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
+                    //retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
             preencherProduto();
         }
     }//GEN-LAST:event_jRadioButtonVendaActionPerformed
@@ -1147,8 +1165,8 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         tipo = "compra";
         jTextFieldCdOperacaoFocusLost(null);
         if (!jTextFieldCdProduto.getText().equals("")) {
-            venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
-                    retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
+            //venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto().
+               //     retornaProduto(venda.getVendaAtendimento().getAtendimento().getAtdProdutos().getProduto(), false);
             preencherProduto();
         }
     }//GEN-LAST:event_jRadioButtonCompraActionPerformed
@@ -1223,8 +1241,17 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                         default:
                             jTextFieldNrAtendimento.setText(venda.getVendaAtendimento().getAtendimento().getNrAtendimento().toString());
                             venda.getVendaAtendimento().getAtendimento().retornaAtendimento(venda.getVendaAtendimento().getAtendimento());
-                            jTextFieldVlAtendimento.setText(decimal.retornaDecimal(venda.getVendaAtendimento().
-                                    getAtendimento().getVlTotal(), 6));
+//                            jTextFieldVlAtendimento.setText(decimal.retornaDecimal(venda.getVendaAtendimento().
+//                                    getAtendimento().getVlTotal(), 6));
+                            if (venda.getVendaAtendimento().getAtendimento().getVlTotal() < 1) {
+                            jTextFieldVlAtendimento.setText("0" +decimal.retornaDecimal
+                            (venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                            } 
+                            else{
+                                jTextFieldVlAtendimento.setText(decimal.retornaDecimal
+                                (venda.getVendaAtendimento().getAtendimento().getVlTotal(), 6));
+                            }
+                            jTextFieldTotal.setText(jTextFieldVlAtendimento.getText().replace(".", "").replace(",", ""));
                     }
                     // preenche os campos retornados
                     switch (venda.getOperacao().getDsOperacao()) {
@@ -1431,20 +1458,33 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void preencherProduto() {
-        jTextFieldProduto.setText(venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
-                .getProduto().getDsProduto());
+        Produto produto = new Produto();
+        produto.setCdProduto(Integer.parseInt(jTextFieldCdProduto.getText()));
+        produto.retornaProduto(produto, false);
+        jTextFieldProduto.setText(produto.getDsProduto());
+        
+        //jTextFieldProduto.setText(venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
+          //      .getProduto().getDsProduto());
         int max;
         if (jRadioButtonVenda.isSelected()) {
-            max = venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
-                    .getProduto().getQtAtual();
+            max = produto.getQtAtual();
+            //max = venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
+              //      .getProduto().getQtAtual();
         } else {
             max = 500;
         }
 
         SpinnerNumberModel model = new SpinnerNumberModel(1, 1, max, 1);
         jSpnQuantidade.setModel(model);
-        jTextFieldVlUnitario.setText(decimal.retornaDecimal(venda.getVendaAtendimento().getAtendimento()
-                .getAtdProdutos().getProduto().getVlProduto(), 6));
+        if (produto.getVlProduto()< 1){
+            jTextFieldVlUnitario.setText("0"+decimal.retornaDecimal(produto.getVlProduto(), 6));
+        }
+        else{
+            jTextFieldVlUnitario.setText(decimal.retornaDecimal(produto.getVlProduto(), 6));
+        }
+        
+        //jTextFieldVlUnitario.setText(decimal.retornaDecimal(venda.getVendaAtendimento().getAtendimento()
+          //      .getAtdProdutos().getProduto().getVlProduto(), 6));
         preencherTotalProduto();
     }
 
@@ -1453,8 +1493,13 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 .replace(".", "").replace(",", "."));
 
         int qt = Integer.parseInt(jSpnQuantidade.getValue().toString());
-        jTextFieldTotalProduto.setText(decimal.retornaDecimal(qt * preco, 6));
-
+        double valor = qt * preco;
+        if (valor < 1){
+            jTextFieldTotalProduto.setText("0"+decimal.retornaDecimal(valor, 6));
+        }
+        else{
+            jTextFieldTotalProduto.setText(decimal.retornaDecimal(qt * preco, 6));
+        }
     }
 
     private void adicionarProdutos() {
@@ -1497,10 +1542,20 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         }
         tabela.setValueAt(cd, posicao, 0);
         tabela.setValueAt(jTextFieldProduto.getText(), posicao, 1);
-        tabela.setValueAt(decimal.retornaDecimal(valor), posicao, 2);
+        if (valor < 1){
+            tabela.setValueAt("0"+decimal.retornaDecimal(valor), posicao, 2);
+        }
+        else{
+            tabela.setValueAt(decimal.retornaDecimal(valor), posicao, 2);
+        }
         tabela.setValueAt(quantidade, posicao, 3);
         double total = quantidade * valor;
-        tabela.setValueAt(decimal.retornaDecimal(total), posicao, 4);
+        if (total < 1){
+            tabela.setValueAt("0"+decimal.retornaDecimal(total), posicao, 4);
+        }
+        else{
+            tabela.setValueAt(decimal.retornaDecimal(total), posicao, 4);
+        }
     }
 
     public void CarregarAtendimento(JTable tabela, AtendimentoMesa atd) {
@@ -1509,8 +1564,13 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         jTableProdutos.setModel(model);
         jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
         jTextFieldData.setText(atd.getDtAtendimento());
-        jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
-        jTextFieldVlAtendimento.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
+        if (atd.getVlTotal() < 1) {
+            jTextFieldVlAtendimento.setText("0" +decimal.retornaDecimal(atd.getVlTotal(), 6));
+        } 
+        else{
+            jTextFieldVlAtendimento.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
+        }
+        jTextFieldTotal.setText(jTextFieldVlAtendimento.getText().replace(".", "").replace(",", ""));
 
         linhasAtendimento = model.getRowCount();
         jRadioButtonCompra.setEnabled(false);
@@ -1521,16 +1581,24 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
     public void CarregarAtendimento(AtendimentoMesa atd) {
         jBtIncluirActionPerformed(null);
-        atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+        AtendimentoMesaProdutos prod = new AtendimentoMesaProdutos();
+        prod.setAtendimento(atd);
+        //atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
         jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
         jTextFieldData.setText(atd.getDtAtendimento());
-        jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
-        jTextFieldVlAtendimento.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
+        if (atd.getVlTotal() < 1) {
+            jTextFieldVlAtendimento.setText("0" +decimal.retornaDecimal(atd.getVlTotal(), 6));
+        } 
+        else{
+            jTextFieldVlAtendimento.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
+        }
+        jTextFieldTotal.setText(jTextFieldVlAtendimento.getText().replace(".", "").replace(",", ""));
 
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableProdutos, new int[]{150, 280, 150, 150, 150});
 
-        preencher.PreencherJtableGenerico(jTableProdutos, atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
+        preencher.PreencherJtableGenerico(jTableProdutos, prod.consultarProdutos(prod));
+        //preencher.PreencherJtableGenerico(jTableProdutos, atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
 
         linhasAtendimento = jTableProdutos.getRowCount();
         jRadioButtonCompra.setEnabled(false);
@@ -1567,7 +1635,12 @@ public class TelaVendaCompra extends javax.swing.JFrame {
 
     private void preencherTotal() {
         double vlTotal = venda.retornaTotalVendaCompra(jTableProdutos);
-        jTextFieldTotal.setText(decimal.retornaDecimal(vlTotal, 6));
+        if (vlTotal < 1) {
+            jTextFieldTotal.setText("0" + decimal.retornaDecimal(vlTotal, 6));
+        } 
+        else{
+            jTextFieldTotal.setText(decimal.retornaDecimal(vlTotal, 6));
+        }
     }
 
     private void gravarVendaCompra() {

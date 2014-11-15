@@ -1,6 +1,7 @@
 package Servicos;
 
 import Classes.AtendimentoMesa;
+import Classes.AtendimentoMesaProdutos;
 import Validacoes.PreencherTabela;
 import Validacoes.RetornaData;
 import Validacoes.TeclasdeAtalho;
@@ -192,8 +193,11 @@ public class TelaAtendimentos extends javax.swing.JFrame {
             int linha = jTableMesas.getSelectedRow();
             int nr = Integer.parseInt(jTableMesas.getValueAt(linha, 1).toString());
             atendimento.setNrAtendimento(nr);
-            atendimento.getAtdProdutos().setNrAtendimento(nr);
-            atendimento.getAtdProdutos().excluirTodos(atendimento.getAtdProdutos());
+            AtendimentoMesaProdutos prod = new AtendimentoMesaProdutos();
+            prod.setAtendimento(atendimento);
+            //atendimento.getAtdProdutos().setNrAtendimento(nr);
+            prod.excluirTodos(prod);
+            //atendimento.getAtdProdutos().excluirTodos(atendimento.getAtdProdutos());
             atendimento.excluir(atendimento);
             //
             consultarAtendimentos();

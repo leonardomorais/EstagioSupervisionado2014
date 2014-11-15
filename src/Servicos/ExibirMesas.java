@@ -1,6 +1,7 @@
 package Servicos;
 
 import Classes.AtendimentoMesa;
+import Classes.AtendimentoMesaProdutos;
 import Validacoes.FormataMoeda;
 import Validacoes.RetornaData;
 import Validacoes.RetornaDecimal;
@@ -342,8 +343,11 @@ public class ExibirMesas extends javax.swing.JFrame {
         
         if (opcao == JOptionPane.YES_OPTION) {
             atendimentos.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-            atendimentos.getAtdProdutos().setNrAtendimento(atendimentos.getNrAtendimento());
-            atendimentos.getAtdProdutos().excluirTodos(atendimentos.getAtdProdutos());
+            AtendimentoMesaProdutos prod = new AtendimentoMesaProdutos();
+            prod.setAtendimento(atendimentos);
+            prod.excluirTodos(prod);
+            //atendimentos.getAtdProdutos().setNrAtendimento(atendimentos.getNrAtendimento());
+            //atendimentos.getAtdProdutos().excluirTodos(atendimentos.getAtdProdutos());
             atendimentos.excluir(atendimentos);
             jBtAtualizarActionPerformed(null);
             jTextFieldNrMesaFocusLost(null);

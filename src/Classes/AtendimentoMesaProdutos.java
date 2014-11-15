@@ -10,7 +10,8 @@ import java.sql.SQLException;
  */
 public class AtendimentoMesaProdutos {
 
-    private Integer nrAtendimento;
+    //private Integer nrAtendimento;
+    private AtendimentoMesa atendimento = new AtendimentoMesa();
     private Produto produto = new Produto();
     private Integer quantidade;
     private Double valor;
@@ -20,7 +21,7 @@ public class AtendimentoMesaProdutos {
     public void incluir(AtendimentoMesaProdutos atd) {
         String sql = "INSERT INTO ATENDIMENTO_MESA_PRODUTOS "
                 + "(NR_ATENDIMENTO, CD_PRODUTO, QT_PRODUTO, VL_UNITARIO) "
-                + "VALUES ('" + atd.getNrAtendimento() + "','"
+                + "VALUES ('" + atd.getAtendimento().getNrAtendimento() + "','"
                 + atd.getProduto().getCdProduto() + "','" + atd.getQuantidade() + "','"
                 + atd.getValor() + "')";
         conexao.incluirSQL(sql);
@@ -28,7 +29,7 @@ public class AtendimentoMesaProdutos {
 
     public void excluir(AtendimentoMesaProdutos atd) {
         String sql = "DELETE FROM ATENDIMENTO_MESA_PRODUTOS WHERE "
-                + "NR_ATENDIMENTO = " + atd.getNrAtendimento() + " AND "
+                + "NR_ATENDIMENTO = " + atd.getAtendimento().getNrAtendimento() + " AND "
                 + "CD_PRODUTO = " + atd.getProduto().getCdProduto();
         conexao.deleteSQL(sql);
     }
@@ -48,7 +49,7 @@ public class AtendimentoMesaProdutos {
 
         }
         String sql = "DELETE FROM ATENDIMENTO_MESA_PRODUTOS WHERE "
-                + "NR_ATENDIMENTO = " + atd.getNrAtendimento();
+                + "NR_ATENDIMENTO = " + atd.getAtendimento().getNrAtendimento();
         conexao.deleteSQL(sql);
     }
 
@@ -57,7 +58,7 @@ public class AtendimentoMesaProdutos {
                 + " A.VL_UNITARIO, A.QT_PRODUTO, A.QT_PRODUTO * A.VL_UNITARIO AS TOTAL "
                 + "FROM ATENDIMENTO_MESA_PRODUTOS A INNER JOIN "
                 + "PRODUTOS P ON A.CD_PRODUTO = P.CD_PRODUTO "
-                + "WHERE A.NR_ATENDIMENTO = " + atd.getNrAtendimento();
+                + "WHERE A.NR_ATENDIMENTO = " + atd.getAtendimento().getNrAtendimento();
         conexao.executeSQL(sql);
         return conexao.resultset;
     }
@@ -86,13 +87,23 @@ public class AtendimentoMesaProdutos {
     public void setValor(Double valor) {
         this.valor = valor;
     }
+    
+    
 
-    public Integer getNrAtendimento() {
-        return nrAtendimento;
+//    public Integer getNrAtendimento() {
+//        return nrAtendimento;
+//    }
+//
+//    public void setNrAtendimento(Integer nrAtendimento) {
+//        this.nrAtendimento = nrAtendimento;
+//    }
+
+    public AtendimentoMesa getAtendimento() {
+        return atendimento;
     }
 
-    public void setNrAtendimento(Integer nrAtendimento) {
-        this.nrAtendimento = nrAtendimento;
+    public void setAtendimento(AtendimentoMesa atendimento) {
+        this.atendimento = atendimento;
     }
 
 }

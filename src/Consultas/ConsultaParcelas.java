@@ -295,6 +295,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     public void exibirParcelas() {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableParcelas, new int[]{90, 90, 90, 90, 90, 90});
+        parcelas.getContas().setCdConta(cod);
         preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(parcelas.getContas(),true));
         parcelas.getContas().retornaConta(parcelas.getContas(), true);
         jLabelTopo.setText("Parcelas da Conta " + parcelas.getContas().getCdConta() + " : " + parcelas.getContas().getDsConta());

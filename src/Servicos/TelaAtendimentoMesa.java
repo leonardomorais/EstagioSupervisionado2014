@@ -1,6 +1,7 @@
 package Servicos;
 
 import Classes.AtendimentoMesa;
+import Classes.AtendimentoMesaProdutos;
 import Classes.Produto;
 import Consultas.ConsultaFuncionario;
 import Consultas.ConsultaMesa;
@@ -714,7 +715,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 if (atd.getMesa().getNrMesa() == 0) {
                     jTextFieldNrMesa.setText("");
                 }
-                else if (!atd.VerificaMesaDisponivel(atd)){
+                else if (!atd.verificaMesaDisponivel(atd)){
                     jTextFieldNrMesa.setText("");
                 }
                 else {
@@ -760,12 +761,27 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
                 produto.alteraQtAtual(produto);
                 // 
-                atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-                atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
-                atd.getAtdProdutos().excluir(atd.getAtdProdutos());
+                AtendimentoMesaProdutos prod = new AtendimentoMesaProdutos();
+                prod.getAtendimento().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+                prod.getProduto().setCdProduto(Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
+                prod.excluir(prod);
+//                atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+//                atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(jTableProdutos.getValueAt(linha, 0).toString()));
+//                atd.getAtdProdutos().excluir(atd.getAtdProdutos());
 
                 tabela.removeRow(linha);
-                jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos), 6));
+                double total = atd.retornaTotalAtendimento(jTableProdutos);
+                if (total < 1){
+                    if (total == 0){
+                        jTextFieldTotal.setText("");
+                    }
+                    else{
+                        jTextFieldTotal.setText("0"+decimal.retornaDecimal(total, 6));
+                    }
+                }
+                else{
+                    jTextFieldTotal.setText(decimal.retornaDecimal(total, 6));
+                }
 
                 try{
                     atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
@@ -780,18 +796,34 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtRemoverActionPerformed
 
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
+        double valor = Double.parseDouble(jTextFieldVlUnitario.getText().replace(",", "."));
         if (jTextFieldCdProduto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Por favor informe o produto que deseja adicionar!");
             jTextFieldCdProduto.grabFocus();
-        } else {
-            adicionarProdutos();
-            jTextFieldTotal.setText(decimal.retornaDecimal(atd.retornaTotalAtendimento(jTableProdutos), 6));
-            produto.setQtAtual(produto.getQtAtual() - Integer.parseInt(jSpnQuantidade.getValue().toString()));
-            produto.alteraQtAtual(produto);
-            
-            atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
-            
-            atd.alterar(atd, "VL_TOTAL");
+        }
+        else if (jTextFieldVlUnitario.getText().equals("") || jTextFieldVlUnitario.getText().length() <= 3){
+            JOptionPane.showMessageDialog(null, "Por favor informe o valor unitário do produto!");
+            jTextFieldVlUnitario.grabFocus();
+        }
+        else if (valor == 0){
+            JOptionPane.showMessageDialog(null, "Por favor informe um valor unitário válido!");
+        }
+
+        else {
+                adicionarProdutos();
+                double total = atd.retornaTotalAtendimento(jTableProdutos);
+                if (total < 1) {
+                    jTextFieldTotal.setText("0" + decimal.retornaDecimal(total, 6));
+                } else {
+                    jTextFieldTotal.setText(decimal.retornaDecimal(total, 6));
+                }
+
+                produto.setQtAtual(produto.getQtAtual() - Integer.parseInt(jSpnQuantidade.getValue().toString()));
+                produto.alteraQtAtual(produto);
+
+                atd.setVlTotal(Double.parseDouble(jTextFieldTotal.getText().replace(".", "").replace(",", ".")));
+
+                atd.alterar(atd, "VL_TOTAL");
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
@@ -799,7 +831,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         if (!jTextFieldNrMesa.getText().equals("")) {
             try {
                 atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
-                if (atd.VerificaMesaDisponivel(atd)) {
+                if (atd.verificaMesaDisponivel(atd)) {
                     atd.getMesa().retornaMesa(atd.getMesa(), false);
                     atd.alterar(atd, "NR_MESA");
 
@@ -840,10 +872,13 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         
             if (!jTextFieldNrAtendimento.getText().isEmpty()) {
                 atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-                atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+                AtendimentoMesaProdutos prod = new AtendimentoMesaProdutos();
+                prod.setAtendimento(atd);
+                //atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
                 
                 //exclui os produtos e devolve a quantidade ao estoque
-                atd.getAtdProdutos().excluirTodos(atd.getAtdProdutos());
+                prod.excluirTodos(prod);
+                //atd.getAtdProdutos().excluirTodos(atd.getAtdProdutos());
                  
                 atd.excluir(atd);
                 
@@ -859,6 +894,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
             limpar.limparCampos(jPanelAtendimento);
             limpar.limparJtable(jTableProdutos);
             jSpnQuantidade.setValue(1);
+            this.setTitle("Realizar Atendimento");
             }
     }//GEN-LAST:event_jBtCancelarActionPerformed
 
@@ -1126,7 +1162,13 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         int max = produto.getQtAtual();
         SpinnerNumberModel model = new SpinnerNumberModel(1, 1, max, 1);
         jSpnQuantidade.setModel(model);
-        jTextFieldVlUnitario.setText(decimal.retornaDecimal(produto.getVlProduto(), 6));
+        if (produto.getVlProduto()< 1){
+            jTextFieldVlUnitario.setText("0"+decimal.retornaDecimal(produto.getVlProduto(), 6));
+        }
+        else{
+            jTextFieldVlUnitario.setText(decimal.retornaDecimal(produto.getVlProduto(), 6));
+        }
+        
         preencherTotalProduto();
         campos.validaSpinner(jSpnQuantidade);
     }
@@ -1136,13 +1178,19 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                 .replace(".", "").replace(",", "."));
 
         int qt = Integer.parseInt(jSpnQuantidade.getValue().toString());
-        jTextFieldTotalProduto.setText(decimal.retornaDecimal(qt * preco, 6));
-
+        double valor = qt * preco;
+        if (valor < 1){
+            jTextFieldTotalProduto.setText("0"+decimal.retornaDecimal(valor, 6));
+        }
+        else{
+            jTextFieldTotalProduto.setText(decimal.retornaDecimal(qt * preco, 6));
+        }
     }
 
     private void adicionarProdutos() {
         DefaultTableModel tabela = (DefaultTableModel) jTableProdutos.getModel();
         SpinnerNumberModel spn = (SpinnerNumberModel) jSpnQuantidade.getModel();
+        AtendimentoMesaProdutos prod = new AtendimentoMesaProdutos();
 
         String cd = jTextFieldCdProduto.getText();
         double valor = Double.parseDouble(jTextFieldVlUnitario.getText()
@@ -1173,9 +1221,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
                     quantidade = qtTabela;
                 } else {
                     quantidade = quantidade + qtTabela;
-                    atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-                    atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(cd));
-                    atd.getAtdProdutos().excluir(atd.getAtdProdutos());
+                    
+                    prod.getAtendimento().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+                    prod.getProduto().setCdProduto(Integer.parseInt(cd));
+                    prod.excluir(prod);
+//                    
+//                    atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+//                    atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(cd));
+//                    atd.getAtdProdutos().excluir(atd.getAtdProdutos());
                 }
             } else {
                 tabela.setNumRows(linhas + 1);
@@ -1183,17 +1236,33 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         }
         tabela.setValueAt(cd, posicao, 0);
         tabela.setValueAt(jTextFieldNomeProduto.getText(), posicao, 1);
-        tabela.setValueAt(decimal.retornaDecimal(valor), posicao, 2);
+        if (valor < 1){
+            tabela.setValueAt("0"+decimal.retornaDecimal(valor), posicao, 2);
+        }
+        else{
+            tabela.setValueAt(decimal.retornaDecimal(valor), posicao, 2);
+        }
         tabela.setValueAt(quantidade, posicao, 3);
         double total = quantidade * valor;
-        tabela.setValueAt(decimal.retornaDecimal(total), posicao, 4);
+        if (total < 1){
+            tabela.setValueAt("0"+decimal.retornaDecimal(total), posicao, 4);
+        }
+        else{
+            tabela.setValueAt(decimal.retornaDecimal(total), posicao, 4);
+        }
 
         // grava os produtos do atendimento
-        atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
-        atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(cd));
-        atd.getAtdProdutos().setQuantidade(quantidade);
-        atd.getAtdProdutos().setValor(valor);
-        atd.getAtdProdutos().incluir(atd.getAtdProdutos());
+        prod.getAtendimento().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+        prod.getProduto().setCdProduto(Integer.parseInt(cd));
+        prod.setQuantidade(quantidade);
+        prod.setValor(valor);
+        prod.incluir(prod);
+//        
+//        atd.getAtdProdutos().setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
+//        atd.getAtdProdutos().getProduto().setCdProduto(Integer.parseInt(cd));
+//        atd.getAtdProdutos().setQuantidade(quantidade);
+//        atd.getAtdProdutos().setValor(valor);
+//        atd.getAtdProdutos().incluir(atd.getAtdProdutos());
     }
 
     private void formatarTabela() {
@@ -1251,16 +1320,36 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     public void exibirAtendimento(int nrAtendimento) {
         atd.setNrAtendimento(nrAtendimento);
         jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
+        this.setTitle("Atendimento Nr." + atd.getNrAtendimento());
         atd.retornaAtendimento(atd);
+        
+        rotina = Rotinas.incluir;
+        validaEstadoCampos();
 
         if (atd.getMesa().getNrMesa() <= 0) {
             jTextFieldNrMesa.setText("");
+            jTextFieldNrMesa.setEnabled(true);
+            jBtMesa.setEnabled(true);
         } else {
             jTextFieldNrMesa.setText(atd.getMesa().getNrMesa().toString());
+            jTextFieldNrMesa.setEnabled(false);
+            jBtMesa.setEnabled(false);
         }
         jTextFieldHoraAbre.setText(atd.getHoraAbertura());
         jFormattedTextFieldData.setText(atd.getDtAtendimento());
-        jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
+        
+        if (atd.getVlTotal() < 1){
+            if (atd.getVlTotal() == 0){
+                jTextFieldTotal.setText("000");
+            }
+            else{
+                jTextFieldTotal.setText("0"+decimal.retornaDecimal(atd.getVlTotal(), 6));
+            }
+        }
+        else{
+            jTextFieldTotal.setText(decimal.retornaDecimal(atd.getVlTotal(), 6));
+        }
+        
         if (atd.getFuncionario().getCdFuncionario() <= 0) {
             jTextFieldCdFunc.setText("");
         } else {
@@ -1269,13 +1358,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         }
 
         formatarTabela();
-        atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+        AtendimentoMesaProdutos prod = new AtendimentoMesaProdutos();
+        prod.setAtendimento(atd);
+        //atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
         PreencherTabela preencher = new PreencherTabela();
-        preencher.PreencherJtableGenerico(jTableProdutos, atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
-        rotina = Rotinas.incluir;
-        validaEstadoCampos();
-        jTextFieldNrMesa.setEnabled(false);
-        jBtMesa.setEnabled(false);
+        preencher.PreencherJtableGenerico(jTableProdutos, prod.consultarProdutos(prod));
+        //preencher.PreencherJtableGenerico(jTableProdutos, atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
+//        rotina = Rotinas.incluir;
+//        validaEstadoCampos();
     }
 
     private void validaEstadoCampos() {
@@ -1310,10 +1400,14 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         int linha = jTableAtendimento.getSelectedRow();
         if (linha >= 0) {
             atd.setNrAtendimento(Integer.parseInt(jTableAtendimento.getValueAt(linha, 0).toString()));
-            atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
+            AtendimentoMesaProdutos prod = new AtendimentoMesaProdutos();
+            prod.setAtendimento(atd);
+            //atd.getAtdProdutos().setNrAtendimento(atd.getNrAtendimento());
             tabela.FormatarJtable(jTableAtendimentoProdutos, new int[]{100, 275, 100, 100, 100});
             tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
-                    atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
+                    prod.consultarProdutos(prod));
+            //tabela.PreencherJtableGenerico(jTableAtendimentoProdutos,
+              //      atd.getAtdProdutos().consultarProdutos(atd.getAtdProdutos()));
         } else {
             limpar.limparJtable(jTableAtendimentoProdutos);
         }

@@ -33,7 +33,7 @@ public class AtendimentoMesa {
 
     private Mesa mesa = new Mesa();
     private Funcionario funcionario = new Funcionario();
-    private AtendimentoMesaProdutos atdProdutos = new AtendimentoMesaProdutos();
+    //private AtendimentoMesaProdutos atdProdutos = new AtendimentoMesaProdutos();
 
     ConexaoPostgreSQL conexao = new ConexaoPostgreSQL();
 
@@ -104,7 +104,7 @@ public class AtendimentoMesa {
     public double retornaTotalAtendimento(JTable jtable) {
         DefaultTableModel tabela = (DefaultTableModel) jtable.getModel();
         double total = 0;
-        double valor = 0;
+        double valor;
         int linhas = tabela.getRowCount();
         for (int i = 0; i < linhas; i++) {
             valor = Double.parseDouble(tabela.getValueAt(i, 4).toString());
@@ -374,7 +374,7 @@ public class AtendimentoMesa {
         }
     }
     
-    public boolean VerificaMesaDisponivel(AtendimentoMesa atd){
+    public boolean verificaMesaDisponivel(AtendimentoMesa atd){
         boolean disponivel = true;
         String sql = "SELECT * FROM ATENDIMENTO_MESA WHERE "
                 + "ABERTO_FECHADO = 'A' AND NR_MESA = "+atd.getMesa().getNrMesa();
@@ -456,12 +456,12 @@ public class AtendimentoMesa {
         this.funcionario = funcionario;
     }
 
-    public AtendimentoMesaProdutos getAtdProdutos() {
-        return atdProdutos;
-    }
+   // public AtendimentoMesaProdutos getAtdProdutos() {
+        //return atdProdutos;
+    //}
 
-    public void setAtdProdutos(AtendimentoMesaProdutos atdProdutos) {
-        this.atdProdutos = atdProdutos;
-    }
+    //public void setAtdProdutos(AtendimentoMesaProdutos atdProdutos) {
+      //  this.atdProdutos = atdProdutos;
+   // }
 
 }
