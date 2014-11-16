@@ -3,6 +3,7 @@ package Consultas;
 import Classes.Parcelas;
 import Dialogos.DialogoData;
 import Relatorios.Relatorios;
+import Telas.MenuPrincipal;
 import Telas.TelaPagamento;
 import Validacoes.EditarComponentes;
 import Validacoes.PreencherTabela;
@@ -206,6 +207,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             tela.addWindowListener(new java.awt.event.WindowAdapter() {
                 public void windowClosed(java.awt.event.WindowEvent evento) {
                     if (rotina == 1){
+                        parcelas.getContas().setCdConta(cod);
                         exibirParcelas();
                     }
                     else{
@@ -238,8 +240,10 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     private void jBtFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtFecharActionPerformed
         if (rotina == 1){
             Relatorios report = new Relatorios();
+            parcelas.getContas().setCdConta(cod);
             report.setConsulta(parcelas.consultarCdConta(parcelas.getContas(), true));
             report.setSubreport(false);
+            report.getParametro().put("USUARIO", MenuPrincipal.usuarioAtual);
             report.setTabela("TICKET_PARCELAS");
             report.iniciarSplash(report);
         }
@@ -295,7 +299,7 @@ public class ConsultaParcelas extends javax.swing.JFrame {
     public void exibirParcelas() {
         PreencherTabela preencher = new PreencherTabela();
         preencher.FormatarJtable(jTableParcelas, new int[]{90, 90, 90, 90, 90, 90});
-        parcelas.getContas().setCdConta(cod);
+        cod = parcelas.getContas().getCdConta();
         preencher.PreencherJtableGenerico(jTableParcelas, parcelas.consultarCdConta(parcelas.getContas(),true));
         parcelas.getContas().retornaConta(parcelas.getContas(), true);
         jLabelTopo.setText("Parcelas da Conta " + parcelas.getContas().getCdConta() + " : " + parcelas.getContas().getDsConta());
@@ -320,9 +324,5 @@ public class ConsultaParcelas extends javax.swing.JFrame {
             edit.setTipo("PARCELAS");
             edit.editarTabela(jTableParcelas);
         }
-//        edit.setTipo("PARCELAS");
-//        edit.editarTabela(jTableParcelas);
-        
-        
     }
 }

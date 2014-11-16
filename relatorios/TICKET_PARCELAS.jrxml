@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="USUARIO" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT CD_CONTA, NR_PARCELA, VL_PARCELA,
 TO_CHAR(DT_VENCIMENTO, 'DD/MM/YYYY') AS DT_VENC, VL_PAGO,
@@ -202,6 +203,13 @@ FROM PARCELAS ORDER BY NR_PARCELA]]>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2e528388-458a-4c1c-abfc-d36689a96378" x="52" y="1" width="126" height="49"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[   $P{USUARIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

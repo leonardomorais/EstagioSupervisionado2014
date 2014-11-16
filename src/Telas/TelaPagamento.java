@@ -1165,6 +1165,7 @@ public class TelaPagamento extends javax.swing.JFrame {
 
     private void exibirTicket() {
         report.setConsulta(pagamento.consultarTicket(pagamento, codigos));
+        report.getParametro().put("USUARIO", MenuPrincipal.usuarioAtual);
         report.setTabela("TICKET_PAGAMENTO");
         report.setSubreport(false);
         report.iniciarSplash(report);

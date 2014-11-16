@@ -13,6 +13,7 @@ import Consultas.ConsultaOperacao;
 import Consultas.ConsultaParcelas;
 import Consultas.ConsultaProduto;
 import Relatorios.Relatorios;
+import Telas.MenuPrincipal;
 import Validacoes.EditarComponentes;
 import Validacoes.FormataMoeda;
 import Validacoes.LimparCampos;
@@ -1725,7 +1726,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                 @Override
                 public void windowClosed(WindowEvent evt) {
                     limparCampos();
-                    
+                    report.getParametro().put("USUARIO", MenuPrincipal.usuarioAtual);
                     report.setConsulta(venda.consultarTicket(venda));
                     report.setSubreport(false);
                     report.setTabela("TICKET_VENDA_COMPRA");

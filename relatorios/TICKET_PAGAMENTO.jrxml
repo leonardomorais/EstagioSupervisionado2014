@@ -6,6 +6,7 @@
 	<parameter name="CD_VENDA_COMPRA" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="USUARIO" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT PAG.CD_PAGAMENTO, PAG.CD_CONTA, PAG.NR_PARCELA, C.DS_CONTA,
 PAG.NR_PARCELA, PAG.CD_TIPO, T.DS_TIPO, P.VL_PAGO
@@ -210,6 +211,13 @@ ON T.CD_TIPO = PAG.CD_TIPO]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Data]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="eadad951-9c96-4455-8c6b-a64c8cdbc6f1" x="52" y="1" width="139" height="49"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[   $P{USUARIO}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>

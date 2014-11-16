@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="USUARIO" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT VC.CD_VENDA_COMPRA, VC.CD_FORMA, F.DS_FORMA,
 VC.CD_OPERACAO, O.DS_OPERACAO, TO_CHAR(DT_VENDA_COMPRA,'DD/MM/YYYY') AS DATA,
@@ -210,14 +211,14 @@ INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO]]>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="efea83af-5651-49d2-a4f0-520dac7eb609" x="183" y="0" width="63" height="49"/>
+				<reportElement uuid="efea83af-5651-49d2-a4f0-520dac7eb609" x="183" y="0" width="63" height="50"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL  R$ ]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="a2a57d13-89ca-4cd9-ba33-689bf1f8061a" x="246" y="0" width="51" height="49"/>
+				<reportElement uuid="a2a57d13-89ca-4cd9-ba33-689bf1f8061a" x="246" y="1" width="51" height="49"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
@@ -232,8 +233,15 @@ INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO]]>
 			<staticText>
 				<reportElement uuid="27d2efbd-816c-4cb1-a23f-3abe0191a29b" x="0" y="1" width="52" height="49"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Usuário]]></text>
+				<text><![CDATA[   Usuário]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="9f69d425-d9ea-481d-a6e2-21cf8eef2e7d" x="52" y="1" width="117" height="49"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[   $P{USUARIO}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
