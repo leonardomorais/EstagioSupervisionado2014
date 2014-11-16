@@ -104,6 +104,9 @@ WHERE cd_pessoa = $P{cdPessoa} ORDER BY nr_seq]]>
 				</textElement>
 				<text><![CDATA[Nr endereço]]></text>
 			</staticText>
+			<rectangle>
+				<reportElement uuid="74523520-64c8-4336-930c-239ba4c77658" x="524" y="0" width="100" height="20"/>
+			</rectangle>
 		</band>
 	</columnHeader>
 	<detail>

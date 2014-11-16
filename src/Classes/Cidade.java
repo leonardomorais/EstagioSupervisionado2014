@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 public class Cidade {
 
     private Integer cdCidade;
-   // private int[] vetCidades = new int[100];
     private String dsCidade;
     
     private Map <Integer, Integer> cidades = new HashMap<Integer, Integer>();
@@ -55,31 +54,25 @@ public class Cidade {
     }
 
     public ResultSet consultarGeral() {
-        ResultSet retorno = null;
         String sql = "SELECT C.CD_CIDADE, C.DS_CIDADE, C.CD_UF, U.NOME_UF FROM CIDADE C"
                 + " INNER JOIN UF U ON C.CD_UF = U.CD_UF ORDER BY C.CD_CIDADE";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarCodigo(Cidade cidade) {
-        ResultSet retorno = null;
         String sql = "SELECT C.CD_CIDADE, C.DS_CIDADE, C.CD_UF, U.NOME_UF FROM CIDADE C"
                 + " INNER JOIN UF U ON C.CD_UF = U.CD_UF WHERE CD_CIDADE = " + cidade.getCdCidade();
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarNome(Cidade cidade) {
-        ResultSet retorno = null;
         String sql = "SELECT C.CD_CIDADE, C.DS_CIDADE, C.CD_UF, U.NOME_UF FROM CIDADE C"
                 + " INNER JOIN UF U ON C.CD_UF = U.CD_UF WHERE DS_CIDADE LIKE "
                 + "'%" + cidade.getDsCidade() + "%' ORDER BY CD_CIDADE";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public void retornaCidade(Cidade cidade) {
