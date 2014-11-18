@@ -29,7 +29,7 @@ public class ConsultaFuncionario extends javax.swing.JDialog {
         super(telaOrigem, modal);
         initComponents();
         valida.validaNivel(null);
-        jBtCadastrarNovo.setEnabled(valida.validaBotaoCadastro(jBtCadastrarNovo.getName()));
+        jBtCadastrarNovo.setEnabled(valida.validaAcessoTela(jBtCadastrarNovo.getName()));
     }
 
     /**

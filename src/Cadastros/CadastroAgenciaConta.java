@@ -794,7 +794,7 @@ public class CadastroAgenciaConta extends javax.swing.JFrame {
     private void carregarUsuario(){
         valida.validaNivel(this.getName());
         valida.validaBotoesUsuario(jPanelBotoes);
-        jButtonBanco.setEnabled(valida.validaBotaoCadastro(jButtonBanco.getName()));
+        jButtonBanco.setEnabled(valida.validaAcessoTela(jButtonBanco.getName()));
     }
 
 }

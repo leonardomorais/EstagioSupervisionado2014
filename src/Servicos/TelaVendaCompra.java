@@ -1347,7 +1347,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemExcluirActionPerformed
 
     private void jPopupMenuContaPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuContaPopupMenuWillBecomeVisible
-        jMenuItemExibirParcelas.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTAS PAGAR/RECEBER"));
+        jMenuItemExibirParcelas.setEnabled(valida.validaAcessoTela("CADASTRAR CONTAS PAGAR/RECEBER"));
     }//GEN-LAST:event_jPopupMenuContaPopupMenuWillBecomeVisible
 
     /**

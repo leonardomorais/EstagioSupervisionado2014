@@ -29,7 +29,7 @@ public class ConsultaMesa extends javax.swing.JDialog {
         super(telaOrigem, modal);
         initComponents();
         valida.validaNivel(null);
-        jBtCadastrarNova.setEnabled(valida.validaBotaoCadastro("CADASTRAR MESA"));
+        jBtCadastrarNova.setEnabled(valida.validaAcessoTela("CADASTRAR MESA"));
     }
 
     /**

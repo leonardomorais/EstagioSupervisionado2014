@@ -630,6 +630,6 @@ public class CadastroCidade extends javax.swing.JFrame {
     private void carregarUsuario(){
         valida.validaNivel(this.getName());
         valida.validaBotoesUsuario(jPanelBotoes);
-        jbtCadEstado.setEnabled(valida.validaBotaoCadastro("CADASTRAR ESTADO"));
+        jbtCadEstado.setEnabled(valida.validaAcessoTela("CADASTRAR ESTADO"));
     }
 }

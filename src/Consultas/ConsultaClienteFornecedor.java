@@ -33,11 +33,11 @@ public class ConsultaClienteFornecedor extends javax.swing.JDialog {
         // caso contrário buscará um fornecedor;
         if (cliente){
             this.setTitle("Consultar Cliente");
-            jBtExibirCadastro.setEnabled(valida.validaBotaoCadastro("CADASTRAR CLIENTES"));
+            jBtExibirCadastro.setEnabled(valida.validaAcessoTela("CADASTRAR CLIENTES"));
         }
         else{
             this.setTitle("Consultar Fornecedor");
-            jBtExibirCadastro.setEnabled(valida.validaBotaoCadastro("CADASTRAR FORNECEDORES"));
+            jBtExibirCadastro.setEnabled(valida.validaAcessoTela("CADASTRAR FORNECEDORES"));
         }
     }
 

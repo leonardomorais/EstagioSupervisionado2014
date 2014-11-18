@@ -32,7 +32,7 @@ public class ConsultaNivel extends javax.swing.JDialog {
         super(telaOrigem, modal);
         initComponents();
         valida.validaNivel(null);
-        jBtExibirCadastro.setEnabled(valida.validaBotaoCadastro("CADASTRAR NÍVEIS DE ACESSO"));
+        jBtExibirCadastro.setEnabled(valida.validaAcessoTela("CADASTRAR NÍVEIS DE ACESSO"));
     }
 
     /**

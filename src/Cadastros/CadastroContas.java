@@ -901,7 +901,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 String data = jTableParcelas.getValueAt(linha, 5).toString();
                 if (valor.equals("0.00") || data.equals("")) {
                     jMenuItemPagarParcela.setEnabled(true);
-                    jMenuItemPagarParcela.setEnabled(valida.validaBotaoCadastro("REALIZAR PAGAMENTO"));
+                    jMenuItemPagarParcela.setEnabled(valida.validaAcessoTela("REALIZAR PAGAMENTO"));
                     jMenuItemEstornarParcela.setEnabled(false);
                     jMenuItemExcluirParcela.setEnabled(itemExcluirAtivo());
                 } else {
@@ -911,7 +911,7 @@ public class CadastroContas extends javax.swing.JFrame {
                 }
             } catch (NullPointerException ex) {
                 jMenuItemPagarParcela.setEnabled(true);
-                jMenuItemPagarParcela.setEnabled(valida.validaBotaoCadastro("REALIZAR PAGAMENTO"));
+                jMenuItemPagarParcela.setEnabled(valida.validaAcessoTela("REALIZAR PAGAMENTO"));
                 jMenuItemExcluirParcela.setEnabled(itemExcluirAtivo());
                 jMenuItemEstornarParcela.setEnabled(false);
             }

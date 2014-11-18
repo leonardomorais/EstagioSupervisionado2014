@@ -873,6 +873,6 @@ public class CadastroEndereco extends javax.swing.JFrame {
     private void carregarUsuario(){
         valida.validaNivel(this.getName());
         valida.validaBotoesUsuario(jPanelBotoes);
-        jBtCidades.setEnabled(valida.validaBotaoCadastro("CADASTRAR CIDADE"));
+        jBtCidades.setEnabled(valida.validaAcessoTela("CADASTRAR CIDADE"));
     }
 }

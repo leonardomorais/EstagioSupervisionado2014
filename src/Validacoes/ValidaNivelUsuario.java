@@ -177,7 +177,7 @@ public class ValidaNivelUsuario {
         }
     }
     
-    public boolean validaBotaoCadastro(String nome){
+    public boolean validaAcessoTela(String nome){
         String sql = "SELECT T.DS_TELA FROM NIVEL_TELA NT "
                 + "INNER JOIN NIVEL N ON NT.CD_NIVEL = N.CD_NIVEL "
                 + "AND NT.CD_NIVEL = "+nivel+" "

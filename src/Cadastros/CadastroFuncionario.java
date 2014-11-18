@@ -970,8 +970,8 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldRGKeyTyped
 
     private void jPopupMenuFuncionarioPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuFuncionarioPopupMenuWillBecomeVisible
-        jMenuItemContatos.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTATO"));
-        jMenuItemEndereco.setEnabled(valida.validaBotaoCadastro("CADASTRAR ENDEREÇO"));
+        jMenuItemContatos.setEnabled(valida.validaAcessoTela("CADASTRAR CONTATO"));
+        jMenuItemEndereco.setEnabled(valida.validaAcessoTela("CADASTRAR ENDEREÇO"));
     }//GEN-LAST:event_jPopupMenuFuncionarioPopupMenuWillBecomeVisible
 
     /**
@@ -1163,8 +1163,8 @@ public class CadastroFuncionario extends javax.swing.JFrame {
     private void carregarUsuario(){
         valida.validaNivel(this.getName());
         valida.validaBotoesUsuario(jPanelBotoes);
-        jButtonCidades.setEnabled(valida.validaBotaoCadastro("CADASTRAR CIDADE"));
-        jBtContatos.setEnabled(valida.validaBotaoCadastro("CADASTRAR CONTATO"));
-        jBtEndereco.setEnabled(valida.validaBotaoCadastro("CADASTRAR ENDEREÇO"));
+        jButtonCidades.setEnabled(valida.validaAcessoTela("CADASTRAR CIDADE"));
+        jBtContatos.setEnabled(valida.validaAcessoTela("CADASTRAR CONTATO"));
+        jBtEndereco.setEnabled(valida.validaAcessoTela("CADASTRAR ENDEREÇO"));
     }
 }

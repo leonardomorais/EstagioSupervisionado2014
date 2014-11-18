@@ -28,7 +28,7 @@ public class ConsultaTipoPagamento extends javax.swing.JDialog {
         super(telaOrigem, modal);
         initComponents();
         valida.validaNivel(null);
-        jBtCadastrar.setEnabled(valida.validaBotaoCadastro("CADASTRAR TIPO DE PAGAMENTO"));
+        jBtCadastrar.setEnabled(valida.validaAcessoTela("CADASTRAR TIPO DE PAGAMENTO"));
     }
 
     /**

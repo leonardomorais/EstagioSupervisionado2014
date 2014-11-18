@@ -6,6 +6,7 @@ import Classes.Parcelas;
 import Telas.TelaPagamento;
 import Validacoes.Avisos;
 import Validacoes.PreencherTabela;
+import Validacoes.ValidaNivelUsuario;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.ListSelectionModel;
@@ -40,6 +41,16 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
         jTableParcelas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        jPopupMenuParcelas.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                jPopupMenuParcelasPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         jMenuItemExibirDetalhes.setText("Exibir Detalhes");
         jMenuItemExibirDetalhes.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +148,13 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
         
         });
     }//GEN-LAST:event_jMenuItemExibirDetalhesActionPerformed
+
+    private void jPopupMenuParcelasPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jPopupMenuParcelasPopupMenuWillBecomeVisible
+        ValidaNivelUsuario valida = new ValidaNivelUsuario();
+        valida.validaNivel(null);
+        jMenuItemExibirDetalhes.setEnabled(valida.validaAcessoTela("CADASTRAR CONTAS PAGAR/RECEBER"));
+        jMenuItemPagar.setEnabled(valida.validaAcessoTela("REALIZAR PAGAMENTO"));
+    }//GEN-LAST:event_jPopupMenuParcelasPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments

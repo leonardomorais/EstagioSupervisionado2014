@@ -841,6 +841,6 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void carregarUsuario(){
         valida.validaNivel(this.getName());
         valida.validaBotoesUsuario(jPanelBotoes);
-        jBtExibirCadastro.setEnabled(valida.validaBotaoCadastro("CADASTRAR FAMÍLIA DE PRODUTOS"));
+        jBtExibirCadastro.setEnabled(valida.validaAcessoTela("CADASTRAR FAMÍLIA DE PRODUTOS"));
     }
 }

@@ -38,7 +38,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         valida.validaNivel(this.getName());
-        jBtCadAgenciaConta.setEnabled(valida.validaBotaoCadastro("CADASTRAR AGÊNCIA CONTA"));
+        jBtCadAgenciaConta.setEnabled(valida.validaAcessoTela("CADASTRAR AGÊNCIA CONTA"));
         validaEstadoCampos();
 
     }

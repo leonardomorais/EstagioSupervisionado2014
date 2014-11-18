@@ -31,7 +31,7 @@ public class ConsultaProduto extends javax.swing.JDialog {
         todos = consulta;
         initComponents();
         valida.validaNivel(null);
-        jBtNovo.setEnabled(valida.validaBotaoCadastro("CADASTRAR PRODUTOS"));
+        jBtNovo.setEnabled(valida.validaAcessoTela("CADASTRAR PRODUTOS"));
     }
 
     /**

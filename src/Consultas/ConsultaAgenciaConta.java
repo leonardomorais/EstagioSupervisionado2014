@@ -28,7 +28,7 @@ public class ConsultaAgenciaConta extends javax.swing.JDialog {
         super(telaOrigem, modal);
         initComponents();
         valida.validaNivel(null);
-        jBtCadastrar.setEnabled(valida.validaBotaoCadastro(jBtCadastrar.getName()));
+        jBtCadastrar.setEnabled(valida.validaAcessoTela(jBtCadastrar.getName()));
     }
 
     /**

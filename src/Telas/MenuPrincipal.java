@@ -14,6 +14,7 @@ import Cadastros.CadastroFornecedor;
 import Cadastros.CadastroFuncionario;
 import Cadastros.CadastroMesa;
 import Cadastros.CadastroNivel;
+import Cadastros.CadastroOperacao;
 import Cadastros.CadastroOrigem;
 import Cadastros.CadastroProduto;
 import Cadastros.CadastroTipoPagamento;
@@ -87,6 +88,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItemCadForma = new javax.swing.JMenuItem();
         jMenuItemCadTipo = new javax.swing.JMenuItem();
+        jMenuItemCadOperacao = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItemCadFornecedor = new javax.swing.JMenuItem();
         jMenuItemCadFuncionario = new javax.swing.JMenuItem();
@@ -261,6 +263,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuCadastros.add(jMenuItemCadTipo);
+
+        jMenuItemCadOperacao.setText("Cadastrar Operação");
+        jMenuItemCadOperacao.setName("CADASTRAR OPERAÇÃO"); // NOI18N
+        jMenuItemCadOperacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadOperacaoActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemCadOperacao);
         jMenuCadastros.add(jSeparator4);
 
         jMenuItemCadFornecedor.setText("Cadastrar Fornecedores");
@@ -613,6 +624,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_jLabelSairMouseClicked
 
+    private void jMenuItemCadOperacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadOperacaoActionPerformed
+        new CadastroOperacao().setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadOperacaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -668,6 +683,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadFornecedor;
     private javax.swing.JMenuItem jMenuItemCadFuncionario;
     private javax.swing.JMenuItem jMenuItemCadMesa;
+    private javax.swing.JMenuItem jMenuItemCadOperacao;
     private javax.swing.JMenuItem jMenuItemCadOrigem;
     private javax.swing.JMenuItem jMenuItemCadProduto;
     private javax.swing.JMenuItem jMenuItemCadTipo;
