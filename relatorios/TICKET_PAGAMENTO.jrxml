@@ -202,12 +202,12 @@ ON T.CD_TIPO = PAG.CD_TIPO]]>
 				</graphicElement>
 			</line>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement uuid="414800c8-219b-4ff6-81f2-76eae4417f12" x="245" y="1" width="52" height="49"/>
+				<reportElement uuid="414800c8-219b-4ff6-81f2-76eae4417f12" x="233" y="1" width="52" height="49"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="9b822197-6b62-49a2-8161-c905893db411" x="221" y="1" width="24" height="49"/>
+				<reportElement uuid="9b822197-6b62-49a2-8161-c905893db411" x="209" y="1" width="24" height="49"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Data]]></text>
 			</staticText>
@@ -216,7 +216,7 @@ ON T.CD_TIPO = PAG.CD_TIPO]]>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[   $P{USUARIO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

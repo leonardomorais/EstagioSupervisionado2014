@@ -43,7 +43,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        carregarUsuario();
+     //   carregarUsuario();
         endereco.retornaComboCidade(jComboBoxCidade);
     }
 
@@ -329,16 +329,17 @@ public class CadastroEndereco extends javax.swing.JFrame {
                                 .addComponent(jTextFieldCdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(47, 47, 47)
                             .addComponent(jBtPesquisaPessoa))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         jPanelCadastroLayout.setVerticalGroup(
             jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCadastroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel10)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCdPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -432,7 +433,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBoxConsulta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
+                        .addComponent(jTextFieldConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jBtPesquisar)))
                 .addContainerGap())
@@ -458,7 +459,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
+            .addGap(0, 780, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jTabbedPaneEndereco, javax.swing.GroupLayout.Alignment.TRAILING))
         );
@@ -866,7 +867,7 @@ public class CadastroEndereco extends javax.swing.JFrame {
 
         PreencherTabela preencher = new PreencherTabela();
         endereco.setCdPessoa(pessoa.getCdPessoa());
-        preencher.FormatarJtable(jTableConsulta, new int[]{40, 40, 200, 100, 120, 40, 80, 60, 55});
+        preencher.FormatarJtable(jTableConsulta, new int[]{40, 40, 200, 100, 120, 40, 80, 60, 75});
         preencher.PreencherJtableGenerico(jTableConsulta, endereco.consultarCodigo(endereco));
     }
     

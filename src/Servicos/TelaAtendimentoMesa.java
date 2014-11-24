@@ -708,7 +708,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
     private void jBtMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMesaActionPerformed
         ConsultaMesa csMesa = new ConsultaMesa(this, true);
         csMesa.setVisible(true);
-
+        atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
         csMesa.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
 
@@ -831,6 +831,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         if (!jTextFieldNrMesa.getText().equals("")) {
             try {
                 atd.getMesa().setNrMesa(Integer.parseInt(jTextFieldNrMesa.getText()));
+                atd.setNrAtendimento(Integer.parseInt(jTextFieldNrAtendimento.getText()));
                 if (atd.verificaMesaDisponivel(atd)) {
                     atd.getMesa().retornaMesa(atd.getMesa(), false);
                     atd.alterar(atd, "NR_MESA");
@@ -954,7 +955,7 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableAtendimento, new int[]{70, 50, 70, 195, 70, 70, 70, 60, 70});
+        preencher.FormatarJtable(jTableAtendimento, new int[]{90, 40, 85, 195, 70, 65, 70, 60, 50});
         report = new Relatorios();
         if (jRadioButtonAbertos.isSelected()){
             atd.setAbertoFechado("A");
@@ -1279,16 +1280,16 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
         atd.incluir(atd);
         jTextFieldNrAtendimento.setText(atd.getNrAtendimento().toString());
         this.setTitle("Atendimento Nr." + atd.getNrAtendimento());
-        jTextFieldNrMesa.setEnabled(true);
-        jBtMesa.setEnabled(true);
+        //jTextFieldNrMesa.setEnabled(true);
+        //jBtMesa.setEnabled(true);
     }
     
     public void iniciarAtendimento(int nrMesa){
         jBtNovoActionPerformed(null);
         jTextFieldNrMesa.setText(nrMesa+"");
         jTextFieldNrMesa.grabFocus();
-        jTextFieldNrMesa.setEnabled(false);
-        jBtMesa.setEnabled(false);
+        //jTextFieldNrMesa.setEnabled(false);
+        //jBtMesa.setEnabled(false);
     }
 
     public void fecharAtendimento() {
@@ -1328,12 +1329,12 @@ public class TelaAtendimentoMesa extends javax.swing.JFrame {
 
         if (atd.getMesa().getNrMesa() <= 0) {
             jTextFieldNrMesa.setText("");
-            jTextFieldNrMesa.setEnabled(true);
-            jBtMesa.setEnabled(true);
+           // jTextFieldNrMesa.setEnabled(true);
+           // jBtMesa.setEnabled(true);
         } else {
             jTextFieldNrMesa.setText(atd.getMesa().getNrMesa().toString());
-            jTextFieldNrMesa.setEnabled(false);
-            jBtMesa.setEnabled(false);
+          //  jTextFieldNrMesa.setEnabled(false);
+          //  jBtMesa.setEnabled(false);
         }
         jTextFieldHoraAbre.setText(atd.getHoraAbertura());
         jFormattedTextFieldData.setText(atd.getDtAtendimento());

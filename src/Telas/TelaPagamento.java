@@ -654,25 +654,32 @@ public class TelaPagamento extends javax.swing.JFrame {
             jTextFieldCdAgencia.setText("");
             jTextFieldCdTipo.setText("");
             jTextFieldPagamento.setText("");
-            try {
-                carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
-                exibirTicket();
-            } catch (NumberFormatException ex) {
-                int conta;
-                int linha;
-                try {
-                    linha = jTableContas.getSelectedRow();
-                    conta = Integer.parseInt(jTableContas.getValueAt(linha, 0).toString());
-                    pagamento.getParcelas().getContas().setCdConta(conta);
-                    carregarTabelaContas();
-                    exibirTicket();
-                } catch (Exception e) {
-                    conta = Integer.parseInt(jTableContas.getValueAt(0, 0).toString());
-                    pagamento.getParcelas().getContas().setCdConta(conta);
-                    carregarTabelaContas();
-                    exibirTicket();
-                }
+            if (jTableContas.getRowCount()== 1){
+                pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableContas.getValueAt(0, 0).toString()));
+                carregarTabelaContas();
             }
+            else{
+                carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
+            }
+//            try {
+//                carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
+//                exibirTicket();
+//            } catch (NumberFormatException ex) {
+//                int conta;
+//                int linha;
+//                try {
+//                    linha = jTableContas.getSelectedRow();
+//                    conta = Integer.parseInt(jTableContas.getValueAt(linha, 0).toString());
+//                    pagamento.getParcelas().getContas().setCdConta(conta);
+//                    carregarTabelaContas();
+//                    exibirTicket();
+//                } catch (Exception e) {
+//                    conta = Integer.parseInt(jTableContas.getValueAt(0, 0).toString());
+//                    pagamento.getParcelas().getContas().setCdConta(conta);
+//                    carregarTabelaContas();
+//                    exibirTicket();
+//                }
+//            }
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 

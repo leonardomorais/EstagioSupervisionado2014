@@ -885,7 +885,7 @@ public class CadastroFornecedor extends javax.swing.JFrame {
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableConsulta, new int[]{40, 180, 45, 100, 120, 180, 60, 40});
+        preencher.FormatarJtable(jTableConsulta, new int[]{40, 180, 45, 100, 120, 180, 55, 45});
         
         switch (jComboBoxConsulta.getSelectedIndex()){
             case 0:

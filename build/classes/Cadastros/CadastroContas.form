@@ -159,7 +159,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="125" max="32767" attributes="0"/>
+                      <EmptySpace pref="138" max="32767" attributes="0"/>
                       <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -522,7 +522,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jBtRelatorio" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane2" alignment="0" pref="847" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="860" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>

@@ -53,7 +53,7 @@ public class CadastroContas extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        carregarUsuario();
+        //carregarUsuario();
     }
 
     /**
@@ -382,7 +382,7 @@ public class CadastroContas extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jComboBoxSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jTextFieldFormaPgto, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addComponent(jLabel21)
                 .addContainerGap())
             .addComponent(jPanelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -538,7 +538,7 @@ public class CadastroContas extends javax.swing.JFrame {
                         .addComponent(jButtonPesquisarConsulta)
                         .addGap(18, 18, 18)
                         .addComponent(jBtRelatorio))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -617,7 +617,7 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void jButtonPesquisarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarConsultaActionPerformed
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableContas, new int[]{40, 140, 140 ,60, 120, 50, 80, 50, 60, 60});
+        preencher.FormatarJtable(jTableContas, new int[]{45, 140, 135 ,60, 120, 50, 90, 65, 60, 50});
 
         switch (jComboBoxConsulta.getSelectedIndex()) {
             case 0:
@@ -1122,7 +1122,8 @@ public class CadastroContas extends javax.swing.JFrame {
 
     private void atualizaJtable(int conta) {
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableContas, new int[]{40, 140, 140 ,60, 120, 50, 80, 50, 60, 60});
+        preencher.FormatarJtable(jTableContas, new int[] {45, 140, 135 ,60, 120, 50, 90, 65, 60, 50});
+        
         
         contas.setCdConta(conta);
         preencher.PreencherJtableGenerico(jTableContas, contas.consultarCdConta(contas, true));
@@ -1145,7 +1146,7 @@ public class CadastroContas extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
+            //jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
     

@@ -799,7 +799,7 @@ public class CadastroFuncionario extends javax.swing.JFrame {
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableConsulta, new int[]{40, 200, 100, 100, 140, 60, 40});
+        preencher.FormatarJtable(jTableConsulta, new int[]{40, 200, 80, 100, 160, 55, 45});
 
         switch (jComboBoxConsulta.getSelectedIndex()){
             case 0:

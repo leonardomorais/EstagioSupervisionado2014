@@ -108,8 +108,8 @@ FROM PARCELAS ORDER BY NR_PARCELA]]>
 			</line>
 			<staticText>
 				<reportElement uuid="d739ff43-9cae-4b62-b58f-ac45c93a323e" x="0" y="35" width="52" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[   Parcela]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Parcela]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="d351aa97-d055-4e3d-9130-931c83f5b56f" x="52" y="35" width="59" height="20"/>
@@ -190,16 +190,16 @@ FROM PARCELAS ORDER BY NR_PARCELA]]>
 			<staticText>
 				<reportElement uuid="27d2efbd-816c-4cb1-a23f-3abe0191a29b" x="0" y="1" width="52" height="49"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Usuário]]></text>
+				<text><![CDATA[   Usuário]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fc14b17f-9a02-49f5-b3af-a7211b55ccc6" x="184" y="1" width="62" height="49"/>
+				<reportElement uuid="fc14b17f-9a02-49f5-b3af-a7211b55ccc6" x="184" y="1" width="56" height="49"/>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[TOTAL  R$]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="ca0b7f2d-711c-41b7-ac38-072640361079" mode="Transparent" x="246" y="1" width="51" height="49" forecolor="#000000"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement uuid="ca0b7f2d-711c-41b7-ac38-072640361079" mode="Transparent" x="240" y="1" width="57" height="49" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
@@ -209,7 +209,7 @@ FROM PARCELAS ORDER BY NR_PARCELA]]>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[   $P{USUARIO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

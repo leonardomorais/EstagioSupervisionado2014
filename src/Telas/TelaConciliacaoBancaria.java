@@ -220,7 +220,6 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBtConfirmar)
@@ -235,7 +234,8 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jComboBoxOperacao, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 219, Short.MAX_VALUE)))
+                        .addGap(0, 229, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -402,7 +402,7 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
 
     private void preencherTabela(String condicao) {
         PreencherTabela preencher = new PreencherTabela();
-        preencher.FormatarJtable(jTableConsulta, new int[]{70, 60, 50, 50, 50, 80, 110, 120, 60, 170, 90});
+        preencher.FormatarJtable(jTableConsulta, new int[]{70, 60, 50, 50, 60, 80, 110, 120, 60, 160, 90});
         pagamento.setSitCheque(condicao);
         preencher.PreencherJtableGenerico(jTableConsulta, pagamento.consultarPagamentosCheque(pagamento));
     }

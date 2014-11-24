@@ -142,8 +142,8 @@ INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO]]>
 			</line>
 			<staticText>
 				<reportElement uuid="d739ff43-9cae-4b62-b58f-ac45c93a323e" x="0" y="55" width="52" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[   Código]]></text>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="d351aa97-d055-4e3d-9130-931c83f5b56f" x="52" y="55" width="117" height="20"/>
@@ -152,17 +152,17 @@ INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO]]>
 			</staticText>
 			<staticText>
 				<reportElement uuid="49c25d57-f7e4-4a31-8bfe-7d3b48d2e8bd" x="169" y="55" width="30" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Qtde]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="e9322311-f131-4985-a8fb-b0dde3b0bf82" x="246" y="55" width="51" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="142ec259-84e4-45f5-8f3e-1ce095eb538e" x="199" y="55" width="47" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Vl Unit]]></text>
 			</staticText>
 		</band>
@@ -177,8 +177,8 @@ INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO]]>
 			</rectangle>
 			<textField>
 				<reportElement uuid="dc09e97b-9406-48e6-b24a-647a68c729a5" mode="Opaque" x="0" y="0" width="52" height="20" backcolor="#FFFF99"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["   "+$F{cd_produto}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cd_produto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="6fea0b46-e494-47a1-a576-6e36eae43dad" mode="Opaque" x="52" y="0" width="117" height="20" backcolor="#FFFF99"/>
@@ -187,17 +187,17 @@ INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO]]>
 			</textField>
 			<textField>
 				<reportElement uuid="97a0e37e-3a57-4673-ab1e-8189097d5fc1" mode="Opaque" x="169" y="0" width="30" height="20" backcolor="#FFFF99"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{qt_produto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="b86d4a38-03e2-494f-afba-8e1717744663" mode="Opaque" x="199" y="0" width="47" height="20" backcolor="#FFFF99"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{vl_unitario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="8409fc62-34f9-44ad-947c-0fe11307f307" mode="Opaque" x="246" y="0" width="51" height="20" backcolor="#FFFF99"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -240,7 +240,7 @@ INNER JOIN PRODUTOS P ON VCPROD.CD_PRODUTO = P.CD_PRODUTO]]>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[   $P{USUARIO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

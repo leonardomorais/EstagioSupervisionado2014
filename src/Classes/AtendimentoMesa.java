@@ -377,7 +377,8 @@ public class AtendimentoMesa {
     public boolean verificaMesaDisponivel(AtendimentoMesa atd){
         boolean disponivel = true;
         String sql = "SELECT * FROM ATENDIMENTO_MESA WHERE "
-                + "ABERTO_FECHADO = 'A' AND NR_MESA = "+atd.getMesa().getNrMesa();
+                + "ABERTO_FECHADO = 'A' AND NR_MESA = "+atd.getMesa().getNrMesa()
+                +" AND NR_ATENDIMENTO <> "+atd.getNrAtendimento();
         conexao.executeSQL(sql);
         try{
             while(conexao.resultset.next()){
