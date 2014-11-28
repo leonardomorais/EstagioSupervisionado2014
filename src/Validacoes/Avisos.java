@@ -55,7 +55,7 @@ public class Avisos {
         if (SystemTray.isSupported()) {
             
 
-            ImageIcon img = new ImageIcon("src\\Extras\\Imagens\\aviso.png");
+            ImageIcon img = new ImageIcon("Extras\\Imagens\\aviso.png");
 
             trayIcon = new TrayIcon(img.getImage(), "Al Tálio Sistema - Avisos", null);
             trayIcon.setImageAutoSize(false);
@@ -125,7 +125,7 @@ public class Avisos {
         });
 
         JMenuItem itemParcelas = new JMenuItem("Parcelas com pagamento em atraso");
-        itemParcelas.setIcon(new ImageIcon("src\\Extras\\Imagens\\iconeaviso.png"));
+        itemParcelas.setIcon(new ImageIcon("Extras\\Imagens\\iconeaviso.png"));
         
         itemParcelas.addActionListener(new ActionListener() {
 
@@ -136,7 +136,7 @@ public class Avisos {
         });
 
         JMenuItem itemProduto = new JMenuItem("Produtos com estoque inválido");
-        itemProduto.setIcon(new ImageIcon("src\\Extras\\Imagens\\iconeaviso.png")); 
+        itemProduto.setIcon(new ImageIcon("Extras\\Imagens\\iconeaviso.png")); 
         
         itemProduto.addActionListener(new ActionListener() {
 

@@ -290,11 +290,11 @@ public class AtendimentoMesa {
                 //
                 ImageIcon img;
                 if (disponivel.equals("Mesa Disponível")){
-                    img = new ImageIcon("src\\Extras\\Imagens\\mesaDisponivel.png");
+                    img = new ImageIcon("Extras\\Imagens\\mesaDisponivel.png");
                     labelSit.setForeground(new Color(0, 102, 51));
                 }
                 else{
-                    img = new ImageIcon("src\\Extras\\Imagens\\mesaOcupada.png");
+                    img = new ImageIcon("Extras\\Imagens\\mesaOcupada.png");
                     labelSit.setForeground(new Color(80, 80, 138));
                 }
                 

@@ -70,7 +70,7 @@ public class ConsultaNivel extends javax.swing.JDialog {
         atalho.adicionarAtalho(jBtExibirCadastro, KeyEvent.VK_F4, 0);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Consultar Níveis de Usuário");
+        setTitle("Consultar Níveis de Acesso");
 
         jTableNivel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

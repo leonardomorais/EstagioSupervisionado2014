@@ -716,7 +716,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void carregaImagem() {
         Random aleatorio = new Random();
-        String caminho = "src\\Extras\\Imagens\\";
+        String caminho = "Extras\\Imagens\\";
         //int nr = aleatorio.nextInt(4);
         ImageIcon img = new ImageIcon(caminho + 0 + ".jpg");
         
