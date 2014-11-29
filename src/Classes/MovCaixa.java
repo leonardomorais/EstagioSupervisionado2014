@@ -86,7 +86,7 @@ public class MovCaixa {
                 + "ON MOV.CD_OPERACAO = O.CD_OPERACAO LEFT JOIN PARCELAS P "
                 + "ON MOV.CD_CONTA = P.CD_CONTA AND MOV.NR_PARCELA = P.NR_PARCELA "
                 + "LEFT JOIN CONTAS_PAGAR_RECEBER C ON P.CD_CONTA = C.CD_CONTA "
-                + "WHERE MOV.CD_MOV = " + mov.getCdMov();
+                + "WHERE MOV.CD_MOV = " + mov.getCdMov()+clausula;
         conexao.executeSQL(sql);
         return conexao.resultset;
     }

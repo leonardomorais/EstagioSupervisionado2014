@@ -46,12 +46,9 @@ public class ValidaDocumentos {
             int digito1 = Integer.parseInt("" + documento.charAt(9));
             int digito2 = Integer.parseInt("" + documento.charAt(10));
 
-            if ((digito1 == retornaDvCPF(documento, 1))
-                    && (digito2 == retornaDvCPF(documento, 2))) {
-                valido = true;
-            } else {
-                valido = false;
-            }
+            valido = ((digito1 == retornaDvCPF(documento, 1))
+                    && (digito2 == retornaDvCPF(documento, 2))); 
+                
             return valido;
             
         } catch (NumberFormatException ex) {

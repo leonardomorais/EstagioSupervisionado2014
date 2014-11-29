@@ -53,7 +53,7 @@ public class CadastroContas extends javax.swing.JFrame {
         initComponents();
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
-        //carregarUsuario();
+        carregarUsuario();
     }
 
     /**
@@ -110,8 +110,6 @@ public class CadastroContas extends javax.swing.JFrame {
         atalho.adicionarAtalho(jBtGravar, KeyEvent.VK_ENTER, InputEvent.CTRL_DOWN_MASK);
         jBtExcluir = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtExcluir, KeyEvent.VK_F3,0);
-        jBtAlterar = new javax.swing.JButton();
-        atalho.adicionarAtalho(jBtAlterar, KeyEvent.VK_F2, 0);
         jBtIncluir = new javax.swing.JButton();
         atalho.adicionarAtalho(jBtIncluir, KeyEvent.VK_F1, 0);
         jLabel21 = new javax.swing.JLabel();
@@ -292,14 +290,6 @@ public class CadastroContas extends javax.swing.JFrame {
             }
         });
 
-        jBtAlterar.setText("Alterar");
-        jBtAlterar.setToolTipText("Alterar (F2)");
-        jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtAlterarActionPerformed(evt);
-            }
-        });
-
         jBtIncluir.setText("Incluir");
         jBtIncluir.setToolTipText("Incluir (F1)");
         jBtIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -315,15 +305,13 @@ public class CadastroContas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(116, 116, 116)
                 .addComponent(jBtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(398, Short.MAX_VALUE))
         );
         jPanelBotoesLayout.setVerticalGroup(
             jPanelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,7 +321,6 @@ public class CadastroContas extends javax.swing.JFrame {
                     .addComponent(jBtCancelar)
                     .addComponent(jBtGravar)
                     .addComponent(jBtExcluir)
-                    .addComponent(jBtAlterar)
                     .addComponent(jBtIncluir)))
         );
 
@@ -762,12 +749,6 @@ public class CadastroContas extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jBtPesquisarFormaPgtoActionPerformed
 
-    private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
-//        rotina = Rotinas.alterar;
-//        botoes.validaBotoes(jPanelBotoes, rotina);
-//        jTextFieldDescrição.grabFocus();
-    }//GEN-LAST:event_jBtAlterarActionPerformed
-
     private void jBtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCancelarActionPerformed
         rotina = Rotinas.padrao;
         botoes.validaBotoes(jPanelBotoes, rotina);
@@ -1017,7 +998,6 @@ public class CadastroContas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupTipo;
-    private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtCancelar;
     private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtGravar;
@@ -1146,7 +1126,7 @@ public class CadastroContas extends javax.swing.JFrame {
             jTextFieldConsulta.setText("");
             jTextFieldConsulta.grabFocus();
         } else {
-            //jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
+            jBtRelatorio.setEnabled(valida.pRelatorio.equals("S"));
         }
     }
     

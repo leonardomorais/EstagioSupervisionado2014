@@ -48,33 +48,27 @@ public class TipoPagamento {
     }
 
     public ResultSet consultarGeral() {
-        ResultSet retorno = null;
         String sql = "SELECT CD_TIPO, DS_TIPO, "
                 + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO "
                 + "FROM TIPO_PGTO ORDER BY CD_TIPO";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarCdTipo(TipoPagamento tp) {
-        ResultSet retorno = null;
         String sql = "SELECT CD_TIPO, DS_TIPO, "
                 + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO "
                 + "FROM TIPO_PGTO WHERE CD_TIPO = " + tp.getCdTipo();
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public ResultSet consultarDsTipo(TipoPagamento tp) {
-        ResultSet retorno = null;
         String sql = "SELECT CD_TIPO, DS_TIPO, "
                 + "CASE WHEN IN_ATIVO = 'A' THEN 'ATIVO' ELSE 'INATIVO' END AS SITUACAO "
                 + "FROM TIPO_PGTO WHERE DS_TIPO LIKE '%" + tp.getDsTipo() + "%' ORDER BY CD_TIPO";
         conexao.executeSQL(sql);
-        retorno = conexao.resultset;
-        return retorno;
+        return conexao.resultset;
     }
 
     public void retornaTipo(TipoPagamento tp) {

@@ -13,7 +13,6 @@ public class Origem {
 
     private Integer cdOrigem;
     private String dsOrigem;
-//  private int vetOrigem[] = new int[100];
     
     private Map <Integer, Integer> origens = new HashMap<Integer, Integer>();
 

@@ -55,9 +55,6 @@ public class VendaCompra {
         conexao.incluirSQL(sql);
     }
 
-    public void alterar(VendaCompra vendaC) {
-    }
-
     public void excluir(VendaCompra vc) {
         vc.getVcProdutos().setCdVendaCompra(vc.getCdVendaCompra());
         boolean venda;
