@@ -327,20 +327,24 @@ public class TelaConciliacaoBancaria extends javax.swing.JFrame {
 
     private void jMenuItemEstornarParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEstornarParcelaActionPerformed
         int linha = jTableConsulta.getSelectedRow();
-        try{
-            pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableConsulta.getValueAt(linha, 2).toString()));
-            pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 1).toString()));
-            pagamento.getParcelas().getContas().setTpConta(jTableConsulta.getValueAt(linha, 4).toString());
-            pagamento.getParcelas().estornarParcela(pagamento.getParcelas(),"CONCILIAÇÃO");
-            pagamento.setCdPagamento(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
-            
-            pagamento.setSitCheque("A"); // o pagamento ficará aguardando novamente
-            pagamento.alterarPagamentoCheque(pagamento);
-            
-            JOptionPane.showMessageDialog(null, "Parcela extornada com sucesso!");
-            preencherTabela(retornaSelecionado());
+        if (linha >= 0){
+            int opcao = JOptionPane.showConfirmDialog(null, "Deseja estornar a parcela deste pagamento ? ",
+                    "Estornar Parcela", JOptionPane.YES_NO_OPTION);
+            if (opcao == JOptionPane.YES_OPTION){          
+                pagamento.getParcelas().setNrParcela(Integer.parseInt(jTableConsulta.getValueAt(linha, 2).toString()));
+                pagamento.getParcelas().getContas().setCdConta(Integer.parseInt(jTableConsulta.getValueAt(linha, 1).toString()));
+                pagamento.getParcelas().getContas().setTpConta(jTableConsulta.getValueAt(linha, 4).toString());
+                pagamento.getParcelas().estornarParcela(pagamento.getParcelas(), "CONCILIAÇÃO");
+                pagamento.setCdPagamento(Integer.parseInt(jTableConsulta.getValueAt(linha, 0).toString()));
+
+                pagamento.setSitCheque("A"); // o pagamento ficará aguardando novamente
+                pagamento.alterarPagamentoCheque(pagamento);
+
+                JOptionPane.showMessageDialog(null, "Parcela extornada com sucesso!");
+                preencherTabela(retornaSelecionado());
+            }
         }
-        catch (ArrayIndexOutOfBoundsException ex){
+        else{
             JOptionPane.showMessageDialog(null, "Por favor selecione um registro!");
         }
     }//GEN-LAST:event_jMenuItemEstornarParcelaActionPerformed

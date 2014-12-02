@@ -29,7 +29,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     int rotina;
     
     TeclasdeAtalho atalho = new TeclasdeAtalho();
-    ValidaNivelUsuario valida = new ValidaNivelUsuario();
+    //ValidaNivelUsuario valida = new ValidaNivelUsuario();
 
     /**
      * Creates new form TelaTransferenciaContas
@@ -37,8 +37,8 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
     public TelaTransferenciaContas() {
         initComponents();
         rotina = Rotinas.padrao;
-        valida.validaNivel(this.getName());
-        jBtCadAgenciaConta.setEnabled(valida.validaAcessoTela("CADASTRAR AGÊNCIA CONTA"));
+        //valida.validaNivel(this.getName());
+        //jBtCadAgenciaConta.setEnabled(valida.validaAcessoTela("CADASTRAR AGÊNCIA CONTA"));
         validaEstadoCampos();
 
     }
@@ -333,7 +333,7 @@ public class TelaTransferenciaContas extends javax.swing.JFrame {
                 if (opcao == JOptionPane.YES_OPTION) {
                     gravarTransferencia(valor);
                     JOptionPane.showMessageDialog(null, "Transferência realizada com sucesso!");
-                    limpar.limparCampos(this);
+                    limpar.limparCampos(this.getContentPane());
                     rotina = Rotinas.padrao;
                     validaEstadoCampos();
                 }

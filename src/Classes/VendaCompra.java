@@ -34,36 +34,57 @@ public class VendaCompra {
         vendaC.setCdVendaCompra(seq.retornaSequencia("CD_VENDA_COMPRA", "VENDA_COMPRA"));
         String sql;
         //vendaC.getOperacao().retornaOperacao(vendaC.getOperacao());
-        switch (vendaC.getOperacao().getDsOperacao()){
-            case "VENDA":
-                sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_CLIENTE, "
+        int cd;
+        try{
+            // tenta gravar uma venda pegando o código do cliente
+            cd = vendaC.getCliente().getCdCliente();
+            sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_CLIENTE, "
                     + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, SITUACAO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
                     + vendaC .getOperacao().getCdOperacao() + "','" + vendaC.getCliente().getCdCliente() + "','"
                     + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','A')";
-            break;
-                
-            case "COMPRA":
-                sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_FORNECEDOR, "
+        }
+        catch(NullPointerException ex){
+            // se não há o código de cliente, será uma compra com o código do fornecedor
+            sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_FORNECEDOR, "
                     + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, SITUACAO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
                     + vendaC.getOperacao().getCdOperacao() + "','" + vendaC.getFornecedor().getCdFornecedor() + "','"
                     + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','A')";
-            break;
-            
-            default:
-               sql = "";   
         }
+        
+//        switch (vendaC.getOperacao().getDsOperacao()){
+//            case "VENDA":
+//                
+//            break;
+//                
+//            case "COMPRA":
+//                sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_FORNECEDOR, "
+//                    + "CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, SITUACAO) VALUES ('" + vendaC.getCdVendaCompra() + "','"
+//                    + vendaC.getOperacao().getCdOperacao() + "','" + vendaC.getFornecedor().getCdFornecedor() + "','"
+//                    + vendaC.getForma().getCdForma() + "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','A')";
+//            break;
+//            
+//            default:
+//                // CASO DE OUTRAS OPERAÇÕES
+//               sql = "INSERT INTO VENDA_COMPRA (CD_VENDA_COMPRA, CD_OPERACAO, CD_FORNECEDOR, "
+//                       + "CD_CLIENTE, CD CD_FORMA, DT_VENDA_COMPRA, VL_TOTAL, SITUACAO) "
+//                       + "VALUES ('"+vendaC.getCdVendaCompra()+"','"+vendaC.getOperacao().getCdOperacao()+"','"
+//                       + vendaC.getFornecedor().getCdFornecedor()+"','"+vendaC.getCliente().getCdCliente()+"','"
+//                       + vendaC.getForma().getCdForma()+ "','" + vendaC.getDtVenda() + "','" + vendaC.getVlTotal() + "','A')";   
+//        }
         conexao.incluirSQL(sql);
     }
 
     public void excluir(VendaCompra vc) {
         vc.getVcProdutos().setCdVendaCompra(vc.getCdVendaCompra());
         boolean venda;
+        
         if (vc.getOperacao().getCdOperacao() == 1){
             // se for uma venda
             venda = true;
         }
         else{
-            venda = false;
+            vc.getOperacao().retornaOperacao(vc.getOperacao());
+            venda = vc.getOperacao().getTipo().equals("SAÍDA");
         }
         vc.getVcProdutos().ajustarEstoque(vc.getVcProdutos(), venda);
         // devolve os produtos ao estoque e grava outra mov_estoque
@@ -86,7 +107,8 @@ public class VendaCompra {
             conexao.atualizarSQL(sql);
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Não foi possível excluir esta venda/compra!");
+            //a venda compra não gerou contas, operação diferente de venda e compra
+            //JOptionPane.showMessageDialog(null, "Não foi possível excluir esta venda/compra!");
         }
     }
 

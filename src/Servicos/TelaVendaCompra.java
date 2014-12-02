@@ -986,7 +986,8 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                     jTextFieldDsOperacao.setText("");
                 } else {
                     jTextFieldCdOperacao.setText(venda.getOperacao().getCdOperacao().toString());
-                    jTextFieldDsOperacao.setText(venda.getOperacao().getDsOperacao());
+                    jTextFieldCdOperacaoFocusLost(null);
+                    //jTextFieldDsOperacao.setText(venda.getOperacao().getDsOperacao());
                 }
             }
         });
@@ -1137,9 +1138,16 @@ public class TelaVendaCompra extends javax.swing.JFrame {
                     jTextFieldCdOperacao.setText("");
                     jTextFieldCdOperacao.grabFocus();
                 } else {
-                    jTextFieldDsOperacao.setText(venda.getOperacao().getDsOperacao());
+                    if (venda.getOperacao().getMovEstoque().equals("SIM")){
+                        jTextFieldDsOperacao.setText(venda.getOperacao().getDsOperacao());
+                    }
+                    else{
+                        jTextFieldCdOperacao.setText("");
+                        jTextFieldDsOperacao.setText("");
+                        jTextFieldCdOperacao.grabFocus();
+                        JOptionPane.showMessageDialog(null, "Por favor informe uma operação que envolva produtos!"); 
+                    }
                 }
-
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Por favor informe um código!");
                 jTextFieldCdOperacao.setText("");
@@ -1335,7 +1343,7 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private void jMenuItemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExcluirActionPerformed
         int linha = jTableVendaCompra.getSelectedRow();
         if (linha >=0){
-            tipo = jTableVendaCompra.getValueAt(linha, 7).toString();
+            tipo = jTableVendaCompra.getValueAt(linha, 7).toString().toLowerCase();
             int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta " + tipo + " ?",
                     "Excluir " + tipo, JOptionPane.YES_NO_OPTION);
             if (opcao == JOptionPane.YES_OPTION){
@@ -1467,7 +1475,9 @@ public class TelaVendaCompra extends javax.swing.JFrame {
         //jTextFieldProduto.setText(venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
           //      .getProduto().getDsProduto());
         int max;
-        if (jRadioButtonVenda.isSelected()) {
+        int cd = Integer.parseInt(jTextFieldCdOperacao.getText());
+        if (cd == 1 || venda.getOperacao().getTipo().equals("SAÍDA")){
+        //if (jRadioButtonVenda.isSelected()) {
             max = produto.getQtAtual();
             //max = venda.getVendaAtendimento().getAtendimento().getAtdProdutos()
               //      .getProduto().getQtAtual();
@@ -1647,8 +1657,10 @@ public class TelaVendaCompra extends javax.swing.JFrame {
     private void gravarVendaCompra() {
         if (jRadioButtonVenda.isSelected()) {
             venda.getCliente().setCdCliente(Integer.parseInt(jTextFieldCdCliente.getText()));
+            venda.getFornecedor().setCdFornecedor(null);
         } else {
             venda.getFornecedor().setCdFornecedor(Integer.parseInt(jTextFieldCdCliente.getText()));
+            venda.getCliente().setCdCliente(null);
         }
 
         venda.getForma().setCdForma(Integer.parseInt(jTextFieldCdForma.getText()));
@@ -1685,7 +1697,8 @@ public class TelaVendaCompra extends javax.swing.JFrame {
             if (i < linhasAtendimento) { // se for um produto do atendimento
                 qtAnterior = qtAnterior + Integer.parseInt(jTableProdutos.getValueAt(i, 3).toString());
             } else {  // se for um produto apenas da venda compra
-                if (jRadioButtonVenda.isSelected()) {
+                if (venda.getOperacao().getTipo().equals("SAÍDA")){
+                //if (jRadioButtonVenda.isSelected()) {
                     venda.getVcProdutos().getProduto().setQtAtual(qtAnterior - qt);
                 } else {
                     venda.getVcProdutos().getProduto().setQtAtual(qtAnterior + qt);

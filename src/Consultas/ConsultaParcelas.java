@@ -183,7 +183,15 @@ public class ConsultaParcelas extends javax.swing.JFrame {
                                 // altera a parcela
                                 parcelas.alterar(parcelas);
                                 parcelas.getContas().retornaConta(parcelas.getContas(), true);
+                                if (parcelas.getContas().getTpConta().equals("A PAGAR")){
+                                    parcelas.getContas().setTpConta("P");
+                                }
+                                else{
+                                    parcelas.getContas().setTpConta("R");
+                                }
                                 parcelas.getContas().setDtVencimento(parcelas.retornaDataUltimaParcela(parcelas));
+                                parcelas.getContas().setDtPagamento("");
+                                parcelas.getContas().alterar(parcelas.getContas());         
                             }
                             jTableParcelas.clearSelection();
                         }

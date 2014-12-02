@@ -661,25 +661,7 @@ public class TelaPagamento extends javax.swing.JFrame {
             else{
                 carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
             }
-//            try {
-//                carregaTabelaContas(Integer.parseInt(jTextFieldCdPessoa.getText()));
-//                exibirTicket();
-//            } catch (NumberFormatException ex) {
-//                int conta;
-//                int linha;
-//                try {
-//                    linha = jTableContas.getSelectedRow();
-//                    conta = Integer.parseInt(jTableContas.getValueAt(linha, 0).toString());
-//                    pagamento.getParcelas().getContas().setCdConta(conta);
-//                    carregarTabelaContas();
-//                    exibirTicket();
-//                } catch (Exception e) {
-//                    conta = Integer.parseInt(jTableContas.getValueAt(0, 0).toString());
-//                    pagamento.getParcelas().getContas().setCdConta(conta);
-//                    carregarTabelaContas();
-//                    exibirTicket();
-//                }
-//            }
+            exibirTicket();
         }
     }//GEN-LAST:event_jBtGravarActionPerformed
 
@@ -1073,6 +1055,7 @@ public class TelaPagamento extends javax.swing.JFrame {
                 pagamento.getParcelas().getContas().getVendaCompra().getOperacao());
 
         // percorre as parcelas
+        codigos.clear();
         for (int i = 0; i < linhas; i++) {
             if ((boolean) jTableParcelas.getValueAt(i, 0)) {
                 double vlPago;

@@ -206,5 +206,4 @@ public class ParcelasAtrasadas extends javax.swing.JFrame {
         preencher.FormatarJtable(jTableParcelas, new int [] {80, 180, 80, 80, 80, 80});
         preencher.PreencherJtableGenerico(jTableParcelas, parcelas.parcelasEmAtraso());
     }
-
 }
