@@ -26,7 +26,7 @@ import Servicos.TelaVendaCompra;
 import Validacoes.Avisos;
 import Validacoes.ValidaNivelUsuario;
 import java.awt.event.KeyEvent;
-import java.util.Random;
+//import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -715,7 +715,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void carregaImagem() {
-        Random aleatorio = new Random();
+        //Random aleatorio = new Random();
         String caminho = "Extras\\Imagens\\";
         //int nr = aleatorio.nextInt(4);
         ImageIcon img = new ImageIcon(caminho + 0 + ".jpg");
