@@ -18,6 +18,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadMesa">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+M"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Mesa"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR MESA" noResource="true"/>
               </Properties>
@@ -27,6 +30,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadCliente">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+L"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Cliente"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR CLIENTES" noResource="true"/>
               </Properties>
@@ -38,6 +44,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadOrigem">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+O"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Origem de Produtos"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR ORIGEM" noResource="true"/>
               </Properties>
@@ -47,6 +56,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadFamilia">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+F"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Fam&#xed;lia de Produtos"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR FAM&#xcd;LIA DE PRODUTOS" noResource="true"/>
               </Properties>
@@ -56,6 +68,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadProduto">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+P"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Produtos"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR PRODUTOS" noResource="true"/>
               </Properties>
@@ -67,6 +82,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadEndereco">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+E"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Endere&#xe7;os"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR ENDERE&#xc7;O" noResource="true"/>
               </Properties>
@@ -76,6 +94,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadContato">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+C"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Contatos"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR CONTATO" noResource="true"/>
               </Properties>
@@ -85,6 +106,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadEstado">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+S"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Estados"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR ESTADO" noResource="true"/>
               </Properties>
@@ -94,6 +118,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadCidade">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+I"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Cidades"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR CIDADE" noResource="true"/>
               </Properties>
@@ -105,6 +132,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadForma">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+G"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Formas de Pagamento"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR FORMA DE PAGAMENTO" noResource="true"/>
               </Properties>
@@ -114,6 +144,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadTipo">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+T"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Tipos de Pagamento"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR TIPO DE PAGAMENTO" noResource="true"/>
               </Properties>
@@ -123,6 +156,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadOperacao">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+R"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Opera&#xe7;&#xe3;o"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR OPERA&#xc7;&#xc3;O" noResource="true"/>
               </Properties>
@@ -134,6 +170,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadFornecedor">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+N"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Fornecedores"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR FORNECEDORES" noResource="true"/>
               </Properties>
@@ -143,6 +182,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadFuncionario">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+U"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar Funcion&#xe1;rios"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR FUNCION&#xc1;RIOS" noResource="true"/>
               </Properties>
@@ -166,6 +208,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAtendimento">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Realizar Atendimento"/>
                 <Property name="name" type="java.lang.String" value="REALIZAR ATENDIMENTO MESA" noResource="true"/>
               </Properties>
@@ -175,6 +220,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemVenda">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F2"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Realizar Venda/Compra"/>
                 <Property name="name" type="java.lang.String" value="REALIZAR VENDA/COMPRA" noResource="true"/>
               </Properties>
@@ -186,6 +234,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExibirAtendimentos">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F3"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exibir Atendimentos"/>
                 <Property name="name" type="java.lang.String" value="CONSULTAR ATENDIMENTOS" noResource="true"/>
               </Properties>
@@ -195,6 +246,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExibirMesas">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F4"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exibir Mesas"/>
                 <Property name="name" type="java.lang.String" value="EXIBIR MESAS" noResource="true"/>
               </Properties>
@@ -206,6 +260,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemSaldoProdutos">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F5"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exibir Saldo dos Produtos"/>
                 <Property name="name" type="java.lang.String" value="CONSULTAR SALDO PRODUTOS" noResource="true"/>
               </Properties>
@@ -217,6 +274,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExibirMovEstoque">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F6"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Exibir Movimenta&#xe7;&#xe3;o de Estoque"/>
                 <Property name="name" type="java.lang.String" value="MOVIMENTA&#xc7;&#xc3;O DE ESTOQUE" noResource="true"/>
               </Properties>
@@ -240,7 +300,10 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemBancos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Bancos"/>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+B"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Gerenciar Bancos"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR BANCO" noResource="true"/>
               </Properties>
               <Events>
@@ -249,7 +312,10 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAgencia">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ag&#xea;ncia"/>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+A"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Gerenciar Ag&#xea;ncias"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR AG&#xca;NCIA CONTA" noResource="true"/>
               </Properties>
               <Events>
@@ -258,6 +324,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemContas">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+J"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Gerenciar Contas"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR CONTAS PAGAR/RECEBER" noResource="true"/>
               </Properties>
@@ -267,6 +336,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemPagamento">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+P"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Realizar Pagamentos"/>
                 <Property name="name" type="java.lang.String" value="REALIZAR PAGAMENTO" noResource="true"/>
               </Properties>
@@ -276,6 +348,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemTransferencia">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+T"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Realizar Transfer&#xea;ncia entre Contas"/>
                 <Property name="name" type="java.lang.String" value="REALIZAR TRANSFER&#xca;NCIA" noResource="true"/>
               </Properties>
@@ -285,6 +360,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGerenciarCheques">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+C"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Concilia&#xe7;&#xe3;o Banc&#xe1;ria"/>
                 <Property name="name" type="java.lang.String" value="CONCILIA&#xc7;&#xc3;O BANC&#xc1;RIA" noResource="true"/>
               </Properties>
@@ -296,6 +374,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemMovCaixa">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+M"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Consultar Movimenta&#xe7;&#xe3;o de Caixa"/>
                 <Property name="name" type="java.lang.String" value="MOVIMENTA&#xc7;&#xc3;O DE CAIXA" noResource="true"/>
               </Properties>
@@ -307,6 +388,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemFaturamento">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+F"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Consultar Faturamento"/>
                 <Property name="name" type="java.lang.String" value="CONSULTAR FATURAMENTO" noResource="true"/>
               </Properties>
@@ -324,6 +408,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGerenciarUsuarios">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+U"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Gerenciar Usu&#xe1;rios"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR USU&#xc1;RIOS" noResource="true"/>
               </Properties>
@@ -333,6 +420,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGerenciarNiveis">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+N"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Gerenciar N&#xed;veis de Acesso"/>
                 <Property name="name" type="java.lang.String" value="CADASTRAR N&#xcd;VEIS DE ACESSO" noResource="true"/>
               </Properties>

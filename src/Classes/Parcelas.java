@@ -378,6 +378,7 @@ public class Parcelas {
                 + "AND VC.SITUACAO = 'A' "
                 + "LEFT JOIN PESSOA PS "
                 + "ON VC.CD_CLIENTE = PS.CD_PESSOA "
+                + "OR VC.CD_FORNECEDOR = PS.CD_PESSOA "
                 + "WHERE P.SITUACAO = 'A' "
                 + "AND P.DT_VENCIMENTO < CURRENT_DATE "
                 + "AND P.VL_PAGO = 0.00";

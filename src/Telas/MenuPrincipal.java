@@ -162,6 +162,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.setMargin(new java.awt.Insets(0, 0, 0, 5));
         jMenuCadastros.setName("MENU CADASTROS"); // NOI18N
 
+        jMenuItemCadMesa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadMesa.setText("Cadastrar Mesa");
         jMenuItemCadMesa.setName("CADASTRAR MESA"); // NOI18N
         jMenuItemCadMesa.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +172,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadMesa);
 
+        jMenuItemCadCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadCliente.setText("Cadastrar Cliente");
         jMenuItemCadCliente.setName("CADASTRAR CLIENTES"); // NOI18N
         jMenuItemCadCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +183,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadCliente);
         jMenuCadastros.add(jSeparator1);
 
+        jMenuItemCadOrigem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadOrigem.setText("Cadastrar Origem de Produtos");
         jMenuItemCadOrigem.setName("CADASTRAR ORIGEM"); // NOI18N
         jMenuItemCadOrigem.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +193,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadOrigem);
 
+        jMenuItemCadFamilia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadFamilia.setText("Cadastrar Família de Produtos");
         jMenuItemCadFamilia.setName("CADASTRAR FAMÍLIA DE PRODUTOS"); // NOI18N
         jMenuItemCadFamilia.addActionListener(new java.awt.event.ActionListener() {
@@ -199,6 +203,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadFamilia);
 
+        jMenuItemCadProduto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadProduto.setText("Cadastrar Produtos");
         jMenuItemCadProduto.setName("CADASTRAR PRODUTOS"); // NOI18N
         jMenuItemCadProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +214,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadProduto);
         jMenuCadastros.add(jSeparator2);
 
+        jMenuItemCadEndereco.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadEndereco.setText("Cadastrar Endereços");
         jMenuItemCadEndereco.setName("CADASTRAR ENDEREÇO"); // NOI18N
         jMenuItemCadEndereco.addActionListener(new java.awt.event.ActionListener() {
@@ -218,6 +224,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadEndereco);
 
+        jMenuItemCadContato.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadContato.setText("Cadastrar Contatos");
         jMenuItemCadContato.setName("CADASTRAR CONTATO"); // NOI18N
         jMenuItemCadContato.addActionListener(new java.awt.event.ActionListener() {
@@ -227,6 +234,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadContato);
 
+        jMenuItemCadEstado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadEstado.setText("Cadastrar Estados");
         jMenuItemCadEstado.setName("CADASTRAR ESTADO"); // NOI18N
         jMenuItemCadEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -236,6 +244,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadEstado);
 
+        jMenuItemCadCidade.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadCidade.setText("Cadastrar Cidades");
         jMenuItemCadCidade.setName("CADASTRAR CIDADE"); // NOI18N
         jMenuItemCadCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -246,6 +255,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadCidade);
         jMenuCadastros.add(jSeparator3);
 
+        jMenuItemCadForma.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadForma.setText("Cadastrar Formas de Pagamento");
         jMenuItemCadForma.setName("CADASTRAR FORMA DE PAGAMENTO"); // NOI18N
         jMenuItemCadForma.addActionListener(new java.awt.event.ActionListener() {
@@ -255,6 +265,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadForma);
 
+        jMenuItemCadTipo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadTipo.setText("Cadastrar Tipos de Pagamento");
         jMenuItemCadTipo.setName("CADASTRAR TIPO DE PAGAMENTO"); // NOI18N
         jMenuItemCadTipo.addActionListener(new java.awt.event.ActionListener() {
@@ -264,6 +275,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadTipo);
 
+        jMenuItemCadOperacao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadOperacao.setText("Cadastrar Operação");
         jMenuItemCadOperacao.setName("CADASTRAR OPERAÇÃO"); // NOI18N
         jMenuItemCadOperacao.addActionListener(new java.awt.event.ActionListener() {
@@ -274,6 +286,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuCadastros.add(jMenuItemCadOperacao);
         jMenuCadastros.add(jSeparator4);
 
+        jMenuItemCadFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadFornecedor.setText("Cadastrar Fornecedores");
         jMenuItemCadFornecedor.setName("CADASTRAR FORNECEDORES"); // NOI18N
         jMenuItemCadFornecedor.addActionListener(new java.awt.event.ActionListener() {
@@ -283,6 +296,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuCadastros.add(jMenuItemCadFornecedor);
 
+        jMenuItemCadFuncionario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCadFuncionario.setText("Cadastrar Funcionários");
         jMenuItemCadFuncionario.setName("CADASTRAR FUNCIONÁRIOS"); // NOI18N
         jMenuItemCadFuncionario.addActionListener(new java.awt.event.ActionListener() {
@@ -299,6 +313,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.setMargin(new java.awt.Insets(0, 0, 0, 5));
         jMenuServicos.setName("MENU SERVIÇOS"); // NOI18N
 
+        jMenuItemAtendimento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMenuItemAtendimento.setText("Realizar Atendimento");
         jMenuItemAtendimento.setName("REALIZAR ATENDIMENTO MESA"); // NOI18N
         jMenuItemAtendimento.addActionListener(new java.awt.event.ActionListener() {
@@ -308,6 +323,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuServicos.add(jMenuItemAtendimento);
 
+        jMenuItemVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         jMenuItemVenda.setText("Realizar Venda/Compra");
         jMenuItemVenda.setName("REALIZAR VENDA/COMPRA"); // NOI18N
         jMenuItemVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -318,6 +334,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jMenuItemVenda);
         jMenuServicos.add(jSeparator5);
 
+        jMenuItemExibirAtendimentos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         jMenuItemExibirAtendimentos.setText("Exibir Atendimentos");
         jMenuItemExibirAtendimentos.setName("CONSULTAR ATENDIMENTOS"); // NOI18N
         jMenuItemExibirAtendimentos.addActionListener(new java.awt.event.ActionListener() {
@@ -327,6 +344,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuServicos.add(jMenuItemExibirAtendimentos);
 
+        jMenuItemExibirMesas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         jMenuItemExibirMesas.setText("Exibir Mesas");
         jMenuItemExibirMesas.setName("EXIBIR MESAS"); // NOI18N
         jMenuItemExibirMesas.addActionListener(new java.awt.event.ActionListener() {
@@ -337,6 +355,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jMenuItemExibirMesas);
         jMenuServicos.add(jSeparator7);
 
+        jMenuItemSaldoProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         jMenuItemSaldoProdutos.setText("Exibir Saldo dos Produtos");
         jMenuItemSaldoProdutos.setName("CONSULTAR SALDO PRODUTOS"); // NOI18N
         jMenuItemSaldoProdutos.addActionListener(new java.awt.event.ActionListener() {
@@ -347,6 +366,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuServicos.add(jMenuItemSaldoProdutos);
         jMenuServicos.add(jSeparator9);
 
+        jMenuItemExibirMovEstoque.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         jMenuItemExibirMovEstoque.setText("Exibir Movimentação de Estoque");
         jMenuItemExibirMovEstoque.setName("MOVIMENTAÇÃO DE ESTOQUE"); // NOI18N
         jMenuItemExibirMovEstoque.addActionListener(new java.awt.event.ActionListener() {
@@ -363,7 +383,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.setMargin(new java.awt.Insets(0, 0, 0, 5));
         jMenuFinanceiro.setName("MENU FINANCEIRO"); // NOI18N
 
-        jMenuItemBancos.setText("Bancos");
+        jMenuItemBancos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemBancos.setText("Gerenciar Bancos");
         jMenuItemBancos.setName("CADASTRAR BANCO"); // NOI18N
         jMenuItemBancos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,7 +393,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemBancos);
 
-        jMenuItemAgencia.setText("Agência");
+        jMenuItemAgencia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemAgencia.setText("Gerenciar Agências");
         jMenuItemAgencia.setName("CADASTRAR AGÊNCIA CONTA"); // NOI18N
         jMenuItemAgencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -381,6 +403,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemAgencia);
 
+        jMenuItemContas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemContas.setText("Gerenciar Contas");
         jMenuItemContas.setName("CADASTRAR CONTAS PAGAR/RECEBER"); // NOI18N
         jMenuItemContas.addActionListener(new java.awt.event.ActionListener() {
@@ -390,6 +413,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemContas);
 
+        jMenuItemPagamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemPagamento.setText("Realizar Pagamentos");
         jMenuItemPagamento.setName("REALIZAR PAGAMENTO"); // NOI18N
         jMenuItemPagamento.addActionListener(new java.awt.event.ActionListener() {
@@ -399,6 +423,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemPagamento);
 
+        jMenuItemTransferencia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemTransferencia.setText("Realizar Transferência entre Contas");
         jMenuItemTransferencia.setName("REALIZAR TRANSFERÊNCIA"); // NOI18N
         jMenuItemTransferencia.addActionListener(new java.awt.event.ActionListener() {
@@ -408,6 +433,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuFinanceiro.add(jMenuItemTransferencia);
 
+        jMenuItemGerenciarCheques.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGerenciarCheques.setText("Conciliação Bancária");
         jMenuItemGerenciarCheques.setName("CONCILIAÇÃO BANCÁRIA"); // NOI18N
         jMenuItemGerenciarCheques.addActionListener(new java.awt.event.ActionListener() {
@@ -418,6 +444,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jMenuItemGerenciarCheques);
         jMenuFinanceiro.add(jSeparator6);
 
+        jMenuItemMovCaixa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemMovCaixa.setText("Consultar Movimentação de Caixa");
         jMenuItemMovCaixa.setName("MOVIMENTAÇÃO DE CAIXA"); // NOI18N
         jMenuItemMovCaixa.addActionListener(new java.awt.event.ActionListener() {
@@ -428,6 +455,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuFinanceiro.add(jMenuItemMovCaixa);
         jMenuFinanceiro.add(jSeparator8);
 
+        jMenuItemFaturamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemFaturamento.setText("Consultar Faturamento");
         jMenuItemFaturamento.setName("CONSULTAR FATURAMENTO"); // NOI18N
         jMenuItemFaturamento.addActionListener(new java.awt.event.ActionListener() {
@@ -442,6 +470,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuUsuarios.setText("Configurações");
         jMenuUsuarios.setName("MENU CONFIGURAÇÕES"); // NOI18N
 
+        jMenuItemGerenciarUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGerenciarUsuarios.setText("Gerenciar Usuários");
         jMenuItemGerenciarUsuarios.setName("CADASTRAR USUÁRIOS"); // NOI18N
         jMenuItemGerenciarUsuarios.addActionListener(new java.awt.event.ActionListener() {
@@ -451,6 +480,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenuUsuarios.add(jMenuItemGerenciarUsuarios);
 
+        jMenuItemGerenciarNiveis.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGerenciarNiveis.setText("Gerenciar Níveis de Acesso");
         jMenuItemGerenciarNiveis.setName("CADASTRAR NÍVEIS DE ACESSO"); // NOI18N
         jMenuItemGerenciarNiveis.addActionListener(new java.awt.event.ActionListener() {
